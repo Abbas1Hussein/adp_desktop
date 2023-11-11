@@ -1,11 +1,47 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../../core/common/construct/component.dart';
 import 'platforms/platforms.dart';
 
+/// A custom text button widget that adapts its appearance based on the platform.
+///
+/// Use this widget to create text buttons with platform-specific
+/// styling and behavior. It supports macOS and Windows.
+/// - On macOS, [CustomCupertinoTextButton] is utilized.
+/// - On Windows, [HyperlinkButton] is used.
+///
+/// ## Usage for Properties
+///
+/// Create an instance of the `Properties` class to customize the appearance
+/// of the `AdaptiveTextButton` widget on different platforms.
+///
+/// ```dart
+/// Properties(
+///   windows: TextButtonWindowsProperty(
+///     autofocus: true,
+///     focusable: false,
+///   ),
+///   macos: TextButtonMacosProperty(
+///     isDestructiveAction: false,
+///     isDefaultAction: true,
+///   ),
+/// );
+/// ```
 class AdaptiveTextButton extends CoreAdaptiveComponent<TextButtonWindowsProperty, TextButtonMacosProperty> {
+  const AdaptiveTextButton({
+    super.key,
+    super.builders,
+    super.properties,
+    this.onLongPress,
+    this.onPressed,
+    this.color,
+    this.disabledColor,
+    required this.child,
+  });
+
+  /// The child widget displayed within the button.
+  ///
+  /// typically used [Text].
   final Widget child;
 
   /// Called when the button is tapped.
@@ -14,58 +50,37 @@ class AdaptiveTextButton extends CoreAdaptiveComponent<TextButtonWindowsProperty
   /// Called when the button is long-pressed.
   final VoidCallback? onLongPress;
 
-  /// Triggered when a pointer moves into a position within this widget without
-  /// buttons pressed.
-  final PointerHoverEventListener? onHover;
+  /// The color of the TextButton.
+  ///
+  /// If null, the default platform-specific color will be used.
+  final Color? color;
 
-  /// Triggered when a mouse pointer has exited this widget when the widget is
-  /// still mounted.
-  final PointerExitEventListener? onExit;
-
-  /// The mouse cursor for mouse pointers that are hovering over the region.
-  /// The [cursor] defaults to [MouseCursor.defer], deferring the choice of
-  /// cursor to the next region behind it in hit-test order.
-  final MouseCursor cursor;
-
-  const AdaptiveTextButton({
-    super.key,
-    super.builders,
-    super.properties,
-    this.onHover,
-    this.onExit,
-    this.cursor = MouseCursor.defer,
-    this.onLongPress,
-    this.onPressed,
-    required this.child,
-  });
+  /// The color to be used when the button is in a disabled state.
+  ///
+  /// If null, the default disabled color for the respective platform will be used.
+  final Color? disabledColor;
 
   @override
   Widget windows(BuildContext context) {
-    return MouseRegion(
-      cursor: cursor,
-      onHover: onHover,
-      onExit: onExit,
-      child: TextButtonWindows(
-        property: properties?.windows,
-        onLongPress: onLongPress,
-        onPressed: onPressed,
-        child: child,
-      ),
+    return TextButtonWindows(
+      property: properties?.windows,
+      color: color,
+      disabledColor: disabledColor,
+      onLongPress: onLongPress,
+      onPressed: onPressed,
+      child: child,
     );
   }
 
   @override
   Widget macos(BuildContext context) {
-    return MouseRegion(
-      cursor: cursor,
-      onHover: onHover,
-      onExit: onExit,
-      child: TextButtonMacos(
-        property: properties?.macos,
-        onLongPress: onLongPress,
-        onPressed: onPressed,
-        child: child,
-      ),
+    return TextButtonMacos(
+      property: properties?.macos,
+      color: color,
+      disabledColor: disabledColor,
+      onLongPress: onLongPress,
+      onPressed: onPressed,
+      child: child,
     );
   }
 }

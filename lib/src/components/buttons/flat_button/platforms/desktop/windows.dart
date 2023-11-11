@@ -51,8 +51,6 @@ class FlatButtonWindows extends StatelessWidget {
       focusNode: property?.focusNode,
       autofocus: property?.autofocus ?? false,
       focusable: property?.focusable ?? true,
-      onTapDown: property?.onTapDown,
-      onTapUp: property?.onTapUp,
       style: property?.style ??
           ButtonStyle(
             backgroundColor: color != null
@@ -70,8 +68,6 @@ class FlatButtonWindows extends StatelessWidget {
 
 class FlatButtonWindowsProperty extends ButtonWindowsProperty {
   const FlatButtonWindowsProperty({
-    super.onTapDown,
-    super.onTapUp,
     super.style,
     super.autofocus,
     super.focusNode,

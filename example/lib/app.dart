@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.macOS,
+    AdaptiveTargetPlatform.windows,
     targetWeb: AdaptiveTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -19,16 +19,12 @@ class App extends StatelessWidget {
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       properties: Properties(
         macos: AppMacosProperty(
-          darkTheme: MacosThemeData.dark(),
-          theme: MacosThemeData.light(),
-        ),
+            darkTheme: MacosThemeData.dark(), theme: MacosThemeData.light()),
         windows: AppWindowsProperty(
-          darkTheme: FluentThemeData.dark(),
-          theme: FluentThemeData.light(),
-        ),
+            darkTheme: FluentThemeData.dark(), theme: FluentThemeData.light()),
       ),
     );
   }
@@ -53,10 +49,38 @@ class _HomeScreenState extends State<HomeScreen> {
           AdaptiveTextButton(child: const Text('3'), onPressed: () {}),
         ],
       ),
-      tabs: const [
-        Text('data1'),
-        Text('data2'),
-        Text('data3'),
+      properties: Properties(
+        macos: NavigationViewMacosProperty(
+          isResizable: true,
+          bottom: AdaptiveTextSearchField<int>(
+            placeholder: 'Search',
+            suggestions: [
+              AdaptiveSearchItem(searchKey: 'searchKey', value: 00),
+              AdaptiveSearchItem(searchKey: 'searchKey2', value: 11),
+              AdaptiveSearchItem(searchKey: 'searchKey3', value: 22),
+            ],
+            onSelected: (value) {
+              print('searchKey: ${value.searchKey}, value: ${value.value}');
+            },
+          ),
+        ),
+      ),
+      currentIndex: 0,
+      tabs: [
+        const CustomAdaptiveTextButton(),
+        const Center(child: AdaptiveRatingIndicator(rating: 6, amount: 11)),
+        Center(
+          child: AdaptiveTextSearchField<int>(
+            suggestions: [
+              AdaptiveSearchItem(searchKey: 'searchKey', value: 00),
+              AdaptiveSearchItem(searchKey: 'searchKey2', value: 11),
+              AdaptiveSearchItem(searchKey: 'searchKey3', value: 22),
+            ],
+            onSelected: (value) {
+              print('searchKey: ${value.searchKey}, value: ${value.value}');
+            },
+          ),
+        ),
       ],
       items: const [
         AdaptiveNavigationViewItem(
@@ -72,15 +96,31 @@ class _HomeScreenState extends State<HomeScreen> {
           label: 'third',
         ),
       ],
-      properties: Properties(
-        macos: NavigationViewMacosProperty(
-          isResizable: true,
-          bottom: PushButton(
-            controlSize: ControlSize.large,
-            onPressed: () {},
-            child: const Center(child: Text('PushButton')),
-          ),
+    );
+  }
+}
+
+class CustomAdaptiveTextButton extends StatefulWidget {
+  const CustomAdaptiveTextButton({super.key});
+
+  @override
+  State<CustomAdaptiveTextButton> createState() =>
+      _CustomAdaptiveTextButtonState();
+}
+
+class _CustomAdaptiveTextButtonState extends State<CustomAdaptiveTextButton> {
+  bool? checkboxValue = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: AdaptiveTextButton(
+        properties: const Properties(
+          windows: TextButtonWindowsProperty(),
+          macos: TextButtonMacosProperty(),
         ),
+        onPressed: () => print('onPressed'),
+        child: const Text('AdaptiveFilledButton'),
       ),
     );
   }

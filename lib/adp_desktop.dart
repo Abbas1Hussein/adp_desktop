@@ -1,6 +1,7 @@
 library adp_desktop;
 
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import 'src/core/core.dart';
@@ -218,11 +219,6 @@ class AdpApp
     this.onGenerateInitialRoutes,
     this.onUnknownRoute,
     this.navigatorObservers = const <NavigatorObserver>[],
-    this.routeInformationProvider,
-    this.routeInformationParser,
-    this.routerDelegate,
-    this.backButtonDispatcher,
-    this.routerConfig,
     this.builder,
     this.shortcuts,
     this.onGenerateTitle,
@@ -244,11 +240,88 @@ class AdpApp
     super.key,
     super.builders,
     super.properties,
-  });
+  })  : routeInformationProvider = null,
+        routeInformationParser = null,
+        routerDelegate = null,
+        backButtonDispatcher = null,
+        routerConfig = null;
 
+  const AdpApp.router({
+    this.themeMode,
+    this.builder,
+    this.shortcuts,
+    this.onGenerateTitle,
+    this.routeInformationProvider,
+    this.routeInformationParser,
+    this.routerDelegate,
+    this.backButtonDispatcher,
+    this.routerConfig,
+    this.color,
+    this.locale,
+    this.localizationsDelegates,
+    this.localeListResolutionCallback,
+    this.localeResolutionCallback,
+    this.actions,
+    this.restorationScopeId,
+    this.showPerformanceOverlay = false,
+    this.checkerboardRasterCacheImages = false,
+    this.checkerboardOffscreenLayers = false,
+    this.showSemanticsDebugger = false,
+    this.debugShowCheckedModeBanner = true,
+    this.title = '',
+    this.supportedLocales,
+    this.scrollBehavior,
+    super.key,
+    super.builders,
+    super.properties,
+  })  : assert(routerDelegate != null || routerConfig != null),
+        navigatorObservers = const <NavigatorObserver>[],
+        routes = const <String, WidgetBuilder>{},
+        navigatorKey = null,
+        onGenerateRoute = null,
+        home = null,
+        onGenerateInitialRoutes = null,
+        onUnknownRoute = null,
+        initialRoute = null;
+
+  bool get usesRouter => routerDelegate != null || routerConfig != null;
 
   @override
   Widget macos(BuildContext context) {
+    if (usesRouter) {
+      return MacosApp.router(
+        title: title,
+        color: color,
+        locale: locale,
+        actions: actions,
+        builder: builder,
+        themeMode: themeMode,
+        theme: properties?.macos?.theme,
+        onGenerateTitle: onGenerateTitle,
+        restorationScopeId: restorationScopeId,
+        shortcuts: shortcuts,
+        routerConfig: routerConfig,
+        routerDelegate: routerDelegate,
+        backButtonDispatcher: backButtonDispatcher,
+        routeInformationParser: routeInformationParser,
+        routeInformationProvider: routeInformationProvider,
+        darkTheme: properties?.macos?.darkTheme,
+        showSemanticsDebugger: showSemanticsDebugger,
+        showPerformanceOverlay: showPerformanceOverlay,
+        localizationsDelegates: localizationsDelegates ??
+            [
+              FluentLocalizations.delegate,
+              DefaultWidgetsLocalizations.delegate,
+            ],
+        localeResolutionCallback: localeResolutionCallback,
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+        checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+        localeListResolutionCallback: localeListResolutionCallback,
+        checkerboardRasterCacheImages: checkerboardOffscreenLayers,
+        scrollBehavior: scrollBehavior ?? const MacosScrollBehavior(),
+        supportedLocales: supportedLocales ?? const [Locale('en', 'US')],
+      );
+    }
     return MacosApp(
       home: home,
       title: title,
@@ -270,7 +343,7 @@ class AdpApp
       darkTheme: properties?.macos?.darkTheme,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
-      localizationsDelegates: localizationsDelegates,
+      localizationsDelegates: _localizationsDelegatesMacos,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       localeResolutionCallback: localeResolutionCallback,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
@@ -284,6 +357,37 @@ class AdpApp
 
   @override
   Widget windows(BuildContext context) {
+    if (usesRouter) {
+      return FluentApp.router(
+        title: title,
+        color: color,
+        locale: locale,
+        actions: actions,
+        builder: builder,
+        themeMode: themeMode,
+        onGenerateTitle: onGenerateTitle,
+        theme: properties?.windows?.theme,
+        restorationScopeId: restorationScopeId,
+        routerConfig: routerConfig,
+        routerDelegate: routerDelegate,
+        backButtonDispatcher: backButtonDispatcher,
+        routeInformationParser: routeInformationParser,
+        routeInformationProvider: routeInformationProvider,
+        shortcuts: properties?.windows?.shortcuts ?? shortcuts,
+        darkTheme: properties?.windows?.darkTheme,
+        showSemanticsDebugger: showSemanticsDebugger,
+        showPerformanceOverlay: showPerformanceOverlay,
+        localizationsDelegates: _localizationsDelegatesWindows,
+        localeResolutionCallback: localeResolutionCallback,
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+        checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+        localeListResolutionCallback: localeListResolutionCallback,
+        checkerboardRasterCacheImages: checkerboardOffscreenLayers,
+        scrollBehavior: scrollBehavior ?? const FluentScrollBehavior(),
+        supportedLocales:
+            supportedLocales ?? FluentLocalizations.supportedLocales,
+      );
+    }
     return FluentApp(
       home: home,
       title: title,
@@ -305,10 +409,7 @@ class AdpApp
       darkTheme: properties?.windows?.darkTheme,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
-      localizationsDelegates: localizationsDelegates ?? [
-        DefaultWidgetsLocalizations.delegate,
-        FluentLocalizations.delegate,
-      ],
+      localizationsDelegates: _localizationsDelegatesWindows,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       localeResolutionCallback: localeResolutionCallback,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
@@ -319,6 +420,24 @@ class AdpApp
       supportedLocales:
           supportedLocales ?? FluentLocalizations.supportedLocales,
     );
+  }
+
+  Iterable<LocalizationsDelegate<dynamic>> get _commonLocalizationsDelegates sync* {
+    if (localizationsDelegates != null) {
+      yield* localizationsDelegates!;
+    }
+    yield FluentLocalizations.delegate;
+    yield DefaultMaterialLocalizations.delegate;
+    yield DefaultWidgetsLocalizations.delegate;
+  }
+
+  Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegatesWindows sync* {
+    yield* _commonLocalizationsDelegates;
+  }
+
+  Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegatesMacos sync* {
+    yield* _commonLocalizationsDelegates;
+    yield DefaultCupertinoLocalizations.delegate;
   }
 }
 

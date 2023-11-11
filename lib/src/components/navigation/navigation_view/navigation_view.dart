@@ -6,8 +6,7 @@ import '../../layout/appbar/platforms/platforms.dart';
 import 'navigation_view_item.dart';
 import 'platforms/platforms.dart';
 
-class AdaptiveNavigationView extends CoreAdaptiveComponent<
-    NavigationViewWindowsProperty, NavigationViewMacosProperty> {
+class AdaptiveNavigationView extends CoreAdaptiveComponent<NavigationViewWindowsProperty, NavigationViewMacosProperty> {
   final AdaptiveAppBar? appBar;
 
   final List<Widget> tabs;

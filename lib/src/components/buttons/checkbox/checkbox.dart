@@ -5,66 +5,102 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/component.dart';
 import '../../../core/extension/widget.dart';
 
+/// A custom Checkbox button widget that adapts its appearance based on the platform.
+///
+/// Use this widget to create Checkbox buttons that have platform-specific
+/// styling and behavior. It supports macOS, Windows.
 class AdaptiveCheckbox extends CoreAdaptiveComponent {
-  final bool? value;
-  final ValueChanged<bool?>? onChanged;
-  final MouseCursor? mouseCursor;
-  final FocusNode? focusNode;
-  final bool autofocus;
-  final Widget? label;
-
-  final Color? activeColor;
-  final Color? inactiveColor;
-
   const AdaptiveCheckbox({
     Key? key,
-    required this.value,
-    required this.onChanged,
     this.label,
-    this.activeColor,
-    this.mouseCursor,
-    this.inactiveColor,
-    this.focusNode,
-    this.autofocus = false,
+    this.value,
+    this.onChanged,
+    this.checkedColor,
+    this.semanticLabel,
+    this.uncheckedColor,
+    this.uncheckedBorderColor,
   }) : super(key: key);
+
+  /// The current value of the AdaptiveCheckbox (true for checked, false for unchecked).
+  ///
+  /// - If `null`:
+  ///  - On macOS, the checkbox it is considered mixed.
+  ///  - On Windows, the checkbox is in its third state.
+  final bool? value;
+
+  /// Callback function invoked when the AdaptiveCheckbox value changes.
+  final ValueChanged<bool?>? onChanged;
+
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
+  /// Label widget associated with the AdaptiveCheckbox.
+  final Widget? label;
+
+  /// Color to use when the AdaptiveCheckbox is checked.
+  final Color? checkedColor;
+
+  /// Color to use when the AdaptiveCheckbox is unchecked.
+  ///
+  /// On macOS platform, this color will be used when the [onChanged] callback is null.
+  final Color? uncheckedColor;
+
+  /// Color of the AdaptiveCheckbox border when unchecked.
+  ///
+  /// On macOS platform, this color will be used when the [onChanged] callback is null.
+  final Color? uncheckedBorderColor;
 
   @override
   Widget macos(BuildContext context) {
-    return Focus(
-      autofocus: autofocus,
-      focusNode: focusNode,
-      child: MouseRegion(
-        cursor: mouseCursor ?? SystemMouseCursors.click,
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: MacosCheckbox(
-            value: value,
-            onChanged: onChanged,
-            activeColor: activeColor,
-            disabledColor: inactiveColor ?? CupertinoColors.quaternaryLabel,
-          ),
-        ).margeWith(
-          label != null ? GestureDetector(onTap: () => onChanged?.call(value), child: label!) : null,
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: MacosCheckbox(
+        value: value,
+        onChanged: onChanged,
+        activeColor: checkedColor,
+        disabledColor: uncheckedColor ?? CupertinoColors.quaternaryLabel,
+        offBorderColor: uncheckedBorderColor ?? CupertinoColors.tertiaryLabel,
+        semanticLabel: semanticLabel,
       ),
-    );
+    ).margeWith(label);
   }
 
   @override
   Widget windows(BuildContext context) {
-    return MouseRegion(
-      cursor: mouseCursor ?? SystemMouseCursors.click,
-      child: Checkbox(
-        checked: value,
-        style: CheckboxThemeData(
-          checkedIconColor: activeColor != null ? ButtonState.all(activeColor) : null,
-          uncheckedIconColor: inactiveColor != null ? ButtonState.all(inactiveColor) : null,
-        ),
-        onChanged: onChanged,
-        focusNode: focusNode,
-        autofocus: autofocus,
-        content: label,
+    final checkboxTheme = CheckboxThemeData.standard(FluentTheme.of(context));
+
+    final BorderRadiusGeometry radius = BorderRadius.circular(6.0);
+
+    return Checkbox(
+      checked: value,
+      onChanged: onChanged,
+      semanticLabel: semanticLabel,
+      style: CheckboxThemeData(
+        checkedDecoration: checkedColor != null
+            ? ButtonState.all(
+                BoxDecoration(color: checkedColor, borderRadius: radius))
+            : checkboxTheme.checkedDecoration,
+        uncheckedDecoration: onChanged != null && uncheckedColor != null
+            ? ButtonState.all(
+                BoxDecoration(
+                  color: uncheckedColor,
+                  borderRadius: radius,
+                  border: Border.all(
+                    color: uncheckedBorderColor ?? Colors.transparent,
+                  ),
+                ),
+              )
+            : checkboxTheme.uncheckedDecoration,
+        padding: checkboxTheme.padding,
+        margin: checkboxTheme.margin,
+        thirdstateDecoration: checkboxTheme.thirdstateDecoration,
+        thirdstateIconColor: checkboxTheme.thirdstateIconColor,
+        foregroundColor: checkboxTheme.foregroundColor,
+        checkedIconColor: checkboxTheme.checkedIconColor,
+        uncheckedIconColor: checkboxTheme.uncheckedIconColor,
+        icon: checkboxTheme.icon,
       ),
+      content: label,
     );
   }
 }

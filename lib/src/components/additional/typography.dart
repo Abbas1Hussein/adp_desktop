@@ -3,15 +3,14 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/adaptive.dart';
 
-
-class AdpTypography {
+class AdaptiveTypography {
   final TextStyle? body;
   final TextStyle? label;
   final TextStyle? caption;
   final TextStyle? headline;
   final TextStyle? subheading;
 
-  AdpTypography({
+  AdaptiveTypography({
     this.body,
     this.label,
     this.caption,
@@ -19,16 +18,15 @@ class AdpTypography {
     this.subheading,
   });
 
-  static AdpTypography of(BuildContext context) {
+  static AdaptiveTypography of(BuildContext context) {
     return _data(context);
   }
 
-
-  static AdpTypography _data(BuildContext context) {
+  static AdaptiveTypography _data(BuildContext context) {
     final macosTheme = MacosTheme.of(context);
     final windowsTheme = FluentTheme.of(context);
 
-    return AdpTypography(
+    return AdaptiveTypography(
       body: adaptiveValue<TextStyle?>(
         macos: () => macosTheme.typography.body,
         windows: () => windowsTheme.typography.body,
@@ -55,7 +53,7 @@ class AdpTypography {
 
   @override
   bool operator ==(other) {
-    if (other is AdpTypography) {
+    if (other is AdaptiveTypography) {
       return body == other.body &&
           headline == other.headline &&
           caption == other.caption &&

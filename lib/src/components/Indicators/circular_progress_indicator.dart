@@ -1,5 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart' as fluent_ui;
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
@@ -10,6 +10,7 @@ import '../../core/common/construct/component.dart';
 /// It supports macOS, Windows, Android, and iOS.
 class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
   final Color? backgroundColor;
+
   final Color? color;
 
   final double? value;
@@ -32,12 +33,21 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context) {
-    return ProgressCircle(
-      value: value,
-      radius: radius ?? 10,
-      innerColor: color,
-      semanticLabel: semanticLabel,
-      borderColor: backgroundColor,
+    if (isDeterminate) {
+      return ProgressCircle(
+        value: value,
+        radius: radius ?? 10,
+        innerColor: color,
+        semanticLabel: semanticLabel,
+        borderColor: backgroundColor,
+      );
+    }
+    return Semantics(
+      label: semanticLabel,
+      child: CupertinoActivityIndicator(
+        color: color,
+        radius: radius ?? 10,
+      ),
     );
   }
 
@@ -51,4 +61,6 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
       backgroundColor: backgroundColor,
     );
   }
+
+  bool get isDeterminate => value != null;
 }

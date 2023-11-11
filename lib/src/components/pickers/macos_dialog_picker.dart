@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
@@ -19,8 +18,10 @@ class MacosDialogPicker {
 
   void showMacosDatePicker() {
     final size = MediaQuery.sizeOf(context);
-    showCupertinoDialog(
+    showMacosAlertDialog(
       context: context,
+      barrierDismissible: true,
+      useRootNavigator: false,
       builder: (context) {
         return MacosAlertDialog(
           appIcon: const SizedBox.shrink(),
@@ -34,7 +35,6 @@ class MacosDialogPicker {
           secondaryButton: _buildOkPickerButton(),
         );
       },
-      barrierDismissible: true,
     );
   }
 

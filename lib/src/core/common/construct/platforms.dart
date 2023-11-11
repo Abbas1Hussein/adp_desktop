@@ -10,6 +10,7 @@ abstract class CorePlatforms<WINDOWS, MACOS> {
   const CorePlatforms({this.windows, this.macos});
 }
 
+/// when [isDebugging] be true, will be ignore [_platform].
 class DefaultPlatforms {
   final bool _isDebugging;
   final AdaptiveTargetPlatform _platform;
@@ -47,11 +48,9 @@ class DefaultPlatforms {
 
   AdaptiveTargetPlatform get adaptiveTargetPlatform => _platform;
 
-  AdaptiveTargetPlatform? get targetLinux =>
-      _targetLinux ?? AdaptiveTargetPlatform.windows;
+  AdaptiveTargetPlatform get targetLinux => _targetLinux ?? AdaptiveTargetPlatform.windows;
 
-  AdaptiveTargetPlatform? get targetWeb =>
-      _targetWeb ?? AdaptiveTargetPlatform.windows;
+  AdaptiveTargetPlatform get targetWeb => _targetWeb ?? AdaptiveTargetPlatform.windows;
 
   bool get isDebugging => _isDebugging;
 

@@ -33,8 +33,6 @@ class IconButtonWindows extends StatelessWidget {
       icon: icon,
       onPressed: onPressed,
       style: property?.style,
-      onTapUp: property?.onTapUp,
-      onTapDown: property?.onTapUp,
       focusable: property?.focusable ?? true,
       iconButtonMode: property?.iconButtonMode,
     );
@@ -49,8 +47,6 @@ class IconButtonWindowsProperty extends ButtonWindowsProperty {
   final IconButtonMode? iconButtonMode;
 
   const IconButtonWindowsProperty({
-    super.onTapDown,
-    super.onTapUp,
     super.style,
     super.focusable,
     this.iconButtonMode,

@@ -1,6 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart' as fluent_ui;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
@@ -69,50 +68,6 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
         assert(value >= min && value <= max,
             'Value $value is not between minimum $min and maximum $max');
 
-  @override
-  Widget android(BuildContext context) {
-    return Slider(
-      min: min,
-      max: max,
-      label: label,
-      value: value,
-      onChanged: onChanged,
-      onChangeEnd: onChangeEnd,
-      onChangeStart: onChangeStart,
-      divisions: divisions,
-      thumbColor: thumbColor,
-      mouseCursor: mouseCursor,
-      inactiveColor: inactiveColor,
-      activeColor: activeColor,
-      focusNode: focusNode,
-      autofocus: autofocus,
-    );
-  }
-
-  @override
-  Widget ios(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Focus(
-        autofocus: autofocus,
-        focusNode: focusNode,
-        child: MouseRegion(
-          cursor: mouseCursor,
-          child: CupertinoSlider(
-            value: value,
-            onChanged: onChanged,
-            onChangeStart: onChangeStart,
-            onChangeEnd: onChangeEnd,
-            min: min,
-            max: max,
-            divisions: divisions,
-            activeColor: activeColor,
-            thumbColor: thumbColor ?? CupertinoColors.white,
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget macos(BuildContext context) {

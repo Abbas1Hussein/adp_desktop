@@ -59,10 +59,9 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
     final size = MediaQuery.sizeOf(context);
     return MacosWindow(
       backgroundColor: widget.property?.backgroundColor,
-      sidebarState: widget.property?.sidebarState ??
-          NSVisualEffectViewState.followsWindowActiveState,
-      disableWallpaperTinting:
-          widget.property?.disableWallpaperTinting ?? false,
+      sidebarState:
+          widget.property?.sidebarState ?? NSVisualEffectViewState.active,
+      disableWallpaperTinting: widget.property?.disableWallpaperTinting ?? true,
       sidebar: Sidebar(
         padding: widget.property?.padding ?? EdgeInsets.zero,
         decoration: widget.property?.decoration,
@@ -70,7 +69,7 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
         bottom: widget.property?.bottom,
         dragClosed: widget.property?.dragClosed ?? true,
         dragClosedBuffer: widget.property?.dragClosedBuffer,
-        isResizable: widget.property?.isResizable,
+        isResizable: widget.property?.isResizable ?? true,
         shownByDefault: widget.property?.shownByDefault ?? true,
         snapToStartBuffer: widget.property?.snapToStartBuffer,
         topOffset: widget.property?.topOffset ?? 51.0,
@@ -86,25 +85,25 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
           itemSize: widget.property?.itemSize ?? SidebarItemSize.medium,
           unselectedColor: widget.unselectedColor,
           selectedColor: widget.selectedColor,
-          items: widget.items?.map((e) =>
-                      SidebarItem(label: Text(e.label!), leading: e.icon)).toList() ?? [],
+          items: widget.items?.map((e) {
+                return SidebarItem(label: Text(e.label!), leading: e.icon);
+              }).toList() ??
+              [],
         ),
       ),
       child: CupertinoTabView(
-
-        builder: (context) => MacosScaffold(
-          toolBar: widget.appBar?.build(context) as ToolBar,
-          children: [
-            ContentArea(
-              builder: (context, scrollController) {
-                return SafeArea(
-                  minimum: const EdgeInsets.all(8.0),
-                  child: widget.tabs[currentIndex],
-                );
-              },
-            ),
-          ],
-        ),
+        builder: (context) {
+          return MacosScaffold(
+            toolBar: widget.appBar?.build(context) as ToolBar,
+            children: [
+              ContentArea(
+                builder: (context, scrollController) {
+                  return widget.tabs[currentIndex];
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -232,7 +231,7 @@ class NavigationViewMacosProperty extends CoreMacosProperty {
   /// - [NSVisualEffectViewState.followsWindowActiveState]: The sidebar's state
   /// follows the window's active state.
   ///
-  /// Defaults to [NSVisualEffectViewState.followsWindowActiveState].
+  /// Defaults to [NSVisualEffectViewState.active].
   final NSVisualEffectViewState? sidebarState;
 
   /// The [shape] property specifies the outline (border) of the

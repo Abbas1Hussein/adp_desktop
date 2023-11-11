@@ -1,6 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import 'platforms/platforms.dart';

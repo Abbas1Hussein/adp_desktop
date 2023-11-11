@@ -84,8 +84,10 @@ class _DatePickerMacosState extends State<DatePickerMacos> {
         onDateChanged: _onDateTimeChanged,
         style: DatePickerStyle.graphical,
         startWeekOnMonday: widget.property?.startWeekOnMonday,
-        weekdayAbbreviations: widget.property?.weekdayAbbreviations ?? localizations.narrowWeekdays,
-        monthAbbreviations: widget.property?.monthAbbreviations ?? BaseDateFormatter.kMonthAbbreviations,
+        weekdayAbbreviations: widget.property?.weekdayAbbreviations ??
+            localizations.narrowWeekdays,
+        monthAbbreviations: widget.property?.monthAbbreviations ??
+            BaseDateFormatter.kMonthAbbreviations,
       ),
     );
   }

@@ -5,17 +5,87 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../../core/common/construct/properties.dart';
 
-const TextStyle _kTextButtonStyle = TextStyle(
-  fontFamily: '.SF UI Text',
-  inherit: false,
-  fontSize: 18.0,
-  fontWeight: FontWeight.w400,
-  textBaseline: TextBaseline.alphabetic,
-);
-
-class CupertinoTextButton extends StatefulWidget {
-  const CupertinoTextButton({
+class TextButtonMacos extends StatelessWidget {
+  const TextButtonMacos({
     super.key,
+    this.property,
+    this.onPressed,
+    this.onLongPress,
+    this.disabledColor,
+    this.color,
+    required this.child,
+  });
+
+  /// customize the appearance of the TextButton on macOS.
+  final TextButtonMacosProperty? property;
+
+  /// The color of the TextButton.
+  ///
+  /// If null, the default platform-specific color will be used.
+  final Color? color;
+
+  /// The color to be used when the button is in a disabled state.
+  ///
+  /// If null, the default disabled color for the respective platform will be used.
+  final Color? disabledColor;
+
+  /// Callback triggered when the user tapped.
+  final VoidCallback? onPressed;
+
+  /// Callback triggered when the user performs a long press.
+  final VoidCallback? onLongPress;
+
+  /// The child widget that will be displayed within the TextButtonMacos.
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomCupertinoTextButton(
+      color: color,
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      disabledColor: disabledColor,
+      pressedOpacity: property?.pressedOpacity ?? 0.4,
+      isDestructiveAction: property?.isDestructiveAction ?? true,
+      isDefaultAction: property?.isDefaultAction ?? false,
+      minSize: property?.minSize ?? kMinInteractiveDimensionCupertino,
+      child: child,
+    );
+  }
+}
+
+class TextButtonMacosProperty extends CoreMacosProperty {
+  const TextButtonMacosProperty({
+    this.pressedOpacity,
+    this.isDefaultAction,
+    this.isDestructiveAction,
+    this.minSize,
+  });
+
+  /// The opacity that the button will fade to when it is pressed. The button will have an opacity of 1.0 when it is not pressed.
+  ///  This defaults to 0.4. If null, opacity will not change on pressed if using your own custom effects is desired.
+  final double? pressedOpacity;
+
+  /// Indicates whether this action should receive the style of an emphasized,
+  /// default to 'false'.
+  final bool? isDefaultAction;
+
+  /// Indicates whether this action should receive the style of a destructive
+  /// default to 'true'.
+  final bool? isDestructiveAction;
+
+  /// Minimum size of the button.
+  ///
+  /// Defaults to [kMinInteractiveDimensionCupertino] which the iOS Human
+  /// Interface Guidelines recommends as the minimum tappable area.
+  final double? minSize;
+}
+
+class CustomCupertinoTextButton extends StatefulWidget {
+  const CustomCupertinoTextButton({
+    super.key,
+    this.color,
+    this.disabledColor,
     this.isDefaultAction = false,
     this.isDestructiveAction = false,
     this.minSize = kMinInteractiveDimensionCupertino,
@@ -64,12 +134,21 @@ class CupertinoTextButton extends StatefulWidget {
   /// Destructive buttons have [CupertinoColors.activeBlue] color text.
   final bool isDestructiveAction;
 
+  /// The background color of the button. If null, the default platform-specific
+  /// background color will be used.
+  final Color? color;
+
+  /// The color to be used when the button is in a disabled state.
+  /// If null, the default disabled color for the respective platform will be used.
+  final Color? disabledColor;
+
   /// Whether the button is enabled or disabled. Buttons are disabled by default. To
   /// enable a button, set its [onPressed] property to a non-null value.
   bool get enabled => onPressed != null || onLongPress != null;
 
   @override
-  State<CupertinoTextButton> createState() => _CupertinoTextButtonState();
+  State<CustomCupertinoTextButton> createState() =>
+      _CustomCupertinoTextButtonState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -79,9 +158,19 @@ class CupertinoTextButton extends StatefulWidget {
   }
 }
 
-class _CupertinoTextButtonState extends State<CupertinoTextButton> with SingleTickerProviderStateMixin {
+class _CustomCupertinoTextButtonState extends State<CustomCupertinoTextButton>
+    with SingleTickerProviderStateMixin {
   static const Duration kFadeOutDuration = Duration(milliseconds: 120);
   static const Duration kFadeInDuration = Duration(milliseconds: 180);
+
+  static const TextStyle _kTextButtonStyle = TextStyle(
+    fontFamily: '.SF UI Text',
+    inherit: false,
+    fontSize: 18.0,
+    fontWeight: FontWeight.w400,
+    textBaseline: TextBaseline.alphabetic,
+  );
+
   final Tween<double> _opacityTween = Tween<double>(begin: 1.0);
 
   late AnimationController _animationController;
@@ -102,8 +191,10 @@ class _CupertinoTextButtonState extends State<CupertinoTextButton> with SingleTi
   }
 
   @override
-  void didUpdateWidget(CupertinoTextButton old) {
+  void didUpdateWidget(CustomCupertinoTextButton old) {
     super.didUpdateWidget(old);
+    _handleDisabledColor();
+
     _setTween();
   }
 
@@ -119,25 +210,26 @@ class _CupertinoTextButtonState extends State<CupertinoTextButton> with SingleTi
 
   bool _buttonHeldDown = false;
 
+  void _updateButtonState(bool value) {
+    _buttonHeldDown = value;
+    _animate();
+  }
+
   void _handleTapDown(TapDownDetails event) {
-    if (!_buttonHeldDown) {
-      _buttonHeldDown = true;
-      _animate();
-    }
+    if (!_buttonHeldDown) _updateButtonState(true);
   }
 
   void _handleTapUp(TapUpDetails event) {
-    if (_buttonHeldDown) {
-      _buttonHeldDown = false;
-      _animate();
-    }
+    if (_buttonHeldDown) _updateButtonState(false);
   }
 
   void _handleTapCancel() {
-    if (_buttonHeldDown) {
-      _buttonHeldDown = false;
-      _animate();
-    }
+    if (_buttonHeldDown) _updateButtonState(false);
+  }
+
+  void _handleDisabledColor() {
+    if (!widget.enabled) _updateButtonState(true);
+    _updateButtonState(false);
   }
 
   void _animate() {
@@ -161,9 +253,14 @@ class _CupertinoTextButtonState extends State<CupertinoTextButton> with SingleTi
   Widget build(BuildContext context) {
     final bool enabled = widget.enabled;
 
+    final color = widget.color ?? CupertinoColors.activeBlue;
+
     TextStyle style = _kTextButtonStyle.copyWith(
+      backgroundColor: !enabled
+          ? widget.disabledColor?.withOpacity(_opacityAnimation.value)
+          : null,
       color: widget.isDestructiveAction
-          ? CupertinoDynamicColor.resolve(CupertinoColors.activeBlue, context)
+          ? CupertinoDynamicColor.resolve(color, context)
           : MacosTheme.of(context).primaryColor,
     );
 
@@ -178,7 +275,8 @@ class _CupertinoTextButtonState extends State<CupertinoTextButton> with SingleTi
         onTapDown: enabled ? _handleTapDown : null,
         onTapUp: enabled ? _handleTapUp : null,
         onTapCancel: enabled ? _handleTapCancel : null,
-        onTap: widget.onPressed,
+        onTap: enabled ? widget.onPressed : null,
+        onLongPress: enabled ? widget.onLongPress : null,
         child: Semantics(
           button: true,
           child: ConstrainedBox(
@@ -201,60 +299,4 @@ class _CupertinoTextButtonState extends State<CupertinoTextButton> with SingleTi
       ),
     );
   }
-}
-
-class TextButtonMacos extends StatelessWidget {
-  final TextButtonMacosProperty? property;
-
-  final VoidCallback? onLongPress;
-  final VoidCallback? onPressed;
-  final Widget child;
-
-  const TextButtonMacos({
-    super.key,
-    this.property,
-    this.onPressed,
-    this.onLongPress,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoTextButton(
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      pressedOpacity: property?.pressedOpacity ?? 0.4,
-      isDestructiveAction: property?.isDestructiveAction ?? true,
-      isDefaultAction: property?.isDefaultAction ?? false,
-      minSize: property?.minSize ?? kMinInteractiveDimensionCupertino,
-      child: child,
-    );
-  }
-}
-
-class TextButtonMacosProperty extends CoreMacosProperty {
-  /// The opacity that the button will fade to when it is pressed. The button will have an opacity of 1.0 when it is not pressed.
-  ///  This defaults to 0.4. If null, opacity will not change on pressed if using your own custom effects is desired.
-  final double? pressedOpacity;
-
-  /// Indicates whether this action should receive the style of an emphasized,
-  /// default to 'false'.
-  final bool? isDefaultAction;
-
-  /// Indicates whether this action should receive the style of a destructive
-  /// default to 'true'.
-  final bool? isDestructiveAction;
-
-  /// Minimum size of the button.
-  ///
-  /// Defaults to [kMinInteractiveDimensionCupertino] which the iOS Human
-  /// Interface Guidelines recommends as the minimum tappable area.
-  final double? minSize;
-
-  TextButtonMacosProperty({
-    this.pressedOpacity,
-    this.isDefaultAction,
-    this.isDestructiveAction,
-    this.minSize,
-  });
 }

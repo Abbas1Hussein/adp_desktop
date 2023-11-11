@@ -9,7 +9,7 @@ extension DesktopContextEx on BuildContext {
   BuildContext get _context => this;
 
   /// Get the AdpTypography from the current context.
-  AdpTypography get typography => AdpTypography.of(_context);
+  AdaptiveTypography get typography => AdaptiveTypography.of(_context);
 
   /// Get the MacosTheme from the current context.
   MacosThemeData get macosTheme => MacosTheme.of(_context);

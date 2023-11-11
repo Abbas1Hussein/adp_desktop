@@ -109,10 +109,7 @@ class _NavigationViewWindowsState extends State<NavigationViewWindows> {
               : null,
           icon: item.icon,
           title: Text(item.label!),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: widget.tabs[index],
-          ),
+          body: widget.tabs[index],
         );
       },
     );
