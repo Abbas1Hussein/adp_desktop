@@ -22,9 +22,13 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.dark,
       properties: Properties(
         macos: AppMacosProperty(
-            darkTheme: MacosThemeData.dark(), theme: MacosThemeData.light()),
+          darkTheme: MacosThemeData.dark(),
+          theme: MacosThemeData.light(),
+        ),
         windows: AppWindowsProperty(
-            darkTheme: FluentThemeData.dark(), theme: FluentThemeData.light()),
+          darkTheme: FluentThemeData.dark(),
+          theme: FluentThemeData.light(),
+        ),
       ),
     );
   }
@@ -67,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       currentIndex: 0,
       tabs: [
-        const CustomAdaptiveTextButton(),
+        const CustomAdaptiveWidget(),
         const Center(child: AdaptiveRatingIndicator(rating: 6, amount: 11)),
         Center(
           child: AdaptiveTextSearchField<int>(
@@ -100,26 +104,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class CustomAdaptiveTextButton extends StatefulWidget {
-  const CustomAdaptiveTextButton({super.key});
+class CustomAdaptiveWidget extends StatefulWidget {
+  const CustomAdaptiveWidget({super.key});
 
   @override
-  State<CustomAdaptiveTextButton> createState() =>
-      _CustomAdaptiveTextButtonState();
+  State<CustomAdaptiveWidget> createState() => _CustomAdaptiveWidgetState();
 }
 
-class _CustomAdaptiveTextButtonState extends State<CustomAdaptiveTextButton> {
-  bool? checkboxValue = false;
-
+class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: AdaptiveTextButton(
-        properties: const Properties(
-          windows: TextButtonWindowsProperty(),
-          macos: TextButtonMacosProperty(),
-        ),
+      child: AdaptiveFlatButton(
+        color: AdaptiveColors.magenta,
         onPressed: () => print('onPressed'),
+        onLongPress: () => print('onLongPress'),
         child: const Text('AdaptiveFilledButton'),
       ),
     );

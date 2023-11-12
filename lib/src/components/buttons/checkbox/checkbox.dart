@@ -5,10 +5,12 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/component.dart';
 import '../../../core/extension/widget.dart';
 
-/// A custom Checkbox button widget that adapts its appearance based on the platform.
+/// A custom checkbox button widget that adapts its appearance based on the platform.
 ///
-/// Use this widget to create Checkbox buttons that have platform-specific
-/// styling and behavior. It supports macOS, Windows.
+/// Use this widget to create checkbox buttons with platform-specific
+/// styling and behavior:
+/// - On macOS, [MacosCheckbox] is utilized.
+/// - On Windows, [Checkbox] is used.
 class AdaptiveCheckbox extends CoreAdaptiveComponent {
   const AdaptiveCheckbox({
     Key? key,

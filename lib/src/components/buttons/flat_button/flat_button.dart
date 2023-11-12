@@ -3,15 +3,37 @@ import 'package:flutter/material.dart';
 import '../../../core/common/construct/component.dart';
 import 'platforms/platforms.dart';
 
-/// A custom button widget that adapts its appearance based on the platform.
+/// A custom flat button widget that adapts its appearance based on the platform.
 ///
-/// Use this widget to create buttons with platform-specific styling and behavior.
-/// It supports macOS, Windows, Android, and iOS.
+/// Use this widget to create flat buttons with platform-specific
+/// styling and behavior:
+/// - On macOS, [PushButton] is utilized.
+/// - On Windows, [Button] is used.
+///
+/// ## Usage for Properties
+///
+/// Create an instance of the `Properties` class to customize the appearance
+/// of the `AdaptiveFlatButton` widget on different platforms.
+///
+/// ```dart
+/// Properties(
+///   windows: FlatButtonWindowsProperty(
+///     focusable: false,
+///     autofocus: true,
+///   ),
+///   macos: FlatButtonMacosProperty(
+///     controlSize: ControlSize.mini,
+///     secondary: true,
+///   ),
+/// );
+/// ```
 class AdaptiveFlatButton extends CoreAdaptiveComponent<FlatButtonWindowsProperty, FlatButtonMacosProperty> {
   const AdaptiveFlatButton({
     super.key,
     super.builders,
     super.properties,
+    this.padding,
+    this.borderRadius,
     this.color,
     this.disabledColor,
     this.onPressed,
@@ -19,26 +41,59 @@ class AdaptiveFlatButton extends CoreAdaptiveComponent<FlatButtonWindowsProperty
     required this.child,
   });
 
-  final Widget child;
-
-  final VoidCallback? onPressed;
-
-  /// Called when the button is long-pressed.
-  final VoidCallback? onLongPress;
-
-  /// The color of the button's background.
+  /// The color of the AdaptiveFlatButton.
+  ///
+  /// If null, the default platform-specific color will be used.
   final Color? color;
 
-  /// The color of the button's background when the button is disabled.
+  /// The color to be used when the button is in a disabled state.
+  ///
+  /// If null, the default disabled color for the respective platform will be used.
   final Color? disabledColor;
+
+  /// Callback triggered when the user tapped.
+  final VoidCallback? onPressed;
+
+  /// Callback triggered when the user performs a long press.
+  final VoidCallback? onLongPress;
+
+  /// The child widget displayed within the AdaptiveFlatButton.
+  ///
+  /// Typicality an [Text] widget.
+  final Widget child;
+
+  /// The border radius to apply to the button. This defines the roundness of the corners
+  /// of the button's background.
+  final BorderRadius? borderRadius;
+
+  /// The padding to apply around the button's child content.
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget macos(BuildContext context) {
-    return FlatButtonMacos(property: properties?.macos, child: child);
+    return FlatButtonMacos(
+      property: properties?.macos,
+      color: color,
+      padding: padding,
+      borderRadius: borderRadius,
+      disabledColor: disabledColor,
+      onLongPress: onLongPress,
+      onPressed: onPressed,
+      child: child,
+    );
   }
 
   @override
   Widget windows(BuildContext context) {
-    return FlatButtonWindows(property: properties?.windows, child: child);
+    return FlatButtonWindows(
+      property: properties?.windows,
+      color: color,
+      padding: padding,
+      borderRadius: borderRadius,
+      disabledColor: disabledColor,
+      onLongPress: onLongPress,
+      onPressed: onPressed,
+      child: child,
+    );
   }
 }

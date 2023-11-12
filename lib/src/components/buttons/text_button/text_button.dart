@@ -6,7 +6,7 @@ import 'platforms/platforms.dart';
 /// A custom text button widget that adapts its appearance based on the platform.
 ///
 /// Use this widget to create text buttons with platform-specific
-/// styling and behavior. It supports macOS and Windows.
+/// styling and behavior:
 /// - On macOS, [CustomCupertinoTextButton] is utilized.
 /// - On Windows, [HyperlinkButton] is used.
 ///
@@ -41,7 +41,7 @@ class AdaptiveTextButton extends CoreAdaptiveComponent<TextButtonWindowsProperty
 
   /// The child widget displayed within the button.
   ///
-  /// typically used [Text].
+  /// Typically a [Text] widget.
   final Widget child;
 
   /// Called when the button is tapped.

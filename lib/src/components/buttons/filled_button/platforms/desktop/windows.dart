@@ -43,7 +43,7 @@ class FilledButtonWindows extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = FluentTheme.of(context);
 
-    final border = ButtonState.all(
+    final shape = ButtonState.all(
       RoundedRectangleBorder(borderRadius: borderRadius),
     );
 
@@ -55,12 +55,12 @@ class FilledButtonWindows extends StatelessWidget {
       style: property?.style ??
           theme.buttonTheme.filledButtonStyle?.copyWith(
             backgroundColor: _backgroundColor,
-            shape: border,
+            shape: shape,
             padding: edgeInsetsGeometry,
           ) ??
           ButtonStyle(
             backgroundColor: _backgroundColor,
-            shape: border,
+            shape: shape,
             padding: edgeInsetsGeometry,
           ),
       focusable: property?.focusable ?? true,

@@ -6,7 +6,7 @@ import 'platforms/platforms.dart';
 /// A custom filled button widget that adapts its appearance based on the platform.
 ///
 /// Use this widget to create filled buttons with platform-specific
-/// styling and behavior. It supports macOS and Windows.
+/// styling and behavior:
 /// - On macOS, [CupertinoButton.filled] is utilized.
 /// - On Windows, [FilledButton] is used.
 ///

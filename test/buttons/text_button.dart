@@ -8,7 +8,7 @@ void main() {
 
   testWidgets(
     'AdaptiveTextButton renders correctly with custom properties',
-    (WidgetTester tester) async {
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const AdpApp(
           home: AdaptiveTextButton(
@@ -38,7 +38,7 @@ void main() {
 
   testWidgets(
     'AdaptiveTextButton calls onPressed and onLongPress callbacks',
-    (WidgetTester tester) async {
+        (WidgetTester tester) async {
       bool checkValue = false;
 
       await tester.pumpWidget(
