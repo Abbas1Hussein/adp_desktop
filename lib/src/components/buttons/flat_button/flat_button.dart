@@ -32,8 +32,6 @@ class AdaptiveFlatButton extends CoreAdaptiveComponent<FlatButtonWindowsProperty
     super.key,
     super.builders,
     super.properties,
-    this.padding,
-    this.borderRadius,
     this.color,
     this.disabledColor,
     this.onPressed,
@@ -62,23 +60,14 @@ class AdaptiveFlatButton extends CoreAdaptiveComponent<FlatButtonWindowsProperty
   /// Typicality an [Text] widget.
   final Widget child;
 
-  /// The border radius to apply to the button. This defines the roundness of the corners
-  /// of the button's background.
-  final BorderRadius? borderRadius;
-
-  /// The padding to apply around the button's child content.
-  final EdgeInsetsGeometry? padding;
-
   @override
   Widget macos(BuildContext context) {
     return FlatButtonMacos(
       property: properties?.macos,
-      color: color,
-      padding: padding,
-      borderRadius: borderRadius,
       disabledColor: disabledColor,
       onLongPress: onLongPress,
       onPressed: onPressed,
+      color: color,
       child: child,
     );
   }
@@ -87,12 +76,10 @@ class AdaptiveFlatButton extends CoreAdaptiveComponent<FlatButtonWindowsProperty
   Widget windows(BuildContext context) {
     return FlatButtonWindows(
       property: properties?.windows,
-      color: color,
-      padding: padding,
-      borderRadius: borderRadius,
       disabledColor: disabledColor,
       onLongPress: onLongPress,
       onPressed: onPressed,
+      color: color,
       child: child,
     );
   }

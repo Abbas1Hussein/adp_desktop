@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.windows,
+    AdaptiveTargetPlatform.macOS,
     targetWeb: AdaptiveTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -115,11 +115,9 @@ class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: AdaptiveFlatButton(
-        color: AdaptiveColors.magenta,
+      child: AdaptiveIconButton(
         onPressed: () => print('onPressed'),
-        onLongPress: () => print('onLongPress'),
-        child: const Text('AdaptiveFilledButton'),
+        icon: const AdaptiveIcon(AdaptiveIcons.add),
       ),
     );
   }

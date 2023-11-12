@@ -6,12 +6,10 @@ class FlatButtonWindows extends StatelessWidget {
   const FlatButtonWindows({
     super.key,
     this.color,
-    this.padding,
     this.property,
     this.onPressed,
     this.onLongPress,
     this.disabledColor,
-    this.borderRadius,
     required this.child,
   });
 
@@ -28,12 +26,6 @@ class FlatButtonWindows extends StatelessWidget {
   /// If null, the default disabled color for the respective platform will be used.
   final Color? disabledColor;
 
-  /// The border radius to apply to the button.
-  final BorderRadius? borderRadius;
-
-  /// The padding to apply around the button's child content.
-  final EdgeInsetsGeometry? padding;
-
   /// Callback triggered when the user tapped.
   final VoidCallback? onPressed;
 
@@ -48,15 +40,6 @@ class FlatButtonWindows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = FluentTheme.of(context);
-
-    final shape = ButtonState.all(
-      RoundedRectangleBorder(
-        borderRadius: borderRadius ?? BorderRadius.circular(4.0),
-      ),
-    );
-
-    final edgeInsetsGeometry = ButtonState.all(padding);
-
     return Button(
       onPressed: onPressed,
       onLongPress: onLongPress,
@@ -65,24 +48,21 @@ class FlatButtonWindows extends StatelessWidget {
       focusable: property?.focusable ?? true,
       style: property?.style ??
           theme.buttonTheme.defaultButtonStyle?.copyWith(
-            shape: shape,
             backgroundColor: _backgroundColor,
-            padding: edgeInsetsGeometry,
           ) ??
-          ButtonStyle(
-            shape: shape,
-            backgroundColor: _backgroundColor,
-            padding: edgeInsetsGeometry,
-          ),
+          ButtonStyle(backgroundColor: _backgroundColor),
       child: child,
     );
   }
 
   ButtonState<Color?>? get _backgroundColor {
-    if (onPressed != null && onLongPress != null) {
-      return ButtonState.all(color);
-    }
-    return ButtonState.all(disabledColor);
+    return ButtonState.resolveWith(
+      (states) => ButtonState.forStates(
+        states,
+        none: color,
+        disabled: disabledColor,
+      ),
+    );
   }
 }
 

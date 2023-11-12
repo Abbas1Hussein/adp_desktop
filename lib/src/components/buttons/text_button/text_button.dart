@@ -63,8 +63,8 @@ class AdaptiveTextButton extends CoreAdaptiveComponent<TextButtonWindowsProperty
   @override
   Widget windows(BuildContext context) {
     return TextButtonWindows(
-      property: properties?.windows,
       color: color,
+      property: properties?.windows,
       disabledColor: disabledColor,
       onLongPress: onLongPress,
       onPressed: onPressed,
@@ -75,8 +75,8 @@ class AdaptiveTextButton extends CoreAdaptiveComponent<TextButtonWindowsProperty
   @override
   Widget macos(BuildContext context) {
     return TextButtonMacos(
-      property: properties?.macos,
       color: color,
+      property: properties?.macos,
       disabledColor: disabledColor,
       onLongPress: onLongPress,
       onPressed: onPressed,

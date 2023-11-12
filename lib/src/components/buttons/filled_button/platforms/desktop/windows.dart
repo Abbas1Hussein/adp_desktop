@@ -71,10 +71,13 @@ class FilledButtonWindows extends StatelessWidget {
   }
 
   ButtonState<Color?>? get _backgroundColor {
-    if (onPressed != null && onLongPress != null) {
-      return ButtonState.all(backgroundColor);
-    }
-    return ButtonState.all(disabledColor);
+    return ButtonState.resolveWith(
+      (states) => ButtonState.forStates(
+        states,
+        none: backgroundColor,
+        disabled: disabledColor,
+      ),
+    );
   }
 }
 

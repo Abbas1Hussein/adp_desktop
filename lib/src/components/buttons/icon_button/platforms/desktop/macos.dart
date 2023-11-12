@@ -3,7 +3,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../properties/macos.dart';
 
-const _defaultsIconBoxConstraints = BoxConstraints(
+const _kMacosIconBoxConstraints = BoxConstraints(
   minHeight: 20,
   minWidth: 20,
   maxWidth: 30,
@@ -11,6 +11,19 @@ const _defaultsIconBoxConstraints = BoxConstraints(
 );
 
 class IconButtonMacos extends StatelessWidget {
+  const IconButtonMacos({
+    super.key,
+    this.property,
+    this.onPressed,
+    this.disabledColor,
+    this.hoverColor,
+    this.color,
+    this.padding,
+    this.constraints,
+    this.borderRadius,
+    required this.icon,
+  });
+
   final IconButtonMacosProperty? property;
 
   /// The widget to use as the icon.
@@ -23,56 +36,17 @@ class IconButtonMacos extends StatelessWidget {
   /// If this is set to null, the button will be disabled.
   final VoidCallback? onPressed;
 
-  /// The mouse cursor to use when hovering over this widget.
-  final MouseCursor? mouseCursor;
-
-  const IconButtonMacos({
-    super.key,
-    this.property,
-    this.onPressed,
-    this.mouseCursor,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return MacosIconButton(
-      icon: icon,
-      onPressed: onPressed,
-      padding: property?.padding,
-      hoverColor: property?.hoverColor,
-      borderRadius: property?.borderRadius,
-      semanticLabel: property?.semanticLabel,
-      disabledColor: property?.disabledColor,
-      pressedOpacity: property?.pressedOpacity,
-      backgroundColor: property?.backgroundColor,
-      shape: property?.shape ?? BoxShape.rectangle,
-      alignment: property?.alignment ?? Alignment.center,
-      mouseCursor: mouseCursor ?? SystemMouseCursors.basic,
-      boxConstraints: property?.boxConstraints ?? _defaultsIconBoxConstraints,
-    );
-  }
-}
-
-class IconButtonMacosProperty extends ButtonMacosProperty {
-  /// The background color of this [MacosIconButton].
+  /// The color of this [IconButtonMacos].
   ///
   /// Defaults to [CupertinoColors.activeBlue]. Set to [Colors.transparent] for
   /// a transparent background color.
-  final Color? backgroundColor;
+  final Color? color;
 
   /// The color of the button's background when the button is disabled.
   final Color? disabledColor;
 
   /// The color of the button's background when the mouse hovers over it.
-  ///
-  /// Set to Colors.transparent to disable the hover effect.
   final Color? hoverColor;
-
-  /// The shape to make the button.
-  ///
-  /// Defaults to `BoxShape.rectangle`.
-  final BoxShape? shape;
 
   /// The border radius for the button.
   ///
@@ -81,30 +55,45 @@ class IconButtonMacosProperty extends ButtonMacosProperty {
   /// Defaults to `BorderRadius.circular(7.0)`.
   final BorderRadius? borderRadius;
 
-  /// The box constraints for the button.
+  /// The internal padding for the button's [icon].
   ///
-  /// Defaults to
-  /// ```dart
-  /// const BoxConstraints(
-  ///   minHeight: 20,
-  ///   minWidth: 20,
-  ///   maxWidth: 30,
-  ///   maxHeight: 30,
-  /// ),
-  ///```
-  final BoxConstraints? boxConstraints;
+  /// Defaults to `EdgeInsets.all(8)`.
+  final EdgeInsetsGeometry? padding;
 
+  /// The additional constraints to impose on the child.
+  ///
+  /// Default to [_kMacosIconBoxConstraints].
+  final BoxConstraints? constraints;
+
+  @override
+  Widget build(BuildContext context) {
+    return MacosIconButton(
+      icon: icon,
+      padding: padding,
+      onPressed: onPressed,
+      backgroundColor: color,
+      borderRadius: borderRadius,
+      disabledColor: disabledColor?.withOpacity(0.6),
+      hoverColor: hoverColor ?? color?.withOpacity(0.8),
+      semanticLabel: property?.semanticLabel,
+      pressedOpacity: property?.pressedOpacity ?? 0.4,
+      shape: property?.shape ?? BoxShape.rectangle,
+      alignment: property?.alignment ?? Alignment.center,
+      boxConstraints: constraints ?? _kMacosIconBoxConstraints,
+    );
+  }
+}
+
+class IconButtonMacosProperty extends ButtonMacosProperty {
   const IconButtonMacosProperty({
-    super.padding,
     super.alignment,
     super.pressedOpacity,
     super.semanticLabel,
-    super.secondary,
     this.shape,
-    this.backgroundColor,
-    this.disabledColor,
-    this.hoverColor,
-    this.borderRadius,
-    this.boxConstraints,
-  }) : super(borderRadius: borderRadius);
+  });
+
+  /// The shape to make the button.
+  ///
+  /// Defaults to `BoxShape.rectangle`.
+  final BoxShape? shape;
 }

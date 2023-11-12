@@ -27,7 +27,8 @@ const kFilledButtonRadius = BorderRadius.all(
 
 const kFilledButtonPadding = EdgeInsets.all(8.0);
 
-class AdaptiveFilledButton extends CoreAdaptiveComponent<FilledButtonWindowsProperty, FilledButtonMacosProperty> {
+class AdaptiveFilledButton extends CoreAdaptiveComponent<
+    FilledButtonWindowsProperty, FilledButtonMacosProperty> {
   const AdaptiveFilledButton({
     super.key,
     super.builders,
@@ -35,7 +36,7 @@ class AdaptiveFilledButton extends CoreAdaptiveComponent<FilledButtonWindowsProp
     this.onPressed,
     this.onLongPress,
     this.disabledColor,
-    this.backgroundColor,
+    this.color,
     this.padding = kFilledButtonPadding,
     this.borderRadius = kFilledButtonRadius,
     required this.child,
@@ -50,9 +51,9 @@ class AdaptiveFilledButton extends CoreAdaptiveComponent<FilledButtonWindowsProp
   /// Called when the button is long-pressed.
   final VoidCallback? onLongPress;
 
-  /// The background color of the button. If null, the default platform-specific
+  /// The  color of the button. If null, the default platform-specific
   /// background color will be used.
-  final Color? backgroundColor;
+  final Color? color;
 
   /// The color to be used when the button is in a disabled state.
   /// If null, the default disabled color for the respective platform will be used.
@@ -72,9 +73,9 @@ class AdaptiveFilledButton extends CoreAdaptiveComponent<FilledButtonWindowsProp
   @override
   Widget macos(BuildContext context) {
     return FilledButtonMacos(
-      padding: padding,
       property: properties?.macos,
-      backgroundColor: backgroundColor,
+      padding: padding,
+      backgroundColor: color,
       disabledColor: disabledColor,
       borderRadius: borderRadius,
       onLongPress: onLongPress,
@@ -86,9 +87,9 @@ class AdaptiveFilledButton extends CoreAdaptiveComponent<FilledButtonWindowsProp
   @override
   Widget windows(BuildContext context) {
     return FilledButtonWindows(
-      padding: padding,
       property: properties?.windows,
-      backgroundColor: backgroundColor,
+      padding: padding,
+      backgroundColor: color,
       disabledColor: disabledColor,
       borderRadius: borderRadius,
       onLongPress: onLongPress,

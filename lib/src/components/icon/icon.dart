@@ -9,6 +9,17 @@ export 'icons.dart';
 
 /// An adaptive icon that displays different icons on different platforms.
 class AdaptiveIcon extends CoreAdaptiveComponent {
+  const AdaptiveIcon(
+    this.adaptiveIcons, {
+    this.size,
+    this.color,
+    this.semanticLabel,
+    this.textDirection,
+    super.key,
+    super.builders,
+  })  : cupertinoIcon = null,
+        fluentIcon = null;
+
   /// The size of the icon in logical pixels.
   final double? size;
 
@@ -23,17 +34,6 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
 
   /// The adaptive icons to use.
   final AdaptiveIcons? adaptiveIcons;
-
-  const AdaptiveIcon(
-    this.adaptiveIcons, {
-    this.size,
-    this.color,
-    this.semanticLabel,
-    this.textDirection,
-    super.key,
-    super.builders,
-  })  : cupertinoIcon = null,
-        fluentIcon = null;
 
   /// Creates a new adaptive icon with specific icons for each platform.
   const AdaptiveIcon.specific({
