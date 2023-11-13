@@ -1,19 +1,19 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../../../../../core/common/construct/properties.dart';
-import '../../menu_item.dart';
+import '../../../../../../core/common/construct/properties.dart';
+import '../../pulldown_item.dart';
 
-class MenuWindows<T> extends StatelessWidget {
-  final MenuWindowsProperty? property;
+class PulldownMenuWindows<T> extends StatelessWidget {
+  final PulldownMenuWindowsProperty? property;
 
   /// The list of menu items to be displayed in the menu.
-  final List<AdaptiveMenuItemEntry> items;
+  final List<AdaptivePulldownMenuItemEntry> items;
 
   final ValueChanged<T?>? onItemPressed;
 
   final String? title;
 
-  const MenuWindows({
+  const PulldownMenuWindows({
     super.key,
     this.title,
     this.property,
@@ -37,13 +37,13 @@ class MenuWindows<T> extends StatelessWidget {
       onClose: property?.onClose,
       onOpen: property?.onOpen,
       placement: property?.placement ?? FlyoutPlacementMode.bottomCenter,
-      transitionBuilder: property?.transitionBuilder ?? MenuWindowsProperty._defaultTransitionBuilder,
+      transitionBuilder: property?.transitionBuilder ?? PulldownMenuWindowsProperty._defaultTransitionBuilder,
       verticalOffset: property?.verticalOffset ?? 6.0,
       items: List.generate(
         items.length,
         (index) {
           final item = items[index];
-          if (item is AdaptiveMenuItem<T?>) {
+          if (item is AdaptivePulldownMenuItem<T?>) {
             return MenuFlyoutItem(
               onPressed: () => onItemPressed?.call(item.value),
               text: item.child,
@@ -59,7 +59,7 @@ class MenuWindows<T> extends StatelessWidget {
   }
 }
 
-class MenuWindowsProperty extends CoreWindowsProperty {
+class PulldownMenuWindowsProperty extends CoreWindowsProperty {
   /// A builder for the button. If null, a [Button] with [leading], [title] and
   /// [trailing] is used.
   ///
@@ -118,7 +118,7 @@ class MenuWindowsProperty extends CoreWindowsProperty {
 
   final FlyoutTransitionBuilder? transitionBuilder;
 
-  const MenuWindowsProperty({
+  const PulldownMenuWindowsProperty({
     this.buttonBuilder,
     this.leading,
     this.trailing,

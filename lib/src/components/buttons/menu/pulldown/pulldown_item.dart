@@ -1,20 +1,20 @@
 import 'package:flutter/widgets.dart';
 
 /// Represents an entry in an [AdaptiveMenu], which can be either a
-/// [AdaptiveMenuItem] or a [AdaptiveMenuDivider].
-abstract class AdaptiveMenuItemEntry<T> {
-  const AdaptiveMenuItemEntry();
+/// [AdaptivePulldownMenuItem] or a [AdaptiveMenuDivider].
+abstract class AdaptivePulldownMenuItemEntry<T> {
+  const AdaptivePulldownMenuItemEntry();
 }
 
 /// Represents a menu item in an [AdaptiveMenu].
-class AdaptiveMenuItem<T> extends AdaptiveMenuItemEntry<T> {
+class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   /// Creates a menu item with the specified content widget.
   ///
   /// The [child] parameter is required and represents the main content of the menu item.
   /// You can also provide optional [leading] and [trailing] widgets to be displayed
   /// before and after the main content, respectively. The [selected] parameter indicates
   /// whether the menu item is selected.
-  const AdaptiveMenuItem({
+  const AdaptivePulldownMenuItem({
     this.leading,
     this.trailing,
     this.value,
@@ -65,6 +65,6 @@ class AdaptiveMenuItem<T> extends AdaptiveMenuItemEntry<T> {
   }
 }
 
-class AdaptiveMenuDivider<T> implements AdaptiveMenuItemEntry<T> {
+class AdaptiveMenuDivider<T> implements AdaptivePulldownMenuItemEntry<T> {
   const AdaptiveMenuDivider();
 }

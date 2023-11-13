@@ -1,6 +1,7 @@
 export 'properties/properties.dart';
 export 'checkbox/checkbox.dart';
 export 'back_button.dart';
+export 'menu/menu.dart';
 
 export 'text_button/text_button.dart';
 export 'text_button/platforms/platforms.dart'
@@ -26,7 +27,3 @@ export 'icon_button/icon_button.dart';
 export 'icon_button/platforms/platforms.dart'
     show IconButtonWindowsProperty, IconButtonMacosProperty;
 
-export 'menu/menu.dart';
-export 'menu/menu_item.dart' hide AdaptiveMenuItemEntry;
-export 'menu/platforms/platforms.dart'
-    show MenuWindowsProperty, MenuMacosProperty;

@@ -1,11 +1,12 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.macOS,
-    targetWeb: AdaptiveTargetPlatform.macOS,
+    AdaptiveTargetPlatform.windows,
+    targetWeb: AdaptiveTargetPlatform.windows,
     isDebugging: true,
   );
   runApp(const App());
@@ -112,12 +113,25 @@ class CustomAdaptiveWidget extends StatefulWidget {
 }
 
 class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
+  int selectedValue = 0;
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: AdaptiveIconButton(
-        onPressed: () => print('onPressed'),
-        icon: const AdaptiveIcon(AdaptiveIcons.add),
+      child: AdaptivePopupMenuButton(
+        value: selectedValue,
+        popupColor: AdaptiveColors.magenta,
+        onTap: () {
+          print('onTap');
+        },
+        onChanged: (value) {
+          print('onChanged');
+          if (value != null) setState(() => selectedValue = value);
+        },
+        items: const [
+          AdaptivePopupMenuItem(child: Text('${0}'), value: 0),
+          AdaptivePopupMenuItem(child: Text('${1}'), value: 1),
+        ],
       ),
     );
   }

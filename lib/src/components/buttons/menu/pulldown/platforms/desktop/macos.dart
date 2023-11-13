@@ -1,21 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../../../../../core/common/construct/properties.dart';
-import '../../menu_item.dart';
+import '../../../../../../core/common/construct/properties.dart';
+import '../../pulldown_item.dart';
 
-class MenuMacos<T> extends StatelessWidget {
-  final MenuMacosProperty? property;
+class PulldownMenuMacos<T> extends StatelessWidget {
+  final PulldownMenuMacosProperty? property;
 
   /// The list of menu items to be displayed in the menu.
-  final List<AdaptiveMenuItemEntry> items;
+  final List<AdaptivePulldownMenuItemEntry> items;
 
   final ValueChanged<T?>? onItemPressed;
 
   final String? title;
 
-  const MenuMacos({
+  const PulldownMenuMacos({
     super.key,
     this.title,
     this.property,
@@ -25,21 +24,24 @@ class MenuMacos<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = MaterialLocalizations.of(context);
+
+    final menuLabel = localizations.menuBarMenuLabel.split(' ').last;
     return MacosPulldownButton(
-      title: title ?? 'menu',
+      title: title ?? menuLabel,
       onTap: property?.onTap,
       style: property?.style,
-      alignment: property?.alignment ?? AlignmentDirectional.centerStart,
+      alignment: property?.alignment ?? AlignmentDirectional.bottomEnd,
       focusNode: property?.focusNode,
       autofocus: property?.autofocus ?? false,
       itemHeight: property?.itemHeight ?? 30.0,
       disabledTitle: property?.disabledTitle,
-      menuAlignment: property?.menuAlignment ?? PulldownMenuAlignment.left,
+      menuAlignment: property?.menuAlignment ?? PulldownMenuAlignment.right,
       items: List.generate(
         items.length,
         (index) {
           final item = items[index];
-          if (item is AdaptiveMenuItem<T?>) {
+          if (item is AdaptivePulldownMenuItem<T?>) {
             return MacosPulldownMenuItem(
               title: item.buildListTile,
               enabled: !item.selected,
@@ -54,7 +56,7 @@ class MenuMacos<T> extends StatelessWidget {
   }
 }
 
-class MenuMacosProperty extends CoreMacosProperty {
+class PulldownMenuMacosProperty extends CoreMacosProperty {
   /// The text that is displayed when the pull-down is disabled.
   ///
   /// If the pulldown is disabled ([items] is null), this is displayed as a
@@ -102,7 +104,7 @@ class MenuMacosProperty extends CoreMacosProperty {
   /// Defaults to [PulldownMenuAlignment.left].
   final PulldownMenuAlignment? menuAlignment;
 
-  const MenuMacosProperty({
+  const PulldownMenuMacosProperty({
     this.disabledTitle,
     this.onTap,
     this.style,
