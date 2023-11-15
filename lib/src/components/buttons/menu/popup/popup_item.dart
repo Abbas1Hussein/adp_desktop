@@ -8,13 +8,17 @@ import 'package:macos_ui/macos_ui.dart';
 class AdaptivePopupMenuItem<T> {
   /// Creates an item for a adp popup menu item.
   ///
-  /// The [child] argument is required.
-  const AdaptivePopupMenuItem({this.onTap, this.value, required this.child});
+  /// The [child] and [value] argument is required.
+  const AdaptivePopupMenuItem({
+    this.onTap,
+    required this.value,
+    required this.child,
+  });
 
   /// The value to return if the user selects this menu item.
   ///
-  /// Eventually returned in a call to [AdaptivePopupMenu.onChanged].
-  final T? value;
+  /// Eventually returned in a call to [AdaptivePopupMenu.onSelected].
+  final T value;
 
   /// The widget below this widget in the tree.
   ///

@@ -14,7 +14,7 @@ dependencies:
 
 
   macos_ui: ^2.0.2
-  fluent_ui: ^4.7.6
+  fluent_ui: ^4.7.7
   fluentui_system_icons:
 
 

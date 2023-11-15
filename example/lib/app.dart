@@ -1,6 +1,5 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
@@ -46,46 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveNavigationView(
-      appBar: AdaptiveAppBar(
-        title: const Text('Adaptive AppBar'),
-        actions: [
-          AdaptiveTextButton(child: const Text('1'), onPressed: () {}),
-          AdaptiveTextButton(child: const Text('2'), onPressed: () {}),
-          AdaptiveTextButton(child: const Text('3'), onPressed: () {}),
-        ],
-      ),
-      properties: Properties(
-        macos: NavigationViewMacosProperty(
-          isResizable: true,
-          bottom: AdaptiveTextSearchField<int>(
-            placeholder: 'Search',
-            suggestions: [
-              AdaptiveSearchItem(searchKey: 'searchKey', value: 00),
-              AdaptiveSearchItem(searchKey: 'searchKey2', value: 11),
-              AdaptiveSearchItem(searchKey: 'searchKey3', value: 22),
-            ],
-            onSelected: (value) {
-              print('searchKey: ${value.searchKey}, value: ${value.value}');
-            },
-          ),
-        ),
-      ),
+      appBar: const AdaptiveAppBar(title: Text('Adaptive AppBar')),
       currentIndex: 0,
-      tabs: [
-        const CustomAdaptiveWidget(),
-        const Center(child: AdaptiveRatingIndicator(rating: 6, amount: 11)),
-        Center(
-          child: AdaptiveTextSearchField<int>(
-            suggestions: [
-              AdaptiveSearchItem(searchKey: 'searchKey', value: 00),
-              AdaptiveSearchItem(searchKey: 'searchKey2', value: 11),
-              AdaptiveSearchItem(searchKey: 'searchKey3', value: 22),
-            ],
-            onSelected: (value) {
-              print('searchKey: ${value.searchKey}, value: ${value.value}');
-            },
-          ),
-        ),
+      tabs: const [
+        CustomAdaptiveWidget(),
+        Center(child: AdaptiveRatingIndicator(rating: 6, amount: 11)),
+        Center(),
       ],
       items: const [
         AdaptiveNavigationViewItem(
@@ -113,24 +78,41 @@ class CustomAdaptiveWidget extends StatefulWidget {
 }
 
 class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
-  int selectedValue = 0;
+  int selectedValue = 1;
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: AdaptivePopupMenuButton(
-        value: selectedValue,
-        popupColor: AdaptiveColors.magenta,
-        onTap: () {
-          print('onTap');
-        },
-        onChanged: (value) {
-          print('onChanged');
-          if (value != null) setState(() => selectedValue = value);
-        },
+      child: AdaptivePulldownMenuButton(
+        title: 'menu',
+        disabled: true,
         items: const [
-          AdaptivePopupMenuItem(child: Text('${0}'), value: 0),
-          AdaptivePopupMenuItem(child: Text('${1}'), value: 1),
+          AdaptivePulldownMenuItem(
+            leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
+            child: Text('New folder'),
+          ),
+          AdaptivePulldownMenuItem(
+            leading: AdaptiveIcon(AdaptiveIcons.folderOpen),
+            child: Text('Open'),
+          ),
+          AdaptivePulldownMenuItem(
+            leading: AdaptiveIcon(AdaptiveIcons.wand),
+            child: Text('Open with'),
+          ),
+          AdaptivePulldownMenuItem(
+            leading: AdaptiveIcon(AdaptiveIcons.delete),
+            child: Text('remove'),
+            selected: false,
+          ),
+          AdaptivePulldownMenuItem(
+            leading: AdaptiveIcon(AdaptiveIcons.phone),
+            child: Text('import from phone ...'),
+          ),
+          AdaptivePulldownMenuDivider(),
+          AdaptivePulldownMenuItem(
+            leading: AdaptiveIcon(AdaptiveIcons.star),
+            child: Text('Give us star'),
+          ),
         ],
       ),
     );

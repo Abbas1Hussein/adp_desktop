@@ -4,105 +4,112 @@ import '../../../../../../core/common/construct/properties.dart';
 import '../../pulldown_item.dart';
 
 class PulldownMenuWindows<T> extends StatelessWidget {
-  final PulldownMenuWindowsProperty? property;
-
-  /// The list of menu items to be displayed in the menu.
-  final List<AdaptivePulldownMenuItemEntry> items;
-
-  final ValueChanged<T?>? onItemPressed;
-
-  final String? title;
-
   const PulldownMenuWindows({
     super.key,
-    this.title,
     this.property,
-    this.onItemPressed,
+    this.onSelected,
+    this.autofocus,
+    this.focusNode,
+    this.onOpen,
+    this.disabled,
+    this.disabledTitle,
+    required this.title,
     required this.items,
   });
+
+  /// Additional properties for configuring the appearance and behavior of the pulldown menu.
+  final PulldownMenuWindowsProperty? property;
+
+  /// The title text to be displayed on the pulldown button.
+  final String title;
+
+  /// Callback function invoked when a menu item is selected. The generic type `T` represents the type of the selected value.
+  final ValueChanged<T?>? onSelected;
+
+  /// The list of menu items to be displayed in the menu.
+  ///
+  /// Use:
+  /// * [AdaptivePulldownMenuItem] for selectable items.
+  /// * [AdaptivePulldownMenuDivider] for visual separators.
+  final List<AdaptivePulldownMenuItemEntry> items;
+
+  /// {@macro flutter.widgets.Focus.focusNode}
+  /// The focus node to control the focus behavior of the pulldown menu.
+  final FocusNode? focusNode;
+
+  /// {@macro flutter.widgets.Focus.autofocus}
+  /// If true, the pulldown menu will automatically focus when displayed.
+  final bool? autofocus;
+
+  /// If [disabled] is true, the pulldown button will not be clickable.
+  /// If null, the [title] will be used as a fallback.
+  final String? disabledTitle;
+
+  /// If true, the pulldown button won't be clickable. Default is false.
+  final bool? disabled;
+
+  /// Callback function invoked when the pulldown button is tapped.
+  /// The callback will not be invoked if the pulldown button is disabled.
+  final VoidCallback? onOpen;
 
   @override
   Widget build(BuildContext context) {
     return DropDownButton(
-      title: Text(title ?? 'menu'),
-      autofocus: property?.autofocus ?? false,
-      trailing: property?.trailing ?? const ChevronDown(),
-      focusNode: property?.focusNode,
-      leading: property?.leading,
-      buttonBuilder: property?.buttonBuilder,
-      closeAfterClick: property?.closeAfterClick ?? true,
-      disabled: property?.disabled ?? false,
+      onOpen: onOpen,
+      focusNode: focusNode,
+      closeAfterClick: false,
+      disabled: disabled ?? false,
+      autofocus: autofocus ?? false,
+      trailing: const ChevronDown(),
       menuColor: property?.menuColor,
       menuShape: property?.menuShape,
-      onClose: property?.onClose,
-      onOpen: property?.onOpen,
+      items: _buildListPulldown(context),
+      title: Text(disabled == true ? disabledTitle ?? title : title),
       placement: property?.placement ?? FlyoutPlacementMode.bottomCenter,
-      transitionBuilder: property?.transitionBuilder ?? PulldownMenuWindowsProperty._defaultTransitionBuilder,
       verticalOffset: property?.verticalOffset ?? 6.0,
-      items: List.generate(
-        items.length,
-        (index) {
-          final item = items[index];
-          if (item is AdaptivePulldownMenuItem<T?>) {
-            return MenuFlyoutItem(
-              onPressed: () => onItemPressed?.call(item.value),
-              text: item.child,
-              trailing: item.trailing,
-              leading: item.leading,
-              selected: item.selected,
-            );
-          }
-          return const MenuFlyoutSeparator();
-        },
-      ),
+      transitionBuilder: property?.transitionBuilder ??
+          PulldownMenuWindowsProperty._defaultTransitionBuilder,
+    );
+  }
+
+  List<MenuFlyoutItemBase> _buildListPulldown(BuildContext context) {
+    return List.generate(
+      items.length,
+      (index) {
+        final item = items[index];
+        if (item is AdaptivePulldownMenuItem<T?>) {
+          return MenuFlyoutItem(
+            onPressed: item.selected
+                ? () {
+                    onSelected?.call(item.value);
+                    item.onTap?.call();
+                    Navigator.pop(context);
+                  }
+                : null,
+            text: item.disabledOpacity(item.child),
+            trailing: item.disabledOpacity(item.trailing),
+            leading: item.disabledOpacity(item.leading),
+          );
+        }
+        return const MenuFlyoutSeparator();
+      },
     );
   }
 }
 
 class PulldownMenuWindowsProperty extends CoreWindowsProperty {
-  /// A builder for the button. If null, a [Button] with [leading], [title] and
-  /// [trailing] is used.
-  ///
-  /// If [disabled] is true, [DropDownButtonBuilder.onOpen] will be null
-  final DropDownButtonBuilder? buttonBuilder;
-
-  /// The content at the start of this widget.
-  ///
-  /// Usually an [Icon]
-  final Widget? leading;
-
-  /// Trailing show a content at the right of this widget.
-  ///
-  /// If null, a chevron_down icon is displayed.
-  ///
-  /// Usually an [Icon] widget
-  final Widget? trailing;
+  const PulldownMenuWindowsProperty({
+    this.verticalOffset,
+    this.menuShape,
+    this.menuColor,
+    this.placement,
+    this.transitionBuilder,
+  });
 
   /// The space between the button and the flyout.
   ///
   /// 6.0 is used by default
   final double? verticalOffset;
-
-  /// Whether the flyout will be closed after an item is tapped.
-  ///
-  /// This is only effective on items that are [MenuFlyoutItem]
-  ///
-  /// Defaults to `true`
-  final bool? closeAfterClick;
-
-  /// If `true`, the button won't be clickable.
-  final bool? disabled;
-
-  /// {@macro flutter.widgets.Focus.focusNode}
-  final FocusNode? focusNode;
-
-  /// {@macro flutter.widgets.Focus.autofocus}
-  final bool? autofocus;
-
-  /// The placement of the flyout.
-  ///
-  /// [FlyoutPlacementMode.bottomCenter] is used by default
-  final FlyoutPlacementMode? placement;
 
   /// The menu shape
   final ShapeBorder? menuShape;
@@ -110,31 +117,15 @@ class PulldownMenuWindowsProperty extends CoreWindowsProperty {
   /// The menu color. If null, [FluentThemeData.menuColor] is used
   final Color? menuColor;
 
-  /// Called when the flyout is opened
-  final VoidCallback? onOpen;
+  /// The placement of the flyout.
+  ///
+  /// [FlyoutPlacementMode.bottomCenter] is used by default
+  final FlyoutPlacementMode? placement;
 
-  /// Called when the flyout is closed
-  final VoidCallback? onClose;
-
+  /// A builder for customizing the transition animation of the pulldown menu.
   final FlyoutTransitionBuilder? transitionBuilder;
 
-  const PulldownMenuWindowsProperty({
-    this.buttonBuilder,
-    this.leading,
-    this.trailing,
-    this.verticalOffset,
-    this.closeAfterClick,
-    this.disabled,
-    this.focusNode,
-    this.autofocus,
-    this.placement,
-    this.menuShape,
-    this.menuColor,
-    this.onOpen,
-    this.onClose,
-    this.transitionBuilder,
-  });
-
+  /// The default transition builder used if none is provided.
   static Widget _defaultTransitionBuilder(
     BuildContext context,
     Animation<double> animation,

@@ -5,68 +5,97 @@ import '../../../../../../core/common/construct/properties.dart';
 import '../../pulldown_item.dart';
 
 class PulldownMenuMacos<T> extends StatelessWidget {
-  final PulldownMenuMacosProperty? property;
-
-  /// The list of menu items to be displayed in the menu.
-  final List<AdaptivePulldownMenuItemEntry> items;
-
-  final ValueChanged<T?>? onItemPressed;
-
-  final String? title;
-
   const PulldownMenuMacos({
     super.key,
-    this.title,
     this.property,
-    this.onItemPressed,
+    this.onSelected,
+    this.autofocus,
+    this.focusNode,
+    this.onOpen,
+    this.disabled,
+    this.disabledTitle,
+    required this.title,
     required this.items,
   });
 
+  /// Additional properties for configuring the appearance and behavior of the pulldown menu.
+  final PulldownMenuMacosProperty? property;
+
+  /// The title text to be displayed on the pulldown button.
+  final String title;
+
+  /// Callback function invoked when a menu item is selected. The generic type `T` represents the type of the selected value.
+  final ValueChanged<T?>? onSelected;
+
+  /// The list of menu items to be displayed in the menu.
+  ///
+  /// Use:
+  /// * [AdaptivePulldownMenuItem] for selectable items.
+  /// * [AdaptivePulldownMenuDivider] for visual separators.
+  final List<AdaptivePulldownMenuItemEntry> items;
+
+  /// {@macro flutter.widgets.Focus.focusNode}
+  /// The focus node to control the focus behavior of the pulldown menu.
+  final FocusNode? focusNode;
+
+  /// {@macro flutter.widgets.Focus.autofocus}
+  /// If true, the pulldown menu will automatically focus when displayed.
+  final bool? autofocus;
+
+  /// If [disabled] is true, the pulldown button will not be clickable.
+  /// If null, the [title] will be used as a fallback.
+  final String? disabledTitle;
+
+  /// If true, the pulldown button won't be clickable. Default is false.
+  final bool? disabled;
+
+  /// Callback function invoked when the pulldown button is tapped.
+  /// The callback will not be invoked if the pulldown button is disabled.
+  final VoidCallback? onOpen;
+
   @override
   Widget build(BuildContext context) {
-    final localizations = MaterialLocalizations.of(context);
-
-    final menuLabel = localizations.menuBarMenuLabel.split(' ').last;
     return MacosPulldownButton(
-      title: title ?? menuLabel,
-      onTap: property?.onTap,
+      title: title,
+      onTap: onOpen,
+      focusNode: focusNode,
       style: property?.style,
-      alignment: property?.alignment ?? AlignmentDirectional.bottomEnd,
-      focusNode: property?.focusNode,
-      autofocus: property?.autofocus ?? false,
+      autofocus: autofocus ?? false,
+      disabledTitle: disabledTitle ?? title,
       itemHeight: property?.itemHeight ?? 30.0,
-      disabledTitle: property?.disabledTitle,
-      menuAlignment: property?.menuAlignment ?? PulldownMenuAlignment.right,
-      items: List.generate(
-        items.length,
-        (index) {
-          final item = items[index];
-          if (item is AdaptivePulldownMenuItem<T?>) {
-            return MacosPulldownMenuItem(
-              title: item.buildListTile,
-              enabled: !item.selected,
-              onTap: () => onItemPressed?.call(item.value),
-            );
-          } else {
-            return const MacosPulldownMenuDivider();
-          }
-        },
-      ),
+      items: disabled == true ? [] : _buildListItems(),
+      menuAlignment: property?.menuAlignment ?? PulldownMenuAlignment.left,
+    );
+  }
+
+  List<MacosPulldownMenuEntry> _buildListItems() {
+    return List.generate(
+      items.length,
+      (index) {
+        final item = items[index];
+        if (item is AdaptivePulldownMenuItem<T?>) {
+          return MacosPulldownMenuItem(
+            title: item.buildListTile,
+            enabled: item.selected,
+            onTap: () {
+              onSelected?.call(item.value);
+              item.onTap?.call();
+            },
+          );
+        } else {
+          return const MacosPulldownMenuDivider();
+        }
+      },
     );
   }
 }
 
 class PulldownMenuMacosProperty extends CoreMacosProperty {
-  /// The text that is displayed when the pull-down is disabled.
-  ///
-  /// If the pulldown is disabled ([items] is null), this is displayed as a
-  /// title for the pull-down button.
-  final String? disabledTitle;
-
-  /// Called when the pull-down button is tapped.
-  ///
-  /// The callback will not be invoked if the pull-down button is disabled.
-  final VoidCallback? onTap;
+  const PulldownMenuMacosProperty({
+    this.style,
+    this.itemHeight,
+    this.menuAlignment,
+  });
 
   /// The text style to use for text in the pull-down button and the pull-down
   /// menu that appears when you tap the button.
@@ -81,37 +110,8 @@ class PulldownMenuMacosProperty extends CoreMacosProperty {
   /// height for menu items.
   final double? itemHeight;
 
-  /// {@macro flutter.widgets.Focus.focusNode}
-  final FocusNode? focusNode;
-
-  /// {@macro flutter.widgets.Focus.autofocus}
-  final bool? autofocus;
-
-  /// Defines how the title is positioned within the button.
-  ///
-  /// This property must not be null. It defaults to [AlignmentDirectional.centerStart].
-  ///
-  /// See also:
-  ///
-  ///  * [Alignment], a class with convenient constants typically used to
-  ///    specify an [AlignmentGeometry].
-  ///  * [AlignmentDirectional], like [Alignment] for specifying alignments
-  ///    relative to text direction.
-  final AlignmentGeometry? alignment;
-
   /// Defines the pulldown menu's alignment relevant to the button.
   ///
   /// Defaults to [PulldownMenuAlignment.left].
   final PulldownMenuAlignment? menuAlignment;
-
-  const PulldownMenuMacosProperty({
-    this.disabledTitle,
-    this.onTap,
-    this.style,
-    this.itemHeight,
-    this.focusNode,
-    this.autofocus,
-    this.alignment,
-    this.menuAlignment,
-  });
 }

@@ -36,7 +36,7 @@ typedef PopupMenuButtonBuilder = List<Widget> Function(BuildContext context);
 ///   onChanged: (String? value) {
 ///     // Handle the selected value
 ///   },
-///   item: [
+///   items: [
 ///     AdaptivePopupMenuItem<String>(child: Text('Item 1'), value: 'value1'),
 ///     AdaptivePopupMenuItem<String>(child: Text('Item 2'), value: 'value2'),
 ///     // Add more menu items as needed

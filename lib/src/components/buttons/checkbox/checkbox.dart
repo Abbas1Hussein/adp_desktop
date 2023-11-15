@@ -25,9 +25,7 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
 
   /// The current value of the AdaptiveCheckbox (true for checked, false for unchecked).
   ///
-  /// - If `null`:
-  ///  - On macOS, the checkbox it is considered mixed.
-  ///  - On Windows, the checkbox is in its third state.
+  /// - If `null`, the checkbox is in its third state.
   final bool? value;
 
   /// Callback function invoked when the AdaptiveCheckbox value changes.

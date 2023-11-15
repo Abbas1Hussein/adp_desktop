@@ -1,9 +1,13 @@
 import 'package:flutter/widgets.dart';
 
 /// Represents an entry in an [AdaptiveMenu], which can be either a
-/// [AdaptivePulldownMenuItem] or a [AdaptiveMenuDivider].
+/// [AdaptivePulldownMenuItem] or a [AdaptivePulldownMenuDivider].
 abstract class AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuItemEntry();
+}
+
+class AdaptivePulldownMenuDivider<T> implements AdaptivePulldownMenuItemEntry<T> {
+  const AdaptivePulldownMenuDivider();
 }
 
 /// Represents a menu item in an [AdaptiveMenu].
@@ -17,8 +21,9 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuItem({
     this.leading,
     this.trailing,
+    this.selected = true,
+    this.onTap,
     this.value,
-    this.selected = false,
     required this.child,
   });
 
@@ -32,15 +37,17 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   /// The content widget of the menu item.
   final Widget child;
 
-  /// Indicates whether the menu item is selected or not.
-  final bool selected;
-
   /// An optional leading widget for the menu item.
   final Widget? leading;
 
   /// An optional trailing widget for the menu item.
-
   final Widget? trailing;
+
+  /// Indicates whether the menu item is selected or not.
+  final bool selected;
+
+  /// A callback function that is called when a menu item is tap.
+  final VoidCallback? onTap;
 
   /// Helper method to build a list tile for a menu item.
   ///
@@ -48,23 +55,33 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   /// with appropriate spacing. It returns a widget suitable for displaying in a list
   /// or menu.
   Widget get buildListTile {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: FittedBox(child: leading),
-        ),
-        child,
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: FittedBox(child: trailing),
-        )
-      ],
+    return disabledOpacity(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (leading != null)
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: leading,
+              ),
+            ),
+          child,
+          if (trailing != null)
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: trailing,
+              ),
+            )
+        ],
+      ),
     );
   }
-}
 
-class AdaptiveMenuDivider<T> implements AdaptivePulldownMenuItemEntry<T> {
-  const AdaptiveMenuDivider();
+  Widget disabledOpacity(Widget? child) {
+    if (child == null) return const SizedBox.shrink();
+    return Opacity(opacity: selected ? 1 : 0.4, child: child);
+  }
 }
