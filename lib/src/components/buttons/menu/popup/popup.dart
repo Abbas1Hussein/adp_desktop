@@ -152,13 +152,13 @@ class AdaptivePopupMenuButton<T> extends CoreAdaptiveComponent {
   void validateSelectedItem() {
     assert(
       items.isNotEmpty,
-      "Validation failed in the $this.\n"
+      "Validation failed in the $runtimeType.\n"
       "The list of items should not be empty.",
     );
 
     assert(
       value != null,
-      "Validation failed in the $this.\n"
+      "Validation failed in the $runtimeType.\n"
       "The 'value' should not be null.",
     );
 
@@ -166,7 +166,7 @@ class AdaptivePopupMenuButton<T> extends CoreAdaptiveComponent {
 
     assert(
       hasUniqueSelectedItem,
-      "Validation failed in the $this.\n\n"
+      "Validation failed in the $runtimeType.\n\n"
       "There should be exactly one item with the specified value.\n"
       "Ensure that there is one and only one AdaptivePopupMenuItem in the list with the specified value.",
     );

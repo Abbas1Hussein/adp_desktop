@@ -1,7 +1,6 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/widgets.dart' hide Builder;
 
-import '../adaptive.dart';
 import 'builders.dart';
 
 

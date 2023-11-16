@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../../../../core/common/construct/properties.dart';
 import '../../pulldown_item.dart';
+import '../../single_choice.dart';
 
 class PulldownMenuWindows<T> extends StatelessWidget {
   const PulldownMenuWindows({
@@ -13,6 +14,7 @@ class PulldownMenuWindows<T> extends StatelessWidget {
     this.onOpen,
     this.disabled,
     this.disabledTitle,
+    required this.selectionType,
     required this.title,
     required this.items,
   });
@@ -52,6 +54,8 @@ class PulldownMenuWindows<T> extends StatelessWidget {
   /// The callback will not be invoked if the pulldown button is disabled.
   final VoidCallback? onOpen;
 
+  final SelectionType selectionType;
+
   @override
   Widget build(BuildContext context) {
     return DropDownButton(
@@ -78,22 +82,60 @@ class PulldownMenuWindows<T> extends StatelessWidget {
       (index) {
         final item = items[index];
         if (item is AdaptivePulldownMenuItem<T?>) {
-          return MenuFlyoutItem(
-            onPressed: item.selected
-                ? () {
-                    onSelected?.call(item.value);
-                    item.onTap?.call();
-                    Navigator.pop(context);
-                  }
-                : null,
-            text: item.disabledOpacity(item.child),
-            trailing: item.disabledOpacity(item.trailing),
-            leading: item.disabledOpacity(item.leading),
-          );
+          final defaultSelected = item.selected ?? selectionType == SelectionType.none;
+
+          switch (selectionType) {
+            case SelectionType.none:
+              return _menuFlyoutItemSingleSelection(defaultSelected, item, context);
+            case SelectionType.single:
+              return _menuFlyoutItemNoneSelection(defaultSelected, item, context);
+          }
         }
         return const MenuFlyoutSeparator();
       },
     );
+  }
+
+  MenuFlyoutItem _menuFlyoutItemSingleSelection(
+    bool defaultSelected,
+    AdaptivePulldownMenuItem<T?> item,
+    BuildContext context,
+  ) {
+    return MenuFlyoutItem(
+      onPressed: defaultSelected ? () => onPressed(item, context) : null,
+      text: AdaptivePulldownMenuItem.disabledOpacity(
+        item.child,
+        defaultSelected,
+      ),
+      trailing: AdaptivePulldownMenuItem.disabledOpacity(
+        item.trailing,
+        defaultSelected,
+      ),
+      leading: AdaptivePulldownMenuItem.disabledOpacity(
+        item.leading,
+        defaultSelected,
+      ),
+    );
+  }
+
+  MenuFlyoutItem _menuFlyoutItemNoneSelection(
+    bool defaultSelected,
+    AdaptivePulldownMenuItem<T?> item,
+    BuildContext context,
+  ) {
+    return MenuFlyoutItem(
+      onPressed: () => onPressed(item, context),
+      selected: defaultSelected,
+      text: item.child,
+      trailing: item.trailing,
+      leading: item.leading,
+    );
+  }
+
+  void onPressed(AdaptivePulldownMenuItem<T?> item, BuildContext context) {
+    onSelected?.call(item.value);
+    item.onTap?.call();
+    Navigator.pop(context);
   }
 }
 

@@ -4,8 +4,8 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.windows,
-    targetWeb: AdaptiveTargetPlatform.windows,
+    AdaptiveTargetPlatform.macOS,
+    targetWeb: AdaptiveTargetPlatform.macOS,
     isDebugging: true,
   );
   runApp(const App());
@@ -82,12 +82,12 @@ class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AdaptivePulldownMenuButton(
+    return const Center(
+      child: AdaptivePulldownMenuButton.singleChoice(
         title: 'menu',
-        disabled: true,
-        items: const [
+        items: [
           AdaptivePulldownMenuItem(
+            selected: true,
             leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
             child: Text('New folder'),
           ),
@@ -98,20 +98,6 @@ class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
           AdaptivePulldownMenuItem(
             leading: AdaptiveIcon(AdaptiveIcons.wand),
             child: Text('Open with'),
-          ),
-          AdaptivePulldownMenuItem(
-            leading: AdaptiveIcon(AdaptiveIcons.delete),
-            child: Text('remove'),
-            selected: false,
-          ),
-          AdaptivePulldownMenuItem(
-            leading: AdaptiveIcon(AdaptiveIcons.phone),
-            child: Text('import from phone ...'),
-          ),
-          AdaptivePulldownMenuDivider(),
-          AdaptivePulldownMenuItem(
-            leading: AdaptiveIcon(AdaptiveIcons.star),
-            child: Text('Give us star'),
           ),
         ],
       ),

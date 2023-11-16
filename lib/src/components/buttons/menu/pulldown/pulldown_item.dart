@@ -6,7 +6,8 @@ abstract class AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuItemEntry();
 }
 
-class AdaptivePulldownMenuDivider<T> implements AdaptivePulldownMenuItemEntry<T> {
+class AdaptivePulldownMenuDivider<T>
+    implements AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuDivider();
 }
 
@@ -21,7 +22,7 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuItem({
     this.leading,
     this.trailing,
-    this.selected = true,
+    this.selected,
     this.onTap,
     this.value,
     required this.child,
@@ -44,7 +45,46 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   final Widget? trailing;
 
   /// Indicates whether the menu item is selected or not.
-  final bool selected;
+  ///
+  /// - When used with [AdaptivePulldownMenuButton.singleChoice], if `true`, this item is the selected item.
+  ///   Only one item should be set to `true`.
+  ///
+  ///  If null, Default is `false`.
+  ///
+  /// Example usage with AdaptivePulldownMenuButton.singleChoice:
+  /// ```dart
+  /// AdaptivePulldownMenuButton.singleChoice(
+  ///   title: 'menu',
+  ///   items: [
+  ///     AdaptivePulldownMenuItem(
+  ///       selected: true, // Only one item should be set to `true`.
+  ///       leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
+  ///       child: Text('New folder'),
+  ///     ),
+  ///     // ... other menu items ...
+  ///   ],
+  /// );
+  /// ```
+  ///
+  /// - When used with [AdaptivePulldownMenuButton], if set to `true`, the menu item is disabled.
+  ///
+  ///  If null, Default is `true`.
+  ///
+  /// Example usage with AdaptivePulldownMenuButton:
+  /// ```dart
+  /// AdaptivePulldownMenuButton(
+  ///   title: 'menu',
+  ///   items: [
+  ///     AdaptivePulldownMenuItem(
+  ///       selected: false, // item will be disabled.
+  ///       leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
+  ///       child: Text('New folder'),
+  ///     ),
+  ///     // ... other menu items ...
+  ///   ],
+  /// );
+  /// ```
+  final bool? selected;
 
   /// A callback function that is called when a menu item is tap.
   final VoidCallback? onTap;
@@ -54,34 +94,32 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   /// This method constructs a row containing the leading, child, and trailing widgets
   /// with appropriate spacing. It returns a widget suitable for displaying in a list
   /// or menu.
-  Widget get buildListTile {
-    return disabledOpacity(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (leading != null)
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: leading,
-              ),
+  Widget buildListTile() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (leading != null)
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: leading,
             ),
-          child,
-          if (trailing != null)
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: trailing,
-              ),
-            )
-        ],
-      ),
+          ),
+        child,
+        if (trailing != null)
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: trailing,
+            ),
+          )
+      ],
     );
   }
 
-  Widget disabledOpacity(Widget? child) {
+  static Widget disabledOpacity(Widget? child, bool defaultSelected) {
     if (child == null) return const SizedBox.shrink();
-    return Opacity(opacity: selected ? 1 : 0.4, child: child);
+    return Opacity(opacity: defaultSelected ? 1 : 0.4, child: child);
   }
 }

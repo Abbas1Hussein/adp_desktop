@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../../../core/common/construct/properties.dart';
 import '../../pulldown_item.dart';
+import '../../single_choice.dart';
 
 class PulldownMenuMacos<T> extends StatelessWidget {
   const PulldownMenuMacos({
@@ -14,6 +16,7 @@ class PulldownMenuMacos<T> extends StatelessWidget {
     this.onOpen,
     this.disabled,
     this.disabledTitle,
+    required this.selectionType,
     required this.title,
     required this.items,
   });
@@ -53,18 +56,27 @@ class PulldownMenuMacos<T> extends StatelessWidget {
   /// The callback will not be invoked if the pulldown button is disabled.
   final VoidCallback? onOpen;
 
+  final SelectionType selectionType;
+
   @override
   Widget build(BuildContext context) {
-    return MacosPulldownButton(
-      title: title,
-      onTap: onOpen,
-      focusNode: focusNode,
-      style: property?.style,
-      autofocus: autofocus ?? false,
-      disabledTitle: disabledTitle ?? title,
-      itemHeight: property?.itemHeight ?? 30.0,
-      items: disabled == true ? [] : _buildListItems(),
-      menuAlignment: property?.menuAlignment ?? PulldownMenuAlignment.left,
+    final theme = MacosPulldownButtonTheme.of(context);
+
+    return MacosPulldownButtonTheme(
+      data: theme.copyWith(
+        highlightColor: theme.highlightColor?.withOpacity(0.35),
+      ),
+      child: MacosPulldownButton(
+        title: title,
+        onTap: onOpen,
+        focusNode: focusNode,
+        style: property?.style,
+        autofocus: autofocus ?? false,
+        disabledTitle: disabledTitle ?? title,
+        itemHeight: property?.itemHeight ?? 30.0,
+        items: disabled == true ? [] : _buildListItems(),
+        menuAlignment: property?.menuAlignment ?? PulldownMenuAlignment.left,
+      ),
     );
   }
 
@@ -74,20 +86,89 @@ class PulldownMenuMacos<T> extends StatelessWidget {
       (index) {
         final item = items[index];
         if (item is AdaptivePulldownMenuItem<T?>) {
-          return MacosPulldownMenuItem(
-            title: item.buildListTile,
-            enabled: item.selected,
-            onTap: () {
-              onSelected?.call(item.value);
-              item.onTap?.call();
-            },
-          );
+          final defaultSelected =
+              item.selected ?? selectionType == SelectionType.none;
+
+          switch (selectionType) {
+            case SelectionType.none:
+              return _macosPulldownMenuItemNoneSelection(item, defaultSelected);
+            case SelectionType.single:
+              return _macosPulldownMenuItemSingleSelection(
+                  item, defaultSelected);
+          }
         } else {
           return const MacosPulldownMenuDivider();
         }
       },
     );
   }
+
+  MacosPulldownMenuItem _macosPulldownMenuItemNoneSelection(
+    AdaptivePulldownMenuItem<T?> item,
+    bool defaultSelected,
+  ) {
+    return MacosPulldownMenuItem(
+      title: AdaptivePulldownMenuItem.disabledOpacity(
+        item.buildListTile(),
+        defaultSelected,
+      ),
+      enabled: defaultSelected,
+      onTap: () => onPressed(item),
+    );
+  }
+
+  MacosPulldownMenuItem _macosPulldownMenuItemSingleSelection(
+    AdaptivePulldownMenuItem<T?> item,
+    bool defaultSelected,
+  ) {
+    return MacosPulldownMenuItemSingleSelection(
+      selected: defaultSelected,
+      onTap: () => onPressed(item),
+      child: item.buildListTile(),
+    );
+  }
+
+  void onPressed(AdaptivePulldownMenuItem<T?> item) {
+    onSelected?.call(item.value);
+    item.onTap?.call();
+  }
+}
+
+class MacosPulldownMenuItemSingleSelection extends MacosPulldownMenuItem {
+  const MacosPulldownMenuItemSingleSelection({
+    super.key,
+    super.onTap,
+    this.selected = false,
+    required this.child,
+  }) : super(title: child);
+  final bool selected;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = MacosTheme.of(context);
+
+    final isDark = theme.brightness == Brightness.dark;
+
+    final Color highlightColor = selected
+        ? theme.pulldownButtonTheme.highlightColor!.withOpacity(0.35)
+        : MacosColors.transparent;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: highlightColor,
+        backgroundBlendMode: isDark ? BlendMode.difference : null,
+        borderRadius: BorderRadius.circular(6.0),
+      ),
+      child: DefaultTextStyle(
+        style: theme.typography.body,
+        child: super.build(context),
+      ),
+    );
+  }
+
+  @override
+  bool get enabled => true;
 }
 
 class PulldownMenuMacosProperty extends CoreMacosProperty {

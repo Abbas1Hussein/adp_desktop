@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../core/common/construct/component.dart';
 import 'platforms/platforms.dart';
 import 'pulldown_item.dart';
+import 'single_choice.dart';
 
 /// Callback type for handling the selection of items in a pulldown menu.
 ///
@@ -69,7 +71,36 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
     this.disabledTitle,
     required this.title,
     required this.items,
-  }) : assert(items.length != 0, 'The items list must not be empty');
+  }) : _type = SelectionType.none;
+
+  /// When used, this constructor will focus on only one [AdaptivePulldownMenuItem].
+  ///
+  /// If [selected] is true, it will be focused.
+  ///
+  /// Example:
+  /// ```dart
+  /// AdaptivePulldownMenuItem(
+  ///   selected: true,
+  ///   leading: AdaptiveIcon(AdaptiveIcons.star),
+  ///   child: Text('Give us a star'),
+  /// ),
+  /// ```
+  /// - Should be exactly one item with the specified 'selected' value set to true.
+  ///
+  /// The default selected value for [AdaptivePulldownMenuItem] is false.
+  const AdaptivePulldownMenuButton.singleChoice({
+    super.key,
+    super.builders,
+    super.properties,
+    this.onOpen,
+    this.onSelected,
+    this.focusNode,
+    this.autofocus = false,
+    this.disabled = false,
+    this.disabledTitle,
+    required this.title,
+    required this.items,
+  }) : _type = SelectionType.single;
 
   /// The title text to be displayed on the pulldown button.
   final String title;
@@ -111,6 +142,18 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
   /// The callback will not be invoked if the pull-down button is disabled.
   final VoidCallback? onOpen;
 
+  /// The selection type for the pulldown menu button.
+  ///
+  /// - `SelectionType.single`: Enables single-item selection.
+  /// - `SelectionType.none`: No item is selected by default.
+  final SelectionType _type;
+
+  @override
+  Widget build(BuildContext context) {
+    validateSelectedItem();
+    return super.build(context);
+  }
+
   @override
   Widget windows(BuildContext context) {
     return PulldownMenuWindows<T>(
@@ -118,6 +161,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
       items: items,
       onOpen: onOpen,
       disabled: disabled,
+      selectionType: _type,
       focusNode: focusNode,
       autofocus: autofocus,
       onSelected: onSelected,
@@ -133,11 +177,38 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
       items: items,
       onOpen: onOpen,
       disabled: disabled,
+      selectionType: _type,
       focusNode: focusNode,
       autofocus: autofocus,
       onSelected: onSelected,
       disabledTitle: disabledTitle,
       property: properties?.macos,
     );
+  }
+
+  void validateSelectedItem() {
+    assert(
+      items.isNotEmpty,
+      "Validation failed in the $runtimeType.\n"
+      "The list of items should not be empty.",
+    );
+
+    if (_type == SelectionType.single) {
+      // Filter items to include only selected items (if applicable)
+      final selectedItems =
+          items.whereType<AdaptivePulldownMenuItem<T?>>().where((item) {
+        return item.selected ?? false;
+      });
+
+      // Check if there is exactly one selected item
+      final hasUniqueSelectedItem = selectedItems.length == 1;
+
+      assert(
+        hasUniqueSelectedItem,
+        "Validation failed in $runtimeType.\n\n"
+        "There should be exactly one item with the specified 'selected' value set to true.\n"
+        "Ensure that there is only one AdaptivePulldownMenuItem in the list with 'selected: true'.",
+      );
+    }
   }
 }
