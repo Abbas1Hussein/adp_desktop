@@ -5,7 +5,7 @@ import 'package:macos_ui/macos_ui.dart';
 void main() {
   DefaultPlatforms.initialize(
     AdaptiveTargetPlatform.macOS,
-    targetWeb: AdaptiveTargetPlatform.macOS,
+    targetWeb: AdaptiveTargetPlatform.windows,
     isDebugging: true,
   );
   runApp(const App());
@@ -78,29 +78,44 @@ class CustomAdaptiveWidget extends StatefulWidget {
 }
 
 class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
-  int selectedValue = 1;
+  int currentValue = 1;
+
+  final activeColor = [
+    AdaptiveColors.purple,
+    AdaptiveColors.red,
+    AdaptiveColors.cyan,
+    AdaptiveColors.magenta,
+    AdaptiveColors.indigo,
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: AdaptivePulldownMenuButton.singleChoice(
-        title: 'menu',
-        items: [
-          AdaptivePulldownMenuItem(
-            selected: true,
-            leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
-            child: Text('New folder'),
-          ),
-          AdaptivePulldownMenuItem(
-            leading: AdaptiveIcon(AdaptiveIcons.folderOpen),
-            child: Text('Open'),
-          ),
-          AdaptivePulldownMenuItem(
-            leading: AdaptiveIcon(AdaptiveIcons.wand),
-            child: Text('Open with'),
-          ),
-        ],
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(
+          5,
+          (index) {
+            return Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: AdaptiveRadio(
+                value: index,
+                groupValue: currentValue,
+                activeColor: activeColor[index],
+                disabledColor: activeColor.reversed.toList()[index],
+                content: Text('Adp R a d i o ${index + 1}'),
+                onChanged: onChanged,
+              ),
+            );
+          },
+        ),
       ),
     );
+  }
+
+  void onChanged(int? value) {
+    setState(() {
+      currentValue = value!;
+    });
   }
 }

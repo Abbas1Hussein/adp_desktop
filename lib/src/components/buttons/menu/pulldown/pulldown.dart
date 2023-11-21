@@ -75,7 +75,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
 
   /// When used, this constructor will focus on only one [AdaptivePulldownMenuItem].
   ///
-  /// If [selected] is true, it will be focused.
+  /// If [_selected] is true, it will be focused.
   ///
   /// Example:
   /// ```dart

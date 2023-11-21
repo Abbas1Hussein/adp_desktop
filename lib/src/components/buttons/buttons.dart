@@ -2,6 +2,7 @@ export 'properties/properties.dart';
 export 'checkbox/checkbox.dart';
 export 'back_button.dart';
 export 'menu/menu.dart';
+export 'radio/radio.dart';
 
 export 'text_button/text_button.dart';
 export 'text_button/platforms/platforms.dart'
@@ -19,9 +20,6 @@ export 'switch/switch.dart';
 export 'switch/platforms/platforms.dart'
     show SwitchWindowsProperty, SwitchMacosProperty;
 
-export 'radio/radio.dart';
-export 'radio/platforms/platforms.dart'
-    show RadioWindowsProperty, RadioMacosProperty;
 
 export 'icon_button/icon_button.dart';
 export 'icon_button/platforms/platforms.dart'

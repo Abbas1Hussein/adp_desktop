@@ -1,0 +1,61 @@
+import 'package:adp_desktop/adp_desktop.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  // Initialize the default platform to windows for this test
+  DefaultPlatforms.initialize(AdaptiveTargetPlatform.macOS, isDebugging: true);
+
+  testWidgets(
+    'AdaptiveRadio Renders correctly',
+    (widgetTester) async {
+      int currentValue = 0;
+
+      final colors = [
+        AdaptiveColors.purple,
+        AdaptiveColors.red,
+        AdaptiveColors.cyan,
+        AdaptiveColors.magenta,
+        AdaptiveColors.indigo,
+      ];
+
+      await widgetTester.pumpWidget(
+        AdpApp(
+          home: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(
+                5,
+                (index) {
+                  return StatefulBuilder(
+                    builder: (context, setState) => AdaptiveRadio<int>(
+                      value: index + 1,
+                      groupValue: currentValue,
+                      activeColor: colors[index],
+                      disabledColor: colors.reversed.toList()[index],
+                      content: Text('Adp R a d i o ${index + 1}'),
+                      onChanged: (value) {
+                        setState(() {
+                          currentValue = value;
+                        });
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+      // Test if all radio buttons are rendered
+      expect(find.byType(AdaptiveRadio<int>), findsWidgets);
+
+      // Test changing the value by tapping a radio button
+      await widgetTester.tap(find.text('Adp R a d i o 3'));
+      await widgetTester.pumpAndSettle();
+
+      // Verify that the onChanged callback was invoked
+      expect(currentValue, 3);
+    },
+  );
+}
