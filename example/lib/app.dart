@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.macOS,
+    AdaptiveTargetPlatform.windows,
     targetWeb: AdaptiveTargetPlatform.windows,
     isDebugging: true,
   );
@@ -78,44 +78,26 @@ class CustomAdaptiveWidget extends StatefulWidget {
 }
 
 class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
-  int currentValue = 1;
-
-  final activeColor = [
-    AdaptiveColors.purple,
-    AdaptiveColors.red,
-    AdaptiveColors.cyan,
-    AdaptiveColors.magenta,
-    AdaptiveColors.indigo,
-  ];
+  bool currentValue = false;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: List.generate(
-          5,
-          (index) {
-            return Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: AdaptiveRadio(
-                value: index,
-                groupValue: currentValue,
-                activeColor: activeColor[index],
-                disabledColor: activeColor.reversed.toList()[index],
-                content: Text('Adp R a d i o ${index + 1}'),
-                onChanged: onChanged,
-              ),
-            );
+    return  Center(
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: AdaptiveBackButton(
+          color: AdaptiveColors.red,
+          afterBack: () {
+            print('after back');
           },
         ),
       ),
     );
   }
 
-  void onChanged(int? value) {
+  void onChanged(bool value) {
     setState(() {
-      currentValue = value!;
+      currentValue = value;
     });
   }
 }

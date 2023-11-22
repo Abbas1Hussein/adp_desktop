@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 export 'properties/properties.dart';
 export 'checkbox/checkbox.dart';
 export 'back_button.dart';
@@ -17,9 +19,6 @@ export 'flat_button/platforms/platforms.dart'
     show FlatButtonWindowsProperty, FlatButtonMacosProperty;
 
 export 'switch/switch.dart';
-export 'switch/platforms/platforms.dart'
-    show SwitchWindowsProperty, SwitchMacosProperty;
-
 
 export 'icon_button/icon_button.dart';
 export 'icon_button/platforms/platforms.dart'

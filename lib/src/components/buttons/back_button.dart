@@ -3,20 +3,38 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
 
-final class AdaptiveBackButton extends CoreAdaptiveComponent {
-  final Color? color;
-  final VoidCallback? onTap;
-  final MouseCursor? mouseCursor;
-
+/// A custom back button widget that adapts its appearance based on the platform.
+///
+/// Use this widget to create back buttons with platform-specific
+/// styling and behavior:
+/// - On macOS, [MacosBackButton] is utilized.
+/// - On Windows, customize [PaneItem] as [BackButton].
+class AdaptiveBackButton extends CoreAdaptiveComponent {
   const AdaptiveBackButton({
     super.key,
     super.builders,
     this.color,
-    this.onTap,
+    this.afterBack,
+    this.semanticLabel,
     this.mouseCursor,
+    this.onPressed,
   });
 
-  @mustCallSuper
+  /// Callback function triggered when the back button is pressed.
+  final VoidCallback? onPressed;
+
+  /// Callback function to be executed after navigating back.
+  final VoidCallback? afterBack;
+
+  /// Defines the mouse cursor to be displayed when hovering over the back button.
+  final MouseCursor? mouseCursor;
+
+  /// Defines the color of the back button.
+  final Color? color;
+
+  /// A semantic label providing accessibility information for the back button.
+  final String? semanticLabel;
+
   @override
   Widget windows(BuildContext context) {
     return Builder(
@@ -28,27 +46,32 @@ final class AdaptiveBackButton extends CoreAdaptiveComponent {
             mouseCursor: mouseCursor,
             tileColor: color != null ? ButtonState.all(color) : null,
             icon: const Center(child: Icon(FluentIcons.back)),
-            title: Text(FluentLocalizations.of(context).backButtonTooltip),
+            title: Text(semanticLabel ??
+                FluentLocalizations.of(context).backButtonTooltip),
             body: const SizedBox.shrink(),
-          ).build(context, true, () => onBackTap(context),
+          ).build(context, true, () => _onTap(context),
               displayMode: PaneDisplayMode.compact),
         );
       },
     );
   }
 
-  @mustCallSuper
   @override
   Widget macos(BuildContext context) {
     return MacosBackButton(
       fillColor: color,
-      mouseCursor: mouseCursor,
-      onPressed: () => onBackTap(context),
+      hoverColor: color?.withOpacity(0.35),
+      semanticLabel: semanticLabel,
+      mouseCursor: mouseCursor ?? SystemMouseCursors.basic,
+      onPressed: () => _onTap(context),
     );
   }
 
-  void onBackTap(BuildContext context) {
-    onTap?.call();
-    Navigator.maybePop(context);
+  Future<void> _onTap(BuildContext context) async {
+    onPressed?.call();
+
+    final canPop = await Navigator.maybePop(context);
+
+    if (canPop) afterBack?.call();
   }
 }

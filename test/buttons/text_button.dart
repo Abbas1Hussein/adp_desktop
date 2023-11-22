@@ -3,15 +3,17 @@ import 'package:adp_desktop/src/components/buttons/text_button/platforms/platfor
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../wrap_app.dart';
+
 void main() {
   DefaultPlatforms.initialize(AdaptiveTargetPlatform.macOS, isDebugging: true);
 
   testWidgets(
     'AdaptiveTextButton renders correctly with custom properties',
-        (WidgetTester tester) async {
+    (WidgetTester tester) async {
       await tester.pumpWidget(
-        const AdpApp(
-          home: AdaptiveTextButton(
+        wrapApp(
+          child: const AdaptiveTextButton(
             properties: Properties(
               windows: TextButtonWindowsProperty(),
               macos: TextButtonMacosProperty(),
@@ -38,12 +40,12 @@ void main() {
 
   testWidgets(
     'AdaptiveTextButton calls onPressed and onLongPress callbacks',
-        (WidgetTester tester) async {
+    (WidgetTester tester) async {
       bool checkValue = false;
 
       await tester.pumpWidget(
-        AdpApp(
-          home: AdaptiveTextButton(
+        wrapApp(
+          child:  AdaptiveTextButton(
             onPressed: () => checkValue = true,
             onLongPress: () => checkValue = false,
             child: const Text('Test TextButton'),

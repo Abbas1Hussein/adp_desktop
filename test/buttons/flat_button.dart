@@ -3,6 +3,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../wrap_app.dart';
+
 void main() {
   DefaultPlatforms.initialize(
     AdaptiveTargetPlatform.windows,
@@ -13,8 +15,8 @@ void main() {
     'AdaptiveFlatButton renders correctly with custom properties',
     (WidgetTester tester) async {
       await tester.pumpWidget(
-        const AdpApp(
-          home: AdaptiveFlatButton(
+         wrapApp(
+          child: const AdaptiveFlatButton(
             properties: Properties(
               windows: FlatButtonWindowsProperty(),
               macos: FlatButtonMacosProperty(),
@@ -45,8 +47,8 @@ void main() {
       bool checkValue = false;
 
       await tester.pumpWidget(
-        AdpApp(
-          home: AdaptiveFlatButton(
+        wrapApp(
+          child:AdaptiveFlatButton(
             onPressed: () => checkValue = true,
             onLongPress: () => checkValue = false,
             child: const Text('Test FlatButton'),

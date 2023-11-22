@@ -2,24 +2,25 @@ import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../wrap_app.dart';
+
 void main() {
-  DefaultPlatforms.initialize(AdaptiveTargetPlatform.windows, isDebugging: true);
+  DefaultPlatforms.initialize(AdaptiveTargetPlatform.windows,
+      isDebugging: true);
   testWidgets(
     'AdaptivePulldownMenuButton displays correctly',
     (WidgetTester tester) async {
       await tester.pumpWidget(
-        AdpApp(
-          home: AdaptiveScaffold(
-            body: AdaptivePulldownMenuButton<String>(
-              title: 'Adp Menu',
-              onSelected: (String? value) {},
-              items: const [
-                AdaptivePulldownMenuItem(
-                  leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
-                  child: Text('New folder'),
-                ),
-              ],
-            ),
+        wrapAppWithScaffold(
+          child: AdaptivePulldownMenuButton<String>(
+            title: 'Adp Menu',
+            onSelected: (String? value) {},
+            items: const [
+              AdaptivePulldownMenuItem(
+                leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
+                child: Text('New folder'),
+              ),
+            ],
           ),
         ),
       );
@@ -42,20 +43,18 @@ void main() {
 
   testWidgets('Verify disabled state', (WidgetTester tester) async {
     await tester.pumpWidget(
-      AdpApp(
-        home: AdaptiveScaffold(
-          body: AdaptivePulldownMenuButton<String>(
-            title: 'Adp Menu',
-            disabledTitle: 'Adp Menu Disabled',
-            onSelected: (String? value) {},
-            items: const [
-              AdaptivePulldownMenuItem(
-                leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
-                child: Text('New folder'),
-              ),
-            ],
-            disabled: true,
-          ),
+      wrapAppWithScaffold(
+        child: AdaptivePulldownMenuButton<String>(
+          title: 'Adp Menu',
+          disabledTitle: 'Adp Menu Disabled',
+          onSelected: (String? value) {},
+          items: const [
+            AdaptivePulldownMenuItem(
+              leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
+              child: Text('New folder'),
+            ),
+          ],
+          disabled: true,
         ),
       ),
     );

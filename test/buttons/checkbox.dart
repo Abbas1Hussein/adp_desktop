@@ -3,6 +3,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../wrap_app.dart';
+
 void main() {
   /// Initialize the default platform to windows for this test
   DefaultPlatforms.initialize(AdaptiveTargetPlatform.windows, isDebugging: true);
@@ -14,11 +16,9 @@ void main() {
         'Renders correctly AdaptiveCheckbox on windows, macos',
         (WidgetTester tester) async {
           await tester.pumpWidget(
-            AdpApp(
-              home: AdaptiveScaffold(
-                body: Center(
-                  child: AdaptiveCheckbox(value: true, onChanged: (value) {}),
-                ),
+            wrapAppWithScaffold(
+              child: Center(
+                child: AdaptiveCheckbox(value: true, onChanged: (value) {}),
               ),
             ),
           );
@@ -47,8 +47,8 @@ void main() {
       bool? checkBoxValue = false;
 
       await tester.pumpWidget(
-        AdpApp(
-          home: StatefulBuilder(
+        wrapApp(
+          child: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Center(
                 child: AdaptiveCheckbox(

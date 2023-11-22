@@ -120,6 +120,10 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
 
   static Widget disabledOpacity(Widget? child, bool defaultSelected) {
     if (child == null) return const SizedBox.shrink();
-    return Opacity(opacity: defaultSelected ? 1 : 0.4, child: child);
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 80),
+      opacity: defaultSelected ? 1 : 0.4,
+      child: child,
+    );
   }
 }

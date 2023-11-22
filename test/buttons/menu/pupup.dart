@@ -4,9 +4,11 @@ import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../wrap_app.dart';
+
 void main() {
   DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.macOS,
+    AdaptiveTargetPlatform.windows,
     isDebugging: true,
   );
 
@@ -39,8 +41,8 @@ void main() {
         'Render AdaptivePopupMenuButton correctly with items',
         (WidgetTester tester) async {
           await tester.pumpWidget(
-            AdpApp(
-              home: AdaptivePopupMenuButton<String>(
+            wrapApp(
+              child: AdaptivePopupMenuButton<String>(
                 value: foodItems[randomNumber],
                 onChanged: (value) {},
                 items: foodItems.map((food) {

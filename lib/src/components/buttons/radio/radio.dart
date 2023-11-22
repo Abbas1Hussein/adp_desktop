@@ -15,7 +15,7 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
   const AdaptiveRadio({
     super.key,
     super.builders,
-    this.content,
+    this.label,
     this.activeColor,
     this.disabledColor,
     this.semanticLabel,
@@ -61,9 +61,6 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
   /// ```
   final ValueChanged<T>? onChanged;
 
-  /// The content widget to be displayed alongside the radio button.
-  final Widget? content;
-
   /// The active color for the radio button.
   final Color? activeColor;
 
@@ -72,6 +69,9 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
 
   /// A brief description of the radio button for accessibility.
   final String? semanticLabel;
+
+  /// The widget that be displayed alongside the radio button.
+  final Widget? label;
 
   bool get _selected => value == groupValue;
 
@@ -85,7 +85,7 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
       onChanged: (value) => onChanged?.call(value as T),
       semanticLabel: semanticLabel,
     ).margeWith(
-      GestureDetector(child: content, onTap: () => onChanged?.call(value)),
+      GestureDetector(child: label, onTap: () => onChanged?.call(value)),
       4.0,
     );
   }
@@ -137,7 +137,7 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
         }),
       ),
       child: RadioButton(
-        content: content,
+        content: label,
         checked: _selected,
         semanticLabel: semanticLabel,
         onChanged: (_) => onChanged?.call(value),

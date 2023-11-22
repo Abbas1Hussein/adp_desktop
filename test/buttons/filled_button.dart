@@ -3,6 +3,8 @@ import 'package:adp_desktop/src/components/buttons/filled_button/platforms/platf
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../wrap_app.dart';
+
 void main() {
   DefaultPlatforms.initialize(AdaptiveTargetPlatform.macOS, isDebugging: true);
 
@@ -10,8 +12,8 @@ void main() {
     'AdaptiveFilledButton renders correctly with custom properties',
     (WidgetTester tester) async {
       await tester.pumpWidget(
-        const AdpApp(
-          home: AdaptiveFilledButton(
+        wrapApp(
+          child: const AdaptiveFilledButton(
             properties: Properties(
               windows: FilledButtonWindowsProperty(autofocus: true),
               macos: FilledButtonMacosProperty(pressedOpacity: 0.6),
@@ -42,8 +44,8 @@ void main() {
       bool checkValue = false;
 
       await tester.pumpWidget(
-        AdpApp(
-          home: AdaptiveFilledButton(
+        wrapApp(
+          child: AdaptiveFilledButton(
             onPressed: () => checkValue = true,
             onLongPress: () => checkValue = false,
             child: const Text('Test FilledButton'),

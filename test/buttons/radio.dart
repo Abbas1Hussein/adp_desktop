@@ -2,8 +2,9 @@ import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../wrap_app.dart';
+
 void main() {
-  // Initialize the default platform to windows for this test
   DefaultPlatforms.initialize(AdaptiveTargetPlatform.macOS, isDebugging: true);
 
   testWidgets(
@@ -20,8 +21,8 @@ void main() {
       ];
 
       await widgetTester.pumpWidget(
-        AdpApp(
-          home: Center(
+        wrapAppWithScaffold(
+          child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: List.generate(
@@ -33,7 +34,7 @@ void main() {
                       groupValue: currentValue,
                       activeColor: colors[index],
                       disabledColor: colors.reversed.toList()[index],
-                      content: Text('Adp R a d i o ${index + 1}'),
+                      label: Text('Adp R a d i o ${index + 1}'),
                       onChanged: (value) {
                         setState(() {
                           currentValue = value;

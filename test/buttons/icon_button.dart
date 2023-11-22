@@ -3,6 +3,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../wrap_app.dart';
+
 void main() {
   DefaultPlatforms.initialize(AdaptiveTargetPlatform.windows,
       isDebugging: true);
@@ -11,8 +13,8 @@ void main() {
     'AdaptiveIconButton renders correctly with custom properties',
     (WidgetTester tester) async {
       await tester.pumpWidget(
-        const AdpApp(
-          home: AdaptiveIconButton(
+        wrapApp(
+          child: const AdaptiveIconButton(
             properties: Properties(
               windows: IconButtonWindowsProperty(),
               macos: IconButtonMacosProperty(),
@@ -43,8 +45,8 @@ void main() {
       bool checkValue = false;
 
       await tester.pumpWidget(
-        AdpApp(
-          home: AdaptiveIconButton(
+        wrapApp(
+          child: AdaptiveIconButton(
             onPressed: () => checkValue = true,
             icon: const AdaptiveIcon(AdaptiveIcons.add),
           ),
