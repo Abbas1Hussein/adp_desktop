@@ -6,8 +6,8 @@ import 'package:macos_ui/macos_ui.dart';
 import '../wrap_app.dart';
 
 void main() {
-  DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.windows,
+  DefaultsPlatformManager.initialize(
+    DesktopTargetPlatform.windows,
     isDebugging: true,
   );
 

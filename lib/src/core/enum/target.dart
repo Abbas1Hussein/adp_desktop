@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
-enum AdaptiveTargetPlatform {
+
+import '../exception/platform_exceptions.dart';
+
+enum DesktopTargetPlatform {
   /// macOS: <https://www.apple.com/macos>
   macOS,
 
@@ -7,11 +10,26 @@ enum AdaptiveTargetPlatform {
   windows,
 }
 
-TargetPlatform defaultAdaptiveTargetPlatform(AdaptiveTargetPlatform platform) {
-  switch (platform) {
-    case AdaptiveTargetPlatform.macOS:
-      return TargetPlatform.macOS;
-    case AdaptiveTargetPlatform.windows:
-      return TargetPlatform.windows;
+extension TargetPlatformEx on DesktopTargetPlatform {
+  TargetPlatform get targetPlatform {
+    switch (this) {
+      case DesktopTargetPlatform.macOS:
+        return TargetPlatform.macOS;
+      case DesktopTargetPlatform.windows:
+        return TargetPlatform.windows;
+    }
+  }
+}
+
+extension DesktopTargetPlatformEx on TargetPlatform {
+  DesktopTargetPlatform get desktopTargetPlatform {
+    switch (this) {
+      case TargetPlatform.macOS:
+        return DesktopTargetPlatform.macOS;
+      case TargetPlatform.windows:
+        return DesktopTargetPlatform.windows;
+
+      default:throw UnsupportedPlatformException(name);
+    }
   }
 }

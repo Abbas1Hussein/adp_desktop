@@ -1,10 +1,11 @@
+import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/common/adaptive.dart';
 
-enum AdaptiveIcons {
+enum AdpIcons {
   add(
     cupertino: CupertinoIcons.add,
     fluent: FluentIcons.add_24_regular,
@@ -1145,6 +1146,16 @@ enum AdaptiveIcons {
     cupertino: CupertinoIcons.star_lefthalf_fill,
     fluent: FluentIcons.star_half_24_filled,
   ),
+
+  starSlash(
+    cupertino: CupertinoIcons.star_slash,
+    fluent: FluentIcons.star_off_24_regular,
+  ),
+  starSlashFilled(
+    cupertino: CupertinoIcons.star_slash_fill,
+    fluent: FluentIcons.star_off_24_filled,
+  ),
+
   stop(
     cupertino: CupertinoIcons.stop,
     fluent: FluentIcons.stop_24_regular,
@@ -1282,15 +1293,17 @@ enum AdaptiveIcons {
     fluent: FluentIcons.zoom_out_24_regular,
   );
 
+  const AdpIcons({required this.cupertino, required this.fluent});
+
   final IconData cupertino;
   final IconData fluent;
+}
 
-  const AdaptiveIcons({
-    required this.cupertino,
-    required this.fluent,
-  });
-
+extension AdaptiveIconsEx on AdpIcons {
   IconData get platform {
-    return adaptiveValue<IconData>(macos: () => cupertino, windows: () => fluent);
+    return adaptiveValue<IconData>(
+      macos: () => cupertino,
+      windows: () => fluent,
+    );
   }
 }

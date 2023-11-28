@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
 import '../../enum/target.dart';
 
 abstract class CorePlatforms<WINDOWS, MACOS> {
@@ -10,31 +7,41 @@ abstract class CorePlatforms<WINDOWS, MACOS> {
   const CorePlatforms({this.windows, this.macos});
 }
 
-/// when [isDebugging] be true, will be ignore [_platform].
-class DefaultPlatforms {
-  final bool _isDebugging;
-  final AdaptiveTargetPlatform _platform;
-  final AdaptiveTargetPlatform? _targetLinux;
-  final AdaptiveTargetPlatform? _targetWeb;
-
-  DefaultPlatforms._(
+/// To test your app with a specific platform, initialize [DefaultsPlatformManager] and set isDebugging to true.
+///
+/// Example usage:
+/// ```dart
+/// void main() async {
+///   DefaultsPlatformManager.initialize(
+///     DesktopTargetPlatform.windows,
+///     isDebugging: true,
+///   );
+///   runApp(const App());
+///
+class DefaultsPlatformManager {
+  const DefaultsPlatformManager._(
     this._platform, {
-    AdaptiveTargetPlatform? targetLinux,
-    AdaptiveTargetPlatform? targetWeb,
+    DesktopTargetPlatform? targetLinux,
+    DesktopTargetPlatform? targetWeb,
     bool isDebugging = false,
   })  : _targetLinux = targetLinux,
         _targetWeb = targetWeb,
         _isDebugging = isDebugging;
 
-  static DefaultPlatforms? _instance;
+  final bool _isDebugging;
+  final DesktopTargetPlatform _platform;
+  final DesktopTargetPlatform? _targetLinux;
+  final DesktopTargetPlatform? _targetWeb;
 
-  factory DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform platform, {
-    AdaptiveTargetPlatform? targetLinux,
-    AdaptiveTargetPlatform? targetWeb,
+  static DefaultsPlatformManager? _instance;
+
+  factory DefaultsPlatformManager.initialize(
+    DesktopTargetPlatform platform, {
+    DesktopTargetPlatform? targetLinux,
+    DesktopTargetPlatform? targetWeb,
     bool isDebugging = false,
   }) {
-    return _instance ??= DefaultPlatforms._(
+    return _instance ??= DefaultsPlatformManager._(
       platform,
       targetLinux: targetLinux,
       targetWeb: targetWeb,
@@ -42,17 +49,15 @@ class DefaultPlatforms {
     );
   }
 
-  TargetPlatform get platform {
-    return defaultAdaptiveTargetPlatform(_platform);
-  }
+  DesktopTargetPlatform get desktopTargetPlatform => _platform;
 
-  AdaptiveTargetPlatform get adaptiveTargetPlatform => _platform;
+  DesktopTargetPlatform get targetLinux =>
+      _targetLinux ?? DesktopTargetPlatform.windows;
 
-  AdaptiveTargetPlatform get targetLinux => _targetLinux ?? AdaptiveTargetPlatform.windows;
-
-  AdaptiveTargetPlatform get targetWeb => _targetWeb ?? AdaptiveTargetPlatform.windows;
+  DesktopTargetPlatform get targetWeb =>
+      _targetWeb ?? DesktopTargetPlatform.windows;
 
   bool get isDebugging => _isDebugging;
 
-  static DefaultPlatforms? get instance => _instance;
+  static DefaultsPlatformManager? get instance => _instance;
 }

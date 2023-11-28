@@ -3,9 +3,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
-  DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.windows,
-    targetWeb: AdaptiveTargetPlatform.windows,
+  DefaultsPlatformManager.initialize(
+    DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
   runApp(const App());
@@ -16,6 +15,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("isFakeMacos: ${PlatformRuining.isFakeMacos}");
+    print("isRealMacos: ${PlatformRuining.isRealMacos}");
+    print(PlatformRuining.targetPlatform);
+    print("isFakeWindows: ${PlatformRuining.isFakeWindows}");
+    print("isRealWindows: ${PlatformRuining.isRealWindows}");
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
@@ -54,15 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       items: const [
         AdaptiveNavigationViewItem(
-          icon: AdaptiveIcon(AdaptiveIcons.add),
+          icon: AdaptiveIcon(AdpIcons.add),
           label: 'first',
         ),
         AdaptiveNavigationViewItem(
-          icon: AdaptiveIcon(AdaptiveIcons.arrowDown),
+          icon: AdaptiveIcon(AdpIcons.arrowDown),
           label: 'second',
         ),
         AdaptiveNavigationViewItem(
-          icon: AdaptiveIcon(AdaptiveIcons.arrowUp),
+          icon: AdaptiveIcon(AdpIcons.arrowUp),
           label: 'third',
         ),
       ],
@@ -78,26 +82,43 @@ class CustomAdaptiveWidget extends StatefulWidget {
 }
 
 class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
-  bool currentValue = false;
+  double currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: AdaptiveBackButton(
-          color: AdaptiveColors.red,
-          afterBack: () {
-            print('after back');
-          },
-        ),
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AdaptiveCircularProgressIndicator(
+            value: currentValue,
+            //  borderColor: MacosColors.systemTealColor,
+            //  innerColor: MacosColors.systemPinkColor,
+          ),
+          const SizedBox(height: 4.0),
+          AdaptiveFlatButton(
+            onPressed: inc,
+            child: const Text('inc Circular'),
+          ),
+          const SizedBox(height: 4.0),
+          AdaptiveFlatButton(
+            onPressed: dis,
+            child: const Text('dis Circular'),
+          ),
+        ],
       ),
     );
   }
 
-  void onChanged(bool value) {
+  void inc() {
     setState(() {
-      currentValue = value;
+      currentValue += 10;
+    });
+  }
+
+  void dis() {
+    setState(() {
+      currentValue -= 10;
     });
   }
 }

@@ -1,32 +1,9 @@
 import 'package:flutter/foundation.dart';
 
 import '../enum/target.dart';
-import '../exception/platform_exceptions.dart';
-import 'construct/platforms.dart';
+import 'platform_ruining.dart';
 
 typedef Value<T> = T Function();
-
-/// Get the configuration instance of DefaultPlatforms
-final _defaultPlatforms = DefaultPlatforms.instance;
-
-/// Retrieve the current platform from DefaultPlatforms, or use the default if it's null.
-///
-/// To test your app with a specific platform, you must initialize `DefaultPlatforms` and set `isDebugging` to true.
-///
-/// Example usage:
-/// ```dart
-/// void main() async {
-///   DefaultPlatforms.initialize(
-///     AdaptiveTargetPlatform.(windows, macos),
-///     isDebugging: true,
-///   );
-///   runApp(const App());
-/// }
-/// ```
-final kPlatformRuining =
-    (_defaultPlatforms != null && _defaultPlatforms!.isDebugging
-        ? _defaultPlatforms!.platform
-        : defaultTargetPlatform);
 
 /// Returns the adaptive value based on the current platform.
 /// If no function is provided for the current platform, an exception is thrown.
@@ -35,7 +12,7 @@ T adaptiveValue<T>({required Value<T> macos, required Value<T> windows}) {
     return _handleWebPlatform<T>(macos, windows);
   }
 
-  if (kPlatformRuining == TargetPlatform.linux) {
+  if (defaultTargetPlatform == TargetPlatform.linux) {
     return _handleLinuxPlatform<T>(macos, windows);
   }
 
@@ -45,38 +22,33 @@ T adaptiveValue<T>({required Value<T> macos, required Value<T> windows}) {
 /// Handle specific Linux platform configuration [TargetLinux].
 ///
 /// Example:
-///   DefaultPlatforms.initialize(
-///     AdaptiveTargetPlatform.windows,
-///     targetLinux: TargetLinux.macOS,
+///   DefaultsPlatformManager.initialize(
+///     DesktopTargetPlatform.windows,
+///     targetLinux: DesktopTargetPlatform.macOS,
 ///   );
 /// When running Linux components, it will use the `macOS` design.
 /// If no specific Linux platform is configured, it retrieves [windows].
 T _handleLinuxPlatform<T>(Value<T> macos, Value<T> windows) {
-  if (_defaultPlatforms?.targetLinux == AdaptiveTargetPlatform.windows) {
+  if (kPlatformManager?.targetLinux == DesktopTargetPlatform.windows) {
     return windows();
   } else {
     return macos();
   }
 }
 
-/// Handle specific web platform configuration [AdaptiveTargetPlatform].
+/// Handle specific web platform configuration [DesktopTargetPlatform].
 /// Example:
-///   DefaultPlatforms.initialize(
-///     AdaptiveTargetPlatform.windows,
-///     targetWeb: AdaptiveTargetPlatform.macOS,
+///   DefaultsPlatformManager.initialize(
+///     DesktopTargetPlatform.windows,
+///     targetWeb: DesktopTargetPlatform.macOS,
 ///   );
 /// When running web components, it will use the `macOS` design.
 /// If no specific web platform is configured, it retrieves [windows].
-T _handleWebPlatform<T>(
-  Value<T> macos,
-  Value<T> windows,
-) {
-  if (_defaultPlatforms?.targetWeb == AdaptiveTargetPlatform.windows) {
+T _handleWebPlatform<T>(Value<T> macos, Value<T> windows) {
+  if (kPlatformManager?.targetWeb == DesktopTargetPlatform.windows) {
     return windows();
-  } else if (_defaultPlatforms?.targetWeb == AdaptiveTargetPlatform.macOS) {
-    return macos();
   } else {
-    throw UnsupportedPlatformException(kPlatformRuining.name);
+    return macos();
   }
 }
 
@@ -93,12 +65,10 @@ T _handleWebPlatform<T>(
 /// Throws:
 ///   - UnsupportedPlatformException if the current platform is not recognized.
 T _handleDesktopPlatform<T>(Value<T> macos, Value<T> windows) {
-  switch (kPlatformRuining) {
-    case TargetPlatform.windows:
+  switch (PlatformRuining.targetPlatform) {
+    case DesktopTargetPlatform.windows:
       return windows();
-    case TargetPlatform.macOS:
+    case DesktopTargetPlatform.macOS:
       return macos();
-    default:
-      throw UnsupportedPlatformException<T>(kPlatformRuining.name);
   }
 }

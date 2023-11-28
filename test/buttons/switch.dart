@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../wrap_app.dart';
 
 void main() {
-  DefaultPlatforms.initialize(AdaptiveTargetPlatform.windows, isDebugging: true);
+  DefaultsPlatformManager.initialize(DesktopTargetPlatform.windows, isDebugging: true);
 
   testWidgets('AdaptiveSwitch initializes correctly', (WidgetTester tester) async {
     await tester.pumpWidget(

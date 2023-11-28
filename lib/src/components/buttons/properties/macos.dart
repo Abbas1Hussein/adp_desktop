@@ -43,7 +43,7 @@ class ButtonMacosProperty extends CoreMacosProperty {
   /// Whether the button is used as a secondary action button (e.g. Cancel buttons in dialogs)
   ///
   /// Sets its background color to [PushButtonThemeData]'s [secondaryColor] attributes (defaults
-  /// are gray colors). Can still be overridden if the [color] attribute is non-null.
+  /// are gray colors). Can still be overridden if the [borderColor] attribute is non-null.
   final bool? secondary;
 
   const ButtonMacosProperty({

@@ -6,3 +6,4 @@ export 'common/construct/platforms.dart' hide CorePlatforms;
 export 'common/construct/properties.dart';
 export 'enum/target.dart';
 export 'extension/context.dart';
+export 'common/platform_ruining.dart';

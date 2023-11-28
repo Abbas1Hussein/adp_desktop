@@ -7,7 +7,7 @@ import '../wrap_app.dart';
 
 void main() {
   /// Initialize the default platform to windows for this test
-  DefaultPlatforms.initialize(AdaptiveTargetPlatform.windows, isDebugging: true);
+  DefaultsPlatformManager.initialize(DesktopTargetPlatform.windows, isDebugging: true);
 
   group(
     'AdaptiveCheckbox Widget Tests',

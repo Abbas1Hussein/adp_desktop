@@ -25,21 +25,10 @@ extension DesktopContextEx on BuildContext {
     );
   }
 
-  /// Get the platform (windows, macos, linux) from the theme.
-  TargetPlatform get platform => kPlatformRuining;
 
   /// Check if the brightness is set to dark.
   bool get isDark => brightness == Brightness.dark;
 
   /// Check if the brightness is set to light.
   bool get isLight => brightness == Brightness.light;
-
-  /// Check if the platform is macOS.
-  bool get isMacos => platform == TargetPlatform.macOS;
-
-  /// Check if the platform is Windows.
-  bool get isWindows => platform == TargetPlatform.windows;
-
-  /// Check if the platform is Linux.
-  bool get isLinux => platform == TargetPlatform.linux;
 }

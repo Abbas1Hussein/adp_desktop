@@ -7,8 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../wrap_app.dart';
 
 void main() {
-  DefaultPlatforms.initialize(
-    AdaptiveTargetPlatform.windows,
+  DefaultsPlatformManager.initialize(
+    DesktopTargetPlatform.windows,
     isDebugging: true,
   );
 

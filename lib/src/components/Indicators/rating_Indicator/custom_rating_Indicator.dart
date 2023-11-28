@@ -10,6 +10,7 @@ class CustomRatingBarIndicator extends StatelessWidget {
     this.amount = 5,
     this.iconSize = 16,
     this.spacing = 0,
+    this.semanticLabel,
     super.key,
   });
 
@@ -34,12 +35,16 @@ class CustomRatingBarIndicator extends StatelessWidget {
   /// Callback when the rating is changed.
   final ValueChanged<double>? onChanged;
 
+  /// The semantic label used by screen readers.
+  final String? semanticLabel;
+
   @override
   Widget build(BuildContext context) {
     return Semantics(
       slider: onChanged != null,
-      maxValueLength: amount,
       value: rating.toStringAsFixed(2),
+      label: semanticLabel,
+      maxValueLength: amount,
       focusable: true,
       child: GestureDetector(
         onTapDown: (d) => _handleUpdate(d.localPosition.dx),

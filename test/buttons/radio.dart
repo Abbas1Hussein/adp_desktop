@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../wrap_app.dart';
 
 void main() {
-  DefaultPlatforms.initialize(AdaptiveTargetPlatform.macOS, isDebugging: true);
+  DefaultsPlatformManager.initialize(DesktopTargetPlatform.macOS, isDebugging: true);
 
   testWidgets(
     'AdaptiveRadio Renders correctly',
@@ -13,11 +13,11 @@ void main() {
       int currentValue = 0;
 
       final colors = [
-        AdaptiveColors.purple,
-        AdaptiveColors.red,
-        AdaptiveColors.cyan,
-        AdaptiveColors.magenta,
-        AdaptiveColors.indigo,
+        AdpColors.purple,
+        AdpColors.red,
+        AdpColors.cyan,
+        AdpColors.magenta,
+        AdpColors.indigo,
       ];
 
       await widgetTester.pumpWidget(
