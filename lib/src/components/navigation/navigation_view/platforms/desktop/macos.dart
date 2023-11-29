@@ -97,6 +97,7 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
             toolBar: widget.appBar?.build(context) as ToolBar,
             children: [
               ContentArea(
+                minWidth: size.width,
                 builder: (context, scrollController) {
                   return widget.tabs[currentIndex];
                 },

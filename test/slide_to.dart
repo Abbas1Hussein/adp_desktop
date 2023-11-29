@@ -6,8 +6,7 @@ extension SlideTo on WidgetTester {
     double value, {
     double paddingOffset = 24.0,
   }) async {
-    final zeroPoint =
-        getTopLeft(slider) + Offset(paddingOffset, getSize(slider).height / 2);
+    final zeroPoint = getTopLeft(slider) + Offset(paddingOffset, getSize(slider).height / 2);
 
     final totalWidth = getSize(slider).width - (2 * paddingOffset);
 

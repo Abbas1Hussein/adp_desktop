@@ -1,9 +1,8 @@
-import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../../core/common/construct/component.dart';
+import '../../core/core.dart';
 
 /// A custom circular progress indicator widget that adapts its appearance based on the platform.
 ///
@@ -16,30 +15,42 @@ import '../../core/common/construct/component.dart';
 class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
   /// Creates an AdaptiveCircularProgressIndicator.
   ///
-  /// The [value] should be between 0 and 100.
+  /// * [semanticLabel] is used for accessibility by screen readers.
+  ///
+  /// * [inactiveColor] the inner color of the progress circle when [value] is null.
+  ///
+  /// * [activeColor] the border color of the progress circle.
+  ///
+  /// * [radius] specifies the radius of the progress circle. Defaults to 15 pixels.
+  ///
+  /// If [value] is non-null, it should be between 0 and 100, representing the progress percentage.
+  /// If [value] is null, the circular progress will be considered indeterminate,
+  /// indicating that the progress is ongoing without a specific completion percentage.
   const AdaptiveCircularProgressIndicator({
     super.key,
     super.builders,
-    this.innerColor,
+    this.inactiveColor,
     this.semanticLabel,
     this.radius = 15,
-    this.borderColor,
+    this.activeColor,
     this.value,
   });
 
   /// The progress value, ranging from 0 to 100.
   final double? value;
 
-  /// The inner color of the progress circle.
-  final Color? innerColor;
-
-  /// The border color of the progress circle.
-  final Color? borderColor;
-
   /// The radius of the progress circle.
   ///
   /// Defaults to 15px.
   final double radius;
+
+  /// The border color of the progress circle.
+  final Color? activeColor;
+
+  /// The inner color of the progress circle.
+  ///
+  /// If [value] is null, it will be ignored.
+  final Color? inactiveColor;
 
   /// The semantic label used by screen readers.
   final String? semanticLabel;
@@ -49,11 +60,11 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context) {
-    if (value != null) {
+    if (value.isNotNull) {
       return Container(
-        decoration: innerColor != null
+        decoration: PlatformRuining.isFakeMacos && activeColor.isNotNull
             ? BoxDecoration(
-                color: innerColor,
+                color: activeColor,
                 backgroundBlendMode: BlendMode.color,
                 shape: BoxShape.circle,
               )
@@ -61,15 +72,15 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
         child: ProgressCircle(
           radius: radius,
           value: progressValue,
-          innerColor: innerColor,
-          borderColor: borderColor,
+          borderColor: activeColor,
+          innerColor: inactiveColor,
           semanticLabel: semanticLabel,
         ),
       );
     }
     return Semantics(
       label: semanticLabel,
-      child: CupertinoActivityIndicator(color: borderColor, radius: radius),
+      child: CupertinoActivityIndicator(color: activeColor, radius: radius),
     );
   }
 
@@ -80,9 +91,9 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
       width: radius * 2,
       child: ProgressRing(
         value: progressValue,
-        activeColor: borderColor,
+        activeColor: activeColor,
         semanticLabel: semanticLabel,
-        backgroundColor: innerColor,
+        backgroundColor: value.isNotNull ? inactiveColor : null,
       ),
     );
   }

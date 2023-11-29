@@ -6,8 +6,7 @@ import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/properties.dart';
 import 'platforms/platforms.dart';
 
-class AdaptiveAppBar
-    extends CoreAdaptiveComponent<NoneProperty, AppBarMacosProperty> {
+class AdaptiveAppBar extends CoreAdaptiveComponent<NoneProperty, AppBarMacosProperty> {
   final Widget? title;
   final Widget? leading;
   final List<Widget>? actions;

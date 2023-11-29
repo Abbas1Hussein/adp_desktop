@@ -5,6 +5,15 @@ import '../../../core/common/construct/component.dart';
 import 'platforms/platforms.dart';
 
 class AdaptiveDatePicker extends CoreAdaptiveComponent<DatePickerWindowsProperty, DatePickerMacosProperty> {
+  const AdaptiveDatePicker({
+    super.key,
+    super.builders,
+    super.properties,
+    this.onCancel,
+    this.onDateTimeSelected,
+    required this.initialDate,
+  });
+
   /// The initial date displayed when the date picker is first shown.
   final DateTime initialDate;
 
@@ -16,15 +25,6 @@ class AdaptiveDatePicker extends CoreAdaptiveComponent<DatePickerWindowsProperty
   /// It provides the selected [DateTime] as an argument.
   /// It can be null if you don't need to handle date selection.
   final ValueChanged<DateTime>? onDateTimeSelected;
-
-  const AdaptiveDatePicker({
-    super.key,
-    super.builders,
-    super.properties,
-    this.onCancel,
-    this.onDateTimeSelected,
-    required this.initialDate,
-  });
 
   @override
   Widget windows(BuildContext context) {

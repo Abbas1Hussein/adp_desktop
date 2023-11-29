@@ -6,6 +6,12 @@ import '../../../core/common/construct/component.dart';
 import '../../../core/extension/widget.dart';
 import '../menu/menu.dart';
 
+/// A custom switch button widget that adapts its appearance based on the platform.
+///
+/// Use this widget to create switch buttons with platform-specific
+/// styling and behavior:
+/// - On macOS, [MacosSwitch] is utilized.
+/// - On Windows, [ToggleSwitch] is used.
 class AdaptiveSwitch extends CoreAdaptiveComponent {
   const AdaptiveSwitch({
     super.key,

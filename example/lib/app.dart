@@ -4,7 +4,8 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.macOS,
+    DesktopTargetPlatform.windows,
+    targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
   runApp(const App());
@@ -15,11 +16,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("isFakeMacos: ${PlatformRuining.isFakeMacos}");
-    print("isRealMacos: ${PlatformRuining.isRealMacos}");
-    print(PlatformRuining.targetPlatform);
-    print("isFakeWindows: ${PlatformRuining.isFakeWindows}");
-    print("isRealWindows: ${PlatformRuining.isRealWindows}");
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
@@ -86,39 +82,13 @@ class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AdaptiveCircularProgressIndicator(
-            value: currentValue,
-            //  borderColor: MacosColors.systemTealColor,
-            //  innerColor: MacosColors.systemPinkColor,
-          ),
-          const SizedBox(height: 4.0),
-          AdaptiveFlatButton(
-            onPressed: inc,
-            child: const Text('inc Circular'),
-          ),
-          const SizedBox(height: 4.0),
-          AdaptiveFlatButton(
-            onPressed: dis,
-            child: const Text('dis Circular'),
-          ),
-        ],
-      ),
+    return AdaptiveSlider(
+      value: currentValue,
+      onChanged:  (value) {
+        setState(() {
+          currentValue = value;
+        });
+      },
     );
-  }
-
-  void inc() {
-    setState(() {
-      currentValue += 10;
-    });
-  }
-
-  void dis() {
-    setState(() {
-      currentValue -= 10;
-    });
   }
 }

@@ -29,7 +29,7 @@ extension DesktopTargetPlatformEx on TargetPlatform {
       case TargetPlatform.windows:
         return DesktopTargetPlatform.windows;
 
-      default:throw UnsupportedPlatformException(name);
+      default: throw UnsupportedPlatformException(name);
     }
   }
 }
