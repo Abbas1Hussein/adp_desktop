@@ -1,9 +1,7 @@
+import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
-
-import '../../core/common/construct/component.dart';
-import '../../core/extension/object.dart';
 
 /// A custom slider widget that adapts its appearance based on the platform.
 ///
@@ -35,17 +33,25 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
     super.builders,
     this.min = 0.0,
     this.max = 100.0,
-    this.divisions,
     this.thumbColor,
     this.activeColor,
     this.inactiveColor,
-    this.maxWidth = double.infinity,
+    this.divisions,
+    this.divisionsItems = const [],
+    this.divisionsDirection = DivisionsDirection.bottom,
     this.mouseCursor = SystemMouseCursors.grabbing,
+    this.maxWidth = double.infinity,
     required this.value,
     required this.onChanged,
   })  : assert(min < max, "min must be less than max"),
-        assert(value >= min && value <= max,
-            'Value $value is not between minimum $min and maximum $max');
+        assert(
+          divisionsItems.length == 0 || divisionsItems.length == divisions,
+          "Mismatch between divisions ($divisions) and divisionsItems (${divisionsItems.length}) length",
+        ),
+        assert(
+          value >= min && value <= max,
+          'Value $value is not between minimum $min and maximum $max',
+        );
 
   /// The current value of the slider.
   final double value;
@@ -80,20 +86,26 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
   /// If null, the slider is continuous.
   final int? divisions;
 
+  /// A list of widgets representing the divisions to be displayed alongside the slider.
+  ///
+  /// The length of this list must match the value specified in [divisions].
+  ///
+  /// Typically used with a List of [Text] widgets.
+  final List<Widget> divisionsItems;
+
+  /// The direction in which the divisions are displayed in relation to the slider.
+  ///
+  /// If [divisionsDirection] is set to:
+  /// - [DivisionsDirection.top], divisionsItems will be displayed above the slider.
+  /// - [DivisionsDirection.bottom], divisionsItems will be displayed below the slider.
+  ///
+  /// Defaults to [DivisionsDirection.bottom].
+  final DivisionsDirection divisionsDirection;
+
   /// The mouse cursor to be used when hovering over the slider.
   ///
   /// by Defaults [SystemMouseCursors.grabbing].
   final MouseCursor mouseCursor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 25, maxWidth: maxWidth),
-        child: super.build(context),
-      ),
-    );
-  }
 
   @override
   Widget macos(BuildContext context) {
@@ -115,6 +127,7 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
         tickBackgroundColor: onChanged.isNotNull
             ? inactiveColor ?? MacosColors.tickBackgroundColor
             : CupertinoColors.quaternarySystemFill,
+        semanticLabel: value.toStringAsFixed(0),
         thumbColor: thumbColor ?? MacosColors.sliderThumbColor,
       ),
     );
@@ -129,14 +142,69 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
       onChanged: onChanged,
       divisions: divisions,
       style: SliderThemeData(
+        useThumbBall: divisions.isNull,
         thumbColor: thumbColor.isNotNull ? ButtonState.all(thumbColor) : null,
         activeColor:
             activeColor.isNotNull ? ButtonState.all(activeColor) : null,
         inactiveColor:
             inactiveColor.isNotNull ? ButtonState.all(inactiveColor) : null,
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(horizontal: 8),
       ),
+      label: value.toStringAsFixed(0),
       mouseCursor: mouseCursor,
     );
   }
+
+  Widget _buildMacosDivisions() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: divisionsItems,
+    );
+  }
+
+  Widget _buildWindowsDivisions() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.5, right: 13.5),
+      child: Row(
+        children: List.generate(
+          divisionsItems.length,
+          (index) => Expanded(child: divisionsItems[index]),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSliderWithDivisions(BuildContext context) {
+    final adpDivisions = adaptiveValue<Widget>(
+      macos: () => _buildMacosDivisions(),
+      windows: () => _buildWindowsDivisions(),
+    );
+    return Column(
+      children: [
+        if (divisionsDirection == DivisionsDirection.top) adpDivisions,
+        super.build(context),
+        if (divisionsDirection == DivisionsDirection.bottom) adpDivisions,
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: 55, maxWidth: maxWidth),
+        child: (divisions.isNotNull && divisionsItems.isNotEmpty)
+            ? _buildSliderWithDivisions(context)
+            : super.build(context),
+      ),
+    );
+  }
+}
+
+enum DivisionsDirection {
+  /// Divisions will be displayed above the slider.
+  top,
+
+  /// Divisions will be displayed below the slider.
+  bottom,
 }
