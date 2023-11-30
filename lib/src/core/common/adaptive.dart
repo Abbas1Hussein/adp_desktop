@@ -6,7 +6,6 @@ import 'platform_ruining.dart';
 typedef Value<T> = T Function();
 
 /// Returns the adaptive value based on the current platform.
-/// If no function is provided for the current platform, an exception is thrown.
 T adaptiveValue<T>({required Value<T> macos, required Value<T> windows}) {
   if (kIsWeb) {
     return _handleWebPlatform<T>(macos, windows);
