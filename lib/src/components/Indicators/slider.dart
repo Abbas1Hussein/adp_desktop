@@ -3,6 +3,14 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+enum DivisionsDirection {
+  /// Divisions will be displayed above the slider.
+  top,
+
+  /// Divisions will be displayed below the slider.
+  bottom,
+}
+
 /// A custom slider widget that adapts its appearance based on the platform.
 ///
 /// Use this widget to create sliders with platform-specific
@@ -40,7 +48,8 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
     this.divisionsItems = const [],
     this.divisionsDirection = DivisionsDirection.bottom,
     this.mouseCursor = SystemMouseCursors.grabbing,
-    this.maxWidth = double.infinity,
+    this.vertical = false,
+    this.size = double.infinity,
     required this.value,
     required this.onChanged,
   })  : assert(min < max, "min must be less than max"),
@@ -70,7 +79,7 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
   /// The maximum width of the slider.
   ///
   /// If not specified, it will default to [double.infinity].
-  final double maxWidth;
+  final double size;
 
   /// The color of the active portion of the slider.
   final Color? activeColor;
@@ -101,6 +110,15 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
   ///
   /// Defaults to [DivisionsDirection.bottom].
   final DivisionsDirection divisionsDirection;
+
+  /// Determines the orientation of the slider.
+  ///
+  /// If set to `true`, the slider is displayed vertically,
+  /// making it useful for representing real-world values traditionally visualized in a
+  /// vertical orientation, such as temperature levels or audio volume.
+  ///
+  /// Defaults to `false` for horizontal orientation.
+  final bool vertical;
 
   /// The mouse cursor to be used when hovering over the slider.
   ///
@@ -190,21 +208,16 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 55, maxWidth: maxWidth),
-        child: (divisions.isNotNull && divisionsItems.isNotEmpty)
-            ? _buildSliderWithDivisions(context)
-            : super.build(context),
+    return RotatedBox(
+      quarterTurns: vertical ? 3 : 0,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: 55, maxWidth: size),
+          child: (divisions.isNotNull && divisionsItems.isNotEmpty)
+              ? _buildSliderWithDivisions(context)
+              : super.build(context),
+        ),
       ),
     );
   }
-}
-
-enum DivisionsDirection {
-  /// Divisions will be displayed above the slider.
-  top,
-
-  /// Divisions will be displayed below the slider.
-  bottom,
 }
