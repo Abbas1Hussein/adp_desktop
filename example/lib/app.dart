@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -78,16 +78,14 @@ class CustomAdaptiveWidget extends StatefulWidget {
 }
 
 class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
-  double currentValue = 0;
+  double currentValue = 100;
 
   @override
   Widget build(BuildContext context) {
     return AdaptiveSlider(
       value: currentValue,
-      onChanged:  (value) {
-        setState(() {
-          currentValue = value;
-        });
+      onChanged: (value) {
+        setState(() => currentValue = value);
       },
     );
   }
