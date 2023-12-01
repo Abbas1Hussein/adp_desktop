@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 export 'properties/properties.dart';
 export 'checkbox/checkbox.dart';
