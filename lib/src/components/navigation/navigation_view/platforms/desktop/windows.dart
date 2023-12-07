@@ -3,127 +3,119 @@ import 'package:fluent_ui/fluent_ui.dart';
 import '../../../../../core/common/construct/properties.dart';
 import '../../../../layout/appbar/platforms/desktop/windows.dart';
 import '../../navigation_view_item.dart';
+import '../../navigation_view_size.dart';
 
-class NavigationViewWindows extends StatefulWidget {
-  final NavigationViewWindowsProperty? property;
-  final List<Widget> tabs;
-  final List<AdaptiveNavigationViewItem>? items;
-
-  final AppBarWindows? appBar;
-
-  final Color? backgroundColor;
-  final Color? backgroundColorBar;
-
-  /// The color of the tile when unselected.
-  /// If null, [NavigationPaneThemeData.tileColor] is used
-  final Color? tileColor;
-
-  /// The color of the tile when unselected.
-  /// If null, [NavigationPaneThemeData.tileColor]/hovering is used
-  final Color? selectedTileColor;
-
-  /// The current selected index. It must be in the range of 0 to
-  /// [items.length]
-  final int? currentIndex;
-
-  /// Called when the current selected index should be changed.
-  final ValueChanged<int>? onChanged;
-
+class NavigationViewWindows extends StatelessWidget {
   const NavigationViewWindows({
     super.key,
+    this.size,
     this.items,
     this.appBar,
     this.property,
     this.tileColor,
     this.onChanged,
-    this.currentIndex,
-    this.backgroundColor,
-    this.backgroundColorBar,
+    this.searchField,
+    this.currentIndex = 0,
     this.selectedTileColor,
     required this.tabs,
   });
 
-  @override
-  State<NavigationViewWindows> createState() => _NavigationViewWindowsState();
-}
+  /// The Windows-specific property for customizing the navigation view.
+  final NViewWindowsProperty? property;
 
-class _NavigationViewWindowsState extends State<NavigationViewWindows> {
-  late int currentIndex;
+  /// The list of widgets representing the body of each navigation item.
+  final List<Widget> tabs;
 
-  @override
-  void initState() {
-    currentIndex = widget.currentIndex ?? 0;
-    super.initState();
-  }
+  /// The list of navigation items.
+  final List<AdaptiveNavigationViewItem>? items;
+
+  /// The adaptive app bar displayed at the top of the navigation view.
+  final AppBarWindows? appBar;
+
+  /// The color of the tile when unselected.
+  final Color? tileColor;
+
+  /// The color of the tile when selected.
+  final Color? selectedTileColor;
+
+  /// The current selected index.
+  final int currentIndex;
+
+  /// Called when the current selected index should be changed.
+  final ValueChanged<int>? onChanged;
+
+  /// An optional search field widget.
+  final Widget? searchField;
+
+  /// The adaptive size constraints for the navigation view.
+  final AdaptiveNavigationViewSize? size;
 
   @override
   Widget build(BuildContext context) {
     return NavigationView(
-      appBar: widget.appBar?.toNavigationAppBar(context),
+      appBar: appBar?.toNavigationAppBar(context),
       pane: NavigationPane(
-        header: widget.property?.header ?? const SizedBox.shrink(),
-        leading: widget.property?.leading,
-        size: widget.property?.size,
-        scrollController: widget.property?.scrollController,
-        autoSuggestBox: widget.property?.autoSuggestBox,
-        autoSuggestBoxReplacement: widget.property?.autoSuggestBoxReplacement,
-        displayMode: widget.property?.displayMode ?? PaneDisplayMode.auto,
-        indicator:
-            widget.property?.indicator ?? const StickyNavigationIndicator(),
-        menuButton: widget.property?.menuButton,
-        scrollBehavior: widget.property?.scrollBehavior,
-        selected: currentIndex,
-        onChanged: _defaultChangeIndex,
+        size: NavigationPaneSize(
+          openMaxWidth: size?.maxWidth,
+          openMinWidth: size?.minWidth,
+          openWidth: size?.startWidth,
+          headerHeight: size?.topOffset,
+        ),
         items: _buildItems(),
+        selected: currentIndex,
+        autoSuggestBox: searchField,
+        onChanged: onChanged,
+        leading: property?.leading,
+        menuButton: property?.menuButton,
+        scrollBehavior: property?.scrollBehavior,
+        scrollController: property?.scrollController,
+        header: property?.header ?? const SizedBox.shrink(),
+        displayMode: property?.displayMode ?? PaneDisplayMode.auto,
+        indicator: property?.indicator ?? const StickyNavigationIndicator(),
+        autoSuggestBoxReplacement: searchField != null ? const Icon(FluentIcons.search) : null,
       ),
-      transitionBuilder: widget.property?.transitionBuilder ?? (child, animation) {
+      onOpenSearch: property?.onOpenSearch,
+      contentShape: property?.contentShape ?? RoundedRectangleBorder(
+            side: BorderSide(
+              color: FluentTheme.of(context).resources.cardStrokeColorDefault,
+            ),
+          ),
+      transitionBuilder: property?.transitionBuilder ?? (child, animation) {
             return DrillInPageTransition(
               animation: animation,
               child: SafeArea(child: child),
             );
           },
-      contentShape: widget.property?.contentShape ?? RoundedRectangleBorder(
-            side: BorderSide(
-              color: FluentTheme.of(context).resources.cardStrokeColorDefault,
-            ),
-          ),
-      onOpenSearch: widget.property?.onOpenSearch,
-      paneBodyBuilder: widget.property?.paneBodyBuilder,
     );
   }
 
   List<NavigationPaneItem> _buildItems() {
-    if (widget.items == null) return [];
+    if (items == null || items!.isEmpty) return [];
 
-    return List.generate(
-      widget.tabs.length,
-      (index) {
-        final item = widget.items![index];
-        return PaneItem(
-          mouseCursor: widget.property?.mouseCursor,
-          selectedTileColor: widget.selectedTileColor != null
-              ? ButtonState.all(widget.selectedTileColor)
-              : null,
-          tileColor: widget.tileColor != null
-              ? ButtonState.all(widget.tileColor)
-              : null,
-          icon: item.icon,
-          title: Text(item.label!),
-          body: widget.tabs[index],
-        );
+    final body = tabs[currentIndex];
+
+    return items!.map(
+      (e) {
+        return e.toPaneItem(body, tileColor, selectedTileColor);
       },
-    );
-  }
-
-  void _defaultChangeIndex(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-    widget.onChanged?.call(index);
+    ).toList();
   }
 }
 
-class NavigationViewWindowsProperty extends CoreWindowsProperty {
+class NViewWindowsProperty extends CoreWindowsProperty {
+  const NViewWindowsProperty({
+    this.header,
+    this.leading,
+    this.indicator,
+    this.menuButton,
+    this.displayMode,
+    this.onOpenSearch,
+    this.contentShape,
+    this.transitionBuilder,
+    this.scrollController,
+    this.scrollBehavior,
+  });
+
   /// Use this property to customize how the pane will be displayed.
   /// [PaneDisplayMode.auto] is used by default.
   final PaneDisplayMode? displayMode;
@@ -132,12 +124,6 @@ class NavigationViewWindowsProperty extends CoreWindowsProperty {
   ///
   /// If null, [buildMenuButton] is used
   final Widget? menuButton;
-
-  /// The size of the pane in its various mode.
-  final NavigationPaneSize? size;
-
-  /// {@macro fluent_ui.controls.inputs.HoverButton.mouseCursor}
-  final MouseCursor? mouseCursor;
 
   /// The header of the pane.
   ///
@@ -149,17 +135,6 @@ class NavigationViewWindowsProperty extends CoreWindowsProperty {
   /// ![Top Pane Header](https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/images/navview-freeform-header-top.png)
   /// ![Left Pane Header](https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/images/navview-freeform-header-left.png)
   final Widget? header;
-
-  /// An optional control to allow for app-level search. Usually
-  /// an [AutoSuggestBox]
-  final Widget? autoSuggestBox;
-
-  /// Used when the current display mode is [PaneDisplayMode.compact]
-  /// as a replacement to [autoSuggestBox]. It's only displayed if
-  /// [autoSuggestBox] is non-null.
-  ///
-  /// It's usually an [Icon] with [FluentIcons.search] as the icon.
-  final Widget? autoSuggestBoxReplacement;
 
   /// The scroll controller used by the pane when [displayMode] is
   /// [PaneDisplayMode.compact] and [PaneDisplayMode.open].
@@ -212,36 +187,4 @@ class NavigationViewWindowsProperty extends CoreWindowsProperty {
   ///
   ///  * --> default used [DrillInPageTransition]
   final AnimatedSwitcherTransitionBuilder? transitionBuilder;
-
-  /// Can be used to override the widget that is built from
-  /// the [PaneItem.body]. Only used if [pane] is provided.
-  /// If nothing is selected, `body` will be null.
-  ///
-  /// This can be useful if you are using router-based navigation,
-  /// and the body of the navigation pane is dynamically determined or
-  /// affected by the current route rather than just by the currently
-  /// selected pane.
-  ///
-  /// If this is not null then this builder will be responsible for state
-  /// management of the child widget. One way to accomplish this is to
-  /// use an [IndexedStack].
-  final NavigationContentBuilder? paneBodyBuilder;
-
-  const NavigationViewWindowsProperty({
-    this.transitionBuilder,
-    this.paneBodyBuilder,
-    this.contentShape,
-    this.onOpenSearch,
-    this.displayMode,
-    this.menuButton,
-    this.mouseCursor,
-    this.size,
-    this.header,
-    this.autoSuggestBox,
-    this.autoSuggestBoxReplacement,
-    this.scrollController,
-    this.scrollBehavior,
-    this.leading,
-    this.indicator,
-  });
 }

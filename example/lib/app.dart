@@ -42,30 +42,58 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<AdpIcons> mainMenuIcons = const [
+    AdpIcons.app, // Main Menu
+    AdpIcons.tvFilled, // TV Series
+    AdpIcons.tv, // Movies
+    AdpIcons.save, // Saved
+    AdpIcons.document, // Watch Later
+    AdpIcons.downloadFile, // Downloads
+    AdpIcons.settings, // Settings
+  ];
+  final List<String> mainMenuTexts = const [
+    'القائمة الرئيسية', // Main Menu
+    'المسلسلات', // TV Series
+    'الافلام', // Movies
+    'المحفوظات', // Saved
+    'المشاهدة لاحقًا', // Watch Later
+    'التنزيلات', // Downloads
+    'الاعدادات', // Settings
+  ];
+
+  late List<AdaptiveNavigationViewItem> items;
+
+  int get mainMenuLength => mainMenuTexts.length;
+
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    items = List.generate(
+      mainMenuLength,
+      (index) => AdaptiveNavigationViewItem(
+        icon: AdaptiveIcon(mainMenuIcons[index]),
+        label: Text(mainMenuTexts[index]),
+      ),
+    );
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AdaptiveNavigationView(
-      appBar: const AdaptiveAppBar(title: Text('Adaptive AppBar')),
-      currentIndex: 0,
-      tabs: const [
-        CustomAdaptiveWidget(),
-        Center(child: AdaptiveRatingIndicator(rating: 6, amount: 11)),
-        Center(),
-      ],
-      items: const [
-        AdaptiveNavigationViewItem(
-          icon: AdaptiveIcon(AdpIcons.add),
-          label: 'first',
-        ),
-        AdaptiveNavigationViewItem(
-          icon: AdaptiveIcon(AdpIcons.arrowDown),
-          label: 'second',
-        ),
-        AdaptiveNavigationViewItem(
-          icon: AdaptiveIcon(AdpIcons.arrowUp),
-          label: 'third',
-        ),
-      ],
+      items: items,
+      children: items.map(
+        (element) {
+          return Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [element.label, element.icon],
+            ),
+          );
+        },
+      ).toList(),
     );
   }
 }
@@ -82,11 +110,9 @@ class _CustomAdaptiveWidgetState extends State<CustomAdaptiveWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveSlider(
-      value: currentValue,
-      onChanged: (value) {
-        setState(() => currentValue = value);
-      },
+    return const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text('AdaptiveAppBar'),
     );
   }
 }

@@ -20,6 +20,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent<NoneProperty, AppBarMacosProp
   final TextStyle? toolbarTextStyle;
   final TextStyle? titleTextStyle;
   final double? titleWidth;
+  final double? toolbarHeight;
 
   const AdaptiveAppBar({
     super.key,
@@ -31,6 +32,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent<NoneProperty, AppBarMacosProp
     this.foregroundColor,
     this.actionsIconTheme,
     this.centerTitle,
+    this.toolbarHeight,
     this.automaticallyImplyLeading = false,
     this.toolbarOpacity = 1.0,
     this.leadingWidth,
@@ -50,12 +52,13 @@ class AdaptiveAppBar extends CoreAdaptiveComponent<NoneProperty, AppBarMacosProp
       titleTextStyle: titleTextStyle,
       foregroundColor: foregroundColor,
       actionsIconTheme: actionsIconTheme,
-      automaticallyImplyLeading: automaticallyImplyLeading,
       centerTitle: centerTitle,
       leadingWidth: leadingWidth,
       titleWidth: titleWidth,
       toolbarOpacity: toolbarOpacity,
       toolbarTextStyle: toolbarTextStyle,
+      toolbarHeight: toolbarHeight?.clamp(35, 125),
+      automaticallyImplyLeading: automaticallyImplyLeading,
     );
   }
 
@@ -69,12 +72,13 @@ class AdaptiveAppBar extends CoreAdaptiveComponent<NoneProperty, AppBarMacosProp
       titleTextStyle: titleTextStyle,
       foregroundColor: foregroundColor,
       actionsIconTheme: actionsIconTheme,
-      automaticallyImplyLeading: automaticallyImplyLeading,
       centerTitle: centerTitle,
       leadingWidth: leadingWidth,
       titleWidth: titleWidth,
       toolbarOpacity: toolbarOpacity,
       toolbarTextStyle: toolbarTextStyle,
+      toolbarHeight: toolbarHeight?.clamp(25, 125),
+      automaticallyImplyLeading: automaticallyImplyLeading,
     );
   }
 }

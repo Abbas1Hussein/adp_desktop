@@ -4,102 +4,108 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../../../core/common/construct/properties.dart';
 import '../../../../layout/appbar/platforms/desktop/macos.dart';
 import '../../navigation_view_item.dart';
+import '../../navigation_view_size.dart';
 
 class NavigationViewMacos extends StatefulWidget {
-  final NavigationViewMacosProperty? property;
+  const NavigationViewMacos({
+    super.key,
+    this.size,
+    this.items,
+    this.appBar,
+    this.property,
+    this.onChanged,
+    this.searchField,
+    this.selectedColor,
+    this.currentIndex = 0,
+    this.unselectedColor,
+    required this.tabs,
+  });
+
+  /// The macOS-specific property for customizing the navigation view.
+  final NViewMacosProperty? property;
+
+  /// The list of widgets representing the content of each navigation item.
   final List<Widget> tabs;
+
+  /// The list of navigation items.
   final List<AdaptiveNavigationViewItem>? items;
 
+  /// The app bar displayed at the top of the navigation view.
   final AppBarMacos? appBar;
 
   /// The color to paint this widget as when selected.
-  ///
-  /// If null, [MacosThemeData.primaryColor] is used.
   final Color? selectedColor;
 
   /// The color to paint this widget as when unselected.
-  ///
-  /// Defaults to transparent.
   final Color? unselectedColor;
 
-  /// The current selected index. It must be in the range of 0 to
-  /// [items.length]
-  final int? currentIndex;
+  /// The current selected index.
+  final int currentIndex;
 
   /// Called when the current selected index should be changed.
   final ValueChanged<int>? onChanged;
 
-  const NavigationViewMacos({
-    super.key,
-    this.items,
-    required this.tabs,
-    this.selectedColor,
-    this.unselectedColor,
-    this.currentIndex,
-    this.onChanged,
-    this.property,
-    this.appBar,
-  });
+  /// An optional search field widget.
+  final Widget? searchField;
+
+  /// The adaptive size constraints for the navigation view.
+  final AdaptiveNavigationViewSize? size;
 
   @override
   State<NavigationViewMacos> createState() => _NavigationViewMacosState();
 }
 
 class _NavigationViewMacosState extends State<NavigationViewMacos> {
-  late int currentIndex;
-
-  @override
-  void initState() {
-    currentIndex = widget.currentIndex ?? 0;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+
+    late final adpSize = widget.size;
+
     return MacosWindow(
-      backgroundColor: widget.property?.backgroundColor,
-      sidebarState:
-          widget.property?.sidebarState ?? NSVisualEffectViewState.active,
-      disableWallpaperTinting: widget.property?.disableWallpaperTinting ?? true,
+      sidebarState: widget.property?.sidebarState ??
+          NSVisualEffectViewState.followsWindowActiveState,
+      disableWallpaperTinting:
+          widget.property?.disableWallpaperTinting ?? false,
       sidebar: Sidebar(
-        padding: widget.property?.padding ?? EdgeInsets.zero,
-        decoration: widget.property?.decoration,
-        top: widget.property?.top,
+        top: widget.searchField,
         bottom: widget.property?.bottom,
+        decoration: widget.property?.decoration,
         dragClosed: widget.property?.dragClosed ?? true,
         dragClosedBuffer: widget.property?.dragClosedBuffer,
         isResizable: widget.property?.isResizable ?? true,
         shownByDefault: widget.property?.shownByDefault ?? true,
         snapToStartBuffer: widget.property?.snapToStartBuffer,
-        topOffset: widget.property?.topOffset ?? 51.0,
-        windowBreakpoint: widget.property?.windowBreakpoint ?? 556.0,
-        minWidth: size.width * 0.2,
-        maxWidth: size.width * 0.2,
-        startWidth: size.width * 0.2,
-        builder: (context, scrollController) => SidebarItems(
-          shape: widget.property?.shape,
-          cursor: widget.property?.cursor ?? SystemMouseCursors.basic,
-          currentIndex: currentIndex,
-          onChanged: _defaultChangeIndex,
-          itemSize: widget.property?.itemSize ?? SidebarItemSize.medium,
-          unselectedColor: widget.unselectedColor,
-          selectedColor: widget.selectedColor,
-          items: widget.items?.map((e) {
-                return SidebarItem(label: Text(e.label!), leading: e.icon);
-              }).toList() ??
-              [],
-        ),
+        minWidth: adpSize?.minWidth ?? size.width * 0.2,
+        maxWidth: adpSize?.maxWidth ?? size.width * 0.3,
+        startWidth: adpSize?.startWidth ?? size.width * 0.2,
+        topOffset: adpSize?.topOffset ?? 0.0,
+        windowBreakpoint: widget.property?.windowBreakpoint ?? 736.0,
+        builder: (context, scrollController) {
+          return SidebarItems(
+            items: _buildItems(),
+            shape: widget.property?.shape,
+            selectedColor: widget.selectedColor,
+            unselectedColor: widget.unselectedColor,
+            currentIndex: widget.currentIndex,
+            onChanged: (value) => widget.onChanged?.call(value),
+            itemSize: widget.property?.itemSize ?? SidebarItemSize.large,
+            scrollController: scrollController,
+          );
+        },
       ),
       child: CupertinoTabView(
         builder: (context) {
           return MacosScaffold(
-            toolBar: widget.appBar?.build(context) as ToolBar,
+            toolBar: widget.appBar?.build(context) as ToolBar?,
             children: [
               ContentArea(
                 minWidth: size.width,
                 builder: (context, scrollController) {
-                  return widget.tabs[currentIndex];
+                  if (widget.tabs.isNotEmpty) {
+                    return widget.tabs[widget.currentIndex];
+                  }
+                  return const SizedBox.shrink();
                 },
               ),
             ],
@@ -109,21 +115,28 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
     );
   }
 
-  void _defaultChangeIndex(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-    widget.onChanged?.call(index);
+  List<SidebarItem> _buildItems() {
+    if (widget.items == null) return [];
+
+    return widget.items!.map((e) => e.toSidebarItem()).toList();
   }
 }
 
-class NavigationViewMacosProperty extends CoreMacosProperty {
-  /// The builder that creates a child to display in this widget, which will
-  /// use the provided [_scrollController] to enable the scrollbar to work.
-  ///
-  /// Pass the [scrollController] obtained from this method to a scrollable
-  /// widget used in this method to work with the internal [MacosScrollbar].
-  final ScrollableWidgetBuilder? builder;
+class NViewMacosProperty extends CoreMacosProperty {
+  const NViewMacosProperty({
+    this.shape,
+    this.bottom,
+    this.itemSize,
+    this.decoration,
+    this.dragClosed,
+    this.isResizable,
+    this.sidebarState,
+    this.shownByDefault,
+    this.windowBreakpoint,
+    this.dragClosedBuffer,
+    this.snapToStartBuffer,
+    this.disableWallpaperTinting,
+  });
 
   /// The [BoxDecoration] to paint behind the child in the [builder].
   final BoxDecoration? decoration;
@@ -138,61 +151,22 @@ class NavigationViewMacosProperty extends CoreMacosProperty {
   /// Defaults to `true`.
   final bool? dragClosed;
 
-  /// Specifies the background color for the Window.
-  ///
-  /// The default colors from the theme would be used if no color is specified.
-  final Color? backgroundColor;
-
   /// If [dragClosed] is true, the sidebar will be hidden when dragged this far
   /// below [minWidth].  Defaults to half of [minWidth]. Set to 0 to cause the
   /// sidebar to close at exactly [minWidth].
   final double? dragClosedBuffer;
 
-  /// If this and [startWidth] are both set, the sidebar will snap back to
-  /// [startWidth] when dragged within this many pixels of it.
+  /// If this and [AdaptiveNavigationViewSize.startWidth] are both set, the sidebar will snap back to
+  /// [AdaptiveNavigationViewSize.startWidth] when dragged within this many pixels of it.
   final double? snapToStartBuffer;
-
-  /// The maximum width that this sidebar can be resized to.
-  ///
-  /// The [maxWidth] should not be less than the [minWidth].
-  ///
-  /// Defaults to `400.0`
-  final double? maxWidth;
-
-  /// The minimum width that this sidebar can be resized to.
-  ///
-  /// The [minWidth] should not be more than the [maxWidth].
-  final double? minWidth;
-
-  /// The default width that this `Sidebar` first starts with.
-  ///
-  /// The [startWidth] should not be more than the [maxWidth] or
-  /// less than the [minWidth].
-  final double? startWidth;
-
-  /// Empty space to inscribe inside the title bar. The [child], if any, is
-  /// placed inside this padding.
-  ///
-  /// Defaults to `EdgeInsets.zero`.
-  final EdgeInsets? padding;
 
   /// Specifies the width of the window at which this [Sidebar] will be hidden.
   final double? windowBreakpoint;
-
-  /// Widget that should be displayed at the top of the [Sidebar].
-  ///
-  /// Commonly a [MacosSearchField].
-  final Widget? top;
 
   /// Widget that should be displayed at the bottom of the [Sidebar].
   ///
   /// Commonly a [MacosListTile].
   final Widget? bottom;
-
-  /// Specifies the top offset of the sidebar.
-  ///
-  /// Defaults to `51.0` which levels it up with the default height of the [TitleBar]
-  final double? topOffset;
 
   /// Whether the sidebar should be open by default or not.
   ///
@@ -240,37 +214,8 @@ class NavigationViewMacosProperty extends CoreMacosProperty {
   /// [selectedColor].
   final ShapeBorder? shape;
 
-  /// Specifies the kind of cursor to use for all sidebar items.
-  ///
-  /// Defaults to [SystemMouseCursors.basic].
-  final MouseCursor? cursor;
-
   /// The size specifications for all [items].
   ///
   /// Defaults to [SidebarItemSize.medium].
   final SidebarItemSize? itemSize;
-
-  const NavigationViewMacosProperty({
-    this.shape,
-    this.itemSize,
-    this.backgroundColor,
-    this.cursor,
-    this.builder,
-    this.sidebarState,
-    this.decoration,
-    this.isResizable,
-    this.dragClosed,
-    this.disableWallpaperTinting,
-    this.dragClosedBuffer,
-    this.snapToStartBuffer,
-    this.maxWidth,
-    this.minWidth,
-    this.startWidth,
-    this.padding,
-    this.windowBreakpoint,
-    this.top,
-    this.bottom,
-    this.topOffset,
-    this.shownByDefault,
-  });
 }

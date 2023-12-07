@@ -1,4 +1,3 @@
-
 export 'tab_view/tab.dart';
 export 'tab_view/tab_view.dart';
 export 'tab_view/platforms/platforms.dart'
@@ -8,10 +7,10 @@ export 'tab_view/platforms/platforms.dart'
         TabViewMacosProperty;
 
 export 'navigation_view/navigation_view.dart';
+export 'navigation_view/navigation_view_size.dart';
 export 'navigation_view/navigation_view_item.dart';
 export 'navigation_view/platforms/platforms.dart'
     show
-
-        NavigationViewWindowsProperty,
-        NavigationViewMacosProperty;
+        NViewWindowsProperty,
+        NViewMacosProperty;
 

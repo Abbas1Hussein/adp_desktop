@@ -6,8 +6,7 @@ abstract class AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuItemEntry();
 }
 
-class AdaptivePulldownMenuDivider<T>
-    implements AdaptivePulldownMenuItemEntry<T> {
+class AdaptivePulldownMenuDivider<T> implements AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuDivider();
 }
 
@@ -126,4 +125,5 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
       child: child,
     );
   }
+
 }

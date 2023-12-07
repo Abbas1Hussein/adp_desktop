@@ -20,8 +20,29 @@ class AdaptiveScaffold extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context) {
+    final appBarWindows = appBar?.windows(context) as AppBarWindows?;
     return ScaffoldPage(
-      header: appBar?.windows(context),
+      header: PageHeader(
+        title: appBarWindows?.title,
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: appBarWindows?.leading,
+        ),
+        commandBar: CommandBar(
+          primaryItems: [
+            CommandBarButton(
+              label: const Text('label'),
+              icon: const Icon(FluentIcons.label),
+              onPressed: () {},
+            ),
+            CommandBarButton(
+              label: const Text('label 2'),
+              icon: const Icon(FluentIcons.label),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
       content: SafeArea(
         child: Mica(
           elevation: 10.0,
@@ -37,8 +58,7 @@ class AdaptiveScaffold extends CoreAdaptiveComponent {
     final appBarMacos = appBar?.macos(context) as AppBarMacos?;
     return MacosScaffold(
       backgroundColor: backgroundColor,
-      toolBar:
-          appBarMacos != null ? appBarMacos.build(context) as ToolBar : null,
+      toolBar: appBarMacos != null ? appBarMacos.build(context) as ToolBar : null,
       children: [
         ContentArea(
           builder: (context, scrollController) {

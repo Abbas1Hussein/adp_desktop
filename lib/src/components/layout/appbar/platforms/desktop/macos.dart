@@ -1,7 +1,10 @@
+import 'package:adp_desktop/src/components/buttons/buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../../core/common/construct/properties.dart';
+import '../../../../../core/extension/object.dart';
+import '../../appbar_action.dart';
 
 /// Defines the height of a regular-sized [ToolBar]
 const _kToolbarHeight = 52.0;
@@ -55,7 +58,9 @@ class AppBarMacos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final styledTitle = title != null
+    final typography = MacosTheme.of(context).typography;
+
+    final styledTitle = title.isNotNull
         ? DefaultTextStyle(
             maxLines: 1,
             style: titleTextStyle ??
@@ -63,7 +68,7 @@ class AppBarMacos extends StatelessWidget {
             child: title!,
           )
         : null;
-    final leadingWidget = leading != null
+    final leadingWidget = leading.isNotNull
         ? DefaultTextStyle(
             style: toolbarTextStyle ?? MacosTheme.of(context).typography.body,
             child: IconTheme(
@@ -77,17 +82,70 @@ class AppBarMacos extends StatelessWidget {
           )
         : null;
 
+    final List<AdaptiveAppBarActionEntry> actionEntry = [
+      AdaptiveAppBarIconButton(
+        label: 'alarm',
+        icon: const MacosIcon(CupertinoIcons.alarm),
+        onPressed: () {},
+      ),
+      AdaptiveAppBarIconButton(
+        label: 'app',
+        icon: const MacosIcon(CupertinoIcons.app),
+        onPressed: () {},
+      ),
+      AdaptiveAppBarPulldownButton(
+        items: [
+          const AdaptivePulldownMenuItem(
+              child: Text('AdaptivePulldownMenuItem - 1')),
+          const AdaptivePulldownMenuItem(
+              child: Text('AdaptivePulldownMenuItem - 2')),
+          const AdaptivePulldownMenuItem(
+              child: Text('AdaptivePulldownMenuItem - 3')),
+        ],
+        label: 'AdaptiveAppBarPulldownButton',
+        icon: CupertinoIcons.add,
+      ),
+      const AdaptiveAppBarCustomItem(
+        child: AdaptivePulldownMenuButton(
+          title: 'Pulldown',
+          items: [
+            AdaptivePulldownMenuItem(child: Text('1')),
+            AdaptivePulldownMenuItem(child: Text('2')),
+            AdaptivePulldownMenuItem(child: Text('3')),
+          ],
+        ),
+      ),
+    ];
+
     return ToolBar(
       title: styledTitle,
       leading: leadingWidget,
       automaticallyImplyLeading: automaticallyImplyLeading,
-      alignment: property?.alignment ?? Alignment.center,
+      alignment: property?.alignment ?? Alignment.topRight,
       padding: property?.padding ?? _kPaddingInsets,
       dividerColor: property?.dividerColor,
       enableBlur: property?.enableBlur ?? false,
       allowWallpaperTintingOverrides:
           property?.allowWallpaperTintingOverrides ?? true,
-      actions: property?.actions ?? _buildActions(),
+      // actions: property?.actions ?? _buildActions(typography),
+      actions: actionEntry
+          .map(
+            (e) {
+              if (e is AdaptiveAppBarIconButton) return e.toToolBarIconButton();
+
+              if (e is AdaptiveAppBarPulldownButton) {
+                return e.toToolBarPulldownButton();
+              }
+
+              if (e is AdaptiveAppBarCustomItem) {
+                return _buildActions(typography, e.child);
+              }
+
+              return const ToolBarSpacer();
+            },
+          )
+          .whereType<ToolbarItem>()
+          .toList(),
       height: toolbarHeight ?? _kToolbarHeight,
       decoration: BoxDecoration(
         color: (backgroundColor ?? MacosTheme.of(context).canvasColor)
@@ -98,29 +156,37 @@ class AppBarMacos extends StatelessWidget {
     );
   }
 
-  List<CustomToolbarItem>? _buildActions() {
-    return actions?.map(
-      (child) {
-        return CustomToolbarItem(
-          inToolbarBuilder: (context) {
-            final typography = MacosTheme.of(context).typography;
-            return DefaultTextStyle(
-              style: typography.body,
-              child: IconTheme(
-                data: actionsIconTheme ??
-                    IconTheme.of(context).copyWith(
-                      color: foregroundColor ?? typography.body.color,
-                    ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: child,
-                ),
-              ),
-            );
-          },
-        );
+  CustomToolbarItem _buildActions(MacosTypography typography, Widget child) {
+    return CustomToolbarItem(
+      inOverflowedBuilder: (context) {
+        return _buildCustomToolbarItems(typography, context, child);
       },
-    ).toList();
+      inToolbarBuilder: (context) {
+        return _buildCustomToolbarItems(typography, context, child);
+      },
+    );
+  }
+
+  Widget _buildCustomToolbarItems(
+      MacosTypography typography, BuildContext context, Widget child) {
+    final height = toolbarHeight ?? _kToolbarHeight;
+
+    return DefaultTextStyle(
+      style: typography.body,
+      child: IconTheme(
+        data: actionsIconTheme ??
+            IconTheme.of(context).copyWith(
+              color: foregroundColor ?? typography.body.color,
+            ),
+        child: FittedBox(
+          child: Container(
+            height: child is AdaptiveTextButton ? height + 8 : null,
+            margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 1.0),
+            child: child,
+          ),
+        ),
+      ),
+    );
   }
 }
 

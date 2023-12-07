@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart' hide Builder;
 
 import 'builders.dart';
 
-
 abstract class CoreAdaptiveComponent<Windows, Macos> extends StatelessWidget {
   final CoreAdaptiveBuilder? builders;
 
@@ -12,11 +11,7 @@ abstract class CoreAdaptiveComponent<Windows, Macos> extends StatelessWidget {
   /// - For macOS, use [Macos] property.
   final CoreProperties<Windows, Macos>? properties;
 
-  const CoreAdaptiveComponent({
-    this.builders,
-    this.properties,
-    super.key,
-  });
+  const CoreAdaptiveComponent({this.builders, this.properties, super.key});
 
   @override
   @mustCallSuper

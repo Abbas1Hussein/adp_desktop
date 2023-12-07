@@ -13,7 +13,7 @@ void main() {
     'AdaptiveCheckbox Widget Tests',
     () {
       testWidgets(
-        'Renders correctly AdaptiveCheckbox on windows, macos',
+        'Renders correctly AdaptiveCheckbox',
         (WidgetTester tester) async {
           await tester.pumpWidget(
             wrapAppWithScaffold(

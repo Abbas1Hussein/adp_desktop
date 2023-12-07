@@ -3,6 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 class AdaptiveSearchItem<T> {
+  AdaptiveSearchItem({
+    this.child,
+    this.value,
+    this.onSelected,
+    required this.searchKey,
+  });
+
   /// The string to search for.
   final String searchKey;
 
@@ -15,13 +22,6 @@ class AdaptiveSearchItem<T> {
 
   /// The callback to call when this item is selected from the search results.
   final VoidCallback? onSelected;
-
-  AdaptiveSearchItem({
-    this.child,
-    this.value,
-    this.onSelected,
-    required this.searchKey,
-  });
 
   /// Converts the AdaptiveSearchItem to a SearchResultItem.
   ///
