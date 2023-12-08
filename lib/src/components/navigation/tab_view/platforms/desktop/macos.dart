@@ -2,25 +2,48 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../../core/core.dart';
-import '../../../../../core/extension/widget.dart';
 import '../../tab.dart';
 
 class TabViewMacos extends StatefulWidget {
-  final TabViewMacosProperty? property;
-
-  final int currentIndex;
-  final ValueChanged<int>? onChanged;
-  final List<AdaptiveTab> tabs;
-  final List<Widget> children;
-
   const TabViewMacos({
     super.key,
     this.property,
-    required this.currentIndex,
+    this.onChanged,
+    this.selectedColor,
+    this.unSelectedColor,
+    this.primaryBackgroundColor,
+    this.secondaryBackgroundColor,
     required this.tabs,
     required this.children,
-    this.onChanged,
+    required this.currentIndex,
   });
+
+  /// The macOS-specific property for customizing the tab view.
+  final TabViewMacosProperty? property;
+
+  /// The index of the currently selected tab.
+  final int currentIndex;
+
+  /// Callback function called when the selected tab index changes.
+  final ValueChanged<int>? onChanged;
+
+  /// List of AdaptiveTab objects representing tabs in the view.
+  final List<AdaptiveTab> tabs;
+
+  /// The primary background color.
+  final Color? primaryBackgroundColor;
+
+  /// The secondary background color.
+  final Color? secondaryBackgroundColor;
+
+  /// The color to be applied to the selected tab.
+  final Color? selectedColor;
+
+  /// The color to be applied to unselected tabs.
+  final Color? unSelectedColor;
+
+  /// List of widgets representing the content associated with each tab.
+  final List<Widget> children;
 
   @override
   State<TabViewMacos> createState() => _TabViewMacosState();
@@ -38,68 +61,86 @@ class _TabViewMacosState extends State<TabViewMacos> {
     super.initState();
   }
 
+  void _onChanged(AdaptiveTab tab) {
+    final index = macosTabController.index = widget.tabs.indexOf(tab);
+    widget.onChanged?.call(index);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTextStyle(
-      style: MacosTheme.of(context).typography.body,
-      child: MacosTabView(
-        controller: macosTabController,
-        position: widget.property?.position ?? MacosTabPosition.top,
-        padding: widget.property?.padding ?? const EdgeInsets.all(12.0),
-        tabs: widget.tabs.map((tab) {
-          return _MacosTab(
-            label: tab.label,
-            icon: tab.icon,
-            onTap: () => _onTap(tab),
-            active: macosTabController.index == widget.tabs.indexOf(tab),
-          );
-        }).toList(),
-        children: widget.children,
+    final brightness = MacosTheme.brightnessOf(context);
+
+    final backgroundColor = brightness
+        .resolve(const Color(0xFFE6E9EA), const Color(0xFF2B2E33))
+        .withOpacity(0.8);
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: widget.primaryBackgroundColor ?? backgroundColor,
+      ),
+      child: MacosIconTheme(
+        data: const MacosIconThemeData(size: 16.0),
+        child: DefaultTextStyle(
+          style: MacosTheme.of(context).typography.body,
+          child: MacosTabView(
+            controller: macosTabController,
+            position: widget.property?.position ?? MacosTabPosition.top,
+            padding: widget.property?.padding ?? const EdgeInsets.all(12.0),
+            tabs: widget.tabs.map((tab) {
+              return tab.toMacos(
+                isActive: macosTabController.index == widget.tabs.indexOf(tab),
+                onChanged: () => _onChanged(tab),
+                padding: widget.property?.insets,
+                axis: widget.property?.axis ?? Axis.horizontal,
+                selectedColor: widget.selectedColor,
+                unSelectedColor: widget.unSelectedColor,
+              );
+            }).toList(),
+            children: widget.children.map((child) {
+              return ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+                child: ColoredBox(
+                  color: widget.secondaryBackgroundColor ?? backgroundColor,
+                  child: child,
+                ),
+              );
+            }).toList(),
+          ),
+        ),
       ),
     );
   }
 
-  _onTap(AdaptiveTab tab) {
-    final int index = macosTabController.index = widget.tabs.indexOf(tab);
-    widget.onChanged?.call(index);
-    setState(() {});
-  }
-}
-
-class _MacosTab extends MacosTab {
-  final VoidCallback? onTap;
-  final Widget? icon;
-
-  const _MacosTab({
-    this.onTap,
-    this.icon,
-    super.active,
-    required super.label,
-  });
-
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap?.call(),
-      child: super.build(context).margeWith(icon),
-    );
+  void dispose() {
+    macosTabController.dispose();
+    super.dispose();
   }
-
-  @override
-  MacosTab copyWith({String? label, bool? active}) => this;
 }
 
 class TabViewMacosProperty extends CoreMacosProperty {
-  /// The placement of the [tabs], typically [MacosTabPosition.top].
-  final MacosTabPosition? position;
+  const TabViewMacosProperty({
+    this.axis,
+    this.insets,
+    this.padding,
+    this.position,
+  });
 
   /// The padding of the tab view widget.
   ///
   /// Defaults to `EdgeInsets.all(12.0)`.
   final EdgeInsetsGeometry? padding;
 
-  const TabViewMacosProperty({
-    this.position,
-    this.padding,
-  });
+  /// The placement of the [tabs], typically [MacosTabPosition.top].
+  final MacosTabPosition? position;
+
+  /// Specifies the insets for tabs.
+  ///
+  /// Defaults to [EdgeInsets.zero].
+  final EdgeInsetsGeometry? insets;
+
+  /// Determines the axis along which tabs will be displayed.
+  ///
+  /// Defaults to [Axis.horizontal].
+  final Axis? axis;
 }

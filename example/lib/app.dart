@@ -83,18 +83,42 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveNavigationView(
-      items: items,
-      children: items.map(
-        (element) {
-          return Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [element.label, element.icon],
-            ),
-          );
-        },
-      ).toList(),
+      onChanged: _onChanged,
+      currentIndex: currentIndex,
+      selectedColor: AdpColors.red,
+      items: _buildTabs(),
+      children: buildChildren(),
     );
+  }
+
+  void _onChanged(value) {
+    setState(() {
+      currentIndex = value;
+    });
+  }
+
+  List<Widget> buildChildren() {
+    return items.map(
+      (element) {
+        return Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [element.label, element.icon!],
+          ),
+        );
+      },
+    ).toList();
+  }
+
+  List<AdaptiveNavigationViewItem> _buildTabs() {
+    return items.map(
+      (e) {
+        return AdaptiveNavigationViewItem(
+          label: e.label,
+          icon: e.icon,
+        );
+      },
+    ).toList();
   }
 }
 

@@ -6,98 +6,128 @@ import '../../tab.dart';
 const double _kMinTileWidth = 80.0;
 const double _kMaxTileWidth = 240.0;
 
-class TabViewWindows extends StatefulWidget {
-  final TabViewWindowsProperty? property;
-  final int currentIndex;
-  final ValueChanged<int>? onChanged;
-  final List<AdaptiveTab> tabs;
-  final List<Widget> children;
-
+class TabViewWindows extends StatelessWidget {
   const TabViewWindows({
     super.key,
     this.property,
     this.onChanged,
-    required this.currentIndex,
+    this.primaryBackgroundColor,
+    this.secondaryBackgroundColor,
+    this.unSelectedColor,
+    this.selectedColor,
     required this.tabs,
     required this.children,
+    required this.currentIndex,
   });
 
-  @override
-  State<TabViewWindows> createState() => _TabViewWindowsState();
-}
+  /// The Windows-specific property for customizing the tab view.
+  final TabViewWindowsProperty? property;
 
-class _TabViewWindowsState extends State<TabViewWindows> {
-  late int currentIndex;
+  /// The index of the currently selected tab.
+  final int currentIndex;
 
-  @override
-  void initState() {
-    currentIndex = widget.currentIndex;
-    super.initState();
-  }
+  /// Callback function called when the selected tab index changes.
+  final ValueChanged<int>? onChanged;
+
+  /// List of AdaptiveTab objects representing tabs in the view.
+  final List<AdaptiveTab> tabs;
+
+  /// List of widgets representing the content associated with each tab.
+  final List<Widget> children;
+
+  /// The primary background color.
+  final Color? primaryBackgroundColor;
+
+  /// The secondary background color.
+  final Color? secondaryBackgroundColor;
+
+  /// The color to be applied to the selected tab.
+  final Color? selectedColor;
+
+  /// The color to be applied to unselected tabs.
+  final Color? unSelectedColor;
+
+  /// Returns the widget associated with the currently selected tab.
+  Widget get body => children[currentIndex];
 
   @override
   Widget build(BuildContext context) {
-    return TabView(
-      currentIndex: currentIndex,
-      onChanged: (value) {
-        widget.onChanged?.call(value);
-        _onTabChanged(value);
-      },
-      footer: widget.property?.footer,
-      header: widget.property?.header,
-      scrollController: widget.property?.scrollController,
-      addIconData: widget.property?.addIconData ?? FluentIcons.add,
-      closeButtonVisibility: widget.property?.closeButtonVisibility ??
-          CloseButtonVisibilityMode.never,
-      closeDelayDuration: widget.property?.closeDelayDuration ??
-          const Duration(milliseconds: 400),
-      maxTabWidth: widget.property?.maxTabWidth ?? _kMaxTileWidth,
-      minTabWidth: widget.property?.minTabWidth ?? _kMinTileWidth,
-      onNewPressed: widget.property?.onNewPressed,
-      onReorder: widget.property?.onReorder,
-      shortcutsEnabled: widget.property?.shortcutsEnabled ?? true,
-      showScrollButtons: widget.property?.showScrollButtons ?? true,
-      tabWidthBehavior: widget.property?.tabWidthBehavior ?? TabWidthBehavior.equal,
-      tabs: List.generate(
-        widget.tabs.length,
-        (index) => Tab(
-          text: Text(widget.tabs[index].label),
-          icon: widget.tabs[index].icon,
-          closeIcon: widget.property?.closeIcon ?? FluentIcons.chrome_close,
-          body: widget.children[currentIndex],
+    final theme = FluentTheme.of(context);
+
+    final activeColor =
+        selectedColor ?? theme.resources.solidBackgroundFillColorTertiary;
+
+    final inactiveColor = unSelectedColor ??
+        theme.resources.layerOnMicaBaseAltFillColorTransparent;
+
+    return FluentTheme(
+      data: theme.copyWith(
+        resources: theme.brightness.isDark
+            ? ResourceDictionary.dark(
+                solidBackgroundFillColorTertiary: activeColor,
+                layerOnMicaBaseAltFillColorTransparent: inactiveColor,
+              )
+            : ResourceDictionary.light(
+                solidBackgroundFillColorTertiary: activeColor,
+                layerOnMicaBaseAltFillColorTransparent: inactiveColor,
+                layerOnMicaBaseAltFillColorDefault: primaryBackgroundColor !=
+                        null
+                    ? theme.resources.layerOnMicaBaseAltFillColorDefault
+                    : theme.resources.layerOnMicaBaseAltFillColorTransparent,
+              ),
+      ),
+      child: Mica(
+        backgroundColor: primaryBackgroundColor,
+        child: TabView(
+          tabs: _buildTabs(context),
+          onChanged: _onChanged,
+          shortcutsEnabled: false,
+          currentIndex: currentIndex,
+          footer: property?.footer,
+          header: property?.header,
+          closeButtonVisibility: CloseButtonVisibilityMode.never,
+          maxTabWidth: property?.maxTabWidth ?? _kMaxTileWidth,
+          minTabWidth: property?.minTabWidth ?? _kMinTileWidth,
+          showScrollButtons: property?.showScrollButtons ?? true,
+          tabWidthBehavior:
+              property?.tabWidthBehavior ?? TabWidthBehavior.equal,
         ),
       ),
     );
   }
 
-  _onTabChanged(int value) {
-    setState(() {
-      currentIndex = value;
-    });
+  List<Tab> _buildTabs(BuildContext context) {
+    return List.generate(
+      tabs.length,
+      (index) {
+        final tab = tabs[index];
+        return tab.toWindows(
+          body: Card(
+            backgroundColor: secondaryBackgroundColor ??
+                FluentTheme.of(context)
+                    .resources
+                    .solidBackgroundFillColorTertiary,
+            borderRadius: BorderRadius.zero,
+            child: body,
+          ),
+          isActive: currentIndex == index,
+        );
+      },
+    );
   }
+
+  void _onChanged(int value) => onChanged?.call(value);
 }
 
 class TabViewWindowsProperty extends CoreWindowsProperty {
-  /// Called when the new button is pressed or when the
-  /// shortcut `Ctrl + T` is executed.
-  ///
-  /// If null, the new button won't be displayed
-  final VoidCallback? onNewPressed;
-
-  /// The icon of the new button
-  final IconData? addIconData;
-
-  /// Whether the following shortcuts are enabled:
-  ///
-  /// - Ctrl + T to create a new tab
-  /// - Ctrl + F4 or Ctrl + W to close the current tab
-  /// - `Ctrl+1` to `Ctrl+8` to navigate through tabs
-  /// - `Ctrl+9` to navigate to the last tab
-  final bool? shortcutsEnabled;
-
-  /// Called when the tabs are reordered. If null,
-  /// reordering is disabled. It's disabled by default.
-  final ReorderCallback? onReorder;
+  const TabViewWindowsProperty({
+    this.header,
+    this.footer,
+    this.minTabWidth,
+    this.maxTabWidth,
+    this.showScrollButtons,
+    this.tabWidthBehavior,
+  });
 
   /// The min width a tab can have. Must not be negative.
   ///
@@ -113,15 +143,6 @@ class TabViewWindowsProperty extends CoreWindowsProperty {
   /// should be displayed, if necessary. Defaults to true
   final bool? showScrollButtons;
 
-  /// The [ScrollPosController] used to move tabview to right and left when the
-  /// tabs don't fit the available horizontal space.
-  ///
-  /// If null, a [ScrollPosController] is created internally.
-  final ScrollPosController? scrollController;
-
-  /// Indicates the close button visibility mode
-  final CloseButtonVisibilityMode? closeButtonVisibility;
-
   /// Indicates how a tab will size itself
   final TabWidthBehavior? tabWidthBehavior;
 
@@ -134,30 +155,4 @@ class TabViewWindowsProperty extends CoreWindowsProperty {
   ///
   /// Usually a [Text] widget
   final Widget? footer;
-
-  /// The delay duration to animate the tab after it's closed. Only applied when
-  /// [tabWidthBehavior] is [TabWidthBehavior.equal].
-  ///
-  /// Defaults to 400 milliseconds.
-  final Duration? closeDelayDuration;
-
-  /// The close icon of the tab. Usually an [IconButton] widget
-  final IconData? closeIcon;
-
-  const TabViewWindowsProperty({
-    this.onNewPressed,
-    this.addIconData,
-    this.shortcutsEnabled,
-    this.onReorder,
-    this.minTabWidth,
-    this.maxTabWidth,
-    this.showScrollButtons,
-    this.scrollController,
-    this.closeButtonVisibility,
-    this.tabWidthBehavior,
-    this.header,
-    this.footer,
-    this.closeIcon,
-    this.closeDelayDuration,
-  });
 }

@@ -1,10 +1,13 @@
 import '../../enum/target.dart';
 
 abstract class CorePlatforms<WINDOWS, MACOS> {
+  const CorePlatforms({
+    this.windows,
+    this.macos,
+  });
+
   final WINDOWS? windows;
   final MACOS? macos;
-
-  const CorePlatforms({this.windows, this.macos});
 }
 
 /// To test your app with a specific platform, initialize [DefaultsPlatformManager] and set isDebugging to true.
