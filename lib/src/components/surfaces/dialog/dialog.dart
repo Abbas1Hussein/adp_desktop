@@ -7,7 +7,7 @@ import 'platforms/platforms.dart';
 /// A custom dialog widget that adapts its appearance based on the platform.
 ///
 /// Use this widget to create dialogs with platform-specific styling and behavior.
-/// It supports macOS, Windows, Android, and iOS.
+/// It supports macOS, Windows.
 class AdaptiveDialog extends CoreAdaptiveComponent<DialogWindowsProperty, DialogMacosProperty> {
   final Widget? title;
   final Widget? content;

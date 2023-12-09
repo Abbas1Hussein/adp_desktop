@@ -7,6 +7,23 @@ import '../../../core/common/construct/component.dart';
 import 'search_item.dart';
 
 class AdaptiveTextSearchField<T> extends CoreAdaptiveComponent {
+  const AdaptiveTextSearchField({
+    super.key,
+    super.builders,
+    this.controller,
+    this.onSelected,
+    this.decoration,
+    this.focusNode,
+    this.enabled = true,
+    this.autofocus = false,
+    this.placeholder,
+    this.placeholderStyle,
+    this.inputFormatters,
+    this.foregroundDecoration,
+    this.emptyWidget,
+    required this.suggestions,
+  });
+
   final List<AdaptiveSearchItem<T>> suggestions;
 
   /// Called when the user selected a value.
@@ -58,22 +75,7 @@ class AdaptiveTextSearchField<T> extends CoreAdaptiveComponent {
   /// Whether the text box is enabled
   final bool enabled;
 
-  const AdaptiveTextSearchField({
-    super.key,
-    super.builders,
-    this.controller,
-    this.onSelected,
-    this.decoration,
-    this.focusNode,
-    this.enabled = true,
-    this.autofocus = false,
-    this.placeholder,
-    this.placeholderStyle,
-    this.inputFormatters,
-    this.foregroundDecoration,
-    this.emptyWidget,
-    required this.suggestions,
-  });
+
 
   @override
   Widget macos(BuildContext context) {

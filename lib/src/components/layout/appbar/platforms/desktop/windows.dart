@@ -1,8 +1,5 @@
-import '../../../../../core/extension/object.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../buttons/menu/pulldown/pulldown_item.dart';
 import '../../appbar_action.dart';
@@ -76,7 +73,7 @@ class AppBarWindows extends StatelessWidget {
       backgroundColor: (backgroundColor ??
               fluentTheme.navigationPaneTheme.overlayBackgroundColor)
           ?.withOpacity(toolbarOpacity),
-      actions: actions.isNotNull ? _buildActions(context) : null,
+      actions: actions != null ? _buildActions(context) : null,
       height: toolbarHeight ?? (kToolbarHeight + 8) / 2,
     );
   }
@@ -84,14 +81,14 @@ class AppBarWindows extends StatelessWidget {
   Widget _buildLeadingWithTitle(FluentThemeData fluentTheme) {
     return Row(
       children: [
-        if (leading.isNotNull)
+        if (leading != null)
           DefaultTextStyle(
             style: fluentTheme.typography.caption!,
             child: SizedBox(width: leadingWidth, child: leading),
           ),
-        if (leading.isNotNull) const SizedBox(width: 8),
+        if (leading != null) const SizedBox(width: 8),
         if (centerTitle == true) const Spacer(),
-        if (title.isNotNull)
+        if (title != null)
           DefaultTextStyle(
             style: titleTextStyle ?? fluentTheme.typography.bodyStrong!,
             child: SizedBox(
@@ -159,7 +156,7 @@ class AppBarWindows extends StatelessWidget {
                           return element.child;
                         }
 
-                        return Spacer();
+                        return const Spacer();
                       },
                     ),
                   );

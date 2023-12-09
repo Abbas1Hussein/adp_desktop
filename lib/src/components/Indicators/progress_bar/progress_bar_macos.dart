@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../../../core/extension/object.dart';
 
 class ProgressBarMacos extends StatelessWidget {
   const ProgressBarMacos({
@@ -34,7 +33,7 @@ class ProgressBarMacos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (value.isNotNull) {
+    if (value != null) {
       return ProgressBar(
         value: value!,
         backgroundColor: backgroundColor,

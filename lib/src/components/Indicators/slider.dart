@@ -1,7 +1,8 @@
-import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
+
+import '../../core/core.dart';
 
 enum DivisionsDirection {
   /// Divisions will be displayed above the slider.
@@ -132,17 +133,17 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
       child: MacosSlider(
         max: max,
         min: min,
-        value: onChanged.isNotNull ? value : 0,
+        value: onChanged != null ? value : 0,
         splits: divisions ?? 15,
-        discrete: divisions.isNotNull,
+        discrete: divisions != null,
         onChanged: (value) {
-          if (onChanged.isNotNull) onChanged!(value);
+          if (onChanged != null) onChanged!(value);
         },
         color: activeColor ?? CupertinoColors.systemBlue,
-        backgroundColor: onChanged.isNotNull
+        backgroundColor: onChanged != null
             ? inactiveColor ?? MacosColors.sliderBackgroundColor
             : CupertinoColors.quaternarySystemFill,
-        tickBackgroundColor: onChanged.isNotNull
+        tickBackgroundColor: onChanged != null
             ? inactiveColor ?? MacosColors.tickBackgroundColor
             : CupertinoColors.quaternarySystemFill,
         semanticLabel: value.toStringAsFixed(0),
@@ -156,16 +157,16 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
     return Slider(
       min: min,
       max: max,
-      value: onChanged.isNotNull ? value : 0,
+      value: onChanged != null ? value : 0,
       onChanged: onChanged,
       divisions: divisions,
       style: SliderThemeData(
-        useThumbBall: divisions.isNull,
-        thumbColor: thumbColor.isNotNull ? ButtonState.all(thumbColor) : null,
+        useThumbBall: divisions == null,
+        thumbColor: thumbColor != null ? ButtonState.all(thumbColor) : null,
         activeColor:
-            activeColor.isNotNull ? ButtonState.all(activeColor) : null,
+            activeColor != null ? ButtonState.all(activeColor) : null,
         inactiveColor:
-            inactiveColor.isNotNull ? ButtonState.all(inactiveColor) : null,
+            inactiveColor != null ? ButtonState.all(inactiveColor) : null,
         margin: const EdgeInsets.symmetric(horizontal: 8),
       ),
       label: value.toStringAsFixed(0),
@@ -213,7 +214,7 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
       child: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: 55, maxWidth: size),
-          child: (divisions.isNotNull && divisionsItems.isNotEmpty)
+          child: (divisions != null && divisionsItems.isNotEmpty)
               ? _buildSliderWithDivisions(context)
               : super.build(context),
         ),

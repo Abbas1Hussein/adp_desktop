@@ -34,8 +34,6 @@ final class OnlyPropertyLogic<W, M> extends CoreProperties<W, M> {
       : super(macos: macos?.call());
 }
 
-abstract final class NoneProperty {}
-
 abstract class CoreWindowsProperty {
   const CoreWindowsProperty();
 }
@@ -43,3 +41,5 @@ abstract class CoreWindowsProperty {
 abstract class CoreMacosProperty {
   const CoreMacosProperty();
 }
+
+mixin class NoneProperty implements CoreWindowsProperty, CoreMacosProperty {}

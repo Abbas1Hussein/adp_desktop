@@ -60,9 +60,9 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context) {
-    if (value.isNotNull) {
+    if (value != null) {
       return Container(
-        decoration: PlatformRuining.isFakeMacos && activeColor.isNotNull
+        decoration: PlatformRuining.isFakeMacos && activeColor != null
             ? BoxDecoration(
                 color: activeColor,
                 backgroundBlendMode: BlendMode.color,
@@ -93,7 +93,7 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
         value: progressValue,
         activeColor: activeColor,
         semanticLabel: semanticLabel,
-        backgroundColor: value.isNotNull ? inactiveColor : null,
+        backgroundColor: value != null ? inactiveColor : null,
       ),
     );
   }

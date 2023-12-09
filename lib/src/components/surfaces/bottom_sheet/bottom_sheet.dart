@@ -1,10 +1,11 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/properties.dart';
 import 'platforms/platforms.dart';
 
 class AdaptiveBottomSheet extends CoreAdaptiveComponent<
-    BottomSheetWindowsProperty, BottomSheetMacosProperty> {
+    BottomSheetWindowsProperty, NoneProperty> {
   /// The widget below this widget in the tree.
   final Widget title;
 
@@ -24,7 +25,7 @@ class AdaptiveBottomSheet extends CoreAdaptiveComponent<
     return BottomSheetMacos(
       title: title,
       content: content,
-      property: properties?.macos,
+     // property: properties?.macos,
     );
   }
 

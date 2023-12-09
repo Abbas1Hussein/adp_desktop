@@ -1,9 +1,8 @@
-import 'package:adp_desktop/src/components/buttons/buttons.dart';
+import '../../../../buttons/buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../../core/common/construct/properties.dart';
-import '../../../../../core/extension/object.dart';
 import '../../appbar_action.dart';
 
 /// Defines the height of a regular-sized [ToolBar]
@@ -60,7 +59,7 @@ class AppBarMacos extends StatelessWidget {
   Widget build(BuildContext context) {
     final typography = MacosTheme.of(context).typography;
 
-    final styledTitle = title.isNotNull
+    final styledTitle = title != null
         ? DefaultTextStyle(
             maxLines: 1,
             style: titleTextStyle ??
@@ -68,7 +67,7 @@ class AppBarMacos extends StatelessWidget {
             child: title!,
           )
         : null;
-    final leadingWidget = leading.isNotNull
+    final leadingWidget = leading != null
         ? DefaultTextStyle(
             style: toolbarTextStyle ?? MacosTheme.of(context).typography.body,
             child: IconTheme(
