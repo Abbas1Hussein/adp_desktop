@@ -1,7 +1,9 @@
-import 'package:adp_desktop/adp_desktop.dart';
+import '../../components/components.dart';
 
 abstract class AllProperties {
   const AllProperties(this._object);
+
+  final Object? _object;
 
   get filledButtonProperty;
 
@@ -16,8 +18,6 @@ abstract class AllProperties {
   get navigationViewProperty;
 
   get tabViewProperty;
-
-  final Object? _object;
 
   T? _property<T>() => _object as T?;
 }
@@ -35,7 +35,7 @@ class _WindowsAllProperties extends AllProperties {
   IconButtonWindowsProperty get iconButtonProperty => _property();
 
   @override
-  NViewWindowsProperty get navigationViewProperty => _property();
+  NVWindowsProperty get navigationViewProperty => _property();
 
   @override
   PulldownMenuWindowsProperty get pulldownMenuProperty => _property();
@@ -60,7 +60,7 @@ class _MacosAllProperties extends AllProperties {
   IconButtonMacosProperty get iconButtonProperty => _property();
 
   @override
-  NViewMacosProperty get navigationViewProperty => _property();
+  NVMacosProperty get navigationViewProperty => _property();
 
   @override
   PulldownMenuMacosProperty get pulldownMenuProperty => _property();

@@ -22,7 +22,7 @@ class NavigationViewMacos extends StatefulWidget {
   });
 
   /// The macOS-specific property for customizing the navigation view.
-  final NViewMacosProperty? property;
+  final NVMacosProperty? property;
 
   /// The list of widgets representing the content of each navigation item.
   final List<Widget> tabs;
@@ -122,8 +122,8 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
   }
 }
 
-class NViewMacosProperty extends CoreMacosProperty {
-  const NViewMacosProperty({
+class NVMacosProperty extends CoreMacosProperty {
+  const NVMacosProperty({
     this.shape,
     this.bottom,
     this.itemSize,

@@ -10,9 +10,7 @@ typedef Builder<ThemeData, Property> = Widget Function(
   Property? property,
 );
 
-abstract class CoreAdaptiveBuilder extends CorePlatforms<
-    Builder<FluentThemeData, CoreWindowsProperty?>,
-    Builder<MacosThemeData, CoreMacosProperty?>> {
+abstract class CoreAdaptiveBuilder extends CorePlatforms<Builder<FluentThemeData, CoreWindowsProperty?>, Builder<MacosThemeData, CoreMacosProperty?>> {
   const CoreAdaptiveBuilder({super.windows, super.macos});
 }
 
