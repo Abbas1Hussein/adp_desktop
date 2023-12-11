@@ -5,26 +5,26 @@ const kDefaultListTileShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.all(Radius.circular(4.0)),
 );
 
-class HoverFocusMacosListTile extends StatefulWidget {
+class CustomMacosListTile extends StatefulWidget {
   final Widget? leading;
   final Widget? title;
   final Widget? subtitle;
   final Widget? trailing;
-  final Color? tileColor;
-  final Color? hoverColor;
+  final Color tileColor;
+  final Color hoverColor;
   final GestureTapCallback? onTap;
   final GestureLongPressCallback? onLongPress;
   final MouseCursor? mouseCursor;
   final bool enabled;
 
-  const HoverFocusMacosListTile({
+  const CustomMacosListTile({
     super.key,
     this.leading,
     this.title,
     this.subtitle,
     this.trailing,
-    this.tileColor,
-    this.hoverColor,
+    required this.tileColor,
+    required this.hoverColor,
     this.onTap,
     this.onLongPress,
     this.mouseCursor,
@@ -32,40 +32,49 @@ class HoverFocusMacosListTile extends StatefulWidget {
   });
 
   @override
-  _HoverFocusMacosListTileState createState() =>
-      _HoverFocusMacosListTileState();
+  _CustomMacosListTileState createState() =>
+      _CustomMacosListTileState();
 }
 
-class _HoverFocusMacosListTileState extends State<HoverFocusMacosListTile> {
-  Color? backgroundColor;
+class _CustomMacosListTileState extends State<CustomMacosListTile> {
+  late Color backgroundColor = widget.tileColor;
+
+  late Color hoverColor = widget.hoverColor;
+
+  late Color color = backgroundColor;
+
+  static const constraints = BoxConstraints(maxHeight: 48.0, minWidth: 48.0);
+  static const padding = EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0);
+  static const margin = EdgeInsets.all(4.0);
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = DefaultTextStyle.of(context).style.merge(TextStyle(
-          color: CupertinoColors.secondaryLabel.resolveFrom(context),
-        ));
+    final textStyle = DefaultTextStyle.of(context).style.copyWith(
+          color: CupertinoDynamicColor.resolve(
+            MacosTheme.brightnessOf(context) == Brightness.dark
+                ? CupertinoColors.secondaryLabel
+                : MacosColors.placeholderTextColor,
+            context,
+          ),
+          fontWeight: FontWeight.w400,
+        );
 
     return MouseRegion(
       onEnter: (_) {
-        if (widget.hoverColor != null) {
-          setState(() {
-            backgroundColor = widget.hoverColor;
-          });
+        if (widget.enabled){
+          setState(() => color = hoverColor);
         }
       },
       onExit: (_) {
-        setState(() {
-          backgroundColor = widget.tileColor;
-        });
+        if (widget.enabled){
+          setState(() => color = backgroundColor);
+        }
       },
       child: Container(
-        decoration: ShapeDecoration(
-          shape: kDefaultListTileShape,
-          color: backgroundColor,
-        ),
-        constraints: const BoxConstraints(maxHeight: 48.0, minWidth: 48.0),
-        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
-        margin: const EdgeInsets.all(4.0),
+        margin: margin,
+        padding: padding,
+        constraints: constraints,
+        decoration: ShapeDecoration(shape: kDefaultListTileShape, color: color),
         child: MacosListTile(
           title: Flexible(
             child: Row(
@@ -84,9 +93,9 @@ class _HoverFocusMacosListTileState extends State<HoverFocusMacosListTile> {
               ? DefaultTextStyle(style: textStyle, child: widget.leading!)
               : null,
           subtitle: widget.subtitle,
-          onClick: widget.enabled ? widget.onTap ?? () {} : null,
-          onLongPress: widget.onLongPress,
           mouseCursor: widget.mouseCursor ?? MouseCursor.defer,
+          onLongPress: widget.enabled ? widget.onLongPress : null,
+          onClick: widget.enabled ? (widget.onTap ?? () {}) : null,
         ),
       ),
     );

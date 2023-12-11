@@ -420,20 +420,23 @@ class AdpApp
     );
   }
 
-  Iterable<LocalizationsDelegate<dynamic>> get _commonLocalizationsDelegates sync* {
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _commonLocalizationsDelegates sync* {
     if (localizationsDelegates != null) {
       yield* localizationsDelegates!;
     }
-    yield FluentLocalizations.delegate;
     yield DefaultMaterialLocalizations.delegate;
     yield DefaultWidgetsLocalizations.delegate;
   }
 
-  Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegatesWindows sync* {
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _localizationsDelegatesWindows sync* {
     yield* _commonLocalizationsDelegates;
+    yield FluentLocalizations.delegate;
   }
 
-  Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegatesMacos sync* {
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _localizationsDelegatesMacos sync* {
     yield* _commonLocalizationsDelegates;
     yield DefaultCupertinoLocalizations.delegate;
   }

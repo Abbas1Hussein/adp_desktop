@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -45,27 +45,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
-      body: SizedBox(
-        height: 300,
-        width: 300,
-        child: AdaptiveCard(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Center(child: Text('AdaptiveCard')),
-              const SizedBox(height: 8.0),
-              AdaptiveIconButton(
-                icon: const AdaptiveIcon(AdpIcons.add),
-                builders: AdaptiveBuilder(
-                  windows: (platformChild, theme, property) {
-                    print('windows');
-                    return platformChild;
-                  },
-                ),
-                onPressed: () => setState(() {}),
-              ),
-            ],
-          ),
+      appBar: const AdaptiveAppBar(),
+      body: Center(
+        child: AdaptiveListTile(
+          enabled: false,
+          title: const Text('title'),
+          leading: const Text('leading'),
+          trailing: const Text('trailing'),
+          subtitle: const Text('subtitle'),
+          onTap: () => print('onTap'),
+          onLongPress: () => print('onLongPress'),
         ),
       ),
     );

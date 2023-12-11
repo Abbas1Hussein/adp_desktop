@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart' hide Card;
+import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
@@ -9,41 +10,40 @@ class AdaptiveCard extends CoreAdaptiveComponent {
     this.clipBehavior,
     this.shadowColor,
     this.elevation,
-    this.borderRadius,
     this.padding,
     this.margin,
-    this.border,
     this.child,
+    this.surfaceTintColor,
+    this.shape,
     super.builders,
     super.key,
   });
 
-  /// The card's background color.
+  /// The background color of the card.
   final Color? color;
 
-  /// The color to paint the shadow below the card.
+  /// The color of the shadow cast by the card.
   final Color? shadowColor;
 
-  /// The z-coordinate at which to place this card. This controls the size of
-  /// the shadow below the card.
-  final double? elevation;
-
-  final BorderRadius? borderRadius;
-
-  /// {@macro flutter.material.Material.clipBehavior}
+  /// The clipping behavior applied to the card.
   final Clip? clipBehavior;
 
-  /// The empty space that surrounds the card.
+  /// The margin around the card.
   final EdgeInsetsGeometry? margin;
 
-  /// The empty space that inside the card.
+  /// The padding within the card.
   final EdgeInsetsGeometry? padding;
 
-  final BoxBorder? border;
+  /// The shape of the card.
+  final ShapeBorder? shape;
 
-  /// The widget below this widget in the tree.
-  ///
-  /// {@macro flutter.widgets.ProxyWidget.child}
+  /// The elevation (z-coordinate) of the card, controlling the shadow intensity.
+  final double? elevation;
+
+  /// The tint color applied to the card's surface.
+  final Color? surfaceTintColor;
+
+  /// The child widget contained within the card.
   final Widget? child;
 
   @override
@@ -53,40 +53,31 @@ class AdaptiveCard extends CoreAdaptiveComponent {
     return _card(
       platformColor: theme.cardColor,
       platformBorder: Border.all(color: theme.resources.cardStrokeColorDefault),
-      platformElevation: 2.0,
     );
   }
 
   @override
   Widget macos(BuildContext context) {
-    final isDark = MacosTheme.brightnessOf(context) == Brightness.dark;
-
     return _card(
       platformColor: MacosColors.windowBackgroundColor,
-      platformElevation: 8.0,
+      platformBorder: Border.all(color: MacosColors.controlAccentColor),
     );
   }
 
   Widget _card({
-    double? platformElevation,
     BoxBorder? platformBorder,
     required Color platformColor,
   }) {
-    return PhysicalModel(
-      borderRadius: borderRadius,
+    return Card(
+      margin: margin,
+      elevation: elevation,
+      clipBehavior: clipBehavior,
+      surfaceTintColor: surfaceTintColor,
+      shape: shape ?? platformBorder,
       color: color ?? platformColor,
-      clipBehavior: clipBehavior ?? Clip.none,
-      elevation: platformElevation ?? elevation ?? 0.5,
-      shadowColor: shadowColor ?? const Color(0xFF000000),
-      child: Container(
-        clipBehavior: clipBehavior ?? Clip.none,
-        decoration: BoxDecoration(
-          borderRadius: borderRadius,
-          color: color ?? platformColor,
-          border: border ?? platformBorder,
-        ),
-        padding: padding,
-        margin: margin,
+      shadowColor: shadowColor,
+      child: Padding(
+        padding: padding ?? EdgeInsets.zero,
         child: child,
       ),
     );

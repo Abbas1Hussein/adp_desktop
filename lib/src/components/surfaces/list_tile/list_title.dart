@@ -1,10 +1,35 @@
-import 'package:fluent_ui/fluent_ui.dart' as fluent_ui;
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../core/common/construct/component.dart';
 import 'macos_list_tile.dart';
 
+/// A custom list Tile widget that adapts its appearance based on the platform.
+///
+/// Use this widget to create list Tiles with platform-specific
+/// styling and behavior:
+/// - On macOS, [MacosListTile] is utilized.
+/// - On Windows, [ListTile] is used.
 class AdaptiveListTile extends CoreAdaptiveComponent {
+  const AdaptiveListTile({
+    super.builders,
+    this.leading,
+    this.title,
+    this.subtitle,
+    this.trailing,
+    this.onTap,
+    this.onLongPress,
+    this.mouseCursor,
+    this.hoverColor,
+    this.useBackgroundColor = true,
+    this.enabled = true,
+    this.tileColor,
+    Key? key,
+  }) : super(key: key);
+
+  /// Determines if the tile is interactive.
+  final bool enabled;
+
   /// The main title content of the list tile.
   final Widget? title;
 
@@ -17,14 +42,11 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
   /// A widget to display after the title and subtitle.
   final Widget? trailing;
 
-  /// Determines if the tile is interactive.
-  final bool enabled;
+  /// A callback for when the tile is long-pressed.
+  final GestureLongPressCallback? onLongPress;
 
   /// A callback for when the tile is tapped.
   final GestureTapCallback? onTap;
-
-  /// A callback for when the tile is long-pressed.
-  final GestureLongPressCallback? onLongPress;
 
   /// The mouse cursor to use when hovering over the tile.
   final MouseCursor? mouseCursor;
@@ -35,63 +57,63 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
   /// The background color of the tile.
   final Color? tileColor;
 
-  const AdaptiveListTile({
-    super.builders,
-    this.leading,
-    this.title,
-    this.subtitle,
-    this.trailing,
-    this.onTap,
-    this.onLongPress,
-    this.mouseCursor,
-    this.hoverColor,
-    this.enabled = true,
-    this.tileColor,
-    Key? key,
-  }) : super(key: key);
-
+  /// Determines whether to use the background color for the tile.
+  /// If set to true, the background color will be applied; otherwise, it remains transparent.
+  ///
+  /// By default, it is set to true.
+  final bool useBackgroundColor;
 
   @override
   Widget macos(BuildContext context) {
-    return HoverFocusMacosListTile(
-      tileColor: tileColor,
-      hoverColor: hoverColor ?? CupertinoColors.label.withOpacity(0.1),
-      enabled: enabled,
-      mouseCursor: mouseCursor,
-      onLongPress: onLongPress,
-      onTap: onTap,
-      trailing: trailing,
-      leading: leading,
+    return CustomMacosListTile(
       title: title,
+      enabled: enabled,
+      leading: leading,
       subtitle: subtitle,
+      trailing: trailing,
+      mouseCursor: mouseCursor,
+      onTap: enabled ? onTap : null,
+      onLongPress: enabled ? onLongPress : null,
+      tileColor: tileColor ??
+          (useBackgroundColor
+              ? CupertinoColors.quaternarySystemFill
+              : Colors.transparent),
+      hoverColor: hoverColor ??
+          tileColor?.withOpacity(0.85) ??
+          CupertinoColors.quaternarySystemFill.withOpacity(0.10),
     );
   }
 
   @override
   Widget windows(BuildContext context) {
-    final theme = fluent_ui.FluentTheme.of(context);
+    final theme = FluentTheme.of(context);
+
     final defaultTileColor =
         theme.accentColor.defaultBrushFor(theme.brightness);
 
     return GestureDetector(
-      onLongPress: onLongPress,
-      child: fluent_ui.ListTile(
-        cursor: mouseCursor ?? MouseCursor.defer,
-        leading: leading,
+      onLongPress: enabled ? onLongPress : null,
+      child: ListTile(
         title: title,
+        leading: leading,
         subtitle: subtitle,
         trailing: trailing,
-        onPressed: enabled ? onTap ?? () {} : null,
+        cursor: mouseCursor ?? MouseCursor.defer,
+        onPressed: enabled ? (onTap ?? () {}) : null,
         tileColor: tileColor != null || hoverColor != null
-            ? fluent_ui.ButtonState.resolveWith(
+            ? ButtonState.resolveWith(
                 (states) {
-                  if (states.contains(fluent_ui.ButtonStates.hovering)) {
+                  if (states.contains(ButtonStates.hovering)) {
                     return hoverColor ?? defaultTileColor;
                   }
                   return tileColor ?? defaultTileColor;
                 },
               )
-            : null,
+            : useBackgroundColor
+                ? ButtonState.resolveWith(
+                    (states) => ButtonThemeData.buttonColor(context, states),
+                  )
+                : null,
       ),
     );
   }
