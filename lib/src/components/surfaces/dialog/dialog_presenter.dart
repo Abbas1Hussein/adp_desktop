@@ -6,7 +6,7 @@ import '../../buttons/flat_button/platforms/platforms.dart';
 import '../surfaces.dart';
 
 /// A utility class for presenting different types of adaptive dialogs.
-class DialogPresenter {
+abstract final class DialogPresenter {
   const DialogPresenter._();
 
   /// Example of usage [showConfirmationDialog].

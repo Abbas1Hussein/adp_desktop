@@ -1,6 +1,5 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
@@ -51,9 +50,26 @@ class _HomeScreenState extends State<HomeScreen> {
     return AdaptiveScaffold(
       appBar: const AdaptiveAppBar(),
       body: Center(
-        child: AdaptiveFilledButton(
-          onPressed: () {},
-          child: const Text('show Dialog'),
+        child: AdaptiveFlatButton(
+          color: AdpColors.purple,
+          child: const Text('Show Dialog'),
+          onPressed: () {
+            showAdpDialog(
+              context: context,
+              child: AdaptiveDialog(
+                title: const Text('Adaptive Dialog'),
+                content: const Text(content),
+                primary: AdaptiveFlatButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Yes'),
+                ),
+                secondary: AdaptiveFlatButton(
+                  child: const Text('No'),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

@@ -21,7 +21,7 @@ class AdaptiveDialog
   /// showAdpDialog(
   ///   context: context,
   ///   child: AdaptiveDialog(
-  ///     title: const Text('Confirmation Dialog'),
+  ///     title: const Text('Adaptive Dialog'),
   ///     content: const Text('Are you sure you want to proceed?'),
   ///     primary: AdaptiveFlatButton(
   ///       child: const Text('Yes'),

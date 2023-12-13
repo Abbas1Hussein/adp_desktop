@@ -70,7 +70,7 @@ class DialogMacos extends StatelessWidget {
       case MacosDialogMode.cupertino:
         return _buildCupertinoDialog(isVertical, content, typography);
       case MacosDialogMode.macOS:
-        return _buildMacOSDialog(isVertical, content, typography);
+        return _buildMacOSDialog(context, isVertical, content, typography);
     }
   }
 
@@ -116,6 +116,7 @@ class DialogMacos extends StatelessWidget {
   }
 
   Widget _buildMacOSDialog(
+    BuildContext context,
     bool isVertical,
     Widget? content,
     MacosTypography typography,
@@ -127,28 +128,38 @@ class DialogMacos extends StatelessWidget {
           )
         : null;
 
-    return MacosAlertDialog(
-      suppress: property?.suppress,
-      appIcon: isVertical && hasAppIcon ? property!.appIcon! : _noneWidget,
-      title: title != null
-          ? Builder(
-              builder: (context) {
-                if (isVertical) {
+    return MacosTheme(
+      data: MacosThemeData(
+        brightness: Brightness.dark,
+        pushButtonTheme: PushButtonThemeData(
+          color: primary._pushButton(context, false).color,
+          disabledColor: primary._pushButton(context, false).color,
+          secondaryColor: primary._pushButton(context, false).color,
+        ),
+      ),
+      child: MacosAlertDialog(
+        suppress: property?.suppress,
+        appIcon: isVertical && hasAppIcon ? property!.appIcon! : _noneWidget,
+        title: title != null
+            ? Builder(
+                builder: (context) {
+                  if (isVertical) {
+                    return titleWithStyled!;
+                  } else if (hasAppIcon) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [titleWithStyled!, property!.appIcon!],
+                    );
+                  }
                   return titleWithStyled!;
-                } else if (hasAppIcon) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [titleWithStyled!, property!.appIcon!],
-                  );
-                }
-                return titleWithStyled!;
-              },
-            )
-          : _noneWidget,
-      message: content ?? _noneWidget,
-      primaryButton: primary._pushButton,
-      secondaryButton: secondary?._pushButton,
-      horizontalActions: property?.horizontalActions ?? true,
+                },
+              )
+            : _noneWidget,
+        message: content ?? _noneWidget,
+        primaryButton: primary._pushButton(context, false),
+        secondaryButton: secondary?._pushButton(context, true),
+        horizontalActions: property?.horizontalActions ?? true,
+      ),
     );
   }
 }
@@ -225,22 +236,32 @@ class DialogMacosProperty extends CoreMacosProperty {
 }
 
 extension _AdaptiveFlatButtonEx on AdaptiveFlatButton {
-  bool get isEnabled => _pushButton.onPressed != null || onLongPress != null;
+  bool get isEnabled => onPressed != null || onLongPress != null;
 
-  PushButton get _pushButton {
+  PushButton _pushButton(BuildContext context, bool secondary) {
     final property = properties?.macos;
+
     return PushButton(
       alignment: property?.alignment ?? Alignment.center,
       pressedOpacity: property?.pressedOpacity ?? 0.6,
       semanticLabel: property?.semanticLabel,
       borderRadius: property?.borderRadius,
-      controlSize: ControlSize.large,
-      secondary: property?.secondary,
-      disabledColor: disabledColor,
       padding: property?.padding,
-      onPressed: onPressed,
+      disabledColor: disabledColor,
+      controlSize: ControlSize.large,
+      secondary: property?.secondary ?? secondary,
+      onPressed: isEnabled ? (onPressed ?? () {}) : null,
       color: color,
-      child: child,
+      child: GestureDetector(
+        onLongPress: isEnabled ? onLongPress : null,
+        child: ColoredBox(
+          color: MacosColors.transparent,
+          child: ConstrainedBox(
+            constraints: ControlSize.large.constraints,
+            child: Center(child: child),
+          ),
+        ),
+      ),
     );
   }
 
@@ -256,8 +277,8 @@ extension _AdaptiveFlatButtonEx on AdaptiveFlatButton {
         ),
         child: CupertinoDialogAction(
           textStyle: backgroundColor != null ? textStyle : null,
-          onPressed: _pushButton.onPressed,
-          child: _pushButton.child,
+          onPressed: onPressed,
+          child: child,
         ),
       ),
     );

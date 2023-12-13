@@ -77,17 +77,18 @@ class FlatButtonMacos extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: enabled ? onLongPress : null,
-      child: Container(
-        foregroundDecoration: isNotRunningOnMacOS
+      child: DecoratedBox(
+        decoration: isNotRunningOnMacOS
             ? BoxDecoration(
-                backgroundBlendMode: BlendMode.color,
                 color: backgroundColor,
                 borderRadius: borderRadius,
+                backgroundBlendMode: BlendMode.color,
               )
-            : null,
+            : const BoxDecoration(),
+        position: DecorationPosition.foreground,
         child: PushButton(
-          onPressed: onPressed ?? (enabled ? () {} : null),
           borderRadius: borderRadius,
+          onPressed: enabled ? (onPressed ?? () {}) : null,
           controlSize: property?.controlSize ?? ControlSize.large,
           alignment: property?.alignment ?? Alignment.center,
           semanticLabel: property?.semanticLabel,
