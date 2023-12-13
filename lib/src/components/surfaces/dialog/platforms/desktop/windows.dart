@@ -3,25 +3,29 @@ import 'package:fluent_ui/fluent_ui.dart';
 import '../../../../../core/common/construct/properties.dart';
 
 class DialogWindows extends StatelessWidget {
-  final DialogWindowsProperty? property;
-
-  /// The title of the dialog. Usually, a [Text] widget
-  final Widget? title;
-
-  /// The content of the dialog. Usually, a [Text] widget
-  final Widget? content;
-
-  final Widget secondary;
-  final Widget primary;
-
   const DialogWindows({
     super.key,
     this.title,
     this.content,
     this.property,
-    required this.secondary,
+    this.secondary,
     required this.primary,
   });
+
+  /// The title of the dialog. Usually, a [Text] widget.
+  final Widget? title;
+
+  /// The content of the dialog. Usually, a [Text] widget.
+  final Widget? content;
+
+  /// The secondary action button in the dialog.
+  final Widget? secondary;
+
+  /// The primary action button in the dialog.
+  final Widget primary;
+
+  /// Additional properties for configuring the Windows dialog.
+  final DialogWindowsProperty? property;
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +33,22 @@ class DialogWindows extends StatelessWidget {
       title: title,
       content: content,
       style: property?.style,
-      actions: [secondary, primary],
-      constraints: property?.constraints ?? const BoxConstraints(maxWidth: 368),
+      actions: [secondary ?? const SizedBox.shrink(), primary],
+      constraints: property?.constraints ?? kDefaultContentDialogConstraints,
     );
   }
 }
 
 class DialogWindowsProperty extends CoreWindowsProperty {
+  const DialogWindowsProperty({
+    this.style,
+    this.constraints,
+  });
+
   /// The style used by this dialog. If non-null, it's merged with
   /// [FluentThemeData.dialogTheme]
   final ContentDialogThemeData? style;
 
   /// The constraints of the dialog. It defaults to `BoxConstraints(maxWidth: 368)`
   final BoxConstraints? constraints;
-
-  const DialogWindowsProperty({this.style, this.constraints});
 }

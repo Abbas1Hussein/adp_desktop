@@ -1,5 +1,6 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
@@ -42,19 +43,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const content =
+      "There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...";
+
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
       appBar: const AdaptiveAppBar(),
       body: Center(
-        child: AdaptiveListTile(
-          enabled: false,
-          title: const Text('title'),
-          leading: const Text('leading'),
-          trailing: const Text('trailing'),
-          subtitle: const Text('subtitle'),
-          onTap: () => print('onTap'),
-          onLongPress: () => print('onLongPress'),
+        child: AdaptiveFilledButton(
+          onPressed: () {},
+          child: const Text('show Dialog'),
         ),
       ),
     );

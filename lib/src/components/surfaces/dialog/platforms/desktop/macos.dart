@@ -3,55 +3,184 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../../core/common/construct/properties.dart';
 import '../../../../buttons/flat_button/flat_button.dart';
-import '../../../../buttons/properties/macos.dart';
+
+///  different dialog modes for macOS dialogs.
+///
+/// - `cupertino`: Represents a Cupertino-style dialog.
+/// - `macOS`: Represents a macOS-style dialog.
+enum MacosDialogMode { cupertino, macOS }
 
 class DialogMacos extends StatelessWidget {
-  final DialogMacosProperty? property;
-
-  final Widget? title;
-  final Widget? content;
-
-  final AdaptiveFlatButton? secondary;
-  final AdaptiveFlatButton? primary;
-
   const DialogMacos({
     super.key,
     this.title,
-    this.content,
+    this.message,
     this.property,
-    required this.secondary,
+    this.secondary,
     required this.primary,
   });
 
+  /// the title widget in the macOS dialog.
+  final Widget? title;
+
+  /// the message widget in the macOS dialog.
+  final Widget? message;
+
+  /// the secondary button in the macOS dialog.
+  ///
+  /// If [MacosDialogMode]:
+  /// - `cupertino`: [CupertinoDialogAction] will be used.
+  /// - `macOS`: [PushButton] will be used.
+  final AdaptiveFlatButton? secondary;
+
+  /// the primary button in the macOS dialog (required).
+  ///
+  /// If [MacosDialogMode]:
+  /// - `cupertino`: [CupertinoDialogAction] will be used.
+  /// - `macOS`: [PushButton] will be used.
+  final AdaptiveFlatButton primary;
+
+  /// additional properties for configuring the macOS dialog.
+  final DialogMacosProperty? property;
+
+  /// A constant SizedBox with a height of 8.0, used for vertical spacing.
+  static const _spaceHeight = SizedBox(height: 8.0);
+
+  /// A constant SizedBox that represents an empty widget, used when no content is present.
+  static const _noneWidget = SizedBox.shrink();
+
+  /// Determines whether the macOS dialog (title and icon) layout is vertical based on the axis property.
+  bool get isVertical => property?.axis == Axis.vertical;
+
+  bool get hasAppIcon => property?.appIcon != null;
+
   @override
   Widget build(BuildContext context) {
-    return MacosAlertDialog(
-      appIcon: property?.appIcon ?? empty,
-      horizontalActions: property?.horizontalActions ?? true,
-      suppress: property?.suppress,
-      title: title ?? empty,
-      message: content ?? empty,
-      secondaryButton: secondary?._pushButton ??
-          PushButton(controlSize: ControlSize.large, child: empty),
-      primaryButton: primary?._pushButton ??
-          PushButton(controlSize: ControlSize.large, child: empty),
+    final typography = MacosTheme.of(context).typography;
+
+    final content = message != null
+        ? DefaultTextStyle(
+            textAlign: TextAlign.justify,
+            style: typography.body,
+            child: message!,
+          )
+        : null;
+
+    switch (property?.dialogMode ?? MacosDialogMode.macOS) {
+      case MacosDialogMode.cupertino:
+        return _buildCupertinoDialog(isVertical, content, typography);
+      case MacosDialogMode.macOS:
+        return _buildMacOSDialog(isVertical, content, typography);
+    }
+  }
+
+  Widget _buildCupertinoDialog(
+    bool isVertical,
+    Widget? content,
+    MacosTypography typography,
+  ) {
+    return CupertinoAlertDialog(
+      title: title != null
+          ? Builder(
+              builder: (context) {
+                if (isVertical) {
+                  return Column(
+                    children: [
+                      if (hasAppIcon) ...[property!.appIcon!, _spaceHeight],
+                      title!,
+                    ],
+                  );
+                } else if (hasAppIcon) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Flexible(child: title!), property!.appIcon!],
+                  );
+                }
+                return title!;
+              },
+            )
+          : null,
+      content: Column(
+        children: [
+          if (title != null) _spaceHeight,
+          if (content != null) content,
+          if (property?.suppress != null) ...[_spaceHeight, property!.suppress!]
+        ],
+      ),
+      actions: [
+        primary._cupertinoDialogAction(typography.title3),
+        if (secondary != null)
+          secondary!._cupertinoDialogAction(typography.title3),
+      ],
     );
   }
 
-  Widget get empty => const SizedBox.shrink();
+  Widget _buildMacOSDialog(
+    bool isVertical,
+    Widget? content,
+    MacosTypography typography,
+  ) {
+    final titleWithStyled = title != null
+        ? DefaultTextStyle(
+            style: (typography.title1).copyWith(fontWeight: FontWeight.bold),
+            child: title!,
+          )
+        : null;
+
+    return MacosAlertDialog(
+      suppress: property?.suppress,
+      appIcon: isVertical && hasAppIcon ? property!.appIcon! : _noneWidget,
+      title: title != null
+          ? Builder(
+              builder: (context) {
+                if (isVertical) {
+                  return titleWithStyled!;
+                } else if (hasAppIcon) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [titleWithStyled!, property!.appIcon!],
+                  );
+                }
+                return titleWithStyled!;
+              },
+            )
+          : _noneWidget,
+      message: content ?? _noneWidget,
+      primaryButton: primary._pushButton,
+      secondaryButton: secondary?._pushButton,
+      horizontalActions: property?.horizontalActions ?? true,
+    );
+  }
 }
 
 class DialogMacosProperty extends CoreMacosProperty {
+  const DialogMacosProperty({
+    this.axis,
+    this.appIcon,
+    this.suppress,
+    this.dialogMode,
+    this.horizontalActions,
+  });
+
   /// This should be your application's icon.
   ///
-  /// The size of this widget should be 64x64.
+  /// If [Axis.vertical] The size of this widget should be 64x64.
+  /// If [Axis.horizontal] The size of this widget should be 24x24.
   final Widget? appIcon;
 
   /// Determines whether to lay out [primaryButton] and [secondaryButton]
   /// horizontally or vertically.
   ///
-  /// Defaults to `true`.
+  /// for only [MacosDialogMode.macOS], Defaults to `true`.
   final bool? horizontalActions;
+
+  /// the axis for laying out [appIcon] and [title] in the macOS dialog.
+  ///
+  /// If set to [Axis.vertical], buttons will be laid out vertically.
+  /// If set to [Axis.horizontal], buttons will be laid out horizontally.
+  ///
+  /// Defaults to `Axis.horizontal`.
+  final Axis? axis;
 
   /// A widget to allow users to suppress alerts of this type.
   ///
@@ -74,10 +203,10 @@ class DialogMacosProperty extends CoreMacosProperty {
   ///       mainAxisAlignment: MainAxisAlignment.center,
   ///       children: [
   ///         MacosCheckbox(
-  ///  value: suppress,
-  ///  onChanged: (value) {
-  ///    setState(() => suppress = value);
-  ///  },
+  ///           value: suppress,
+  ///           onChanged: (value) {
+  ///             setState(() => suppress = value);
+  ///           },
   ///         ),
   ///         const SizedBox(width: 8),
   ///         Text('Don\'t ask again'),
@@ -91,16 +220,15 @@ class DialogMacosProperty extends CoreMacosProperty {
   /// stateful or your checkbox will not update as you expect.
   final Widget? suppress;
 
-  const DialogMacosProperty({
-    this.appIcon,
-    this.horizontalActions,
-    this.suppress,
-  });
+  /// Represents the dialog mode for the macOS dialog.
+  final MacosDialogMode? dialogMode;
 }
 
 extension _AdaptiveFlatButtonEx on AdaptiveFlatButton {
+  bool get isEnabled => _pushButton.onPressed != null || onLongPress != null;
+
   PushButton get _pushButton {
-    final ButtonMacosProperty? property = properties?.macos;
+    final property = properties?.macos;
     return PushButton(
       alignment: property?.alignment ?? Alignment.center,
       pressedOpacity: property?.pressedOpacity ?? 0.6,
@@ -113,6 +241,25 @@ extension _AdaptiveFlatButtonEx on AdaptiveFlatButton {
       onPressed: onPressed,
       color: color,
       child: child,
+    );
+  }
+
+  Widget _cupertinoDialogAction(TextStyle? textStyle) {
+    final backgroundColor = (isEnabled ? color : disabledColor);
+
+    return GestureDetector(
+      onLongPress: onLongPress,
+      child: Container(
+        decoration: BoxDecoration(
+          color: backgroundColor ?? MacosColors.transparent,
+          backgroundBlendMode: BlendMode.difference,
+        ),
+        child: CupertinoDialogAction(
+          textStyle: backgroundColor != null ? textStyle : null,
+          onPressed: _pushButton.onPressed,
+          child: _pushButton.child,
+        ),
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../../../../../core/common/platform_ruining.dart';
 import '../../../properties/macos.dart';
 
 class FlatButtonMacos extends StatelessWidget {
@@ -54,7 +54,7 @@ class FlatButtonMacos extends StatelessWidget {
   ///
   /// Note: This is particularly useful during testing on a non-Mac device
   /// to provide a near-realistic experience.
-  bool get isNotRunningOnMacOS => defaultTargetPlatform != TargetPlatform.macOS;
+  bool get isNotRunningOnMacOS => PlatformRuining.isFakeMacos;
 
   /// Calculates and returns the appropriate BorderRadius based on the control size.
   ///
@@ -63,7 +63,8 @@ class FlatButtonMacos extends StatelessWidget {
   ///
   /// The returned BorderRadius is used for styling the button's background.
   BorderRadiusGeometry? get borderRadius {
-    return property?.controlSize?.borderRadius ?? const BorderRadius.all(Radius.circular(4.0));
+    return property?.controlSize?.borderRadius ??
+        const BorderRadius.all(Radius.circular(4.0));
   }
 
   @override

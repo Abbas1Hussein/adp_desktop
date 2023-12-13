@@ -3,10 +3,10 @@ export 'list_tile/list_title.dart';
 
 export 'dialog/dialog.dart';
 export 'dialog/show.dart';
-export 'dialog/platforms/platforms.dart';
-
+export 'dialog/dialog_presenter.dart';
+export 'dialog/platforms/platforms.dart'
+    show DialogWindowsProperty, MacosDialogMode, DialogMacosProperty;
 
 export 'bottom_sheet/bottom_sheet.dart';
 export 'bottom_sheet/show.dart';
 export 'bottom_sheet/platforms/platforms.dart';
-
