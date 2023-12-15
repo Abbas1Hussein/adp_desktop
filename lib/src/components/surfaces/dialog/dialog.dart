@@ -16,13 +16,17 @@ import 'platforms/platforms.dart';
 /// * [showAdpDialog]: A function to display an adaptive platform-specific dialog.
 class AdaptiveDialog
     extends CoreAdaptiveComponent<DialogWindowsProperty, DialogMacosProperty> {
-  /// Example of usage [AdaptiveDialog].
+  /// Creates an adaptive dialog.
+  ///
+  /// The [primary] parameter is required and represents the main button of the bottom sheet.
+  ///
+  /// Example:
   /// ```dart
   /// showAdpDialog(
   ///   context: context,
   ///   child: AdaptiveDialog(
-  ///     title: const Text('Adaptive Dialog'),
-  ///     content: const Text('Are you sure you want to proceed?'),
+  ///     title: Text(DummyText.generateQuestion),
+  ///     content: Text(DummyText.generateAnswer),
   ///     primary: AdaptiveFlatButton(
   ///       child: const Text('Yes'),
   ///       onPressed: () {

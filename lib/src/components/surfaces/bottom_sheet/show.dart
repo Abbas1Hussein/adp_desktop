@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/adaptive.dart';
-import '../surfaces.dart';
+import '../../../core/common/construct/component.dart';
+import 'platforms/platforms.dart';
 
 /// Shows an adaptive bottom sheet and returns a future that resolves to a value.
 ///
@@ -11,7 +12,7 @@ import '../surfaces.dart';
 /// Windows, Android, or iOS).
 Future<T?>? showAdpBottomSheet<T>({
   required BuildContext context,
-  required AdaptiveBottomSheet bottomSheet,
+  required CoreAdaptiveComponent child,
   Color? barrierColor,
   String? barrierLabel,
   bool useRootNavigator = true,
@@ -21,7 +22,7 @@ Future<T?>? showAdpBottomSheet<T>({
   return adaptiveValue<Future<T?>?>(
     windows: () => showBottomSheetWindows<T>(
       context: context,
-      builder: (context) => bottomSheet,
+      builder: (context) => child.windows(context),
       useRootNavigator: useRootNavigator,
       routeSettings: routeSettings,
       barrierDismissible: barrierDismissible,
@@ -30,7 +31,7 @@ Future<T?>? showAdpBottomSheet<T>({
     ),
     macos: () => showMacosSheet<T>(
       context: context,
-      builder: (context) => bottomSheet,
+      builder: (context) => child.macos(context),
       useRootNavigator: useRootNavigator,
       routeSettings: routeSettings,
       barrierLabel: barrierLabel,

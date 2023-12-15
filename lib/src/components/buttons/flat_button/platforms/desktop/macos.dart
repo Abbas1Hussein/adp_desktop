@@ -71,21 +71,18 @@ class FlatButtonMacos extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = MacosTheme.of(context);
 
-    final backgroundColor = enabled
-        ? color ?? theme.primaryColor
-        : disabledColor ?? CupertinoColors.label;
+    final backgroundColor = enabled ? color : disabledColor;
 
     return GestureDetector(
       onLongPress: enabled ? onLongPress : null,
-      child: DecoratedBox(
-        decoration: isNotRunningOnMacOS
+      child: Container(
+        foregroundDecoration: isNotRunningOnMacOS
             ? BoxDecoration(
                 color: backgroundColor,
                 borderRadius: borderRadius,
-                backgroundBlendMode: BlendMode.color,
+                backgroundBlendMode: backgroundColor != null ? BlendMode.color : null,
               )
-            : const BoxDecoration(),
-        position: DecorationPosition.foreground,
+            : null,
         child: PushButton(
           borderRadius: borderRadius,
           onPressed: enabled ? (onPressed ?? () {}) : null,

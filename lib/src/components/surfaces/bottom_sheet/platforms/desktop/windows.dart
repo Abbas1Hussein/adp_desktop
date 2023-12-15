@@ -1,78 +1,20 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../../../../../core/common/construct/properties.dart';
-
 const _kSheetBorderRadius = BorderRadius.all(Radius.circular(12.0));
 
-/// {@template macosSheet}
-/// A modal dialog that’s attached to a particular window and prevents further
-/// interaction with the window until the sheet is dismissed.
-/// {@endtemplate}
 class BottomSheetWindows extends StatelessWidget {
   const BottomSheetWindows({
     super.key,
-    this.content,
-    this.property,
-    required this.title,
+    this.insetPadding,
+    this.backgroundColor,
+    this.insetAnimationCurve,
+    this.insetAnimationDuration,
+    required this.child,
   });
 
   /// The widget below this widget in the tree.
-  final Widget title;
+  final Widget child;
 
-  /// An optional content that provides more details about the
-  /// reason for the alert.
-  final Widget? content;
-
-  final BottomSheetWindowsProperty? property;
-
-  @override
-  Widget build(BuildContext context) {
-    assert(debugCheckHasFluentTheme(context));
-    assert(debugCheckHasFluentLocalizations(context));
-
-    final theme = FluentTheme.of(context);
-
-    final defaultInsetPadding = EdgeInsets.fromLTRB(
-        8.0, MediaQuery.sizeOf(context).height * 0.5, 8.0, 8.0);
-
-    final backgroundColor = property?.backgroundColor ??
-        theme.bottomSheetTheme.backgroundColor ??
-        theme.resources.solidBackgroundFillColorBase;
-
-    final innerBorderColor = theme.resources.layerFillColorAlt;
-
-    final EdgeInsets effectivePadding = MediaQuery.of(context).viewInsets +
-        (property?.insetPadding ?? defaultInsetPadding);
-
-    return AnimatedPadding(
-      padding: effectivePadding,
-      duration: property?.insetAnimationDuration ?? const Duration(milliseconds: 100),
-      curve: property?.insetAnimationCurve ?? Curves.decelerate,
-      child: Container(
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          border: Border.all(width: 2, color: innerBorderColor),
-          borderRadius: _kSheetBorderRadius,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              title,
-              const SizedBox(height: 8.0),
-              if (content != null) content!,
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-}
-
-class BottomSheetWindowsProperty extends CoreWindowsProperty {
   /// The amount of padding added to [MediaQueryData.viewInsets] on the outside
   /// of the dialog. This defines the minimum space between the screen's edges
   /// and the dialog.
@@ -88,12 +30,39 @@ class BottomSheetWindowsProperty extends CoreWindowsProperty {
 
   final Color? backgroundColor;
 
-  const BottomSheetWindowsProperty({
-    this.insetPadding,
-    this.insetAnimationDuration,
-    this.insetAnimationCurve,
-    this.backgroundColor,
-  });
+  @override
+  Widget build(BuildContext context) {
+    assert(debugCheckHasFluentTheme(context));
+    assert(debugCheckHasFluentLocalizations(context));
+
+    final theme = FluentTheme.of(context);
+
+    final defaultInsetPadding = EdgeInsets.fromLTRB(
+        8.0, MediaQuery.sizeOf(context).height * 0.5, 8.0, 8.0);
+
+    final color = backgroundColor ??
+        theme.bottomSheetTheme.backgroundColor ??
+        theme.resources.solidBackgroundFillColorBase;
+
+    final innerBorderColor = theme.resources.layerFillColorAlt;
+
+    final effectivePadding = MediaQuery.of(context).viewInsets +
+        (insetPadding ?? defaultInsetPadding);
+
+    return AnimatedPadding(
+      padding: effectivePadding,
+      curve: insetAnimationCurve ?? Curves.decelerate,
+      duration: insetAnimationDuration ?? const Duration(milliseconds: 100),
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: _kSheetBorderRadius,
+          border: Border.all(width: 2, color: innerBorderColor),
+        ),
+        child: Padding(padding: const EdgeInsets.all(8.0), child: child),
+      ),
+    );
+  }
 }
 
 /// Displays a [BottomSheetWindows] above the current application.

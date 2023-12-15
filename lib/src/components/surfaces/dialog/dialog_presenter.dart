@@ -26,7 +26,7 @@ abstract final class DialogPresenter {
   ///   // User canceled
   /// }
   /// ```
-  static Future<bool?> showConfirmationDialog<T>(
+  static Future<bool?> showConfirmationDialog(
     BuildContext context, {
     required String title,
     required String message,
@@ -114,8 +114,8 @@ abstract final class DialogPresenter {
   /// - [barrierDismissible]: Whether the dialog can be dismissed by tapping the barrier. (Default is true)
   static Future<T?> showCustomDialog<T>(
     BuildContext context, {
-    required AdaptiveDialog child,
     bool barrierDismissible = true,
+    required AdaptiveDialog child,
   }) async {
     return await showAdpDialog<T?>(
       child: child,

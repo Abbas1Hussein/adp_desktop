@@ -24,8 +24,8 @@ void main() {
                   showAdpDialog(
                     context: context,
                     child: AdaptiveDialog(
-                      title: const Text('AdaptiveDialog Dialog'),
-                      content: const Text('Are you sure you want to proceed?'),
+                      title: Text(DummyText.generateQuestion),
+                      content: Text(DummyText.generateAnswer),
                       primary: AdaptiveFlatButton(
                         child: const Text('Yes'),
                         onPressed: () => Navigator.pop(context),

@@ -1,40 +1,83 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../core/common/construct/component.dart';
-import '../../../core/common/construct/properties.dart';
 import 'platforms/platforms.dart';
 
-class AdaptiveBottomSheet extends CoreAdaptiveComponent<
-    BottomSheetWindowsProperty, NoneProperty> {
-  /// The widget below this widget in the tree.
-  final Widget title;
-
-  /// An optional content that provides more details about the
-  /// reason for the alert.
-  final Widget? content;
-
+/// A custom bottom sheet widget that adapts its appearance based on the platform.
+///
+/// Use this widget to create bottom sheet with platform-specific
+/// styling and behavior:
+/// - On macOS, [MacosSheet] is utilized.
+///
+/// See also:
+/// * [BottomSheetPresenter]: A utility class for presenting different types of adaptive sheets.
+/// * [showAdpBottomSheet]: A function to display an adaptive platform-specific bottom sheet.
+class AdaptiveBottomSheet extends CoreAdaptiveComponent {
+  /// Creates an adaptive bottom sheet.
+  ///
+  /// The [child] parameter is required and represents the main content of the bottom sheet.
+  ///
+  /// Example:
+  /// ```dart
+  /// showAdpDialog(
+  ///   context: context,
+  ///   child: AdaptiveBottomSheet(
+  ///     child: Column(
+  ///       children: [
+  ///         Text(DummyText.generateQuestion),
+  ///         Text(DummyText.generateAnswer),
+  ///       ],
+  ///     ),
+  ///   ),
+  /// );
+  /// ```
   const AdaptiveBottomSheet({
     super.key,
-    super.properties,
-    this.content,
-    required this.title,
+    this.insetPadding,
+    this.backgroundColor,
+    this.insetAnimationCurve,
+    this.insetAnimationDuration,
+    required this.child,
   });
+
+  /// The widget below this widget in the tree.
+  final Widget child;
+
+  /// The amount of padding added to [MediaQueryData.viewInsets] on the outside
+  /// of the dialog. This defines the minimum space between the screen's edges
+  /// and the dialog.
+  final EdgeInsets? insetPadding;
+
+  /// The duration of the animation to show when the system keyboard intrudes
+  /// into the space that the dialog is placed in.
+  final Duration? insetAnimationDuration;
+
+  /// The curve to use for the animation shown when the system keyboard intrudes
+  /// into the space that the dialog is placed in.
+  final Curve? insetAnimationCurve;
+
+  /// The background color of the bottom sheet.
+  final Color? backgroundColor;
 
   @override
   Widget macos(BuildContext context) {
     return BottomSheetMacos(
-      title: title,
-      content: content,
-     // property: properties?.macos,
+      insetPadding: insetPadding,
+      backgroundColor: backgroundColor,
+      insetAnimationCurve: insetAnimationCurve,
+      insetAnimationDuration: insetAnimationDuration,
+      child: child,
     );
   }
 
   @override
   Widget windows(BuildContext context) {
     return BottomSheetWindows(
-      title: title,
-      content: content,
-      property: properties?.windows,
+      insetPadding: insetPadding,
+      backgroundColor: backgroundColor,
+      insetAnimationCurve: insetAnimationCurve,
+      insetAnimationDuration: insetAnimationDuration,
+      child: child,
     );
   }
 }

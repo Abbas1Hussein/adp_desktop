@@ -13,7 +13,7 @@ final class Properties<W, M> extends CoreProperties<W, M> {
   const Properties({super.windows, super.macos});
 }
 
-final class PropertiesLogic<W, M> extends CorePlatforms<W, M> {
+final class PropertiesLogic<W, M> extends CoreProperties<W, M> {
   PropertiesLogic({
     LogicCallBack<W>? windows,
     LogicCallBack<M>? macos,
