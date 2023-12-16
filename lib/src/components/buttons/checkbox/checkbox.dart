@@ -31,11 +31,11 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// Callback function invoked when the AdaptiveCheckbox value changes.
   final ValueChanged<bool?>? onChanged;
 
-  /// Semantic label for accessibility.
-  final String? semanticLabel;
-
   /// Label widget associated with the AdaptiveCheckbox.
   final Widget? label;
+
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
 
   /// Color to use when the AdaptiveCheckbox is checked.
   final Color? checkedColor;
@@ -62,7 +62,19 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
         offBorderColor: uncheckedBorderColor ?? CupertinoColors.tertiaryLabel,
         semanticLabel: semanticLabel,
       ),
-    ).margeWith(label);
+    ).margeWith(
+      GestureDetector(
+        onTap: onChanged != null
+            ? () {
+                if (value != null) {
+                  onChanged!.call(value! ? false : true);
+                }
+              }
+            : null,
+        child: label,
+      ),
+      4.0,
+    );
   }
 
   @override

@@ -6,10 +6,7 @@ import 'package:macos_ui/macos_ui.dart';
 import '../wrap_app.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.macOS,
-    isDebugging: true,
-  );
+  initializeDesktopDefaults();
 
   testWidgets(
     'AdaptiveListTile should render correctly',

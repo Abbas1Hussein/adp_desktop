@@ -6,8 +6,7 @@ import 'package:macos_ui/macos_ui.dart';
 import '../wrap_app.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(DesktopTargetPlatform.windows,
-      isDebugging: true);
+  initializeDesktopDefaults();
 
   testWidgets(
     'AdaptiveIconButton renders correctly with custom properties',

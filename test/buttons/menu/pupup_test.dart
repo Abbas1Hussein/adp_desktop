@@ -7,10 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../wrap_app.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
-    isDebugging: true,
-  );
+  initializeDesktopDefaults();
 
   final List<String> foodItems = [
     'Pizza',

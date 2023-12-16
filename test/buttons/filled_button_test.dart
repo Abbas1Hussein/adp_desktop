@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../wrap_app.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(DesktopTargetPlatform.macOS, isDebugging: true);
+  initializeDesktopDefaults();
 
   testWidgets(
     'AdaptiveFilledButton renders correctly with custom properties',

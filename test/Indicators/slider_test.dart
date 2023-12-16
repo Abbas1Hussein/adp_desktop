@@ -7,10 +7,7 @@ import '../slide_to.dart';
 import '../wrap_app.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
-    isDebugging: true,
-  );
+  initializeDesktopDefaults();
 
   testWidgets(
     'AdaptiveSlider renders correctly with value',

@@ -6,31 +6,23 @@ import 'package:macos_ui/macos_ui.dart';
 import '../wrap_app.dart';
 
 void main() {
-  /// Initialize the default platform to windows for this test
-  DefaultsPlatformManager.initialize(DesktopTargetPlatform.windows, isDebugging: true);
+  initializeDesktopDefaults();
 
-  group(
-    'AdaptiveCheckbox Widget Tests',
-    () {
-      testWidgets(
-        'Renders correctly AdaptiveCheckbox',
-        (WidgetTester tester) async {
-          await tester.pumpWidget(
-            wrapAppWithScaffold(
-              child: Center(
-                child: AdaptiveCheckbox(value: true, onChanged: (value) {}),
-              ),
-            ),
-          );
+  testWidgets(
+    'Renders correctly AdaptiveCheckbox',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapAppWithScaffold(
+          child: AdaptiveCheckbox(value: true, onChanged: (value) {}),
+        ),
+      );
 
-          adaptiveValue(
-            macos: () {
-              expect(find.byType(MacosCheckbox), findsOneWidget);
-            },
-            windows: () {
-              expect(find.byType(Checkbox), findsOneWidget);
-            },
-          );
+      adaptiveValue(
+        macos: () {
+          expect(find.byType(MacosCheckbox), findsOneWidget);
+        },
+        windows: () {
+          expect(find.byType(Checkbox), findsOneWidget);
         },
       );
     },
@@ -47,7 +39,7 @@ void main() {
       bool? checkBoxValue = false;
 
       await tester.pumpWidget(
-        wrapApp(
+        wrapAppWithScaffold(
           child: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Center(

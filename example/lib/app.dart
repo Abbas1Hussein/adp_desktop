@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.windows,
     isDebugging: true,
   );
@@ -42,63 +42,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool currentValue = false;
+
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
       appBar: const AdaptiveAppBar(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            AdaptiveFlatButton(
-              color: AdpColors.purple,
-              child: const Text('ConfirmationSheet'),
-              onPressed: () {
-                BottomSheetPresenter.showConfirmationSheet(
-                  context,
-                  title: DummyText.generateQuestion,
-                  content: Text(DummyText.generateAnswer * 20),
-                  confirmLabel: 'Ok',
-                );
-              },
-            ),
-            AdaptiveFlatButton(
-              color: AdpColors.purple,
-              child: const Text('Show InformationSheet'),
-              onPressed: () {
-                BottomSheetPresenter.showInformationSheet(
-                  context,
-                  title: DummyText.generateQuestion,
-                  message: DummyText.generateAnswer * 20,
-                );
-              },
-            ),
-
-            AdaptiveFlatButton(
-              color: AdpColors.purple,
-              child: const Text('ConfirmationDialog'),
-              onPressed: () {
-                DialogPresenter.showConfirmationDialog(
-                  context,
-                  title: DummyText.generateQuestion,
-                  message: DummyText.generateAnswer * 20,
-                  confirmLabel: 'Ok',
-                );
-              },
-            ),
-            AdaptiveFlatButton(
-              color: AdpColors.purple,
-              child: const Text('Show InformationDialog'),
-              onPressed: () {
-                DialogPresenter.showInformationDialog(
-                  context,
-                  title: DummyText.generateQuestion,
-                  message: DummyText.generateAnswer * 20,
-                  confirmLabel: 'Ok',
-                );
-              },
-            ),
-          ],
+        child: AdaptiveCheckbox(
+          value: currentValue,
+          onChanged: (value) {
+            setState(() {
+              currentValue = value!;
+            });
+          },
+          label: Text("label ${currentValue.toString()}"),
         ),
       ),
     );

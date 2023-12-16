@@ -1,24 +1,25 @@
 import 'package:adp_desktop/adp_desktop.dart';
-import 'package:adp_desktop/src/components/buttons/text_button/platforms/platforms.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 import '../wrap_app.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(DesktopTargetPlatform.macOS, isDebugging: true);
+  initializeDesktopDefaults();
+
 
   testWidgets(
-    'AdaptiveTextButton renders correctly with custom properties',
+    'AdaptiveFlatButton renders correctly with custom properties',
     (WidgetTester tester) async {
       await tester.pumpWidget(
-        wrapApp(
-          child: const AdaptiveTextButton(
+         wrapApp(
+          child: const AdaptiveFlatButton(
             properties: Properties(
-              windows: TextButtonWindowsProperty(),
-              macos: TextButtonMacosProperty(),
+              windows: FlatButtonWindowsProperty(),
+              macos: FlatButtonMacosProperty(),
             ),
-            child: Text('AdaptiveFilledButton'),
+            child: Text('AdaptiveFlatButton'),
           ),
         ),
       );
@@ -26,38 +27,38 @@ void main() {
       adaptiveValue(
         macos: () {
           // Expect the macOS version of the text button with custom properties to be rendered
-          expect(find.byType(TextButtonMacos), findsOneWidget);
-          expect(find.byType(TextButtonWindows), findsNothing);
+          expect(find.byType(PushButton), findsOneWidget);
+          expect(find.byType(Button), findsNothing);
         },
         windows: () {
           // Expect the windows version of the text button with custom properties to be rendered
-          expect(find.byType(TextButtonWindows), findsOneWidget);
-          expect(find.byType(TextButtonMacos), findsNothing);
+          expect(find.byType(Button), findsOneWidget);
+          expect(find.byType(PushButton), findsNothing);
         },
       );
     },
   );
 
   testWidgets(
-    'AdaptiveTextButton calls onPressed and onLongPress callbacks',
+    'AdaptiveFlatButton calls onPressed and onLongPress callbacks',
     (WidgetTester tester) async {
       bool checkValue = false;
 
       await tester.pumpWidget(
         wrapApp(
-          child:  AdaptiveTextButton(
+          child:AdaptiveFlatButton(
             onPressed: () => checkValue = true,
             onLongPress: () => checkValue = false,
-            child: const Text('Test TextButton'),
+            child: const Text('Test FlatButton'),
           ),
         ),
       );
 
-      await tester.tap(find.text('Test TextButton'));
+      await tester.tap(find.text('Test FlatButton'));
       await tester.pumpAndSettle();
       expect(checkValue, true);
 
-      await tester.longPress(find.text('Test TextButton'));
+      await tester.longPress(find.text('Test FlatButton'));
       await tester.pumpAndSettle();
       expect(checkValue, false);
     },

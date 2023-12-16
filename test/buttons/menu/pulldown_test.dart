@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../wrap_app.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(DesktopTargetPlatform.windows,
-      isDebugging: true);
+  initializeDesktopDefaults();
+
   testWidgets(
     'AdaptivePulldownMenuButton displays correctly',
     (WidgetTester tester) async {
@@ -34,10 +34,6 @@ void main() {
 
       // Verify that the menu items are displayed.
       expect(find.text('New folder'), findsOneWidget);
-
-      // Close the menu.
-      await tester.tap(find.text('New folder'));
-      await tester.pumpAndSettle();
     },
   );
 

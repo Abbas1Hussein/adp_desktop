@@ -7,34 +7,26 @@ import '../wrap_app.dart';
 import 'main_menu.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.macOS,
-    isDebugging: true,
-  );
+  initializeDesktopDefaults();
 
   late List<Widget> children;
-  late List<AdaptiveNavigationViewItem> items;
+  late List<AdaptiveTab> tabs;
 
   setUp(
     () {
-      items = List.generate(
+      tabs = List.generate(
         mainMenuTexts.length,
-        (index) {
-          return AdaptiveNavigationViewItem(
-            icon: AdaptiveIcon(mainMenuIcons[index]),
-            label: SizedBox(
-              width: 80.0,
-              child: Text(mainMenuTexts[index]),
-            ),
-          );
-        },
+        (index) => AdaptiveTab(
+          icon: AdaptiveIcon(mainMenuIcons[index]),
+          label: SizedBox(width: 65.0, child: Text(mainMenuTexts[index])),
+        ),
       );
 
-      children = items.map(
+      children = tabs.map(
         (element) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [element.label, element.icon],
+            children: [element.label, element.icon!],
           );
         },
       ).toList();
@@ -42,30 +34,29 @@ void main() {
   );
 
   testWidgets(
-    'AdaptiveNavigationView should render correctly',
+    'AdaptiveTabView should render correctly',
     (widgetTester) async {
       await widgetTester.pumpWidget(
         wrapApp(
-          child: AdaptiveNavigationView(items: items, children: children),
+          child: AdaptiveTabView(tabs: tabs, children: children),
         ),
       );
-      await widgetTester.pumpAndSettle();
 
       adaptiveValue(
         macos: () {
-          expect(find.byType(MacosWindow), findsOneWidget);
-          expect(find.byType(NavigationView), findsNothing);
+          expect(find.byType(MacosTabView), findsOneWidget);
+          expect(find.byType(TabView), findsNothing);
         },
         windows: () {
-          expect(find.byType(NavigationView), findsOneWidget);
-          expect(find.byType(MacosWindow), findsNothing);
+          expect(find.byType(TabView), findsOneWidget);
+          expect(find.byType(MacosTabView), findsNothing);
         },
       );
     },
   );
 
   testWidgets(
-    'AdaptiveNavigationView updates currentIndex correctly on item selection',
+    'AdaptiveTabView updates currentIndex correctly on tab selection',
     (tester) async {
       await tester.runAsync(
         () async {
@@ -75,12 +66,12 @@ void main() {
             wrapApp(
               child: StatefulBuilder(
                 builder: (context, setState) {
-                  return AdaptiveNavigationView(
+                  return AdaptiveTabView(
                     currentIndex: currentIndex,
                     onChanged: (value) {
                       setState(() => currentIndex = value);
                     },
-                    items: items,
+                    tabs: tabs,
                     children: children,
                   );
                 },
@@ -88,23 +79,22 @@ void main() {
             ),
           );
 
-          final navigationViewFinder = find.byType(AdaptiveNavigationView);
+          final tabViewFinder = find.byType(AdaptiveTabView);
 
-          final findItems =
-              tester.widget<AdaptiveNavigationView>(navigationViewFinder).items;
+          final findItems = tester.widget<AdaptiveTabView>(tabViewFinder).tabs;
 
           // Initial state check (currentIndex is 0).
           expect(currentIndex, 0);
 
-          // Simulate a tap on the last item's icon.
-          await tester.tap(find.byWidget(findItems.last.icon));
+          // Simulate a tap on the last item's label.
+          await tester.tap(find.byWidget(findItems.last.label));
           await tester.pumpAndSettle();
 
           // Check if currentIndex is updated to the last item's index (6).
           expect(currentIndex, findItems.length - 1);
 
-          // Simulate a tap on the first item's icon.
-          await tester.tap(find.byWidget(findItems.first.icon));
+          // Simulate a tap on the first item's label.
+          await tester.tap(find.byWidget(findItems.first.label));
           await tester.pumpAndSettle();
 
           // Check if currentIndex is updated back to the first item's index (0).

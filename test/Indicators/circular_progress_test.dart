@@ -7,10 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../wrap_app.dart';
 
 void main() {
-  DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
-    isDebugging: true,
-  );
+  initializeDesktopDefaults();
+
 
   testWidgets('AdaptiveCircularProgressIndicator renders correctly with value', (WidgetTester tester) async {
     await tester.pumpWidget(
