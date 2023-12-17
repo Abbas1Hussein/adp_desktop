@@ -4,14 +4,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-abstract class BaseFieldProperties {
-  const BaseFieldProperties({
+abstract class _BaseFieldProperties {
+  const _BaseFieldProperties({
     this.focusNode,
     this.contextMenuBuilder,
     this.selectionHeightStyle,
     this.selectionWidthStyle,
-    this.prefixText,
     this.suffix,
+    this.suffixMode,
     this.keyboardType,
     this.readOnly,
     this.maxLength,
@@ -48,20 +48,26 @@ abstract class BaseFieldProperties {
     this.scrollPhysics,
     this.scrollController,
     this.autofillHints,
-    this.clipBehavior,
     this.scrollPadding,
     this.enableInteractiveSelection,
     this.restorationId,
     this.keyboardAppearance,
     this.dragStartBehavior,
     this.textInputAction,
+    this.decoration,
+    this.foregroundDecoration,
+    this.placeholder,
+    this.placeholderStyle,
+    this.prefix,
+    this.prefixMode,
+    this.padding,
     this.showCursor,
   });
 
   /// Defines the keyboard focus for this widget.
   final FocusNode? focusNode;
 
-  /// {@macro flutter.widgets.EditableText.contextMenuBuilder}
+  /// Context menu builder for editable text.
   final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   /// Controls how tall the selection highlight boxes are computed to be.
@@ -70,11 +76,56 @@ abstract class BaseFieldProperties {
   /// Controls how wide the selection highlight boxes are computed to be.
   final BoxWidthStyle? selectionWidthStyle;
 
-  /// The text to display before the input field.
-  final String? prefixText;
+  /// Controls the [BoxDecoration] of the text field behind the text input.
+  final BoxDecoration? decoration;
+
+  /// Controls the [BoxDecoration] of the text field in front of the text input.
+  final BoxDecoration? foregroundDecoration;
+
+  /// A lighter colored placeholder hint that appears on the first line of the
+  /// text field when the text entry is empty.
+  ///
+  /// Defaults to having no placeholder text.
+  ///
+  /// The text style of the placeholder text matches that of the text field's
+  /// main text entry except a lighter font weight and a grey font color.
+  final String? placeholder;
+
+  /// The style to use for the placeholder text.
+  ///
+  /// The [placeholderStyle] is merged with the [style] [TextStyle] when applied
+  /// to the [placeholder] text. To avoid merging with [style], specify
+  /// [TextStyle.inherit] as false.
+  ///
+  /// Defaults to the [style] property with w300 font weight and grey color.
+  ///
+  /// If specifically set to null, placeholder's style will be the same as [style].
+  final TextStyle? placeholderStyle;
+
+  /// An optional [Widget] to display before the text.
+  final Widget? prefix;
+
+  /// Controls the visibility of the [prefix] widget based on the state of
+  /// text entry when the [prefix] argument is not null.
+  ///
+  /// Defaults to [FieldOverlayVisibilityMode.always] and cannot be null.
+  ///
+  /// Has no effect when [prefix] is null.
+  final FieldOverlayVisibilityMode? prefixMode;
 
   /// An optional widget to display after the input field.
   final Widget? suffix;
+
+  /// Controls the visibility of the [suffix] widget based on the state of
+  /// text entry when the [suffix] argument is not null.
+  ///
+  /// Defaults to [FieldOverlayVisibilityMode.always] and cannot be null.
+  ///
+  /// Has no effect when [suffix] is null.
+  final FieldOverlayVisibilityMode? suffixMode;
+
+  /// Padding around the text entry area between the [prefix] and [suffix].
+  final EdgeInsets? padding;
 
   /// The type of keyboard to display for text input.
   final TextInputType? keyboardType;
@@ -91,135 +142,134 @@ abstract class BaseFieldProperties {
   /// A controller for manipulating the text field's content.
   final TextEditingController? controller;
 
-  /// A callback function that is called when the text in the field changes.
+  /// Callback function for text changes.
   final ValueChanged<String>? onChanged;
 
-  /// A callback function that is called when the user submits the text.
+  /// Callback function for submitting the text.
   final ValueChanged<String>? onSubmitted;
 
-  /// {@macro flutter.widgets.editableText.obscureText}
+  /// Indicates whether the text should be obscured.
   final bool? obscureText;
 
-  /// {@macro flutter.widgets.editableText.autocorrect}
+  /// Indicates whether autocorrect is enabled.
   final bool? autocorrect;
 
-  /// {@macro flutter.services.TextInputConfiguration.smartDashesType}
+  /// Smart dashes type for text input.
   final SmartDashesType? smartDashesType;
 
-  /// {@macro flutter.services.TextInputConfiguration.smartQuotesType}
+  /// Smart quotes type for text input.
   final SmartQuotesType? smartQuotesType;
 
-  /// {@macro flutter.services.TextInputConfiguration.enableSuggestions}
+  /// Enable suggestions for text input.
   final bool? enableSuggestions;
 
-  /// {@macro flutter.widgets.editableText.minLines}
-  ///  * [expands], which determines whether the field should fill the height of
-  ///    its parent.
+  /// Minimum number of lines for a multi-line text field.
   final int? minLines;
 
-  /// {@macro flutter.widgets.editableText.expands}
+  /// Determines whether the field should fill the height of its parent.
   final bool? expands;
 
-  /// Determines how the [maxLength] limit should be enforced.
+  /// Determines how the maxLength limit should be enforced.
   final MaxLengthEnforcement? maxLengthEnforcement;
 
-  /// {@macro flutter.widgets.editableText.onEditingComplete}
+  /// Callback for editing completion.
   final VoidCallback? onEditingComplete;
 
-  /// {@macro flutter.widgets.editableText.onTapOutside}
+  /// Callback for taps outside the text field.
   final TapRegionCallback? onTapOutside;
 
-  /// {@macro flutter.widgets.editableText.textCapitalization}
+  /// Text capitalization style.
   final TextCapitalization? textCapitalization;
 
-  /// The style to use for the text being edited.
+  /// Style to use for the text being edited.
   final TextStyle? style;
 
-  /// {@macro flutter.widgets.editableText.strutStyle}
+  /// Strut style for the text.
   final StrutStyle? strutStyle;
 
-  /// {@macro flutter.widgets.editableText.textAlign}
+  /// Text alignment within the text field.
   final TextAlign? textAlign;
 
-  /// {@macro flutter.material.InputDecorator.textAlignVertical}
+  /// Vertical text alignment within the text field.
   final TextAlignVertical? textAlignVertical;
 
-  /// {@macro flutter.widgets.editableText.textDirection}
+  /// Text direction for the text field.
   final TextDirection? textDirection;
 
-  /// {@macro flutter.widgets.editableText.autofocus}
+  /// Autofocus on the text field.
   final bool? autofocus;
 
-  /// {@macro flutter.widgets.editableText.obscuringCharacter}
+  /// Character to use for obscuring the text.
   final String? obscuringCharacter;
 
-  /// {@macro flutter.widgets.editableText.inputFormatters}
+  /// Input formatters for the text field.
   final List<TextInputFormatter>? inputFormatters;
 
-  /// Disables the text field when false.
+  /// Enable or disable the text field.
   final bool? enabled;
 
-  /// {@macro flutter.widgets.editableText.cursorWidth}
+  /// Width of the cursor.
   final double? cursorWidth;
 
-  /// {@macro flutter.widgets.editableText.cursorHeight}
+  /// Height of the cursor.
   final double? cursorHeight;
 
-  /// {@macro flutter.widgets.editableText.cursorRadius}
+  /// Radius of the cursor.
   final Radius? cursorRadius;
 
-  /// The color to use when painting the cursor.
+  /// Color of the cursor.
   final Color? cursorColor;
 
-  /// {@macro flutter.widgets.editableText.selectionControls}
+  /// Text selection controls.
   final TextSelectionControls? selectionControls;
 
-  /// {@template flutter.material.textfield.onTap}
-  /// Called for each distinct tap except for every second tap of a double tap.
+  /// Callback for each distinct tap except for every second tap of a double tap.
   final GestureTapCallback? onTap;
 
-  /// {@macro flutter.widgets.editableText.scrollPhysics}
+  /// Scroll physics for the text field.
   final ScrollPhysics? scrollPhysics;
 
-  /// {@macro flutter.widgets.editableText.scrollController}
+  /// Scroll controller for the text field.
   final ScrollController? scrollController;
 
-  /// {@macro flutter.widgets.editableText.autofillHints}
-  /// {@macro flutter.services.AutofillConfiguration.autofillHints}
+  /// Autofill hints for the text field.
   final Iterable<String>? autofillHints;
 
-  /// {@macro flutter.material.Material.clipBehavior}
-  final Clip? clipBehavior;
-
-  /// {@macro flutter.widgets.editableText.scrollPadding}
+  /// Scroll padding for the text field.
   final EdgeInsets? scrollPadding;
 
-  /// {@macro flutter.widgets.editableText.enableInteractiveSelection}
+  /// Enable or disable interactive selection.
   final bool? enableInteractiveSelection;
 
-  /// {@template flutter.material.textfield.restorationId}
-  /// Restoration ID to save and restore the state of the text field.
+  /// Restoration ID for saving and restoring the state of the text field.
   final String? restorationId;
 
-  /// The appearance of the keyboard.
+  /// Appearance of the keyboard.
   final Brightness? keyboardAppearance;
 
-  /// {@macro flutter.widgets.scrollable.dragStartBehavior}
+  /// Drag start behavior for the text field.
   final DragStartBehavior? dragStartBehavior;
 
-  /// The type of action button to use for the keyboard.
+  /// Action button type for the keyboard.
   final TextInputAction? textInputAction;
 
-  /// {@macro flutter.widgets.editableText.showCursor}
+  /// Show or hide the cursor.
   final bool? showCursor;
 }
 
-class AdaptiveFieldProperties extends BaseFieldProperties {
+class AdaptiveFieldProperties extends _BaseFieldProperties {
   const AdaptiveFieldProperties({
+    super.decoration,
+    super.foregroundDecoration,
+    super.padding,
+    super.placeholder,
+    super.placeholderStyle,
     super.focusNode,
     super.contextMenuBuilder,
-    super.prefixText,
+    super.prefix,
+    super.prefixMode,
     super.suffix,
+    super.suffixMode,
     super.keyboardType,
     super.readOnly,
     super.maxLength,
@@ -247,7 +297,6 @@ class AdaptiveFieldProperties extends BaseFieldProperties {
     super.smartQuotesType,
     super.autofillHints,
     super.autofocus,
-    super.clipBehavior,
     super.dragStartBehavior,
     super.enableInteractiveSelection,
     super.keyboardAppearance,
@@ -269,7 +318,7 @@ class AdaptiveFieldProperties extends BaseFieldProperties {
   });
 }
 
-class AdaptiveFormFieldProperties extends BaseFieldProperties {
+class AdaptiveFormFieldProperties extends _BaseFieldProperties {
   /// An optional method to call with the final value when the form is saved via
   /// [FormState.save].
   final FormFieldSetter<String>? onSaved;
@@ -328,7 +377,6 @@ class AdaptiveFormFieldProperties extends BaseFieldProperties {
   /// {@endtemplate}
   final AutovalidateMode? autovalidateMode;
 
-
   const AdaptiveFormFieldProperties({
     this.validator,
     this.onFieldSubmitted,
@@ -338,7 +386,6 @@ class AdaptiveFormFieldProperties extends BaseFieldProperties {
     this.builder,
     super.focusNode,
     super.contextMenuBuilder,
-    super.prefixText,
     super.suffix,
     super.keyboardType,
     super.readOnly,
@@ -366,7 +413,6 @@ class AdaptiveFormFieldProperties extends BaseFieldProperties {
     super.smartQuotesType,
     super.autofillHints,
     super.autofocus,
-    super.clipBehavior,
     super.dragStartBehavior,
     super.enableInteractiveSelection,
     super.keyboardAppearance,
@@ -386,4 +432,28 @@ class AdaptiveFormFieldProperties extends BaseFieldProperties {
     super.textDirection,
     super.textInputAction,
   });
+}
+
+/// Visibility of text field overlays based on the state of the current text entry.
+///
+/// Used to toggle the visibility behavior of the optional decorating widgets
+/// surrounding the [EditableText] such as the clear text button.
+enum FieldOverlayVisibilityMode {
+  /// Overlay will never appear regardless of the text entry state.
+  never,
+
+  /// Overlay will only appear when the current text entry is not empty.
+  ///
+  /// This includes prefilled text that the user did not type in manually. But
+  /// does not include text in placeholders.
+  editing,
+
+  /// Overlay will only appear when the current text entry is empty.
+  ///
+  /// This also includes not having prefilled text that the user did not type
+  /// in manually. Texts in placeholders are ignored.
+  notEditing,
+
+  /// Always show the overlay regardless of the text entry state.
+  always,
 }

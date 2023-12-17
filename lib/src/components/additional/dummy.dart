@@ -1,6 +1,6 @@
 import 'dart:math';
 
-abstract class DummyText {
+abstract final class DummyText {
   const DummyText._();
 
   static final int _random = Random.secure().nextInt(_questions.length);

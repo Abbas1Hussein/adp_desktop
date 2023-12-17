@@ -46,17 +46,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveScaffold(
+    return  AdaptiveScaffold(
       appBar: const AdaptiveAppBar(),
       body: Center(
-        child: AdaptiveCheckbox(
-          value: currentValue,
-          onChanged: (value) {
-            setState(() {
-              currentValue = value!;
-            });
+        child: AdaptiveTextField(
+          placeholder: 'placeholder',
+          prefix: const Text('prefix'),
+          suffix: const Text('suffix'),
+          onTap: () {
+            print('onTap');
           },
-          label: Text("label ${currentValue.toString()}"),
+          onTapOutside: (event) {
+            print('onTapOutside');
+          },
+          onSubmitted: (value) {
+            print('onSubmitted');
+          },
+          onChanged: (value) {
+            print('onChanged');
+          },
+          onEditingComplete: () {
+            print('onEditingComplete');
+          },
         ),
       ),
     );
