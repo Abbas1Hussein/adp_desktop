@@ -46,28 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  AdaptiveScaffold(
-      appBar: const AdaptiveAppBar(),
+    return  const AdaptiveScaffold(
+      appBar: AdaptiveAppBar(),
       body: Center(
         child: AdaptiveTextField(
           placeholder: 'placeholder',
-          prefix: const Text('prefix'),
-          suffix: const Text('suffix'),
-          onTap: () {
-            print('onTap');
-          },
-          onTapOutside: (event) {
-            print('onTapOutside');
-          },
-          onSubmitted: (value) {
-            print('onSubmitted');
-          },
-          onChanged: (value) {
-            print('onChanged');
-          },
-          onEditingComplete: () {
-            print('onEditingComplete');
-          },
+          prefix: Text('prefix'),
+          suffix: Text('suffix'),
         ),
       ),
     );

@@ -23,74 +23,85 @@ class TextFieldMacos extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldTapRegion(
       onTapOutside: adaptiveProperties?.onTapOutside,
-      child: MacosTextField(
-        key: key,
-        onTap: adaptiveProperties?.onTap,
-        onChanged: adaptiveProperties?.onChanged,
-        onSubmitted: adaptiveProperties?.onSubmitted,
-        onEditingComplete: adaptiveProperties?.onEditingComplete,
-        placeholder: adaptiveProperties?.placeholder,
-        clearButtonMode: OverlayVisibilityMode.editing,
-        prefixMode: toOverlayMode(adaptiveProperties?.prefixMode?.name),
-        suffixMode: toOverlayMode(adaptiveProperties?.suffixMode?.name),
-        padding: adaptiveProperties?.padding ?? const EdgeInsets.all(4.0),
-        decoration: adaptiveProperties?.decoration ?? kDefaultRoundedBorderDecoration,
-        placeholderStyle: adaptiveProperties?.placeholderStyle ?? _kDefaultPlaceholderStyle,
-        focusedDecoration: adaptiveProperties?.foregroundDecoration ??kDefaultFocusedBorderDecoration,
-        prefix: adaptiveProperties?.prefix,
-        style: adaptiveProperties?.style,
-        suffix:  Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: adaptiveProperties?.suffix,
+      child: DecoratedBox(
+        decoration: adaptiveProperties?.decoration?.copyWith(
+              color: adaptiveProperties?.decoration?.color?.withOpacity(0.7),
+            ) ??
+            const BoxDecoration(),
+        child: MacosTextField(
+          key: key,
+          onTap: adaptiveProperties?.onTap,
+          onChanged: adaptiveProperties?.onChanged,
+          onSubmitted: adaptiveProperties?.onSubmitted,
+          onEditingComplete: adaptiveProperties?.onEditingComplete,
+          placeholder: adaptiveProperties?.placeholder,
+          placeholderStyle:
+              adaptiveProperties?.placeholderStyle ?? _kDefaultPlaceholderStyle,
+          clearButtonMode: OverlayVisibilityMode.editing,
+          prefixMode: toOverlayMode(adaptiveProperties?.prefixMode?.name),
+          suffixMode: toOverlayMode(adaptiveProperties?.suffixMode?.name),
+          padding: adaptiveProperties?.padding ?? const EdgeInsets.all(4.0),
+          decoration: adaptiveProperties?.decoration == null
+              ? kDefaultRoundedBorderDecoration
+              : null,
+          focusedDecoration: adaptiveProperties?.decoration == null
+              ? kDefaultFocusedBorderDecoration
+              : null,
+          prefix: adaptiveProperties?.prefix,
+          style: adaptiveProperties?.style,
+          suffix: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: adaptiveProperties?.suffix,
+          ),
+          enabled: adaptiveProperties?.enabled,
+          maxLines: adaptiveProperties?.maxLines ?? 1,
+          minLines: adaptiveProperties?.minLines,
+          focusNode: adaptiveProperties?.focusNode,
+          maxLength: adaptiveProperties?.maxLength,
+          strutStyle: adaptiveProperties?.strutStyle,
+          showCursor: adaptiveProperties?.showCursor,
+          controller: adaptiveProperties?.controller,
+          cursorColor: adaptiveProperties?.cursorColor,
+          expands: adaptiveProperties?.expands ?? false,
+          cursorHeight: adaptiveProperties?.cursorHeight,
+          keyboardType: adaptiveProperties?.keyboardType,
+          readOnly: adaptiveProperties?.readOnly ?? false,
+          restorationId: adaptiveProperties?.restorationId,
+          scrollPhysics: adaptiveProperties?.scrollPhysics,
+          autofillHints: adaptiveProperties?.autofillHints,
+          autofocus: adaptiveProperties?.autofocus ?? false,
+          cursorWidth: adaptiveProperties?.cursorWidth ?? 2.0,
+          smartDashesType: adaptiveProperties?.smartDashesType,
+          smartQuotesType: adaptiveProperties?.smartQuotesType,
+          autocorrect: adaptiveProperties?.autocorrect ?? true,
+          textInputAction: adaptiveProperties?.textInputAction,
+          inputFormatters: adaptiveProperties?.inputFormatters,
+          obscureText: adaptiveProperties?.obscureText ?? false,
+          scrollController: adaptiveProperties?.scrollController,
+          selectionControls: adaptiveProperties?.selectionControls,
+          textAlignVertical: adaptiveProperties?.textAlignVertical,
+          obscuringCharacter: adaptiveProperties?.obscuringCharacter ?? '•',
+          keyboardAppearance: adaptiveProperties?.keyboardAppearance,
+          contextMenuBuilder: adaptiveProperties?.contextMenuBuilder ??
+              _defaultContextMenuBuilder,
+          textAlign: adaptiveProperties?.textAlign ?? TextAlign.start,
+          maxLengthEnforcement: adaptiveProperties?.maxLengthEnforcement,
+          enableSuggestions: adaptiveProperties?.enableSuggestions ?? true,
+          cursorRadius:
+              adaptiveProperties?.cursorRadius ?? const Radius.circular(2.0),
+          scrollPadding:
+              adaptiveProperties?.scrollPadding ?? const EdgeInsets.all(20.0),
+          enableInteractiveSelection:
+              adaptiveProperties?.enableInteractiveSelection ?? true,
+          selectionWidthStyle:
+              adaptiveProperties?.selectionWidthStyle ?? BoxWidthStyle.tight,
+          dragStartBehavior:
+              adaptiveProperties?.dragStartBehavior ?? DragStartBehavior.start,
+          selectionHeightStyle:
+              adaptiveProperties?.selectionHeightStyle ?? BoxHeightStyle.tight,
+          textCapitalization:
+              adaptiveProperties?.textCapitalization ?? TextCapitalization.none,
         ),
-        enabled: adaptiveProperties?.enabled,
-        maxLines: adaptiveProperties?.maxLines ?? 1,
-        minLines: adaptiveProperties?.minLines,
-        focusNode: adaptiveProperties?.focusNode,
-        maxLength: adaptiveProperties?.maxLength,
-        strutStyle: adaptiveProperties?.strutStyle,
-        showCursor: adaptiveProperties?.showCursor,
-        controller: adaptiveProperties?.controller,
-        cursorColor: adaptiveProperties?.cursorColor,
-        expands: adaptiveProperties?.expands ?? false,
-        cursorHeight: adaptiveProperties?.cursorHeight,
-        keyboardType: adaptiveProperties?.keyboardType,
-        readOnly: adaptiveProperties?.readOnly ?? false,
-        restorationId: adaptiveProperties?.restorationId,
-        scrollPhysics: adaptiveProperties?.scrollPhysics,
-        autofillHints: adaptiveProperties?.autofillHints,
-        autofocus: adaptiveProperties?.autofocus ?? false,
-        cursorWidth: adaptiveProperties?.cursorWidth ?? 2.0,
-        smartDashesType: adaptiveProperties?.smartDashesType,
-        smartQuotesType: adaptiveProperties?.smartQuotesType,
-        autocorrect: adaptiveProperties?.autocorrect ?? true,
-        textInputAction: adaptiveProperties?.textInputAction,
-        inputFormatters: adaptiveProperties?.inputFormatters,
-        obscureText: adaptiveProperties?.obscureText ?? false,
-        scrollController: adaptiveProperties?.scrollController,
-        selectionControls: adaptiveProperties?.selectionControls,
-        textAlignVertical: adaptiveProperties?.textAlignVertical,
-        obscuringCharacter: adaptiveProperties?.obscuringCharacter ?? '•',
-        keyboardAppearance: adaptiveProperties?.keyboardAppearance,
-        contextMenuBuilder: adaptiveProperties?.contextMenuBuilder ??
-            _defaultContextMenuBuilder,
-        textAlign: adaptiveProperties?.textAlign ?? TextAlign.start,
-        maxLengthEnforcement: adaptiveProperties?.maxLengthEnforcement,
-        enableSuggestions: adaptiveProperties?.enableSuggestions ?? true,
-        cursorRadius:
-            adaptiveProperties?.cursorRadius ?? const Radius.circular(2.0),
-        scrollPadding:
-            adaptiveProperties?.scrollPadding ?? const EdgeInsets.all(20.0),
-        enableInteractiveSelection:
-            adaptiveProperties?.enableInteractiveSelection ?? true,
-        selectionWidthStyle:
-            adaptiveProperties?.selectionWidthStyle ?? BoxWidthStyle.tight,
-        dragStartBehavior:
-            adaptiveProperties?.dragStartBehavior ?? DragStartBehavior.start,
-        selectionHeightStyle:
-            adaptiveProperties?.selectionHeightStyle ?? BoxHeightStyle.tight,
-        textCapitalization:
-            adaptiveProperties?.textCapitalization ?? TextCapitalization.none,
       ),
     );
   }

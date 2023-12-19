@@ -48,7 +48,6 @@ class TextFieldWindows extends StatelessWidget {
         keyboardType: adaptiveProperties?.keyboardType,
         restorationId: adaptiveProperties?.restorationId,
         readOnly: adaptiveProperties?.readOnly ?? false,
-        textDirection: adaptiveProperties?.textDirection,
         scrollPhysics: adaptiveProperties?.scrollPhysics,
         autofillHints: adaptiveProperties?.autofillHints,
         autofocus: adaptiveProperties?.autofocus ?? false,
@@ -70,7 +69,6 @@ class TextFieldWindows extends StatelessWidget {
         suffixMode: toOverlayMode(adaptiveProperties?.suffixMode?.name),
         enableSuggestions: adaptiveProperties?.enableSuggestions ?? true,
         padding: adaptiveProperties?.padding ?? kTextBoxPadding,
-        foregroundDecoration: adaptiveProperties?.foregroundDecoration,
         obscuringCharacter: adaptiveProperties?.obscuringCharacter ?? '•',
         enableInteractiveSelection:
             adaptiveProperties?.enableInteractiveSelection,
@@ -87,6 +85,8 @@ class TextFieldWindows extends StatelessWidget {
         textCapitalization:
             adaptiveProperties?.textCapitalization ?? TextCapitalization.none,
         enableIMEPersonalizedLearning: true,
+        highlightColor: adaptiveProperties?.decoration != null ? Colors.transparent: null,
+        unfocusedColor:adaptiveProperties?.decoration != null ? Colors.transparent: null,
       ),
     );
   }

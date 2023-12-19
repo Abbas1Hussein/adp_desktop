@@ -27,7 +27,6 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
     this.onSubmitted,
     this.obscureText,
     this.autocorrect,
-    this.foregroundDecoration,
     this.decoration,
     this.padding,
     this.placeholder,
@@ -47,7 +46,6 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
     this.strutStyle,
     this.textAlign,
     this.textAlignVertical,
-    this.textDirection,
     this.autofocus,
     this.obscuringCharacter,
     this.inputFormatters,
@@ -85,9 +83,6 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
   /// Controls the [BoxDecoration] of the text field behind the text input.
   final BoxDecoration? decoration;
 
-  /// Controls the [BoxDecoration] of the text field in front of the text input.
-  final BoxDecoration? foregroundDecoration;
-
   /// A lighter colored placeholder hint that appears on the first line of the
   /// text field when the text entry is empty.
   ///
@@ -107,7 +102,6 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
   ///
   /// If specifically set to null, placeholder's style will be the same as [style].
   final TextStyle? placeholderStyle;
-
 
   /// An optional [Widget] to display before the text.
   final Widget? prefix;
@@ -200,9 +194,6 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
   /// Vertical text alignment within the text field.
   final TextAlignVertical? textAlignVertical;
 
-  /// Text direction for the text field.
-  final TextDirection? textDirection;
-
   /// Autofocus on the text field.
   final bool? autofocus;
 
@@ -280,65 +271,90 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
   Widget windows(BuildContext context) {
     return TextFieldWindows(adaptiveProperties: fieldProperties);
   }
+}
 
+extension _AdaptiveTextFieldEx on AdaptiveTextField {
   AdaptiveFieldProperties get fieldProperties {
     return AdaptiveFieldProperties(
+      // Behavior
+      readOnly: readOnly,
+      autofocus: autofocus,
+      enableSuggestions: enableSuggestions,
+      enableInteractiveSelection: enableInteractiveSelection,
+
+      // Callbacks
       onTap: onTap,
+      onChanged: onChanged,
+      onSubmitted: onSubmitted,
+      onTapOutside: onTapOutside,
+      onEditingComplete: onEditingComplete,
+
+      // Limits
+      maxLines: maxLines,
+      minLines: minLines,
+      maxLength: maxLength,
+      maxLengthEnforcement: maxLengthEnforcement,
+
+      // Appearance
       style: style,
-      prefix: prefix,
-      suffix: suffix,
-      padding: padding,
-      prefixMode: prefixMode,
-      suffixMode: suffixMode,
+      textAlign: textAlign,
+      strutStyle: strutStyle,
       decoration: decoration,
       placeholder: placeholder,
       placeholderStyle: placeholderStyle,
-      maxLines: maxLines,
-      autofocus: autofocus,
-      autocorrect: autocorrect,
-      autofillHints: autofillHints,
-      foregroundDecoration: foregroundDecoration,
-      contextMenuBuilder: contextMenuBuilder,
+      textAlignVertical: textAlignVertical,
+
+      // Content
       controller: controller,
-      cursorColor: cursorColor,
-      cursorHeight: cursorHeight,
-      cursorRadius: cursorRadius,
-      cursorWidth: cursorWidth,
-      dragStartBehavior: dragStartBehavior,
-      enabled: enabled,
-      enableInteractiveSelection: enableInteractiveSelection,
-      enableSuggestions: enableSuggestions,
-      expands: expands,
-      focusNode: focusNode,
-      inputFormatters: inputFormatters,
-      keyboardAppearance: keyboardAppearance,
       keyboardType: keyboardType,
-      maxLength: maxLength,
-      maxLengthEnforcement: maxLengthEnforcement,
-      minLines: minLines,
-      obscureText: obscureText,
+      inputFormatters: inputFormatters,
       obscuringCharacter: obscuringCharacter,
-      onChanged: onChanged,
-      onEditingComplete: onEditingComplete,
-      onSubmitted: onSubmitted,
-      onTapOutside: onTapOutside,
-      readOnly: readOnly,
+      textCapitalization: textCapitalization,
+
+      // Focus and Navigation
+      focusNode: focusNode,
+      textInputAction: textInputAction,
+
+      // Other
+      enabled: enabled,
+      expands: expands,
+      padding: padding,
+      suffixMode: suffixMode,
+      prefixMode: prefixMode,
       restorationId: restorationId,
-      scrollController: scrollController,
+      dragStartBehavior: dragStartBehavior,
+
+      // Widget
+      prefix: prefix,
+      suffix: suffix,
+      contextMenuBuilder: contextMenuBuilder,
+
+      // Platform-specific
+      keyboardAppearance: keyboardAppearance,
+
+      // Scroll
       scrollPadding: scrollPadding,
       scrollPhysics: scrollPhysics,
-      selectionControls: selectionControls,
-      selectionHeightStyle: selectionHeightStyle,
-      selectionWidthStyle: selectionWidthStyle,
+      scrollController: scrollController,
+
+      // Selection
       showCursor: showCursor,
+      selectionControls: selectionControls,
+      selectionWidthStyle: selectionWidthStyle,
+      selectionHeightStyle: selectionHeightStyle,
+
+      // Visuals
+      cursorColor: cursorColor,
+      cursorWidth: cursorWidth,
+      cursorHeight: cursorHeight,
+      cursorRadius: cursorRadius,
+
+      // Text Input
+      autocorrect: autocorrect,
+      obscureText: obscureText,
+      autofillHints: autofillHints,
       smartDashesType: smartDashesType,
       smartQuotesType: smartQuotesType,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textAlignVertical: textAlignVertical,
-      textCapitalization: textCapitalization,
-      textDirection: textDirection,
-      textInputAction: textInputAction,
     );
   }
 }

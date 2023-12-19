@@ -34,7 +34,6 @@ abstract class _BaseFieldProperties {
     this.strutStyle,
     this.textAlign,
     this.textAlignVertical,
-    this.textDirection,
     this.autofocus,
     this.obscuringCharacter,
     this.inputFormatters,
@@ -55,7 +54,6 @@ abstract class _BaseFieldProperties {
     this.dragStartBehavior,
     this.textInputAction,
     this.decoration,
-    this.foregroundDecoration,
     this.placeholder,
     this.placeholderStyle,
     this.prefix,
@@ -78,9 +76,6 @@ abstract class _BaseFieldProperties {
 
   /// Controls the [BoxDecoration] of the text field behind the text input.
   final BoxDecoration? decoration;
-
-  /// Controls the [BoxDecoration] of the text field in front of the text input.
-  final BoxDecoration? foregroundDecoration;
 
   /// A lighter colored placeholder hint that appears on the first line of the
   /// text field when the text entry is empty.
@@ -193,9 +188,6 @@ abstract class _BaseFieldProperties {
   /// Vertical text alignment within the text field.
   final TextAlignVertical? textAlignVertical;
 
-  /// Text direction for the text field.
-  final TextDirection? textDirection;
-
   /// Autofocus on the text field.
   final bool? autofocus;
 
@@ -260,7 +252,6 @@ abstract class _BaseFieldProperties {
 class AdaptiveFieldProperties extends _BaseFieldProperties {
   const AdaptiveFieldProperties({
     super.decoration,
-    super.foregroundDecoration,
     super.padding,
     super.placeholder,
     super.placeholderStyle,
@@ -313,7 +304,6 @@ class AdaptiveFieldProperties extends _BaseFieldProperties {
     super.textAlign,
     super.textAlignVertical,
     super.textCapitalization,
-    super.textDirection,
     super.textInputAction,
   });
 }
@@ -429,7 +419,6 @@ class AdaptiveFormFieldProperties extends _BaseFieldProperties {
     super.textAlign,
     super.textAlignVertical,
     super.textCapitalization,
-    super.textDirection,
     super.textInputAction,
   });
 }
