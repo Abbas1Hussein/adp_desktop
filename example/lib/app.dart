@@ -62,6 +62,24 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               AdaptiveTextFormField(
                 placeholder: 'Enter a username',
+                onSaved: (newValue) {
+                  print('onSaved');
+                },
+                onTap: () {
+                  print('onTap');
+                },
+                onChanged: (value) {
+                  print('onChanged');
+                },
+                onTapOutside: (event) {
+                  print('onTapOutside');
+                },
+                onFieldSubmitted: (value) {
+                  print('onFieldSubmitted');
+                },
+                onEditingComplete: () {
+                  print('onEditingComplete');
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a username';
@@ -95,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _login() {
     if (key.currentState?.validate() ?? false) {
       // Validation successful, proceed with login logic
+      key.currentState?.save();
       print('Login successful!');
     } else {
       // Validation failed, show an error message or perform error handling

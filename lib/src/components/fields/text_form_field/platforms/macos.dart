@@ -28,7 +28,7 @@ class TextFormFieldMacos extends StatelessWidget {
         onSaved: adpProperties?.onSaved,
         onChanged: adpProperties?.onChanged,
         validator: adpProperties?.validator,
-        onFieldSubmitted: adpProperties?.onSubmitted,
+        onFieldSubmitted: adpProperties?.onFieldSubmitted,
         onEditingComplete: adpProperties?.onEditingComplete,
         initialValue: adpProperties?.initialValue,
         placeholder: adpProperties?.placeholder,
