@@ -25,7 +25,6 @@ extension DesktopContextEx on BuildContext {
     );
   }
 
-
   /// Check if the brightness is set to dark.
   bool get isDark => brightness == Brightness.dark;
 

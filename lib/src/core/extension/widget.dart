@@ -1,14 +1,13 @@
 import 'package:flutter/widgets.dart';
 
-/// An extension method to merge the current widget with another widget as its child.
-/// If [title] is null, it returns the current widget unchanged.
+/// to merge the current widget with another widget as its child.
 extension MergeToChild on Widget {
   /// Merges the current widget with [child], separated by a SizedBox.
   ///
   /// If [child] is null, the current widget is returned as-is.
   Widget margeWith(
     Widget? child, [
-    double? space,
+    double? space = 4.0,
     Axis axis = Axis.horizontal,
   ]) {
     if (child == null) return this;
@@ -16,19 +15,11 @@ extension MergeToChild on Widget {
     if (axis == Axis.horizontal) {
       return Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          this,
-          SizedBox(width: space ?? 8.0),
-          child,
-        ],
+        children: [this, SizedBox(width: space), child],
       );
     } else {
       return Column(
-        children: [
-          this,
-          SizedBox(height: space ?? 8.0),
-          child,
-        ],
+        children: [this, SizedBox(height: space), child],
       );
     }
   }

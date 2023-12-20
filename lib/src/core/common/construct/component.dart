@@ -46,6 +46,7 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
     );
   }
 
+
   Widget windows(BuildContext context);
 
   Widget macos(BuildContext context);

@@ -1,6 +1,6 @@
 import '../../components/components.dart';
 
-abstract class AllProperties {
+abstract final class AllProperties {
   const AllProperties(this._object);
 
   final Object? _object;
@@ -22,7 +22,7 @@ abstract class AllProperties {
   T? _property<T>() => _object as T?;
 }
 
-class _WindowsAllProperties extends AllProperties {
+final class  _WindowsAllProperties extends AllProperties {
   const _WindowsAllProperties(super.object);
 
   @override
@@ -47,7 +47,7 @@ class _WindowsAllProperties extends AllProperties {
   TextButtonWindowsProperty get textButtonProperty => _property();
 }
 
-class _MacosAllProperties extends AllProperties {
+final class _MacosAllProperties extends AllProperties {
   const _MacosAllProperties(super.object);
 
   @override

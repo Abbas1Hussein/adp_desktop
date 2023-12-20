@@ -1,3 +1,3 @@
-export 'desktop/windows.dart';
-export 'desktop/macos.dart';
+export 'windows.dart';
+export 'macos.dart';
 

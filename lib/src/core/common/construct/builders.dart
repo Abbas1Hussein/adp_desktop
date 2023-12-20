@@ -5,12 +5,11 @@ import 'platforms.dart';
 import 'properties.dart';
 
 typedef Builder<ThemeData, Property> = Widget Function(
-  Widget platformChild,
-  ThemeData theme,
-  Property? property,
-);
+    Widget platformChild, ThemeData theme, Property? property);
 
-abstract class CoreAdaptiveBuilder extends CorePlatforms<Builder<FluentThemeData, CoreWindowsProperty?>, Builder<MacosThemeData, CoreMacosProperty?>> {
+abstract class CoreAdaptiveBuilder extends CorePlatforms<
+    Builder<FluentThemeData, CoreWindowsProperty?>,
+    Builder<MacosThemeData, CoreMacosProperty?>> {
   const CoreAdaptiveBuilder({super.windows, super.macos});
 }
 
@@ -25,9 +24,3 @@ final class AdaptiveBuilder extends CoreAdaptiveBuilder {
     Builder<MacosThemeData, CoreMacosProperty?> macos,
   ) : super(macos: macos);
 }
-
-// final class OnlyBuilder extends CoreAdaptiveBuilder {
-//   OnlyBuilder.windows(Builder? windows) : super(windows: windows);
-//
-//   OnlyBuilder.macos(Builder? macos) : super(macos: macos);
-// }

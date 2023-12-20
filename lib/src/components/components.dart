@@ -3,7 +3,7 @@ export 'additional/color.dart';
 export 'additional/dummy.dart';
 export 'additional/typography.dart';
 export 'buttons/buttons.dart';
-export 'field/field.dart';
+export 'fields/fields.dart';
 export 'icon/icon.dart';
 export 'icon/icons.dart';
 export 'layout/layout.dart';

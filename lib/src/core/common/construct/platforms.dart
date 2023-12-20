@@ -1,10 +1,7 @@
 import '../../enum/target.dart';
 
 abstract class CorePlatforms<WINDOWS, MACOS> {
-  const CorePlatforms({
-    this.windows,
-    this.macos,
-  });
+  const CorePlatforms({this.windows, this.macos});
 
   final WINDOWS? windows;
   final MACOS? macos;

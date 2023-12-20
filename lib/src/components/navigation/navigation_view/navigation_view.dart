@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../core/common/construct/component.dart';
-import '../../field/text_search_field/text_search_field.dart';
+import '../../fields/text_search_field/text_search_field.dart';
 import '../../layout/appbar/appbar.dart';
 import '../../layout/appbar/platforms/platforms.dart';
 import 'navigation_view_item.dart';
