@@ -17,6 +17,7 @@ class TextFormFieldMacos extends StatelessWidget {
 
   final AdaptiveFormFieldProperties? adpProperties;
 
+
   @override
   Widget build(BuildContext context) {
     return TextFieldTapRegion(

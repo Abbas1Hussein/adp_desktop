@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -16,6 +16,48 @@ import 'platforms/platforms.dart';
 /// - On macOS, [MacosTextField] is utilized.
 /// - On Windows, [TextBox] is used.
 class AdaptiveTextField extends CoreAdaptiveComponent {
+  /// Creates a adaptive text field.
+  ///
+  /// To provide a prefilled text entry, pass in a [TextEditingController] with
+  /// an initial value to the [controller] parameter.
+  ///
+  /// To provide a hint placeholder text that appears when the text entry is
+  /// empty, pass a [String] to the [placeholder] parameter.
+  ///
+  /// The [maxLines] property can be set to null to remove the restriction on
+  /// the number of lines. In this mode, the intrinsic height of the widget will
+  /// grow as the number of lines of text grows. By default, it is `1`, meaning
+  /// this is a single-line text field and will scroll horizontally when
+  /// it overflows. [maxLines] must not be zero.
+  ///
+  /// The text cursor is not shown if [showCursor] is false or if [showCursor]
+  /// is null (the default) and [readOnly] is true.
+  ///
+  /// If specified, the [maxLength] property must be greater than zero.
+  ///
+  /// The [selectionHeightStyle] and [selectionWidthStyle] properties allow
+  /// changing the shape of the selection highlighting. These properties default
+  /// to [ui.BoxHeightStyle.tight] and [ui.BoxWidthStyle.tight] respectively and
+  /// must not be null.
+  ///
+  /// The [autocorrect], [autofocus], [dragStartBehavior],
+  /// [expands], [obscureText], [prefixMode], [readOnly], [scrollPadding],
+  /// [suffixMode], [textAlign], [selectionHeightStyle], [selectionWidthStyle],
+  /// [enableSuggestions].
+  ///
+  /// {@macro flutter.widgets.editableText.accessibility}
+  ///
+  /// See also:
+  ///
+  ///  * [minLines], which is the minimum number of lines to occupy when the
+  ///    content spans fewer lines.
+  ///  * [expands], to allow the widget to size itself to its parent's height.
+  ///  * [maxLength], which discusses the precise meaning of "number of
+  ///    characters" and how it may differ from the intuitive meaning.
+  ///
+  /// See also:
+  ///
+  ///   * [AdaptiveTextFormField], which is the adp text field with the [Form] integration.
   const AdaptiveTextField({
     super.key,
     super.builders,
@@ -33,16 +75,16 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
     this.enableInteractiveSelection,
     this.enableSuggestions,
     this.enabled,
-    this.expands,
+    this.expands = false,
     this.focusNode,
     this.inputFormatters,
     this.keyboardAppearance,
     this.keyboardType,
     this.maxLength,
     this.maxLengthEnforcement,
-    this.maxLines,
+    this.maxLines = 1,
     this.minLines,
-    this.obscureText,
+    this.obscureText = false,
     this.obscuringCharacter,
     this.onChanged,
     this.onEditingComplete,
@@ -73,7 +115,29 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
     this.textAlignVertical,
     this.textCapitalization,
     this.textInputAction,
-  });
+  })  : assert(obscuringCharacter == null || obscuringCharacter.length == 1),
+        assert(maxLines == null || maxLines > 0),
+        assert(minLines == null || minLines > 0),
+        assert(
+          (maxLines == null) || (minLines == null) || (maxLines >= minLines),
+          "minLines can't be greater than maxLines",
+        ),
+        assert(
+          expands != null && !expands || (maxLines == null && minLines == null),
+          'minLines and maxLines must be null when expands is true.',
+        ),
+        assert(
+          obscureText != null && !obscureText || maxLines == 1,
+          'Obscured fields cannot be multiline.',
+        ),
+        assert(maxLength == null || maxLength > 0),
+        // Assert the following instead of setting it directly to avoid surprising the user by silently changing the value they set.
+        assert(
+          !identical(textInputAction, TextInputAction.newline) ||
+              maxLines == 1 ||
+              !identical(keyboardType, TextInputType.text),
+          'Use keyboardType TextInputType.multiline when using TextInputAction.newline on a multiline AdaptiveTextField.',
+        );
 
   /// Defines the keyboard focus for this widget.
   final FocusNode? focusNode;
@@ -82,10 +146,10 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
   final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   /// Controls how tall the selection highlight boxes are computed to be.
-  final BoxHeightStyle? selectionHeightStyle;
+  final ui.BoxHeightStyle? selectionHeightStyle;
 
   /// Controls how wide the selection highlight boxes are computed to be.
-  final BoxWidthStyle? selectionWidthStyle;
+  final ui.BoxWidthStyle? selectionWidthStyle;
 
   /// Controls the [BoxDecoration] of the text field behind the text input.
   final BoxDecoration? decoration;
@@ -186,6 +250,8 @@ class AdaptiveTextField extends CoreAdaptiveComponent {
   final int? minLines;
 
   /// Determines whether the field should fill the height of its parent.
+  ///
+  /// If true, minLines and maxLines will ignore,
   final bool? expands;
 
   /// Determines how the maxLength limit should be enforced.

@@ -1,9 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../text_field/platforms/macos.dart';
 import 'search_item.dart';
 
 class AdaptiveTextSearchField<T> extends CoreAdaptiveComponent {
@@ -24,19 +24,23 @@ class AdaptiveTextSearchField<T> extends CoreAdaptiveComponent {
     required this.suggestions,
   });
 
+  /// Whether the text box is enabled
+  final bool enabled;
+
   final List<AdaptiveSearchItem<T>> suggestions;
 
   /// Called when the user selected a value.
   final ValueChanged<AdaptiveSearchItem<T>>? onSelected;
 
-  /// Widget to show when the search returns no results.
-  final Widget? emptyWidget;
 
   /// {@macro flutter.widgets.editableText.autofocus}
   final bool autofocus;
 
   /// {@macro flutter.widgets.Focus.focusNode}
   final FocusNode? focusNode;
+
+  /// Widget to show when the search returns no results.
+  final Widget? emptyWidget;
 
   /// Specifies the `TextEditingController` for [MacosSearchField].
   final TextEditingController? controller;
@@ -72,10 +76,6 @@ class AdaptiveTextSearchField<T> extends CoreAdaptiveComponent {
   /// {@macro flutter.widgets.editableText.inputFormatters}
   final List<TextInputFormatter>? inputFormatters;
 
-  /// Whether the text box is enabled
-  final bool enabled;
-
-
 
   @override
   Widget macos(BuildContext context) {
@@ -86,21 +86,20 @@ class AdaptiveTextSearchField<T> extends CoreAdaptiveComponent {
           controller: controller,
           autofocus: autofocus,
           focusNode: focusNode,
-          emptyWidget: emptyWidget ?? Padding(
+          inputFormatters: inputFormatters,
+          emptyWidget: emptyWidget ??
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   FluentLocalizations.of(context).noResultsFoundLabel,
                 ),
               ),
+          placeholder:
+              placeholder ?? FluentLocalizations.of(context).searchLabel,
           decoration: decoration ?? kDefaultRoundedBorderDecoration,
-          placeholder: placeholder ?? MaterialLocalizations.of(context).searchFieldLabel,
-          placeholderStyle: placeholderStyle ?? const TextStyle(
-                fontWeight: FontWeight.w400,
-                color: CupertinoColors.placeholderText,
-              ),
+          placeholderStyle: placeholderStyle ?? kDefaultPlaceholderStyle,
           focusedDecoration: foregroundDecoration ?? kDefaultFocusedBorderDecoration,
-          inputFormatters: inputFormatters,
-          results: suggestions.map((e) => e.toSearchItem()).toList(),
+          results: suggestions.map((e) => e.toMacos()).toList(),
           onResultSelected: (value) {
             onSelected?.call(AdaptiveSearchItem.fromSearchItem(value));
           },
@@ -117,12 +116,12 @@ class AdaptiveTextSearchField<T> extends CoreAdaptiveComponent {
       autofocus: autofocus,
       focusNode: focusNode,
       decoration: decoration,
-      placeholder: placeholder ?? MaterialLocalizations.of(context).searchFieldLabel,
       placeholderStyle: placeholderStyle,
-      foregroundDecoration: foregroundDecoration,
       inputFormatters: inputFormatters,
+      foregroundDecoration: foregroundDecoration,
+      placeholder: placeholder ?? FluentLocalizations.of(context).searchLabel,
       noResultsFoundBuilder: emptyWidget != null ? (context) => emptyWidget! : null,
-      items: suggestions.map((e) => e.toAutoSuggestBoxItem()).toList(),
+      items: suggestions.map((e) => e.toWindows()).toList(),
       onSelected: (value) {
         onSelected?.call(AdaptiveSearchItem.fromAutoSuggestBoxItem(value));
       },

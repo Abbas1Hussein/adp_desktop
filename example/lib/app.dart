@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.macOS,
+    DesktopTargetPlatform.windows,
     targetWeb: DesktopTargetPlatform.windows,
     isDebugging: true,
   );
@@ -42,82 +42,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late GlobalKey<FormState> key;
-
-  @override
-  void initState() {
-    key = GlobalKey<FormState>();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return AdaptiveScaffold(
-      appBar: const AdaptiveAppBar(),
+    return  AdaptiveScaffold(
+      appBar: AdaptiveAppBar(),
       body: Center(
-        child: Form(
-          key: key,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AdaptiveTextFormField(
-                placeholder: 'Enter a username',
-                onSaved: (newValue) {
-                  print('onSaved');
-                },
-                onTap: () {
-                  print('onTap');
-                },
-                onChanged: (value) {
-                  print('onChanged');
-                },
-                onTapOutside: (event) {
-                  print('onTapOutside');
-                },
-                onFieldSubmitted: (value) {
-                  print('onFieldSubmitted');
-                },
-                onEditingComplete: () {
-                  print('onEditingComplete');
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a username';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 8.0),
-              AdaptiveTextFormField(
-                placeholder: 'Enter your password',
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a password';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 8.0),
-              AdaptiveFlatButton(
-                onPressed: _login,
-                child: const Text('Login - Adp'),
-              ),
-            ],
-          ),
-        ),
+        child: AdaptiveTextFormField(),
       ),
     );
-  }
-
-  void _login() {
-    if (key.currentState?.validate() ?? false) {
-      // Validation successful, proceed with login logic
-      key.currentState?.save();
-      print('Login successful!');
-    } else {
-      // Validation failed, show an error message or perform error handling
-      print('Login failed. Please check your credentials.');
-    }
   }
 }

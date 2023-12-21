@@ -9,12 +9,12 @@ import '../../overlay_visibility/windows.dart';
 import '../../text_field/platforms/windows.dart';
 
 class TextFormFieldWindows extends StatelessWidget {
-  final AdaptiveFormFieldProperties? adpProperties;
-
   const TextFormFieldWindows({
     super.key,
     this.adpProperties,
   });
+  final AdaptiveFormFieldProperties? adpProperties;
+
 
   @override
   Widget build(BuildContext context) {

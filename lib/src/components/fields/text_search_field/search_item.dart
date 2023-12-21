@@ -2,7 +2,10 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AdaptiveSearchItem<T> {
+import '../../../core/common/construct/model.dart';
+
+class AdaptiveSearchItem<T>
+    extends CoreModel<AutoSuggestBoxItem, SearchResultItem> {
   AdaptiveSearchItem({
     this.child,
     this.value,
@@ -23,10 +26,8 @@ class AdaptiveSearchItem<T> {
   /// The callback to call when this item is selected from the search results.
   final VoidCallback? onSelected;
 
-  /// Converts the AdaptiveSearchItem to a SearchResultItem.
-  ///
-  /// This is a platform-specific class that represents a search item that can be displayed on macOS.
-  SearchResultItem toSearchItem() {
+  @override
+  SearchResultItem toMacos() {
     final defaultMacosChild = Text(
       searchKey,
       style: const TextStyle(
@@ -39,6 +40,12 @@ class AdaptiveSearchItem<T> {
       onSelected: onSelected,
       child: _MacosChild(value: value, child: child ?? defaultMacosChild),
     );
+  }
+
+  @override
+  AutoSuggestBoxItem toWindows() {
+    return AutoSuggestBoxItem<T>(
+        value: value, child: child, label: searchKey, onSelected: onSelected);
   }
 
   /// Converts a SearchResultItem to an AdaptiveSearchItem.
@@ -54,14 +61,6 @@ class AdaptiveSearchItem<T> {
     );
   }
 
-  /// Converts the AdaptiveSearchItem to an AutoSuggestBoxItem.
-  ///
-  /// This is a platform-specific class that represents a search item that can be displayed on Windows.
-  AutoSuggestBoxItem<T> toAutoSuggestBoxItem() {
-    return AutoSuggestBoxItem<T>(
-        label: searchKey, value: value, child: child, onSelected: onSelected);
-  }
-
   /// Converts an AutoSuggestBoxItem to an AdaptiveSearchItem.
   static AdaptiveSearchItem<T> fromAutoSuggestBoxItem<T>(
     AutoSuggestBoxItem autoSuggestBoxItem,
@@ -73,13 +72,18 @@ class AdaptiveSearchItem<T> {
       onSelected: autoSuggestBoxItem.onSelected,
     );
   }
+
 }
 
 class _MacosChild<T> extends StatelessWidget {
-  final Widget? child;
-  final T? value;
+  const _MacosChild({
+    super.key,
+    this.child,
+    this.value,
+  });
 
-  const _MacosChild({super.key, this.child, this.value});
+  final T? value;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {

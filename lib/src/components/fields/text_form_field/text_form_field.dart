@@ -8,56 +8,38 @@ import 'platforms/platforms.dart';
 ///
 /// Use this widget to create text form field with platform-specific
 /// styling and behavior:
+/// - On MacOS, specific form field used.
 /// - On Windows, [TextFormBox] is used.
 class AdaptiveTextFormField extends AdaptiveTextField {
-  /// This widget extends [AdaptiveTextField] and includes additional properties
-  /// and callbacks specific to form fields.
+  /// Creates a [FormField] that contains a [AdaptiveTextField].
   ///
-  /// Example usage:
+  /// A [Form] ancestor is not required. The [Form] simply makes it easier to
+  /// save, reset, or validate multiple fields at once. To use without a [Form],
+  /// pass a `GlobalKey<FormFieldState>` (see [GlobalKey]) to the constructor and use
+  /// [GlobalKey.currentState] to save or reset the form field.
   ///
-  /// ```dart
-  /// Form(
-  ///   key: key,
-  ///   child: Column(
-  ///     mainAxisAlignment: MainAxisAlignment.center,
-  ///     children: [
-  ///       AdaptiveTextFormField(
-  ///         placeholder: 'Enter a username',
-  ///         validator: (value) {
-  ///           if (value == null || value.isEmpty) {
-  ///             return 'Please enter a username';
-  ///           }
-  ///           return null;
-  ///         },
-  ///       ),
-  ///       const SizedBox(height: 8.0),
-  ///       AdaptiveTextFormField(
-  ///         placeholder: 'Enter your password',
-  ///         obscureText: true,
-  ///         validator: (value) {
-  ///           if (value == null || value.isEmpty) {
-  ///             return 'Please enter a password';
-  ///           }
-  ///           return null;
-  ///         },
-  ///       ),
-  ///       const SizedBox(height: 8.0),
-  ///       AdaptiveFlatButton(
-  ///         onPressed: () {
-  ///           if (key.currentState?.validate() ?? false) {
-  ///             // Validation successful, proceed with login logic
-  ///             print('Login successful!');
-  ///           } else {
-  ///             // Validation failed, show an error message or perform error handling
-  ///             print('Login failed. Please check your credentials.');
-  ///           }
-  ///         },
-  ///         child: const Text('Login - Adp'),
-  ///       ),
-  ///     ],
-  ///   ),
-  /// ),
-  /// ```
+  /// When a [controller] is specified, its [TextEditingController.text]
+  /// defines the [initialValue]. If this [FormField] is part of a scrolling
+  /// container that lazily constructs its children, like a [ListView] or a
+  /// [CustomScrollView], then a [controller] should be specified.
+  /// The controller's lifetime should be managed by a stateful widget ancestor
+  /// of the scrolling container.
+  ///
+  /// When a [controller] is specified, [initialValue] must be null (the
+  /// default). If [controller] is null, then a [TextEditingController]
+  /// will be constructed automatically and its `text` will be initialized
+  /// to [initialValue] or the empty string.
+  ///
+  /// {@macro flutter.material.textfield.wantKeepAlive}
+  ///
+  /// Remember to call [TextEditingController.dispose] of the [TextEditingController]
+  /// when it is no longer needed. This will ensure any resources used by the object
+  /// are discarded.
+  ///
+  /// See also:
+  ///
+  ///   * [AdaptiveTextField], which is the adp text field without the [Form] integration,
+  ///   and for documentation about the various parameters.
   const AdaptiveTextFormField({
     super.key,
     super.builders,
@@ -120,7 +102,10 @@ class AdaptiveTextFormField extends AdaptiveTextField {
     this.autovalidateMode,
     this.onFieldSubmitted,
     this.errorHighlightColor,
-  });
+  }) : assert(
+          initialValue == null || controller == null,
+          'Cannot provide both initialValue and controller.',
+        );
 
   /// An optional value to initialize the form field to, or null otherwise.
   final String? initialValue;
