@@ -4,7 +4,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 
-import '../../adaptive_field_properties.dart';
+import '../../fields_properties.dart';
 import '../../overlay_visibility/windows.dart';
 
 Widget kDefaultContextMenuBuilder(

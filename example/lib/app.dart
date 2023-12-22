@@ -44,10 +44,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return  AdaptiveScaffold(
-      appBar: AdaptiveAppBar(),
+    return AdaptiveScaffold(
+      appBar: const AdaptiveAppBar(),
       body: Center(
-        child: AdaptiveTextFormField(),
+        child: AdaptiveTextSearchField<int>(
+          onSelected: (value) => print(value.value),
+          suggestions: List.generate(
+            10,
+            (index) => AdaptiveSearchItem(
+              value: index + 1,
+              searchKey: '${index + 1}',
+            ),
+          ),
+        ),
       ),
     );
   }

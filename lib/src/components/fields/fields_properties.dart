@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 
 import 'overlay_visibility/overlay_visibility.dart';
 
-
 abstract class _BaseFieldProperties {
   const _BaseFieldProperties({
     this.focusNode,

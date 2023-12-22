@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-import '../adaptive_field_properties.dart';
+import '../fields_properties.dart';
+import '../text_field.dart';
 import '../text_field/text_field.dart';
 import 'platforms/platforms.dart';
 
@@ -10,7 +11,7 @@ import 'platforms/platforms.dart';
 /// styling and behavior:
 /// - On MacOS, specific form field used.
 /// - On Windows, [TextFormBox] is used.
-class AdaptiveTextFormField extends AdaptiveTextField {
+final class AdaptiveTextFormField extends BaseTextField {
   /// Creates a [FormField] that contains a [AdaptiveTextField].
   ///
   /// A [Form] ancestor is not required. The [Form] simply makes it easier to
@@ -38,8 +39,8 @@ class AdaptiveTextFormField extends AdaptiveTextField {
   ///
   /// See also:
   ///
-  ///   * [AdaptiveTextField], which is the adp text field without the [Form] integration,
-  ///   and for documentation about the various parameters.
+  ///   * [AdaptiveTextField].
+  ///   * [AdaptiveTextSearchField].
   const AdaptiveTextFormField({
     super.key,
     super.builders,

@@ -33,7 +33,7 @@ class AdaptiveScaffold extends CoreAdaptiveComponent {
         child: Mica(
           elevation: 10.0,
           backgroundColor: backgroundColor,
-          child: Center(child: body ?? const SizedBox.expand()),
+          child: body ?? const SizedBox.expand(),
         ),
       ),
     );

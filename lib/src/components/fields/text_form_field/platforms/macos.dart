@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../../adaptive_field_properties.dart';
+import '../../fields_properties.dart';
 import '../../overlay_visibility/macos.dart';
 import '../../text_field/platforms/macos.dart';
 

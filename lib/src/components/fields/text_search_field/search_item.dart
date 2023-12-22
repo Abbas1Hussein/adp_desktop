@@ -6,7 +6,7 @@ import '../../../core/common/construct/model.dart';
 
 class AdaptiveSearchItem<T>
     extends CoreModel<AutoSuggestBoxItem, SearchResultItem> {
-  AdaptiveSearchItem({
+  const AdaptiveSearchItem({
     this.child,
     this.value,
     this.onSelected,
@@ -43,7 +43,7 @@ class AdaptiveSearchItem<T>
   }
 
   @override
-  AutoSuggestBoxItem toWindows() {
+  AutoSuggestBoxItem<T> toWindows() {
     return AutoSuggestBoxItem<T>(
         value: value, child: child, label: searchKey, onSelected: onSelected);
   }
@@ -72,7 +72,6 @@ class AdaptiveSearchItem<T>
       onSelected: autoSuggestBoxItem.onSelected,
     );
   }
-
 }
 
 class _MacosChild<T> extends StatelessWidget {
