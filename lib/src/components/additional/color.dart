@@ -3,7 +3,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/adaptive.dart';
 
-abstract class AdpColors {
+abstract final class AdpColors {
   const AdpColors._();
 
   /// The black color.

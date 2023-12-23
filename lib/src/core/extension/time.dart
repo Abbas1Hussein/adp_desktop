@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
 
-extension TimeOfDayExtension on TimeOfDay {
-  /// Convert TimeOfDay to DateTime
+extension TimeOfDayEx on TimeOfDay {
+  DateTime get dateTime => DateTime.now();
+
+  /// to convert TimeOfDay to DateTime
   DateTime toDateTime() {
-    final now = DateTime.now();
-    return DateTime(now.year, now.month, now.day, hour, minute);
+    return DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+      hour,
+      minute,
+    );
+  }
+
+  ///  to convert Duration to TimeOfDay
+  Duration convertTimeOfDayToDuration() {
+    return Duration(
+      hours: hour,
+      minutes: minute,
+      seconds: dateTime.second,
+    );
   }
 }
 
-extension DateTimeExtension on DateTime {
-  /// Convert DateTime to TimeOfDay
-  TimeOfDay toTimeOfDay() => TimeOfDay(hour: hour, minute: minute);
+extension DurationEx on Duration {
+  ///  to convert Duration to TimeOfDay
+  TimeOfDay convertDurationToTimeOfDay() {
+    return TimeOfDay(hour: inHours, minute: inMinutes % 60);
+  }
 }

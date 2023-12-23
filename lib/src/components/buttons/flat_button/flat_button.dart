@@ -27,7 +27,8 @@ import 'platforms/platforms.dart';
 ///   ),
 /// );
 /// ```
-class AdaptiveFlatButton extends CoreAdaptiveComponent<FlatButtonWindowsProperty, FlatButtonMacosProperty> {
+class AdaptiveFlatButton extends CoreAdaptiveComponent<
+    FlatButtonWindowsProperty, FlatButtonMacosProperty> {
   const AdaptiveFlatButton({
     super.key,
     super.builders,

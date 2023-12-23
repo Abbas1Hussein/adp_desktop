@@ -2,8 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
 
-import '../fields_properties.dart';
-import '../text_field.dart';
+import '../base_text_field.dart';
 import 'platforms/platforms.dart';
 
 /// A custom text field widget that adapts its appearance based on the platform.
@@ -113,6 +112,7 @@ final class AdaptiveTextField extends BaseTextField {
     super.textAlignVertical,
     super.textCapitalization,
     super.textInputAction,
+
   });
 
   @override
@@ -123,91 +123,5 @@ final class AdaptiveTextField extends BaseTextField {
   @override
   Widget windows(BuildContext context) {
     return TextFieldWindows(adpProperties: fieldProperties);
-  }
-}
-
-extension _AdaptiveTextFieldEx on AdaptiveTextField {
-  AdaptiveFieldProperties get fieldProperties {
-    return AdaptiveFieldProperties(
-      // Behavior
-      readOnly: readOnly,
-      autofocus: autofocus,
-      enableSuggestions: enableSuggestions,
-      enableInteractiveSelection: enableInteractiveSelection,
-
-      // Callbacks
-      onTap: onTap,
-      onChanged: onChanged,
-      onSubmitted: onSubmitted,
-      onTapOutside: onTapOutside,
-      onEditingComplete: onEditingComplete,
-
-      // Limits
-      maxLines: maxLines,
-      minLines: minLines,
-      maxLength: maxLength,
-      maxLengthEnforcement: maxLengthEnforcement,
-
-      // Appearance
-      style: style,
-      textAlign: textAlign,
-      strutStyle: strutStyle,
-      decoration: decoration,
-      placeholder: placeholder,
-      placeholderStyle: placeholderStyle,
-      textAlignVertical: textAlignVertical,
-
-      // Content
-      controller: controller,
-      keyboardType: keyboardType,
-      inputFormatters: inputFormatters,
-      obscuringCharacter: obscuringCharacter,
-      textCapitalization: textCapitalization,
-
-      // Focus and Navigation
-      focusNode: focusNode,
-      textInputAction: textInputAction,
-
-      // Other
-      enabled: enabled,
-      expands: expands,
-      padding: padding,
-      suffixMode: suffixMode,
-      prefixMode: prefixMode,
-      restorationId: restorationId,
-      dragStartBehavior: dragStartBehavior,
-
-      // Widget
-      prefix: prefix,
-      suffix: suffix,
-      contextMenuBuilder: contextMenuBuilder,
-
-      // Platform-specific
-      keyboardAppearance: keyboardAppearance,
-
-      // Scroll
-      scrollPadding: scrollPadding,
-      scrollPhysics: scrollPhysics,
-      scrollController: scrollController,
-
-      // Selection
-      showCursor: showCursor,
-      selectionControls: selectionControls,
-      selectionWidthStyle: selectionWidthStyle,
-      selectionHeightStyle: selectionHeightStyle,
-
-      // Visuals
-      cursorColor: cursorColor,
-      cursorWidth: cursorWidth,
-      cursorHeight: cursorHeight,
-      cursorRadius: cursorRadius,
-
-      // Text Input
-      autocorrect: autocorrect,
-      obscureText: obscureText,
-      autofillHints: autofillHints,
-      smartDashesType: smartDashesType,
-      smartQuotesType: smartQuotesType,
-    );
   }
 }

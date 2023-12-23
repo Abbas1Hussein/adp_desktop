@@ -1,0 +1,201 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart';
+
+import '../../../../core/common/construct/properties.dart';
+import '../../../../core/common/platform_ruining.dart';
+import '../../../../core/extension/time.dart';
+import '../../macos_button_picker.dart';
+import '../../macos_dialog_picker.dart';
+
+/// Enum representing the available modes for MacosTimePicker
+enum MacosTimePickerMode {
+  /// Displayed MacosTimePicker with Macos Dialog.
+  ///
+  /// This mode not includes the option to set an [initialTime].
+  ///
+  /// For more details, see the ongoing pull request: https://github.com/macosui/macos_ui/pull/490
+  macOS,
+
+  /// Displayed CupertinoTimerPicker with Macos Dialog.
+  cupertino,
+
+  /// Displayed CupertinoTimerPicker as a button.
+  cupertinoButton,
+}
+
+class TimePickerMacosButton extends MacosPickerButton {
+  const TimePickerMacosButton({
+    super.key,
+    required super.onPressed,
+    required super.initialDate,
+    required super.localizations,
+  });
+
+  @override
+  Widget child(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        buildTimeComponent('${timeOfDay.hourOfPeriod}', 'h'),
+        kVerticalDivider,
+        buildTimeComponent('${timeOfDay.minute}', 'm'),
+        kVerticalDivider,
+        Text(amPm),
+      ],
+    );
+  }
+
+  Widget buildTimeComponent(String value, String unit) {
+    return Row(
+      children: [
+        Text(
+          value,
+          style: kCupertinoActionStyle.copyWith(fontSize: 18.5),
+        ),
+        const SizedBox(width: 2.0),
+        Baseline(
+          baseline: 25,
+          baselineType: TextBaseline.alphabetic,
+          child: Text(
+            unit,
+            style: const TextStyle(fontSize: 13.0),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TimePickerMacos extends StatefulWidget {
+  const TimePickerMacos({
+    super.key,
+    this.property,
+    this.onCancel,
+    this.onTimeChanged,
+    required this.initialTime,
+  });
+
+  final TimeOfDay? initialTime;
+  final VoidCallback? onCancel;
+
+  final TimePickerMacosProperty? property;
+  final ValueChanged<TimeOfDay>? onTimeChanged;
+
+  @override
+  State<TimePickerMacos> createState() => _TimePickerMacosState();
+}
+
+class _TimePickerMacosState extends State<TimePickerMacos> {
+  late TimeOfDay selectedDate;
+  late TimeOfDay lastSelectedDate;
+
+  late MaterialLocalizations localizations;
+
+  @override
+  void initState() {
+    selectedDate = widget.initialTime ?? TimeOfDay.now();
+    lastSelectedDate = widget.initialTime ?? TimeOfDay.now();
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    localizations = MaterialLocalizations.of(context);
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.property?.mode == MacosTimePickerMode.cupertinoButton) {
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: kPickerButtonConstraints.maxHeight,
+          maxWidth: kPickerButtonConstraints.maxWidth * 2,
+        ),
+        child: _buildCupertinoTimePicker(),
+      );
+    }
+
+    return TimePickerMacosButton(
+      initialDate: selectedDate.toDateTime(),
+      localizations: localizations,
+      onPressed: () => _showMacosTimePicker(),
+    );
+  }
+
+  Widget _buildMacosTimePicker() {
+    return FittedBox(
+      fit: BoxFit.contain,
+      child: MacosTimePicker(
+        style: PlatformRuining.isFakeMacos
+            ? TimePickerStyle.combined
+            : TimePickerStyle.graphical,
+        onTimeChanged: (time) => _onDateTimeChanged(time),
+      ),
+    );
+  }
+
+  Widget _buildCupertinoTimePicker() {
+    return CupertinoTimerPicker(
+      mode: CupertinoTimerPickerMode.hms,
+      itemExtent: kPickerButtonConstraints.maxHeight,
+      initialTimerDuration: selectedDate.convertTimeOfDayToDuration(),
+      onTimerDurationChanged: (value) {
+        _onDateTimeChanged(value.convertDurationToTimeOfDay());
+        if (widget.property?.mode == MacosTimePickerMode.cupertinoButton) {
+          widget.onTimeChanged?.call(selectedDate);
+        }
+      },
+    );
+  }
+
+  Future<void> _showMacosTimePicker() async {
+    final isCupertino = widget.property?.mode == MacosTimePickerMode.cupertino;
+    final result = await MacosDialogPicker(
+      context,
+      localizations,
+      picker:
+          isCupertino ? _buildCupertinoTimePicker() : _buildMacosTimePicker(),
+    ).showMacosTimePicker(isCupertino);
+
+    if (result != null && result) {
+      _handleOkClick();
+    } else {
+      _handleCancelClick();
+    }
+  }
+
+  void _handleCancelClick() {
+    _onDateTimeChanged(lastSelectedDate);
+    widget.onCancel?.call();
+  }
+
+  void _handleOkClick() {
+    setState(() {
+      lastSelectedDate = selectedDate;
+    });
+    widget.onTimeChanged?.call(selectedDate);
+  }
+
+  void _onDateTimeChanged(TimeOfDay timeOfDay) {
+    setState(() {
+      selectedDate = timeOfDay;
+    });
+  }
+}
+
+class TimePickerMacosProperty extends CoreMacosProperty {
+  const TimePickerMacosProperty({
+    this.mode = MacosTimePickerMode.macOS,
+  });
+
+  /// Represents the display mode of the MacosTimePicker.
+  ///
+  /// Use [MacosTimePickerMode] to specify the desired appearance and behavior
+  /// of the MacosTimePicker.
+  ///
+  /// Defaults to [MacosTimePickerMode.macOS].
+  final MacosTimePickerMode mode;
+}

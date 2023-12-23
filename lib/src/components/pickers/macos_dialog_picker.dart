@@ -1,34 +1,63 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 class MacosDialogPicker {
-  final Widget picker;
-  final BuildContext context;
-  final VoidCallback? onOkClick;
-  final VoidCallback? onCancelClick;
-  final MaterialLocalizations localizations;
-
   const MacosDialogPicker(
     this.context,
-    this.picker, {
-    this.onOkClick,
-    this.onCancelClick,
-    required this.localizations,
+    this.localizations, {
+    required this.picker,
   });
 
-  void showMacosDatePicker() {
+  final Widget picker;
+  final BuildContext context;
+  final MaterialLocalizations localizations;
+
+  Future<bool?> showMacosDatePicker() async {
     final size = MediaQuery.sizeOf(context);
-    showMacosAlertDialog(
+    return await showMacosAlertDialog(
       context: context,
       barrierDismissible: true,
       useRootNavigator: false,
       builder: (context) {
         return MacosAlertDialog(
-          appIcon: const SizedBox.shrink(),
-          title: Text(localizations.datePickerHelpText),
+          appIcon: const MacosIcon(CupertinoIcons.calendar, size: 64.0),
+          title: Text(
+            localizations.datePickerHelpText,
+            style: MacosTheme.of(context).typography.largeTitle,
+          ),
           message: SizedBox(
-            width: size.height * 0.4,
+            width: size.width,
             height: size.height * 0.4,
+            child: picker,
+          ),
+          primaryButton: _buildCancelPickerButton(),
+          secondaryButton: _buildOkPickerButton(),
+        );
+      },
+    );
+  }
+
+  Future<bool?> showMacosTimePicker(bool isCupertinoPicker) async {
+    final size = MediaQuery.sizeOf(context);
+    return await showMacosAlertDialog(
+      context: context,
+      barrierDismissible: true,
+      useRootNavigator: false,
+      builder: (context) {
+        return MacosAlertDialog(
+          appIcon: isCupertinoPicker
+              ? const MacosIcon(CupertinoIcons.time, size: 64.0)
+              : const SizedBox(),
+          title: isCupertinoPicker
+              ? Text(
+                  localizations.timePickerDialHelpText,
+                  style: MacosTheme.of(context).typography.largeTitle,
+                )
+              : const SizedBox(),
+          message: SizedBox(
+            width: size.width,
+            height: size.height * (isCupertinoPicker ? 0.2 : 0.4),
             child: picker,
           ),
           primaryButton: _buildCancelPickerButton(),
@@ -50,6 +79,7 @@ class MacosDialogPicker {
 
   PushButton _buildCancelPickerButton() {
     return PushButton(
+      secondary: true,
       onPressed: _onCancelClick,
       controlSize: ControlSize.large,
       mouseCursor: SystemMouseCursors.click,
@@ -58,13 +88,7 @@ class MacosDialogPicker {
     );
   }
 
-  void _onOkClick() {
-    onOkClick?.call();
-    Navigator.pop(context);
-  }
+  void _onOkClick() => Navigator.pop(context, true);
 
-  void _onCancelClick() {
-    onCancelClick?.call();
-    Navigator.pop(context);
-  }
+  void _onCancelClick() => Navigator.pop(context, false);
 }

@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../text_field.dart';
+import '../base_text_field.dart';
 import '../text_field/platforms/macos.dart';
 import 'search_item.dart';
 

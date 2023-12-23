@@ -1,12 +1,9 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/widgets.dart';
 
-/// Initializes desktop default configurations.
-void initializeDesktopDefaults([
-  DesktopTargetPlatform? platform,
-]) {
+void initializeDesktopDefaults([DesktopTargetPlatform? platform]) {
   DefaultsPlatformManager.initialize(
-    platform ?? DesktopTargetPlatform.macOS,
+    platform ?? DesktopTargetPlatform.windows,
     isDebugging: true,
   );
 }

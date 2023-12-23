@@ -14,8 +14,6 @@ abstract class BaseDateFormatter extends StatelessWidget {
     return localizations.formatFullDate(initialDate).split(',');
   }
 
-  TimeOfDay get timeOfDay => TimeOfDay.fromDateTime(initialDate);
-
   String get weekDay => _splitFullDateData[0].substring(0, 3);
 
   String get monthWithDay => _splitFullDateData[1];
@@ -26,10 +24,9 @@ abstract class BaseDateFormatter extends StatelessWidget {
 
   String get day => initialDate.day.toString();
 
-  String get amPm {
-    final hour = initialDate.hour;
-    return hour >= 12 ? 'PM' : 'AM';
-  }
+  String get amPm => timeOfDay.period.name.toUpperCase();
+
+  TimeOfDay get timeOfDay => TimeOfDay.fromDateTime(initialDate);
 
   static const kMonthAbbreviations = [
     'Jan',

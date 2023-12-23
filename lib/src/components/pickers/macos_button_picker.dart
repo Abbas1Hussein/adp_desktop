@@ -4,31 +4,37 @@ import 'package:macos_ui/macos_ui.dart';
 
 import 'date_picker_formatter.dart';
 
-const kPickerButtonConstraints = BoxConstraints(maxHeight: 65.0, maxWidth: 250.0);
+const kPickerButtonConstraints = BoxConstraints(
+  maxHeight: 45.0,
+  maxWidth: 250.0,
+);
 
 const kVerticalDivider = Padding(
   padding: EdgeInsets.symmetric(vertical: 10.5),
-  child: VerticalDivider(color: CupertinoColors.quaternarySystemFill),
+  child: VerticalDivider(
+    color: CupertinoColors.quaternarySystemFill,
+    thickness: 2.0,
+  ),
 );
 
-const _kCupertinoDialogActionStyle = TextStyle(
+const kCupertinoActionStyle = TextStyle(
   fontFamily: '.SF UI Text',
   inherit: false,
   fontSize: 15.8,
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.w600,
   color: MacosColors.systemBlueColor,
   textBaseline: TextBaseline.alphabetic,
 );
 
 abstract class MacosPickerButton extends BaseDateFormatter {
-  final VoidCallback onPressed;
-
   const MacosPickerButton({
     super.key,
     required this.onPressed,
     required super.initialDate,
     required super.localizations,
   });
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +44,7 @@ abstract class MacosPickerButton extends BaseDateFormatter {
         child: CupertinoContextMenuAction(
           onPressed: onPressed,
           child: DefaultTextStyle(
-            style: _kCupertinoDialogActionStyle,
+            style: kCupertinoActionStyle,
             child: child(context),
           ),
         ),
@@ -47,4 +53,5 @@ abstract class MacosPickerButton extends BaseDateFormatter {
   }
 
   Widget child(BuildContext context);
+
 }

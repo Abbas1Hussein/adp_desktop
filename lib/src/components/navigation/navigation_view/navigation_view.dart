@@ -17,7 +17,7 @@ import 'platforms/platforms.dart';
 class AdaptiveNavigationView
     extends CoreAdaptiveComponent<NVWindowsProperty, NVMacosProperty> {
   /// The Navigation passes the new value to the callback but does not actually
-  /// change state until the parent widget rebuilds the slider with the new
+  /// change state until the parent widget rebuilds the navigation with the new
   /// value.
   ///
   /// The callback provided to [onChanged] should update the state of the parent

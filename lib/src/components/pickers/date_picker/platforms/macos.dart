@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../../../../../core/common/construct/properties.dart';
-import '../../../date_picker_formatter.dart';
-import '../../../macos_button_picker.dart';
-import '../../../macos_dialog_picker.dart';
+import '../../../../core/common/construct/properties.dart';
+import '../../date_picker_formatter.dart';
+import '../../macos_button_picker.dart';
+import '../../macos_dialog_picker.dart';
 
 class MacosDatePickerButton extends MacosPickerButton {
   const MacosDatePickerButton({
@@ -15,9 +15,7 @@ class MacosDatePickerButton extends MacosPickerButton {
   });
 
   @override
-  Widget child(BuildContext context) => _buildDatePicker();
-
-  Widget _buildDatePicker() {
+  Widget child(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -33,31 +31,32 @@ class MacosDatePickerButton extends MacosPickerButton {
 }
 
 class DatePickerMacos extends StatefulWidget {
-  final DatePickerMacosProperty? property;
-  final DateTime initialDate;
-  final VoidCallback? onCancel;
-
-  final ValueChanged<DateTime>? onDateTimeChanged;
-
   const DatePickerMacos({
     super.key,
     this.onCancel,
     this.property,
     this.onDateTimeChanged,
-    required this.initialDate,
+    this.initialDate,
   });
+
+  final DateTime? initialDate;
+  final VoidCallback? onCancel;
+  final DatePickerMacosProperty? property;
+  final ValueChanged<DateTime>? onDateTimeChanged;
 
   @override
   State<DatePickerMacos> createState() => _DatePickerMacosState();
 }
 
 class _DatePickerMacosState extends State<DatePickerMacos> {
-  late DateTime initialDate;
+  late DateTime selectedDate;
+  late DateTime lastSelectedDate;
   late MaterialLocalizations localizations;
 
   @override
   void initState() {
-    initialDate = widget.initialDate;
+    selectedDate = widget.initialDate ?? DateTime.now();
+    lastSelectedDate = widget.initialDate ?? DateTime.now();
     super.initState();
   }
 
@@ -70,47 +69,76 @@ class _DatePickerMacosState extends State<DatePickerMacos> {
   @override
   Widget build(BuildContext context) {
     return MacosDatePickerButton(
-      initialDate: initialDate,
+      initialDate: selectedDate,
       localizations: localizations,
-      onPressed: _showMacosDatePicker,
+      onPressed: () => _showMacosDatePickerDialog(),
     );
   }
 
   Widget _buildMacosDatePicker() {
     return FittedBox(
       fit: BoxFit.fill,
-      child: MacosDatePicker(
-        initialDate: initialDate,
-        onDateChanged: _onDateTimeChanged,
-        style: DatePickerStyle.graphical,
-        startWeekOnMonday: widget.property?.startWeekOnMonday,
-        weekdayAbbreviations: widget.property?.weekdayAbbreviations ??
-            localizations.narrowWeekdays,
-        monthAbbreviations: widget.property?.monthAbbreviations ??
-            BaseDateFormatter.kMonthAbbreviations,
+      child: DefaultTextStyle(
+        style: MacosTheme.of(context).typography.title1,
+        child: MacosTheme(
+          data: MacosTheme.of(context).copyWith(
+            datePickerTheme: MacosDatePickerThemeData(),
+          ),
+          child: MacosDatePicker(
+            initialDate: selectedDate,
+            style: DatePickerStyle.graphical,
+            onDateChanged: _onDateTimeChanged,
+            startWeekOnMonday: widget.property?.startWeekOnMonday,
+            weekdayAbbreviations: widget.property?.weekdayAbbreviations ??
+                localizations.narrowWeekdays,
+            monthAbbreviations: widget.property?.monthAbbreviations ??
+                BaseDateFormatter.kMonthAbbreviations,
+          ),
+        ),
       ),
     );
   }
 
-  void _showMacosDatePicker() {
-    MacosDialogPicker(
+  Future<void> _showMacosDatePickerDialog() async {
+    final result = await MacosDialogPicker(
       context,
-      _buildMacosDatePicker(),
-      localizations: localizations,
-      onCancelClick: widget.onCancel,
-      onOkClick: () => _onDateTimeChanged(initialDate),
+      localizations,
+      picker: _buildMacosDatePicker(),
     ).showMacosDatePicker();
+
+    if (result != null && result) {
+      _handleOkClick();
+    } else {
+      _handleCancelClick();
+    }
+  }
+
+  void _handleCancelClick() {
+    _onDateTimeChanged(lastSelectedDate);
+    widget.onCancel?.call();
+  }
+
+  void _handleOkClick() {
+    setState(() {
+      lastSelectedDate = selectedDate;
+    });
+    widget.onDateTimeChanged?.call(selectedDate);
   }
 
   void _onDateTimeChanged(DateTime dateTime) {
-    widget.onDateTimeChanged?.call(dateTime);
     setState(() {
-      initialDate = dateTime;
+      selectedDate = dateTime;
     });
   }
 }
 
 class DatePickerMacosProperty extends CoreMacosProperty {
+  const DatePickerMacosProperty({
+    this.weekdayAbbreviations,
+    this.monthAbbreviations,
+    this.startWeekOnMonday,
+  });
+
   /// A list of 7 strings, one for each day of the week, starting with Sunday.
   final List<String>? weekdayAbbreviations;
 
@@ -124,10 +152,4 @@ class DatePickerMacosProperty extends CoreMacosProperty {
   ///
   /// Defaults to `false`.
   final bool? startWeekOnMonday;
-
-  const DatePickerMacosProperty({
-    this.weekdayAbbreviations,
-    this.monthAbbreviations,
-    this.startWeekOnMonday,
-  });
 }

@@ -4,6 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/model.dart';
 
+/// entry class used in suggestions items within [AdaptiveTextSearchField].
 class AdaptiveSearchItem<T>
     extends CoreModel<AutoSuggestBoxItem, SearchResultItem> {
   const AdaptiveSearchItem({
@@ -16,12 +17,12 @@ class AdaptiveSearchItem<T>
   /// The string to search for.
   final String searchKey;
 
+  /// The value of the search item. This can be any type of object.
+  final T? value;
+
   /// The widget to display in the search results overlay. If not specified, a
   /// [Text] widget with the default styling will appear instead.
   final Widget? child;
-
-  /// The value of the search item. This can be any type of object.
-  final T? value;
 
   /// The callback to call when this item is selected from the search results.
   final VoidCallback? onSelected;

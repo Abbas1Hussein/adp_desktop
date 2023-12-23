@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../../../../../core/common/construct/properties.dart';
-import '../../../macos_button_picker.dart';
+import '../../../../core/common/construct/properties.dart';
+import '../../macos_button_picker.dart';
 
 /// The padding used on the content of [DatePicker] and [TimePicker]
 const kPickerContentPadding = EdgeInsetsDirectional.only(
@@ -14,29 +14,29 @@ const kPickerContentPadding = EdgeInsetsDirectional.only(
 const double kPickerPopupHeight = kOneLineTileHeight * 10;
 
 class DatePickerWindows extends StatefulWidget {
-  final DatePickerWindowsProperty? property;
-  final DateTime initialDate;
-  final ValueChanged<DateTime>? onDateTimeChanged;
-  final VoidCallback? onCancel;
-
   const DatePickerWindows({
     super.key,
     this.onCancel,
     this.property,
     this.onDateTimeChanged,
-    required this.initialDate,
+    this.initialDate,
   });
+
+  final DateTime? initialDate;
+  final VoidCallback? onCancel;
+  final DatePickerWindowsProperty? property;
+  final ValueChanged<DateTime>? onDateTimeChanged;
 
   @override
   State<DatePickerWindows> createState() => _DatePickerWindowsState();
 }
 
 class _DatePickerWindowsState extends State<DatePickerWindows> {
-  late DateTime initialDate;
+  late DateTime selectedDate;
 
   @override
   void initState() {
-    initialDate = widget.initialDate;
+    selectedDate = widget.initialDate ?? DateTime.now();
     super.initState();
   }
 
@@ -45,20 +45,20 @@ class _DatePickerWindowsState extends State<DatePickerWindows> {
     return ConstrainedBox(
       constraints: kPickerButtonConstraints,
       child: DatePicker(
-        selected: initialDate,
-        onChanged: _onDateTimeChanged,
+        selected: selectedDate,
         onCancel: widget.onCancel,
+        onChanged: _onDateTimeChanged,
         header: widget.property?.header,
         headerStyle: widget.property?.headerStyle,
         focusNode: widget.property?.focusNode,
         autofocus: widget.property?.autofocus ?? false,
         locale: widget.property?.locale,
-        endDate: widget.property?.endDate,
         fieldOrder: widget.property?.fieldOrder,
         popupHeight: widget.property?.popupHeight ?? kPickerPopupHeight,
-        showDay: widget.property?.showDay ?? true,
         showMonth: widget.property?.showMonth ?? true,
+        showDay: widget.property?.showDay ?? true,
         showYear: widget.property?.showYear ?? true,
+        endDate: widget.property?.endDate,
         startDate: widget.property?.startDate,
         contentPadding:
             widget.property?.contentPadding ?? kPickerContentPadding,
@@ -67,10 +67,10 @@ class _DatePickerWindowsState extends State<DatePickerWindows> {
   }
 
   void _onDateTimeChanged(DateTime dateTime) {
-    widget.onDateTimeChanged?.call(dateTime);
     setState(() {
-      initialDate = dateTime;
+      selectedDate = dateTime;
     });
+    widget.onDateTimeChanged?.call(dateTime);
   }
 }
 

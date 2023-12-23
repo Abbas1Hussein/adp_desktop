@@ -4,8 +4,8 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
-    targetWeb: DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
+    targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
   runApp(const App());
@@ -45,17 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
-      appBar: const AdaptiveAppBar(),
       body: Center(
-        child: AdaptiveTextSearchField<int>(
-          onSelected: (value) => print(value.value),
-          suggestions: List.generate(
-            10,
-            (index) => AdaptiveSearchItem(
-              value: index + 1,
-              searchKey: '${index + 1}',
-            ),
-          ),
+        child: AdaptiveTimePicker(
+          onSelected: (value) => print(value.toString()),
+          onCancel: () => print('onCancel'),
         ),
       ),
     );

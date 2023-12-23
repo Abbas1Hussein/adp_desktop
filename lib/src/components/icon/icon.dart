@@ -4,9 +4,6 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../core/common/construct/component.dart';
 import 'icons.dart';
 
-export 'icons.dart';
-
-/// A custom icon widget that adapts its appearance based on the platform.
 class AdaptiveIcon extends CoreAdaptiveComponent {
   const AdaptiveIcon(
     this.adaptiveIcons, {
@@ -16,16 +13,16 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
     this.textDirection,
     super.key,
     super.builders,
-  })  : cupertinoIcon = null,
-        fluentIcon = null;
+  })  : cupertino = null,
+        fluent = null;
 
   /// Creates a new adaptive icon with specific icons for each platform.
   ///
-  /// - On Windows: [fluentIcon] is used.
-  /// - On Macos: [cupertinoIcon] is used.
+  /// - On Windows: [fluent] icon is used.
+  /// - On Macos: [cupertino]  icon is used.
   const AdaptiveIcon.custom({
-    required this.fluentIcon,
-    required this.cupertinoIcon,
+    required this.fluent,
+    required this.cupertino,
     this.size,
     this.color,
     this.semanticLabel,
@@ -43,25 +40,25 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   /// Semantic label for the icon.
   final String? semanticLabel;
 
-  /// The text direction to use for rendering the icon.
-  final TextDirection? textDirection;
-
   /// icons used for different platforms.
   final AdpIcons? adaptiveIcons;
+
+  /// The text direction to use for rendering the icon.
+  final TextDirection? textDirection;
 
   /// The Fluent UI icon data to be displayed on Windows.
   ///
   /// used on [AdaptiveIcon.custom].
-  final IconData? fluentIcon;
+  final IconData? fluent;
 
   /// The Cupertino icon data to be displayed on macOS.
   ///
   /// used on [AdaptiveIcon.custom].
-  final IconData? cupertinoIcon;
+  final IconData? cupertino;
 
   @override
   Widget macos(BuildContext context) {
-    final icon = cupertinoIcon ?? adaptiveIcons?.cupertino;
+    final icon = cupertino ?? adaptiveIcons?.cupertino;
     return MacosIcon(
       icon,
       key: key,
@@ -74,7 +71,7 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context) {
-    final icon = fluentIcon ?? adaptiveIcons?.fluent;
+    final icon = fluent ?? adaptiveIcons?.fluent;
     return Icon(
       icon,
       key: key,
