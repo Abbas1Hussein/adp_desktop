@@ -2,8 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import '../../fields/text_search_field/text_search_field.dart';
-import '../../layout/appbar/appbar.dart';
-import '../../layout/appbar/platforms/platforms.dart';
+import '../navigation_appbar/navigation_app_bar.dart';
 import 'navigation_view_item.dart';
 import 'navigation_view_size.dart';
 import 'platforms/platforms.dart';
@@ -41,7 +40,7 @@ class AdaptiveNavigationView
     super.properties,
     super.builders,
     this.size,
-    this.appBar,
+    this.navigationAppBar,
     this.onChanged,
     this.selectedColor,
     this.unselectedColor,
@@ -64,7 +63,7 @@ class AdaptiveNavigationView
   final Color? unselectedColor;
 
   /// The adaptive app bar displayed at the top of the navigation view.
-  final AdaptiveAppBar? appBar;
+  final AdaptiveNavigationAppBar? navigationAppBar;
 
   /// The adaptive size constraints for the navigation view.
   final AdaptiveNavigationViewSize? size;
@@ -99,13 +98,15 @@ class AdaptiveNavigationView
       tileColor: unselectedColor,
       selectedTileColor: selectedColor,
       property: properties?.windows,
-      searchField: Padding(
-        padding: properties?.windows?.displayMode == PaneDisplayMode.top
-            ? const EdgeInsets.symmetric(horizontal: 4.0)
-            : EdgeInsets.zero,
-        child: suggestionsSearchField?.windows(context),
-      ),
-      appBar: appBar != null ? appBar?.windows(context) as AppBarWindows : null,
+      searchField: suggestionsSearchField != null
+          ? Padding(
+              padding: properties?.windows?.displayMode == PaneDisplayMode.top
+                  ? const EdgeInsets.symmetric(horizontal: 4.0)
+                  : EdgeInsets.zero,
+              child: suggestionsSearchField?.windows(context),
+            )
+          : null,
+      appBar: navigationAppBar?.toWindows(context),
     );
   }
 
@@ -121,7 +122,7 @@ class AdaptiveNavigationView
       selectedColor: selectedColor,
       property: properties?.macos,
       searchField: suggestionsSearchField?.macos(context),
-      appBar: appBar != null ? appBar?.macos(context) as AppBarMacos : null,
+      toolBar: navigationAppBar?.toMacos(context),
     );
   }
 

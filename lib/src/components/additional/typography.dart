@@ -18,34 +18,34 @@ class AdaptiveTypography {
     this.subheading,
   });
 
-  static AdaptiveTypography of(BuildContext context) {
-    return _data(context);
-  }
+  static AdaptiveTypography of(BuildContext context) => _data(context);
 
   static AdaptiveTypography _data(BuildContext context) {
-    final macosTheme = MacosTheme.of(context);
-    final windowsTheme = FluentTheme.of(context);
+    /// final macosTheme = MacosTheme.of(context);
+    // final windowsTheme = FluentTheme.of(context);
 
     return AdaptiveTypography(
       body: adaptiveValue<TextStyle?>(
-        macos: () => macosTheme.typography.body,
-        windows: () => windowsTheme.typography.body,
+        macos: () => MacosTheme.of(context).typography.body,
+        windows: () => FluentTheme.of(context).typography.body,
       ),
       headline: adaptiveValue<TextStyle?>(
-        macos: () => macosTheme.typography.largeTitle,
-        windows: () => windowsTheme.typography.titleLarge,
+        macos: () => MacosTheme.of(context).typography.largeTitle,
+        windows: () => FluentTheme.of(context).typography.titleLarge,
       ),
       caption: adaptiveValue<TextStyle?>(
-        macos: () => macosTheme.typography.caption1,
-        windows: () => windowsTheme.typography.caption,
+        macos: () => MacosTheme.of(context).typography.caption1,
+        windows: () => FluentTheme.of(context).typography.caption,
       ),
       label: adaptiveValue<TextStyle?>(
-        macos: () => macosTheme.typography.caption2,
-        windows: () => windowsTheme.typography.subtitle,
+        macos: () => MacosTheme.of(context).typography.caption2,
+        windows: () => FluentTheme.of(context).typography.subtitle,
       ),
       subheading: adaptiveValue<TextStyle?>(
-        macos: () => macosTheme.typography.title1,
-        windows: () => windowsTheme.typography.bodyLarge
+        macos: () => MacosTheme.of(context).typography.title1,
+        windows: () => FluentTheme.of(context)
+            .typography
+            .bodyLarge
             ?.copyWith(fontWeight: FontWeight.bold),
       ),
     );

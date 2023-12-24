@@ -1,7 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../../core/common/construct/properties.dart';
-import '../../../layout/appbar/platforms/desktop/windows.dart';
 import '../navigation_view_item.dart';
 import '../navigation_view_size.dart';
 
@@ -30,7 +29,7 @@ class NavigationViewWindows extends StatelessWidget {
   final List<AdaptiveNavigationViewItem>? items;
 
   /// The adaptive app bar displayed at the top of the navigation view.
-  final AppBarWindows? appBar;
+  final NavigationAppBar? appBar;
 
   /// The color of the tile when unselected.
   final Color? tileColor;
@@ -53,7 +52,7 @@ class NavigationViewWindows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationView(
-      appBar: appBar?.toNavigationAppBar(context),
+      appBar: appBar,
       pane: NavigationPane(
         size: NavigationPaneSize(
           openMaxWidth: size?.maxWidth,
@@ -72,15 +71,18 @@ class NavigationViewWindows extends StatelessWidget {
         header: property?.header ?? const SizedBox.shrink(),
         displayMode: property?.displayMode ?? PaneDisplayMode.auto,
         indicator: property?.indicator ?? const StickyNavigationIndicator(),
-        autoSuggestBoxReplacement: searchField != null ? const Icon(FluentIcons.search) : null,
+        autoSuggestBoxReplacement:
+            searchField != null ? const Icon(FluentIcons.search) : null,
       ),
       onOpenSearch: property?.onOpenSearch,
-      contentShape: property?.contentShape ?? RoundedRectangleBorder(
+      contentShape: property?.contentShape ??
+          RoundedRectangleBorder(
             side: BorderSide(
               color: FluentTheme.of(context).resources.cardStrokeColorDefault,
             ),
           ),
-      transitionBuilder: property?.transitionBuilder ?? (child, animation) {
+      transitionBuilder: property?.transitionBuilder ??
+          (child, animation) {
             return DrillInPageTransition(
               animation: animation,
               child: SafeArea(child: child),

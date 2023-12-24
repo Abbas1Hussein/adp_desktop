@@ -35,8 +35,8 @@ class DatePickerMacos extends StatefulWidget {
     super.key,
     this.onCancel,
     this.property,
-    this.onDateTimeChanged,
     this.initialDate,
+    this.onDateTimeChanged,
   });
 
   final DateTime? initialDate;
@@ -71,7 +71,7 @@ class _DatePickerMacosState extends State<DatePickerMacos> {
     return MacosDatePickerButton(
       initialDate: selectedDate,
       localizations: localizations,
-      onPressed: () => _showMacosDatePickerDialog(),
+      onPressed: _showMacosDatePickerDialog,
     );
   }
 
@@ -80,31 +80,31 @@ class _DatePickerMacosState extends State<DatePickerMacos> {
       fit: BoxFit.fill,
       child: DefaultTextStyle(
         style: MacosTheme.of(context).typography.title1,
-        child: MacosTheme(
-          data: MacosTheme.of(context).copyWith(
-            datePickerTheme: MacosDatePickerThemeData(),
-          ),
-          child: MacosDatePicker(
-            initialDate: selectedDate,
-            style: DatePickerStyle.graphical,
-            onDateChanged: _onDateTimeChanged,
-            startWeekOnMonday: widget.property?.startWeekOnMonday,
-            weekdayAbbreviations: widget.property?.weekdayAbbreviations ??
-                localizations.narrowWeekdays,
-            monthAbbreviations: widget.property?.monthAbbreviations ??
-                BaseDateFormatter.kMonthAbbreviations,
-          ),
+        child: MacosDatePicker(
+          initialDate: selectedDate,
+          style: DatePickerStyle.graphical,
+          onDateChanged: _onDateTimeChanged,
+          startWeekOnMonday: widget.property?.startWeekOnMonday,
+          weekdayAbbreviations: widget.property?.weekdayAbbreviations ??
+              localizations.narrowWeekdays,
+          monthAbbreviations: widget.property?.monthAbbreviations ??
+              BaseDateFormatter.kMonthAbbreviations,
         ),
       ),
     );
   }
 
   Future<void> _showMacosDatePickerDialog() async {
+    final showIcon = widget.property?.showIcon ?? true;
+    final showTitle = widget.property?.showTitle ?? true;
+    final isHorizontal = widget.property?.horizontalActions ?? true;
+    final isDismissible = widget.property?.isDismissible ?? true;
+
     final result = await MacosDialogPicker(
       context,
       localizations,
       picker: _buildMacosDatePicker(),
-    ).showMacosDatePicker();
+    ).showMacosDatePicker(showIcon, showTitle, isHorizontal, isDismissible);
 
     if (result != null && result) {
       _handleOkClick();
@@ -137,6 +137,10 @@ class DatePickerMacosProperty extends CoreMacosProperty {
     this.weekdayAbbreviations,
     this.monthAbbreviations,
     this.startWeekOnMonday,
+    this.showIcon = true,
+    this.showTitle = true,
+    this.isDismissible = true,
+    this.horizontalActions = true,
   });
 
   /// A list of 7 strings, one for each day of the week, starting with Sunday.
@@ -152,4 +156,29 @@ class DatePickerMacosProperty extends CoreMacosProperty {
   ///
   /// Defaults to `false`.
   final bool? startWeekOnMonday;
+
+  /// Determines whether to lay out [primaryButton] and [secondaryButton]
+  /// horizontally or vertically.
+  ///
+  /// Defaults to `true`.
+  final bool horizontalActions;
+
+  /// Whether to display the icon.
+  ///
+  /// When set to true, an icon will be shown in the Date Picker.
+  /// Defaults to `true`.
+  final bool showIcon;
+
+  /// Whether to display the title.
+  ///
+  /// When set to true, the title will be shown in the Date Picker.
+  /// Defaults to `true`.
+  final bool showTitle;
+
+  /// Determines whether the DatePickerMacos can be dismissed by tapping outside of it.
+  ///
+  /// If set to true, the DatePickerMacos can be dismissed by tapping outside its bounds.
+  /// If set to false, the DatePickerMacos will remain open until a selection is made or the cancel action is triggered.
+  /// Defaults to true.
+  final bool isDismissible;
 }

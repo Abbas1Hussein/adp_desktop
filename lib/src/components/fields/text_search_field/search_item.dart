@@ -28,7 +28,7 @@ class AdaptiveSearchItem<T>
   final VoidCallback? onSelected;
 
   @override
-  SearchResultItem toMacos() {
+  SearchResultItem toMacos(BuildContext context) {
     final defaultMacosChild = Text(
       searchKey,
       style: const TextStyle(
@@ -44,7 +44,7 @@ class AdaptiveSearchItem<T>
   }
 
   @override
-  AutoSuggestBoxItem<T> toWindows() {
+  AutoSuggestBoxItem<T> toWindows(BuildContext context) {
     return AutoSuggestBoxItem<T>(
         value: value, child: child, label: searchKey, onSelected: onSelected);
   }

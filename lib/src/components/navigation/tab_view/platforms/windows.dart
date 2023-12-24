@@ -102,6 +102,7 @@ class TabViewWindows extends StatelessWidget {
       (index) {
         final tab = tabs[index];
         return tab.toWindows(
+          context,
           body: Card(
             backgroundColor: secondaryBackgroundColor ??
                 FluentTheme.of(context)

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../core/common/construct/properties.dart';
-import '../../../layout/appbar/platforms/desktop/macos.dart';
 import '../navigation_view_item.dart';
 import '../navigation_view_size.dart';
 
@@ -11,7 +10,7 @@ class NavigationViewMacos extends StatefulWidget {
     super.key,
     this.size,
     this.items,
-    this.appBar,
+    this.toolBar,
     this.property,
     this.onChanged,
     this.searchField,
@@ -31,7 +30,7 @@ class NavigationViewMacos extends StatefulWidget {
   final List<AdaptiveNavigationViewItem>? items;
 
   /// The app bar displayed at the top of the navigation view.
-  final AppBarMacos? appBar;
+  final ToolBar? toolBar;
 
   /// The color to paint this widget as when selected.
   final Color? selectedColor;
@@ -97,7 +96,7 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
       child: CupertinoTabView(
         builder: (context) {
           return MacosScaffold(
-            toolBar: widget.appBar?.build(context) as ToolBar?,
+            toolBar: widget.toolBar,
             children: [
               ContentArea(
                 minWidth: size.width,

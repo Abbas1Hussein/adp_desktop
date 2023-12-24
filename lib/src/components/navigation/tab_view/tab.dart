@@ -14,7 +14,8 @@ class AdaptiveTab extends CoreModel<Tab, MacosTab> {
   final Widget? icon;
 
   @override
-  MacosTab toMacos({
+  MacosTab toMacos(
+    BuildContext context, {
     bool isActive = true,
     VoidCallback? onChanged,
     Color? selectedColor,
@@ -35,7 +36,8 @@ class AdaptiveTab extends CoreModel<Tab, MacosTab> {
   }
 
   @override
-  Tab toWindows({
+  Tab toWindows(
+    BuildContext context, {
     bool isActive = false,
     Widget? body,
   }) {
@@ -73,7 +75,6 @@ class _MacosTab extends MacosTab {
 
   final Color? selectedColor;
   final Color? unSelectedColor;
-
 
   @override
   Widget build(BuildContext context) {

@@ -88,6 +88,7 @@ class _TabViewMacosState extends State<TabViewMacos> {
             padding: widget.property?.padding ?? const EdgeInsets.all(12.0),
             tabs: widget.tabs.map((tab) {
               return tab.toMacos(
+                context,
                 isActive: macosTabController.index == widget.tabs.indexOf(tab),
                 onChanged: () => _onChanged(tab),
                 padding: widget.property?.insets,

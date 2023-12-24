@@ -50,7 +50,7 @@ class DialogMacos extends StatelessWidget {
   static const _noneWidget = SizedBox.shrink();
 
   /// Determines whether the macOS dialog (title and icon) layout is vertical based on the axis property.
-  bool get isVertical => property?.axis == Axis.vertical;
+  bool get isVertical => property?.direction == Axis.vertical;
 
   bool get hasAppIcon => property?.appIcon != null;
 
@@ -166,9 +166,9 @@ class DialogMacos extends StatelessWidget {
 
 class DialogMacosProperty extends CoreMacosProperty {
   const DialogMacosProperty({
-    this.axis,
     this.appIcon,
     this.suppress,
+    this.direction,
     this.dialogMode,
     this.horizontalActions,
   });
@@ -191,7 +191,7 @@ class DialogMacosProperty extends CoreMacosProperty {
   /// If set to [Axis.horizontal], buttons will be laid out horizontally.
   ///
   /// Defaults to `Axis.horizontal`.
-  final Axis? axis;
+  final Axis? direction;
 
   /// A widget to allow users to suppress alerts of this type.
   ///

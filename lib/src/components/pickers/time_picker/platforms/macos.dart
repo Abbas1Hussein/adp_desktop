@@ -14,7 +14,7 @@ enum MacosTimePickerMode {
   ///
   /// This mode not includes the option to set an [initialTime].
   ///
-  /// For more details, see the ongoing pull request: https://github.com/macosui/macos_ui/pull/490
+  /// For more details, see the pull request: https://github.com/macosui/macos_ui/pull/490
   macOS,
 
   /// Displayed CupertinoTimerPicker with Macos Dialog.
@@ -119,9 +119,9 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
     }
 
     return TimePickerMacosButton(
-      initialDate: selectedDate.toDateTime(),
       localizations: localizations,
-      onPressed: () => _showMacosTimePicker(),
+      initialDate: selectedDate.toDateTime(),
+      onPressed: _showMacosTimePicker,
     );
   }
 
@@ -152,13 +152,23 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
   }
 
   Future<void> _showMacosTimePicker() async {
+    final showIcon = widget.property?.showIcon ?? true;
+    final showTitle = widget.property?.showTitle ?? true;
+    final isHorizontal = widget.property?.horizontalActions ?? true;
+    final isDismissible = widget.property?.isDismissible ?? true;
+
     final isCupertino = widget.property?.mode == MacosTimePickerMode.cupertino;
     final result = await MacosDialogPicker(
       context,
       localizations,
-      picker:
-          isCupertino ? _buildCupertinoTimePicker() : _buildMacosTimePicker(),
-    ).showMacosTimePicker(isCupertino);
+      picker: isCupertino ? _buildCupertinoTimePicker() : _buildMacosTimePicker(),
+    ).showMacosTimePicker(
+      isCupertino,
+      showIcon,
+      showTitle,
+      isHorizontal,
+      isDismissible,
+    );
 
     if (result != null && result) {
       _handleOkClick();
@@ -184,10 +194,19 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
       selectedDate = timeOfDay;
     });
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }
 
 class TimePickerMacosProperty extends CoreMacosProperty {
   const TimePickerMacosProperty({
+    this.showIcon = true,
+    this.showTitle = true,
+    this.isDismissible = true,
+    this.horizontalActions = true,
     this.mode = MacosTimePickerMode.macOS,
   });
 
@@ -198,4 +217,29 @@ class TimePickerMacosProperty extends CoreMacosProperty {
   ///
   /// Defaults to [MacosTimePickerMode.macOS].
   final MacosTimePickerMode mode;
+
+  /// Determines whether to lay out [primaryButton] and [secondaryButton]
+  /// horizontally or vertically.
+  ///
+  /// Defaults to `true`.
+  final bool horizontalActions;
+
+  /// Whether to display the icon in [MacosTimePickerMode.cupertino].
+  ///
+  /// When set to true, an icon will be shown in the Cupertino-style time picker.
+  /// Defaults to `true`.
+  final bool showIcon;
+
+  /// Whether to display the title in [MacosTimePickerMode.cupertino].
+  ///
+  /// When set to true, the title will be shown in the Cupertino-style time picker.
+  /// Defaults to `true`.
+  final bool showTitle;
+
+  /// Determines whether the MacosTimePicker can be dismissed by tapping outside of it.
+  ///
+  /// If set to true, the MacosTimePicker can be dismissed by tapping outside its bounds.
+  /// If set to false, the MacosTimePicker will remain open until a selection is made or the cancel action is triggered.
+  /// Defaults to true.
+  final bool isDismissible;
 }

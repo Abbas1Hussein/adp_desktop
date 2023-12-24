@@ -78,7 +78,7 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
         placeholderStyle: placeholderStyle ?? kDefaultPlaceholderStyle,
         placeholder:
             placeholder ?? MaterialLocalizations.of(context).searchFieldLabel,
-        results: suggestions.map((e) => e.toMacos()).toList(),
+        results: suggestions.map((e) => e.toMacos(context)).toList(),
         onResultSelected: (value) {
           onSelected?.call(AdaptiveSearchItem.fromSearchItem(value));
         },
@@ -102,7 +102,7 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
       placeholder: placeholder ?? FluentLocalizations.of(context).searchLabel,
       noResultsFoundBuilder:
           emptyWidget != null ? (context) => emptyWidget! : null,
-      items: suggestions.map((e) => e.toWindows()).toList(),
+      items: suggestions.map((e) => e.toWindows(context)).toList(),
       onSelected: (value) {
         onSelected?.call(AdaptiveSearchItem.fromAutoSuggestBoxItem(value));
       },

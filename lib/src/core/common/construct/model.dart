@@ -1,10 +1,12 @@
+import 'package:flutter/widgets.dart';
+
 abstract class CoreModel<W, M> {
   const CoreModel();
 
-  W toWindows();
+  W toWindows(BuildContext context);
 
   // fromWindows(W w) {}
 
-  M toMacos();
+  M toMacos(BuildContext context);
 // fromMacos(M m) {}
 }
