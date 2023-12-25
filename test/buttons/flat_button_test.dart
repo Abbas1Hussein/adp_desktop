@@ -14,12 +14,12 @@ void main() {
     (WidgetTester tester) async {
       await tester.pumpWidget(
          wrapApp(
-          child: const AdaptiveFlatButton(
+          child:  AdaptiveFlatButton(
             properties: Properties(
-              windows: FlatButtonWindowsProperty(),
-              macos: FlatButtonMacosProperty(),
+              windows: const FlatButtonWindowsProperty(),
+              macos: const FlatButtonMacosProperty(),
             ),
-            child: Text('AdaptiveFlatButton'),
+            child: const Text('AdaptiveFlatButton'),
           ),
         ),
       );

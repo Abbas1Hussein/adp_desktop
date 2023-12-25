@@ -1,12 +1,11 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -46,40 +45,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AdaptiveNavigationView(
-        navigationAppBar: AdaptiveNavigationAppBar(
-          title: const Text('title'),
-          leading: const Text('leading'),
-
-          actions: [
-            const AdaptiveNABDivider(),
-            AdaptiveNABPulldownButton(
-              items: [
-                const AdaptivePulldownMenuItem(child: Text('1')),
-                const AdaptivePulldownMenuDivider(),
-                const AdaptivePulldownMenuItem(child: Text('2')),
-              ],
-              label: 'label',
-              tooltipMessage: 'tooltipMessage',
-              icon: AdpIcons.add.platform,
-            ),
-            const AdaptiveNABDivider(),
-            AdaptiveNABIconButton(
-              label: 'label',
-              onPressed: () {},
-              icon: const AdaptiveIcon(AdpIcons.add),
-            ),
-          ],
-        ),
-        items: const [
-          AdaptiveNavigationViewItem(
-            label: Text('home'),
-            icon: AdaptiveIcon(AdpIcons.app),
-          )
-        ],
-        children: const [Center()],
-      ),
+    return const AdaptiveScaffoldPage(
+      title: Text('Abbas Hussein'),
+      leading: AdaptiveIcon(AdpIcons.home),
+     /// actions: actions,
+      contentPadding: EdgeInsets.all(8.0),
+      content: Center(child: AdaptiveDatePicker()),
     );
   }
 }

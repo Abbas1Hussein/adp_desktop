@@ -6,11 +6,7 @@ import '../../core.dart';
 
 abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
     Macos extends CoreMacosProperty> extends StatelessWidget {
-  const CoreAdaptiveComponent({
-    this.builders,
-    this.properties,
-    super.key,
-  });
+  const CoreAdaptiveComponent({this.builders, this.properties, super.key});
 
   final CoreAdaptiveBuilder? builders;
   final CoreProperties<Windows, Macos>? properties;
@@ -45,7 +41,6 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
       },
     );
   }
-
 
   Widget windows(BuildContext context);
 

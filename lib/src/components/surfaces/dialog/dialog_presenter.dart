@@ -43,11 +43,9 @@ abstract final class DialogPresenter {
           onPressed: () => Navigator.pop(context, true),
         ),
         secondary: AdaptiveFlatButton(
-          properties: OnlyProperty.macos(
+          properties: Properties.macos(
             FlatButtonMacosProperty(
-              secondary: true,
-              semanticLabel: cancelLabel,
-            ),
+                secondary: true, semanticLabel: cancelLabel),
           ),
           onPressed: () => Navigator.pop(context, false),
           child: Text(cancelLabel),

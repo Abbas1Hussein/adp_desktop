@@ -5,7 +5,7 @@ import '../../../core/common/construct/model.dart';
 import 'appbar_action.dart';
 import 'platforms/platforms.dart';
 
-/// space to inscribe inside the toolbar. The [title], if any, is
+/// space to inscribe inside the nav app bar. The [title], if any, is
 /// placed inside this padding.
 const _kPaddingInsets = EdgeInsets.symmetric(horizontal: 8, vertical: 4.0);
 
@@ -116,7 +116,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   /// The text style for the toolbar.
   final TextStyle? toolbarTextStyle;
 
-  /// space to inscribe inside the toolbar. The [title], if any, is
+  /// space to inscribe inside the nav app bar. The [title], if any, is
   /// placed inside this padding.
   final EdgeInsets insets;
 

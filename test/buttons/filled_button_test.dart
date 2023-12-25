@@ -13,12 +13,12 @@ void main() {
     (WidgetTester tester) async {
       await tester.pumpWidget(
         wrapApp(
-          child: const AdaptiveFilledButton(
+          child:  AdaptiveFilledButton(
             properties: Properties(
-              windows: FilledButtonWindowsProperty(autofocus: true),
-              macos: FilledButtonMacosProperty(pressedOpacity: 0.6),
+              windows: const FilledButtonWindowsProperty(autofocus: true),
+              macos: const FilledButtonMacosProperty(pressedOpacity: 0.6),
             ),
-            child: Text('AdaptiveFilledButton'),
+            child: const Text('AdaptiveFilledButton'),
           ),
         ),
       );

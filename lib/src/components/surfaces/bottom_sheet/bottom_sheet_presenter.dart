@@ -53,8 +53,8 @@ abstract final class BottomSheetPresenter {
               children: [
                 Expanded(
                   child: AdaptiveFlatButton(
-                    properties: const OnlyProperty.macos(
-                      FlatButtonMacosProperty(secondary: true),
+                    properties: Properties.macos(
+                      const FlatButtonMacosProperty(secondary: true),
                     ),
                     onPressed: () => Navigator.pop(context, false),
                     child: Text(cancelLabel),

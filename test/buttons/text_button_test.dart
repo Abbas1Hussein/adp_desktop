@@ -13,12 +13,12 @@ void main() {
     (WidgetTester tester) async {
       await tester.pumpWidget(
         wrapApp(
-          child: const AdaptiveTextButton(
+          child: AdaptiveTextButton(
             properties: Properties(
-              windows: TextButtonWindowsProperty(),
-              macos: TextButtonMacosProperty(),
+              windows: const TextButtonWindowsProperty(),
+              macos: const TextButtonMacosProperty(),
             ),
-            child: Text('AdaptiveFilledButton'),
+            child: const Text('AdaptiveFilledButton'),
           ),
         ),
       );
@@ -45,7 +45,7 @@ void main() {
 
       await tester.pumpWidget(
         wrapApp(
-          child:  AdaptiveTextButton(
+          child: AdaptiveTextButton(
             onPressed: () => checkValue = true,
             onLongPress: () => checkValue = false,
             child: const Text('Test TextButton'),

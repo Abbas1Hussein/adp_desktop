@@ -1,37 +1,52 @@
-import 'platforms.dart';
+import '../adaptive.dart';
 
-typedef LogicCallBack<T> = T Function();
+typedef LogicCallback<T> = T Function();
 
-abstract class CoreProperties<W, M> extends CorePlatforms<W, M> {
-  const CoreProperties({
-    final W? windows,
-    final M? macos,
-  }) : super(windows: windows, macos: macos);
+abstract class CoreProperties<W, M> {
+  CoreProperties({this.windows, this.macos});
+
+  W? windows;
+  M? macos;
 }
 
 final class Properties<W, M> extends CoreProperties<W, M> {
-  const Properties({super.windows, super.macos});
+  Properties({super.windows, super.macos});
+
+  Properties.windows(W windows) : super(windows: windows);
+
+  Properties.macos(M macos) : super(macos: macos);
+
 }
 
 final class PropertiesLogic<W, M> extends CoreProperties<W, M> {
-  PropertiesLogic({
-    LogicCallBack<W>? windows,
-    LogicCallBack<M>? macos,
-  }) : super(windows: windows?.call(), macos: macos?.call());
-}
+  factory PropertiesLogic({
+    LogicCallback<W>? windows,
+    LogicCallback<M>? macos,
+  }) {
+    return PropertiesLogic._internal(windows: windows, macos: macos);
+  }
 
-final class OnlyProperty<W, M> extends CoreProperties<W, M> {
-  const OnlyProperty.windows(W? windows) : super(windows: windows);
+  factory PropertiesLogic.windows(LogicCallback<W>? windows) {
+    return PropertiesLogic._internal(windows: windows);
+  }
 
-  const OnlyProperty.macos(M? macos) : super(macos: macos);
-}
+  factory PropertiesLogic.macos(LogicCallback<M>? macos) {
+    return PropertiesLogic._internal(macos: macos);
+  }
 
-final class OnlyPropertyLogic<W, M> extends CoreProperties<W, M> {
-  OnlyPropertyLogic.windows(LogicCallBack<W>? windows)
-      : super(windows: windows?.call());
-
-  OnlyPropertyLogic.macos(LogicCallBack<M>? macos)
-      : super(macos: macos?.call());
+  PropertiesLogic._internal({
+    LogicCallback<W>? windows,
+    LogicCallback<M>? macos,
+  }) {
+    adaptiveValue<void>(
+      windows: () {
+        if (windows != null) this.windows = windows();
+      },
+      macos: () {
+        if (macos != null) this.macos = macos();
+      },
+    );
+  }
 }
 
 abstract class CoreWindowsProperty {
@@ -42,4 +57,4 @@ abstract class CoreMacosProperty {
   const CoreMacosProperty();
 }
 
-mixin class NoneProperty implements CoreWindowsProperty, CoreMacosProperty {}
+mixin NoneProperty implements CoreWindowsProperty, CoreMacosProperty {}
