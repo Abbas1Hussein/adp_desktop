@@ -50,11 +50,14 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// On macOS platform, this color will be used when the [onChanged] callback is null.
   final Color? uncheckedBorderColor;
 
+  bool get _enabled => onChanged != null;
+
   @override
   Widget macos(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: MacosCheckbox(
+        size: 18.0,
         value: value,
         onChanged: onChanged,
         activeColor: checkedColor,
@@ -62,19 +65,19 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
         offBorderColor: uncheckedBorderColor ?? CupertinoColors.tertiaryLabel,
         semanticLabel: semanticLabel,
       ),
-    ).margeWith(
-      GestureDetector(
-        onTap: onChanged != null
-            ? () {
-                if (value != null) {
-                  onChanged!.call(value! ? false : true);
-                }
-              }
-            : null,
-        child: label,
-      ),
-      4.0,
-    );
+    )
+        .margeWith(
+          label != null
+              ? GestureDetector(
+                  onTap: _enabled
+                      ? () => onChanged!(!(value != null && value!))
+                      : null,
+                  child: label,
+                )
+              : null,
+          4.0,
+        )
+        .applyDisabledEffect(!_enabled);
   }
 
   @override
@@ -88,11 +91,11 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
       onChanged: onChanged,
       semanticLabel: semanticLabel,
       style: CheckboxThemeData(
-        checkedDecoration: checkedColor != null
+        checkedDecoration: _enabled
             ? ButtonState.all(
                 BoxDecoration(color: checkedColor, borderRadius: radius))
             : checkboxTheme.checkedDecoration,
-        uncheckedDecoration: onChanged != null && uncheckedColor != null
+        uncheckedDecoration: _enabled && uncheckedColor != null
             ? ButtonState.all(
                 BoxDecoration(
                   color: uncheckedColor,

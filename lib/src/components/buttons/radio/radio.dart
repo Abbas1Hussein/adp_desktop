@@ -75,19 +75,26 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
 
   bool get _selected => value == groupValue;
 
+  bool get _enabled => onChanged != null;
+
   @override
   Widget macos(BuildContext context) {
     return MacosRadioButton<T>(
       value: value,
-      groupValue: groupValue,
       onColor: activeColor,
+      groupValue: groupValue,
       offColor: disabledColor ?? CupertinoColors.tertiaryLabel,
       onChanged: (value) => onChanged?.call(value as T),
       semanticLabel: semanticLabel,
     ).margeWith(
-      GestureDetector(child: label, onTap: () => onChanged?.call(value)),
-      4.0,
-    );
+          label != null
+              ? GestureDetector(
+                  onTap: _enabled ? () => onChanged!(value) : null,
+                  child: label,
+                )
+              : null,
+          4.0,
+        ).applyDisabledEffect(!_enabled);
   }
 
   @override
@@ -140,7 +147,7 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
         content: label,
         checked: _selected,
         semanticLabel: semanticLabel,
-        onChanged: (_) => onChanged?.call(value),
+        onChanged: _enabled ? (_) => onChanged!(value) : null,
       ),
     );
   }

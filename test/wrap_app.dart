@@ -15,5 +15,9 @@ Widget wrapApp({required Widget child}) {
 Widget wrapAppWithScaffold({
   required Widget child,
 }) {
-  return wrapApp(child: AdaptiveScaffoldPage(content: child));
+  return wrapApp(
+    child: AdaptiveScaffoldPage(
+      content: child,
+    ),
+  );
 }

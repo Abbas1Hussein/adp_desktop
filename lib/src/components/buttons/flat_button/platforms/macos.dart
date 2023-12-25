@@ -86,7 +86,7 @@ class FlatButtonMacos extends StatelessWidget {
         child: PushButton(
           borderRadius: borderRadius,
           onPressed: enabled ? (onPressed ?? () {}) : null,
-          controlSize: property?.controlSize ?? ControlSize.large,
+          controlSize: property?.controlSize ?? ControlSize.regular,
           alignment: property?.alignment ?? Alignment.center,
           semanticLabel: property?.semanticLabel,
           secondary: property?.secondary,

@@ -4,7 +4,6 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import '../../../core/extension/widget.dart';
-import '../menu/menu.dart';
 
 /// A custom switch button widget that adapts its appearance based on the platform.
 ///
@@ -89,27 +88,30 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
       value: value,
       onChanged: onChanged,
       knobColor: knobColor,
+      semanticLabel: semanticLabel,
       activeColor: backgroundColorOnState,
       trackColor: backgroundColorOffState,
-      semanticLabel: semanticLabel,
+      size: ControlSize.small,
     ).margeWith(
-      AdaptivePulldownMenuItem.disabledOpacity(
-        GestureDetector(
-          onTap: _enabled ? () => onChanged!(value ? false : true) : null,
-          child: label,
-        ),
-        _enabled,
-      ),
-    );
+          label != null
+              ? GestureDetector(
+                  onTap: _enabled ? () => onChanged!(!value) : null,
+                  child: DefaultTextStyle(
+                    style: theme.typography.body,
+                    child: label!,
+                  ),
+                )
+              : null,
+          10.0,
+        ).applyDisabledEffect(!_enabled);
   }
 
   @override
   Widget windows(BuildContext context) {
     final theme = FluentTheme.of(context);
 
-    final defaultDecoration = BoxDecoration(
-      borderRadius: BorderRadius.circular(100),
-    );
+    final defaultDecoration =
+        BoxDecoration(borderRadius: BorderRadius.circular(100));
 
     return ToggleSwitch(
       checked: value,
