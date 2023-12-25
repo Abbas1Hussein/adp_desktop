@@ -45,7 +45,9 @@ void main() {
 
       await tester.pumpWidget(
         wrapAppWithScaffold(
-          child: Center(child: AdaptiveTextFormField(controller: controller)),
+          child: Center(
+            child: AdaptiveTextFormField(controller: controller),
+          ),
         ),
       );
 
@@ -133,7 +135,9 @@ void main() {
                         placeholder: 'Enter a username',
                         validator: (value) {
                           return validateField(
-                              value, 'Please enter a username');
+                            value,
+                            'Please enter a username',
+                          );
                         },
                       ),
                       const SizedBox(height: 8.0),
@@ -197,16 +201,20 @@ void main() {
                     children: [
                       AdaptiveTextFormField(
                         placeholder: 'Enter a username',
-                        validator: (value) =>
-                            validateField(value, 'Please enter a username'),
+                        validator: (value) => validateField(
+                          value,
+                          'Please enter a username',
+                        ),
                         onSaved: (newValue) => username = newValue,
                       ),
                       const SizedBox(height: 8.0),
                       AdaptiveTextFormField(
                         placeholder: 'Enter your password',
                         obscureText: true,
-                        validator: (value) =>
-                            validateField(value, 'Please enter a password'),
+                        validator: (value) => validateField(
+                          value,
+                          'Please enter a password',
+                        ),
                         onSaved: (newValue) => password = newValue,
                       ),
                       const SizedBox(height: 8.0),

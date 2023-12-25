@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -46,10 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const AdaptiveScaffoldPage(
+    return AdaptiveScaffoldPage(
       title: Text('Abbas Hussein'),
       leading: AdaptiveIcon(AdpIcons.home),
-      content: Center(child: AdaptiveDatePicker()),
+      content: Center(
+        child: AdaptiveTextFormField(
+          controller: TextEditingController(),
+        ),
+      ),
     );
   }
 }

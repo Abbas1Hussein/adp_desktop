@@ -12,8 +12,12 @@ void main() {
     'AdaptiveDatePicker render correctly',
     (tester) async {
       await tester.pumpWidget(
-        wrapAppWithScaffold(
-          child: const Center(child: AdaptiveDatePicker()),
+        wrapApp(
+          child: const SizedBox(
+            width: 200,
+            height: 45.0,
+            child: AdaptiveDatePicker(),
+          ),
         ),
       );
 
