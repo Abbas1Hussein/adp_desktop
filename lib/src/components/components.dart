@@ -1,7 +1,5 @@
 export 'Indicators/Indicators.dart';
-export 'additional/color.dart';
-export 'additional/dummy.dart';
-export 'additional/typography.dart';
+export 'additional/additional.dart';
 export 'buttons/buttons.dart';
 export 'fields/fields.dart';
 export 'icon/icon.dart';

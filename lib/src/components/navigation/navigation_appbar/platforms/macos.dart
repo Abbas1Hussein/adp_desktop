@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../appbar_action.dart';
+import '../../../layout/appbar_action/appbar_action.dart';
+import '../../../layout/appbar_action/extension.dart';
 
 /// Defines the height of a regular-sized [ToolBar]
 const _kToolbarHeight = 52.0;
@@ -11,7 +12,6 @@ const _kLeadingWidth = 20.0;
 
 /// Defines the width of the [ToolBar]'s title.
 const _kTitleWidth = 150.0;
-
 
 class NABMacos extends StatelessWidget {
   const NABMacos({
@@ -36,7 +36,7 @@ class NABMacos extends StatelessWidget {
   final Widget? leading;
   final Widget? title;
   final EdgeInsets insets;
-  final List<AdaptiveNABActionEntry>? actions;
+  final List<AdaptiveAppBarActionEntry>? actions;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final bool automaticallyImplyLeading;
@@ -95,63 +95,26 @@ class NABMacos extends StatelessWidget {
     BuildContext context,
     MacosTypography typography,
   ) {
-    return actions
-        ?.map(
-          (e) {
-            if (e is AdaptiveNABIconButton) {
-              return e.toMacos(context);
-            }
-
-            if (e is AdaptiveNABPulldownButton) {
-              return e.toMacos(context);
-            }
-
-            if (e is AdaptiveNABDivider) {
-              return e.toMacos(context);
-            }
-
-            if (e is AdaptiveNABCustomItem) {
-              return _buildCustomActions(typography, e.child);
-            }
-
-            return const ToolBarSpacer();
-          },
-        )
-        .whereType<ToolbarItem>()
-        .toList();
-  }
-
-  CustomToolbarItem _buildCustomActions(
-    MacosTypography typography,
-    Widget child,
-  ) {
-    return CustomToolbarItem(
-      inOverflowedBuilder: (context) {
-        return _buildCustomToolbarItems(typography, context, child);
-      },
-      inToolbarBuilder: (context) {
-        return _buildCustomToolbarItems(typography, context, child);
-      },
-    );
-  }
-
-  Widget _buildCustomToolbarItems(
-    MacosTypography typography,
-    BuildContext context,
-    Widget child,
-  ) {
-    return DefaultTextStyle(
-      style: typography.body,
-      child: IconTheme(
-        data: actionsIconTheme ??
-            IconTheme.of(context).copyWith(
-              color: foregroundColor ?? typography.body.color,
+    final toolbarItems = actions?.map(
+      (e) => e.toMacOS(
+        context,
+        customItem: (child) {
+          return DefaultTextStyle(
+            style: typography.body,
+            child: IconTheme(
+              data: actionsIconTheme ??
+                  IconTheme.of(context).copyWith(
+                    color: foregroundColor ?? typography.body.color,
+                  ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: child,
+              ),
             ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: child,
-        ),
+          );
+        },
       ),
     );
+    return toolbarItems?.toList();
   }
 }

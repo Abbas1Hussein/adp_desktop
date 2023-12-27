@@ -7,7 +7,6 @@ export 'tab_view/platforms/platforms.dart'
         TabViewMacosProperty;
 
 export 'navigation_appbar/navigation_app_bar.dart';
-export 'navigation_appbar/appbar_action.dart';
 
 export 'navigation_view/navigation_view.dart';
 export 'navigation_view/navigation_view_size.dart';

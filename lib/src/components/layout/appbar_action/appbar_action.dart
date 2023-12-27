@@ -4,24 +4,20 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/model.dart';
 import '../../buttons/menu/pulldown/pulldown_item.dart';
 
-/// An abstract class representing an entry in the adaptive navigation appbar action.
-/// Subclasses should extend this class to define specific types of entries.
-///
-/// This serves as a foundation for various elements that can be included in the adaptive navigation appbar action,
-/// allowing customization for different use cases.
+/// An abstract class representing an entry in the adaptive appbar action.
 ///
 /// Subclasses:
-/// - [AdaptiveNABDivider]:  a divider in the adaptive NAB.
-/// - [AdaptiveNABIconButton]:  an icon button in the adaptive NAB.
-/// - [AdaptiveNABPulldownButton]:  a pulldown button in the adaptive NAB.
-/// - [AdaptiveNABCustomItem]:  a custom item in the adaptive NAB.
-abstract class AdaptiveNABActionEntry {
-  const AdaptiveNABActionEntry();
+/// - [AdaptiveAppBarDivider].
+/// - [AdaptiveAppBarButton].
+/// - [AdaptiveAppBarPulldownButton].
+/// - [AdaptiveAppBarCustomItem].
+abstract class AdaptiveAppBarActionEntry {
+  const AdaptiveAppBarActionEntry();
 }
 
-class AdaptiveNABDivider extends AdaptiveNABActionEntry
+class AdaptiveAppBarDivider extends AdaptiveAppBarActionEntry
     implements CoreModel<Widget, ToolBarDivider> {
-  const AdaptiveNABDivider();
+  const AdaptiveAppBarDivider();
 
   @override
   ToolBarDivider toMacos(BuildContext context) {
@@ -30,16 +26,16 @@ class AdaptiveNABDivider extends AdaptiveNABActionEntry
 
   @override
   Widget toWindows(BuildContext context) {
-    return  const Padding(
+    return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 3.0),
-      child: Divider(direction: Axis.vertical),
+      child: Divider(size: 10.0, direction: Axis.vertical),
     );
   }
 }
 
-class AdaptiveNABIconButton extends AdaptiveNABActionEntry
+class AdaptiveAppBarButton extends AdaptiveAppBarActionEntry
     implements CoreModel<Widget, ToolBarIconButton> {
-  const AdaptiveNABIconButton({
+  const AdaptiveAppBarButton({
     this.onPressed,
     this.showLabel = true,
     this.tooltipMessage,
@@ -89,9 +85,9 @@ class AdaptiveNABIconButton extends AdaptiveNABActionEntry
   }
 }
 
-class AdaptiveNABPulldownButton extends AdaptiveNABActionEntry
+class AdaptiveAppBarPulldownButton extends AdaptiveAppBarActionEntry
     implements CoreModel<Widget, ToolBarPullDownButton> {
-  const AdaptiveNABPulldownButton({
+  const AdaptiveAppBarPulldownButton({
     required this.items,
     required this.label,
     required this.icon,
@@ -135,7 +131,7 @@ class AdaptiveNABPulldownButton extends AdaptiveNABActionEntry
 
   String? _extractLabel(AdaptivePulldownMenuItemEntry e) {
     if (e is AdaptivePulldownMenuItem) {
-      if (e.value is String || e.value is int) {
+      if (e.value is String) {
         return e.value.toString();
       } else if (e.child is Text) {
         return (e.child as Text).data;
@@ -175,8 +171,8 @@ class AdaptiveNABPulldownButton extends AdaptiveNABActionEntry
   }
 }
 
-class AdaptiveNABCustomItem extends AdaptiveNABActionEntry {
-  const AdaptiveNABCustomItem({required this.child});
+class AdaptiveAppBarCustomItem extends AdaptiveAppBarActionEntry {
+  const AdaptiveAppBarCustomItem({required this.child});
 
   /// The custom widget to be included as the item.
   final Widget child;
