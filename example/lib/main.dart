@@ -46,6 +46,47 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  const AdaptiveScaffoldPage();
+    return AdaptiveScaffold(
+      appBar: AdaptiveAppBar(title: const Text('Abbas Hussein')),
+      drawer: AdaptiveDrawer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(padding: EdgeInsets.all(8.0), child: AdaptiveBackButton()),
+            ...List.generate(
+              5,
+              (index) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AdaptiveListTile(
+                  title: Text('T ${index + 1}'),
+                  subtitle: Text('SUB ${index + 1}'),
+                  leading: Text('L ${index + 1}'),
+                  trailing: Text('TR ${index + 1}'),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AdaptiveFlatButton(
+                child: const Text('AdaptiveFlatButton'),
+                onPressed: () {},
+              ),
+
+              const AdaptiveBackButton(),
+
+              const AdaptiveDatePicker(),
+              const AdaptiveTimePicker(),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

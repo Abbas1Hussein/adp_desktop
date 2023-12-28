@@ -50,7 +50,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
     super.key,
     this.title,
     this.leading,
-    this.barColor,
+    this.backgroundColor,
     this.actions,
     this.dividerColor,
     this.borderRadius,
@@ -107,7 +107,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
     super.key,
     this.title,
     this.leading,
-    this.barColor,
+    this.backgroundColor,
     this.dividerColor,
     this.borderRadius,
     this.platformActions,
@@ -127,7 +127,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
   final Widget? leading;
 
   /// The background color of the app bar.
-  final Color? barColor;
+  final Color? backgroundColor;
 
   /// The color of the divider line beneath the app bar.
   final Color? dividerColor;
@@ -174,7 +174,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
         ),
         position: DecorationPosition.foreground,
         child: Acrylic(
-          tint: barColor ?? theme.resources.solidBackgroundFillColorSecondary,
+          tint: backgroundColor ?? theme.resources.solidBackgroundFillColorSecondary,
           shape: borderRadius != null
               ? RoundedRectangleBorder(borderRadius: borderRadius!)
               : null,
@@ -235,15 +235,15 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
     const darkBackgroundColor = CupertinoColors.darkBackgroundGray;
 
     final defaultBackgroundColor = CupertinoDynamicColor.resolve(
-      barColor ??
-          const CupertinoDynamicColor.withBrightness(
-            color: lightBackgroundColor,
-            darkColor: darkBackgroundColor,
+      backgroundColor ??
+          MacosTheme.brightnessOf(context).resolve(
+            lightBackgroundColor,
+            darkBackgroundColor,
           ),
       context,
     );
 
-    final styledTitle = (barColor != null && title != null)
+    final styledTitle = (backgroundColor != null && title != null)
         ? DefaultTextStyle(
             style: MacosTheme.of(context).typography.title3.copyWith(
                   fontSize: 15,

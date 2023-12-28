@@ -32,8 +32,7 @@ class CustomMacosListTile extends StatefulWidget {
   });
 
   @override
-  _CustomMacosListTileState createState() =>
-      _CustomMacosListTileState();
+  _CustomMacosListTileState createState() => _CustomMacosListTileState();
 }
 
 class _CustomMacosListTileState extends State<CustomMacosListTile> {
@@ -51,22 +50,23 @@ class _CustomMacosListTileState extends State<CustomMacosListTile> {
   Widget build(BuildContext context) {
     final textStyle = DefaultTextStyle.of(context).style.copyWith(
           color: CupertinoDynamicColor.resolve(
-            MacosTheme.brightnessOf(context) == Brightness.dark
-                ? CupertinoColors.secondaryLabel
-                : MacosColors.placeholderTextColor,
+            MacosTheme.brightnessOf(context).resolve(
+              MacosColors.placeholderTextColor,
+              CupertinoColors.secondaryLabel,
+            ),
             context,
           ),
-          fontWeight: FontWeight.w400,
+          fontWeight: MacosFontWeight.w400,
         );
 
     return MouseRegion(
       onEnter: (_) {
-        if (widget.enabled){
+        if (widget.enabled) {
           setState(() => color = hoverColor);
         }
       },
       onExit: (_) {
-        if (widget.enabled){
+        if (widget.enabled) {
           setState(() => color = backgroundColor);
         }
       },

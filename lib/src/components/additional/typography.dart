@@ -21,9 +21,6 @@ class AdaptiveTypography {
   static AdaptiveTypography of(BuildContext context) => _data(context);
 
   static AdaptiveTypography _data(BuildContext context) {
-    /// final macosTheme = MacosTheme.of(context);
-    // final windowsTheme = FluentTheme.of(context);
-
     return AdaptiveTypography(
       body: adaptiveValue<TextStyle?>(
         macos: () => MacosTheme.of(context).typography.body,

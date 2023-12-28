@@ -82,9 +82,9 @@ class AdaptiveScaffoldPage extends CoreAdaptiveComponent {
   Widget macos(BuildContext context) {
     final defaultBackgroundColor = CupertinoDynamicColor.resolve(
       backgroundColor ??
-          const CupertinoDynamicColor.withBrightness(
-            color: CupertinoColors.white,
-            darkColor: CupertinoColors.darkBackgroundGray,
+          MacosTheme.brightnessOf(context).resolve(
+            CupertinoColors.white,
+            CupertinoColors.darkBackgroundGray,
           ),
       context,
     );

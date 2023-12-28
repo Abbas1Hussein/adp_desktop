@@ -294,23 +294,19 @@ class AdpApp
         actions: actions,
         builder: builder,
         themeMode: themeMode,
-        theme: properties?.macos?.theme,
-        onGenerateTitle: onGenerateTitle,
-        restorationScopeId: restorationScopeId,
         shortcuts: shortcuts,
         routerConfig: routerConfig,
         routerDelegate: routerDelegate,
+        theme: properties?.macos?.theme,
+        onGenerateTitle: onGenerateTitle,
+        restorationScopeId: restorationScopeId,
         backButtonDispatcher: backButtonDispatcher,
         routeInformationParser: routeInformationParser,
         routeInformationProvider: routeInformationProvider,
         darkTheme: properties?.macos?.darkTheme,
         showSemanticsDebugger: showSemanticsDebugger,
         showPerformanceOverlay: showPerformanceOverlay,
-        localizationsDelegates: localizationsDelegates ??
-            [
-              FluentLocalizations.delegate,
-              DefaultWidgetsLocalizations.delegate,
-            ],
+        localizationsDelegates: _localizationsDelegatesMacos,
         localeResolutionCallback: localeResolutionCallback,
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         checkerboardOffscreenLayers: checkerboardOffscreenLayers,
@@ -329,6 +325,7 @@ class AdpApp
       actions: actions,
       builder: builder,
       themeMode: themeMode,
+      shortcuts: shortcuts,
       initialRoute: initialRoute,
       navigatorKey: navigatorKey,
       onUnknownRoute: onUnknownRoute,
@@ -337,7 +334,6 @@ class AdpApp
       onGenerateTitle: onGenerateTitle,
       navigatorObservers: navigatorObservers,
       restorationScopeId: restorationScopeId,
-      shortcuts: shortcuts,
       darkTheme: properties?.macos?.darkTheme,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
@@ -435,8 +431,7 @@ class AdpApp
     yield FluentLocalizations.delegate;
   }
 
-  Iterable<LocalizationsDelegate<dynamic>>
-      get _localizationsDelegatesMacos sync* {
+  Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegatesMacos sync* {
     yield* _commonLocalizationsDelegates;
     yield DefaultCupertinoLocalizations.delegate;
   }

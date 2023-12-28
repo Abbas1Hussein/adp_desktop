@@ -68,7 +68,7 @@ class DialogMacos extends StatelessWidget {
 
     switch (property?.dialogMode ?? MacosDialogMode.macOS) {
       case MacosDialogMode.cupertino:
-        return _buildCupertinoDialog(isVertical, content, typography);
+        return _buildCupertinoDialog(isVertical, content, typography, context);
       case MacosDialogMode.macOS:
         return _buildMacOSDialog(context, isVertical, content, typography);
     }
@@ -78,40 +78,49 @@ class DialogMacos extends StatelessWidget {
     bool isVertical,
     Widget? content,
     MacosTypography typography,
+    BuildContext context,
   ) {
-    return CupertinoAlertDialog(
-      title: title != null
-          ? Builder(
-              builder: (context) {
-                if (isVertical) {
-                  return Column(
-                    children: [
-                      if (hasAppIcon) ...[property!.appIcon!, _spaceHeight],
-                      title!,
-                    ],
-                  );
-                } else if (hasAppIcon) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Flexible(child: title!), property!.appIcon!],
-                  );
-                }
-                return title!;
-              },
-            )
-          : null,
-      content: Column(
-        children: [
-          if (title != null) _spaceHeight,
-          if (content != null) content,
-          if (property?.suppress != null) ...[_spaceHeight, property!.suppress!]
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(
+        platformBrightness: MacosTheme.brightnessOf(context),
+      ),
+      child: CupertinoAlertDialog(
+        title: title != null
+            ? Builder(
+                builder: (context) {
+                  if (isVertical) {
+                    return Column(
+                      children: [
+                        if (hasAppIcon) ...[property!.appIcon!, _spaceHeight],
+                        title!,
+                      ],
+                    );
+                  } else if (hasAppIcon) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Flexible(child: title!), property!.appIcon!],
+                    );
+                  }
+                  return title!;
+                },
+              )
+            : null,
+        content: Column(
+          children: [
+            if (title != null) _spaceHeight,
+            if (content != null) content,
+            if (property?.suppress != null) ...[
+              _spaceHeight,
+              property!.suppress!
+            ]
+          ],
+        ),
+        actions: [
+          primary._cupertinoDialogAction(typography.title3),
+          if (secondary != null)
+            secondary!._cupertinoDialogAction(typography.title3),
         ],
       ),
-      actions: [
-        primary._cupertinoDialogAction(typography.title3),
-        if (secondary != null)
-          secondary!._cupertinoDialogAction(typography.title3),
-      ],
     );
   }
 
@@ -128,38 +137,28 @@ class DialogMacos extends StatelessWidget {
           )
         : null;
 
-    return MacosTheme(
-      data: MacosThemeData(
-        brightness: Brightness.dark,
-        pushButtonTheme: PushButtonThemeData(
-          color: primary._pushButton(context, false).color,
-          disabledColor: primary._pushButton(context, false).color,
-          secondaryColor: primary._pushButton(context, false).color,
-        ),
-      ),
-      child: MacosAlertDialog(
-        suppress: property?.suppress,
-        appIcon: isVertical && hasAppIcon ? property!.appIcon! : _noneWidget,
-        title: title != null
-            ? Builder(
-                builder: (context) {
-                  if (isVertical) {
-                    return titleWithStyled!;
-                  } else if (hasAppIcon) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [titleWithStyled!, property!.appIcon!],
-                    );
-                  }
+    return MacosAlertDialog(
+      suppress: property?.suppress,
+      appIcon: isVertical && hasAppIcon ? property!.appIcon! : _noneWidget,
+      title: title != null
+          ? Builder(
+              builder: (context) {
+                if (isVertical) {
                   return titleWithStyled!;
-                },
-              )
-            : _noneWidget,
-        message: content ?? _noneWidget,
-        primaryButton: primary._pushButton(context, false),
-        secondaryButton: secondary?._pushButton(context, true),
-        horizontalActions: property?.horizontalActions ?? true,
-      ),
+                } else if (hasAppIcon) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [titleWithStyled!, property!.appIcon!],
+                  );
+                }
+                return titleWithStyled!;
+              },
+            )
+          : _noneWidget,
+      message: content ?? _noneWidget,
+      primaryButton: primary._pushButton(context, false),
+      secondaryButton: secondary?._pushButton(context, true),
+      horizontalActions: property?.horizontalActions ?? true,
     );
   }
 }
