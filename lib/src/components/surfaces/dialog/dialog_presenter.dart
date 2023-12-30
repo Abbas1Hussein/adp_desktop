@@ -35,7 +35,7 @@ abstract final class DialogPresenter {
   }) async {
     return await showAdpDialog<bool?>(
       context: context,
-      child: AdaptiveDialog(
+      builder: (context) => AdaptiveDialog(
         title: Text(title),
         content: Text(message),
         primary: AdaptiveFlatButton(
@@ -71,7 +71,7 @@ abstract final class DialogPresenter {
   }) async {
     await showAdpDialog<void>(
       context: context,
-      child: AdaptiveDialog(
+      builder: (context) => AdaptiveDialog(
         title: Text(title),
         content: Text(message),
         primary: AdaptiveFlatButton(
@@ -116,8 +116,8 @@ abstract final class DialogPresenter {
     required AdaptiveDialog child,
   }) async {
     return await showAdpDialog<T?>(
-      child: child,
       context: context,
+      builder: (context) => child,
       barrierDismissible: barrierDismissible,
     );
   }

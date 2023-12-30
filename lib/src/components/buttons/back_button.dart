@@ -42,16 +42,14 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
       child: Builder(
         builder: (context) {
           return ConstrainedBox(
-            constraints:
-                const BoxConstraints.tightFor(width: 45.0, height: 35.0),
+            constraints: const BoxConstraints.tightFor(width: 45.0, height: 35.0),
             child: PaneItem(
               mouseCursor: mouseCursor,
               tileColor: color != null ? ButtonState.all(color) : null,
               icon: const Center(child: Icon(FluentIcons.back)),
               title: Text(semanticLabel ?? FluentLocalizations.of(context).backButtonTooltip),
               body: const SizedBox.shrink(),
-            ).build(context, true, () => _onTap(context),
-                displayMode: PaneDisplayMode.compact),
+            ).build(context, true, () => _onTap(context), displayMode: PaneDisplayMode.compact),
           );
         },
       ),
@@ -83,3 +81,6 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
     if (canPop) afterBack?.call();
   }
 }
+
+
+

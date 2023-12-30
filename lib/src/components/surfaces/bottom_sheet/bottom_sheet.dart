@@ -8,6 +8,7 @@ import 'platforms/platforms.dart';
 /// Use this widget to create bottom sheet with platform-specific
 /// styling and behavior:
 /// - On macOS, [MacosSheet] is utilized.
+/// - On windows, custom bottom sheet used.
 ///
 /// See also:
 /// * [BottomSheetPresenter]: A utility class for presenting different types of adaptive sheets.

@@ -14,7 +14,7 @@ import '../../../core/common/adaptive.dart';
 /// * [AdaptiveDialog]: A custom dialog widget that adapts its appearance based on the platform.
 Future<T?>? showAdpDialog<T>({
   required BuildContext context,
-  required Widget child,
+  required WidgetBuilder builder,
   Color? barrierColor,
   String? barrierLabel,
   bool useRootNavigator = true,
@@ -24,7 +24,7 @@ Future<T?>? showAdpDialog<T>({
   return adaptiveValue<Future<T?>>(
     macos: () => showMacosAlertDialog<T>(
       context: context,
-      builder: (context) => child,
+      builder: builder,
       useRootNavigator: useRootNavigator,
       routeSettings: routeSettings,
       barrierLabel: barrierLabel,
@@ -33,7 +33,7 @@ Future<T?>? showAdpDialog<T>({
     ),
     windows: () => showDialog<T>(
       context: context,
-      builder: (context) => child,
+      builder: builder,
       useRootNavigator: useRootNavigator,
       routeSettings: routeSettings,
       barrierLabel: barrierLabel,

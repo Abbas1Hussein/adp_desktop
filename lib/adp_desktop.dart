@@ -2,6 +2,7 @@ library adp_desktop;
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' as m;
 import 'package:macos_ui/macos_ui.dart';
 
 import 'src/core/core.dart';
@@ -284,69 +285,13 @@ class AdpApp
 
   bool get usesRouter => routerDelegate != null || routerConfig != null;
 
-  @override
-  Widget macos(BuildContext context) {
-    if (usesRouter) {
-      return MacosApp.router(
-        title: title,
-        color: color,
-        locale: locale,
-        actions: actions,
-        builder: builder,
-        themeMode: themeMode,
-        shortcuts: shortcuts,
-        routerConfig: routerConfig,
-        routerDelegate: routerDelegate,
-        theme: properties?.macos?.theme,
-        onGenerateTitle: onGenerateTitle,
-        restorationScopeId: restorationScopeId,
-        backButtonDispatcher: backButtonDispatcher,
-        routeInformationParser: routeInformationParser,
-        routeInformationProvider: routeInformationProvider,
-        darkTheme: properties?.macos?.darkTheme,
-        showSemanticsDebugger: showSemanticsDebugger,
-        showPerformanceOverlay: showPerformanceOverlay,
-        localizationsDelegates: _localizationsDelegatesMacos,
-        localeResolutionCallback: localeResolutionCallback,
-        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-        checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-        localeListResolutionCallback: localeListResolutionCallback,
-        checkerboardRasterCacheImages: checkerboardOffscreenLayers,
-        scrollBehavior: scrollBehavior ?? const MacosScrollBehavior(),
-        supportedLocales: supportedLocales ?? const [Locale('en', 'US')],
-      );
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _commonLocalizationsDelegates sync* {
+    if (localizationsDelegates != null) {
+      yield* localizationsDelegates!;
     }
-    return MacosApp(
-      home: home,
-      title: title,
-      color: color,
-      routes: routes,
-      locale: locale,
-      actions: actions,
-      builder: builder,
-      themeMode: themeMode,
-      shortcuts: shortcuts,
-      initialRoute: initialRoute,
-      navigatorKey: navigatorKey,
-      onUnknownRoute: onUnknownRoute,
-      theme: properties?.macos?.theme,
-      onGenerateRoute: onGenerateRoute,
-      onGenerateTitle: onGenerateTitle,
-      navigatorObservers: navigatorObservers,
-      restorationScopeId: restorationScopeId,
-      darkTheme: properties?.macos?.darkTheme,
-      showSemanticsDebugger: showSemanticsDebugger,
-      showPerformanceOverlay: showPerformanceOverlay,
-      localizationsDelegates: _localizationsDelegatesMacos,
-      onGenerateInitialRoutes: onGenerateInitialRoutes,
-      localeResolutionCallback: localeResolutionCallback,
-      debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-      localeListResolutionCallback: localeListResolutionCallback,
-      checkerboardRasterCacheImages: checkerboardOffscreenLayers,
-      scrollBehavior: scrollBehavior ?? const MacosScrollBehavior(),
-      supportedLocales: supportedLocales ?? const [Locale('en', 'US')],
-    );
+    yield DefaultMaterialLocalizations.delegate;
+    yield DefaultWidgetsLocalizations.delegate;
   }
 
   @override
@@ -417,27 +362,119 @@ class AdpApp
   }
 
   Iterable<LocalizationsDelegate<dynamic>>
-      get _commonLocalizationsDelegates sync* {
-    if (localizationsDelegates != null) {
-      yield* localizationsDelegates!;
-    }
-    yield DefaultMaterialLocalizations.delegate;
-    yield DefaultWidgetsLocalizations.delegate;
-  }
-
-  Iterable<LocalizationsDelegate<dynamic>>
       get _localizationsDelegatesWindows sync* {
     yield* _commonLocalizationsDelegates;
     yield FluentLocalizations.delegate;
   }
 
-  Iterable<LocalizationsDelegate<dynamic>> get _localizationsDelegatesMacos sync* {
+  @override
+  Widget macos(BuildContext context) {
+    if (usesRouter) {
+      return MacosApp.router(
+        title: title,
+        color: color,
+        locale: locale,
+        actions: actions,
+        themeMode: themeMode,
+        shortcuts: shortcuts,
+        builder: _macosBuilder,
+        routerConfig: routerConfig,
+        routerDelegate: routerDelegate,
+        theme: properties?.macos?.theme,
+        onGenerateTitle: onGenerateTitle,
+        restorationScopeId: restorationScopeId,
+        backButtonDispatcher: backButtonDispatcher,
+        routeInformationParser: routeInformationParser,
+        routeInformationProvider: routeInformationProvider,
+        darkTheme: properties?.macos?.darkTheme,
+        showSemanticsDebugger: showSemanticsDebugger,
+        showPerformanceOverlay: showPerformanceOverlay,
+        localizationsDelegates: _localizationsDelegatesMacos,
+        localeResolutionCallback: localeResolutionCallback,
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+        checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+        localeListResolutionCallback: localeListResolutionCallback,
+        checkerboardRasterCacheImages: checkerboardOffscreenLayers,
+        scrollBehavior: scrollBehavior ?? const MacosScrollBehavior(),
+        supportedLocales: supportedLocales ?? const [Locale('en', 'US')],
+      );
+    }
+    return MacosApp(
+      home: home,
+      title: title,
+      color: color,
+      routes: routes,
+      locale: locale,
+      actions: actions,
+      themeMode: themeMode,
+      shortcuts: shortcuts,
+      builder: _macosBuilder,
+      initialRoute: initialRoute,
+      navigatorKey: navigatorKey,
+      onUnknownRoute: onUnknownRoute,
+      theme: properties?.macos?.theme,
+      onGenerateRoute: onGenerateRoute,
+      onGenerateTitle: onGenerateTitle,
+      navigatorObservers: navigatorObservers,
+      restorationScopeId: restorationScopeId,
+      darkTheme: properties?.macos?.darkTheme,
+      showSemanticsDebugger: showSemanticsDebugger,
+      showPerformanceOverlay: showPerformanceOverlay,
+      localizationsDelegates: _localizationsDelegatesMacos,
+      onGenerateInitialRoutes: onGenerateInitialRoutes,
+      localeResolutionCallback: localeResolutionCallback,
+      debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+      checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+      localeListResolutionCallback: localeListResolutionCallback,
+      checkerboardRasterCacheImages: checkerboardOffscreenLayers,
+      scrollBehavior: scrollBehavior ?? const MacosScrollBehavior(),
+      supportedLocales: supportedLocales ?? const [Locale('en', 'US')],
+    );
+  }
+
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _localizationsDelegatesMacos sync* {
     yield* _commonLocalizationsDelegates;
     yield DefaultCupertinoLocalizations.delegate;
+  }
+
+  Widget _macosBuilder(context, child) {
+    final theme = MacosTheme.maybeOf(context);
+
+    final mTheme = context.findAncestorWidgetOfExactType<m.Theme>();
+
+    final mode = themeMode ?? ThemeMode.system;
+    final platformBrightness = MediaQuery.platformBrightnessOf(context);
+    final useDarkStyle = mode == ThemeMode.dark ||
+        (mode == ThemeMode.system && platformBrightness == Brightness.dark);
+
+    return m.AnimatedTheme(
+      duration: const Duration(milliseconds: 300),
+      data: mTheme?.data ??
+          m.ThemeData(
+            brightness: useDarkStyle ? Brightness.dark : Brightness.light,
+            cardColor: theme?.canvasColor,
+            iconTheme: IconThemeData(
+              size: theme?.iconTheme.size,
+              color: theme?.iconTheme.color,
+              opacity: theme?.iconTheme.opacity,
+            ),
+            floatingActionButtonTheme: m.FloatingActionButtonThemeData(
+              backgroundColor: theme?.canvasColor,
+              extendedTextStyle: theme?.typography.title3.copyWith(
+                fontWeight: MacosFontWeight.w590,
+              ),
+            ),
+          ),
+      child:
+          builder?.call(context, child) ?? (child ?? const SizedBox.shrink()),
+    );
   }
 }
 
 class AppWindowsProperty extends CoreWindowsProperty {
+  const AppWindowsProperty({this.theme, this.darkTheme, this.shortcuts});
+
   /// Default visual properties, like colors fonts and shapes, for this app's
   /// fluent widgets.
   ///
@@ -488,23 +525,14 @@ class AppWindowsProperty extends CoreWindowsProperty {
   /// {@end-tool}
   /// {@macro flutter.widgets.widgetsApp.shortcuts.seeAlso}
   final Map<ShortcutActivator, Intent>? shortcuts;
-
-  const AppWindowsProperty({
-    this.theme,
-    this.darkTheme,
-    this.shortcuts,
-  });
 }
 
 class AppMacosProperty extends CoreMacosProperty {
+  const AppMacosProperty({this.theme, this.darkTheme});
+
   /// The style used if [themeMode] is [ThemeMode.dark]
   final MacosThemeData? darkTheme;
 
   /// The style used if [themeMode] is [ThemeMode.light]
   final MacosThemeData? theme;
-
-  const AppMacosProperty({
-    this.theme,
-    this.darkTheme,
-  });
 }

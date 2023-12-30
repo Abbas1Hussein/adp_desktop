@@ -17,7 +17,7 @@ void main() {
         AdpColors.red,
         AdpColors.cyan,
         AdpColors.magenta,
-        AdpColors.indigo,
+        AdpColors.teal,
       ];
 
       await widgetTester.pumpWidget(

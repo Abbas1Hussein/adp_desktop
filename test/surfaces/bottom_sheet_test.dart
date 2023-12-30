@@ -18,9 +18,9 @@ void main() {
               return AdaptiveFlatButton(
                 child: const Text('Show BottomSheet'),
                 onPressed: () {
-                  showAdpDialog(
+                  showAdpBottomSheet(
                     context: context,
-                    child: AdaptiveBottomSheet(
+                    builder: (context) => AdaptiveBottomSheet(
                       child: Column(
                         children: [
                           Text(DummyText.generateQuestion),

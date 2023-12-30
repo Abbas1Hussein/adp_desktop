@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/core.dart';
+import '../../buttons/back_button.dart';
 import '../appbar_action/appbar_action.dart';
 import '../appbar_action/extension.dart';
 
@@ -54,7 +55,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
     this.actions,
     this.dividerColor,
     this.borderRadius,
-    this.automaticallyImplyLeading = false,
+    this.automaticallyImplyLeading = true,
     this.height = kAppBarPageHeight,
   }) : platformActions = null;
 
@@ -111,7 +112,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
     this.dividerColor,
     this.borderRadius,
     this.platformActions,
-    this.automaticallyImplyLeading = false,
+    this.automaticallyImplyLeading = true,
     this.height = kAppBarPageHeight,
   }) : actions = null;
 
@@ -174,7 +175,8 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
         ),
         position: DecorationPosition.foreground,
         child: Acrylic(
-          tint: backgroundColor ?? theme.resources.solidBackgroundFillColorSecondary,
+          tint: backgroundColor ??
+              theme.resources.solidBackgroundFillColorSecondary,
           shape: borderRadius != null
               ? RoundedRectangleBorder(borderRadius: borderRadius!)
               : null,
@@ -182,17 +184,8 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: [
-                if (leading == null &&
-                    automaticallyImplyLeading &&
-                    (Navigator.canPop(context)))
-                  SizedBox(
-                    width: 48.0,
-                    child: PaneItem(
-                      body: const SizedBox.shrink(),
-                      mouseCursor: SystemMouseCursors.click,
-                      icon: const Center(child: Icon(FluentIcons.back)),
-                    ).build(context, false, () => Navigator.pop(context)),
-                  ),
+                if (leading == null && automaticallyImplyLeading && (Navigator.canPop(context)))
+                  Center(child: const AdaptiveBackButton().windows(context)),
                 if (leading != null)
                   IconTheme.merge(
                     data: theme.iconTheme.copyWith(size: 18.0),

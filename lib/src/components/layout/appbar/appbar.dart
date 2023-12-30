@@ -1,8 +1,12 @@
-import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide IconButton;
 import 'package:macos_ui/macos_ui.dart';
+
+import '../../../core/common/construct/component.dart';
+import '../../buttons/back_button.dart';
+import '../../buttons/close_button.dart';
+import '../../icon/icons.dart';
 
 class AdaptiveAppBar extends CoreAdaptiveComponent
     implements PreferredSizeWidget {
@@ -29,6 +33,8 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
     this.toolbarHeight,
     this.leadingWidth,
     this.clipBehavior,
+    this.backButton,
+    this.closeButton,
     this.toolbarTextStyle,
     this.scrolledUnderElevation,
     this.excludeHeaderSemantics = false,
@@ -294,6 +300,24 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
   /// {@macro flutter.material.Material.clipBehavior}
   final Clip? clipBehavior;
 
+  /// Widget representing a custom back button for the app bar.
+  ///
+  /// If provided, this widget will be used as the back button in the app bar
+  /// when the `canPop`.
+  ///
+  /// Defaults to [AdaptiveBackButton].
+  final Widget? backButton;
+
+  /// Widget representing a custom close button for the app bar.
+  ///
+  /// If provided, this widget will be used as the close button in the app bar
+  /// when the `canPop` condition is met. The close button typically appears
+  /// when the screen is presented modally with `fullscreenDialog` set to true
+  /// in the `PageRoute`.
+  ///
+  /// Defaults to [AdaptiveCloseButton].
+  final Widget? closeButton;
+
   /// Checks whether the app bar should have a drawer based on the `automaticallyImplyLeading`
   /// flag and the presence of a drawer in the current `AdaptiveScaffold` context.
   ///
@@ -313,6 +337,33 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
   /// This function is typically used to determine whether an end drawer icon
   /// should be displayed in the app bar.
   bool hasEndDrawer(BuildContext context) => Scaffold.of(context).hasEndDrawer;
+
+  /// Determines whether the app bar should include a back button.
+  ///
+  /// The back button is displayed if there is no custom leading widget,
+  /// `automaticallyImplyLeading` is true, and there is the possibility to pop
+  /// the current route from the navigation stack.
+  bool useBackButton(BuildContext context) {
+    return leading == null &&
+        automaticallyImplyLeading &&
+        Navigator.canPop(context);
+  }
+
+  /// Builds the back button widget if applicable.
+  ///
+  /// If the `canPop` condition is met, the back button is displayed;
+  /// otherwise, it returns null.
+  Widget _buildBackButton(BuildContext context) {
+    return Center(child: backButton ?? const AdaptiveBackButton());
+  }
+
+  /// Builds the close button widget if applicable.
+  ///
+  /// If the `canPop` and fullscreenDialog condition is met, the close button is displayed;
+  /// otherwise, it defaults to [AdaptiveCloseButton].
+  Widget _buildCloseButton(BuildContext context) {
+    return Center(child: closeButton ?? const AdaptiveCloseButton());
+  }
 
   @override
   Widget macos(BuildContext context) {
@@ -375,45 +426,58 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
           )
         : null;
 
-    return MacosIconTheme(
-      data: MacosIconThemeData(
-          color: defaultIconTheme.color, size: defaultIconTheme.size),
-      child: AppBar(
-        key: key,
-        shape: shape ?? Border(bottom: BorderSide(color: theme.dividerColor)),
-        bottom: bottom,
-        primary: primary,
-        elevation: elevation,
-        shadowColor: shadowColor,
-        centerTitle: centerTitle,
-        titleSpacing: titleSpacing,
-        clipBehavior: clipBehavior,
-        leadingWidth: leadingWidth,
-        flexibleSpace: flexibleSpace,
-        bottomOpacity: bottomOpacity,
-        toolbarHeight: toolbarHeight,
-        toolbarOpacity: toolbarOpacity,
-        titleTextStyle: toolbarTextStyle,
-        foregroundColor: foregroundColor,
-        surfaceTintColor: surfaceTintColor,
-        toolbarTextStyle: toolbarTextStyle,
-        title: titleStyled,
-        leading: leading != null
-            ? DefaultTextStyle(
-                style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
-                    theme.typography.body,
-                child: leading!,
-              )
-            : handelDrawer,
-        backgroundColor: defaultBackgroundColor,
-        notificationPredicate: notificationPredicate,
-        excludeHeaderSemantics: excludeHeaderSemantics,
-        scrolledUnderElevation: scrolledUnderElevation,
-        automaticallyImplyLeading: automaticallyImplyLeading,
-        iconTheme: defaultIconTheme,
-        actionsIconTheme: defaultIconTheme,
-        actions: actions ?? [if (hasEndDrawer(context)) handelEndDrawer!],
-      ),
+    final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
+
+    final bool useCloseButton =
+        parentRoute is PageRoute<dynamic> && parentRoute.fullscreenDialog;
+
+    Widget? handelLeading = leading;
+    if (leading == null && automaticallyImplyLeading) {
+      if (hasDrawer(context)) {
+        handelLeading = handelDrawer;
+      } else if (parentRoute?.impliesAppBarDismissal ?? false) {
+        handelLeading = useCloseButton
+            ? _buildCloseButton(context)
+            : _buildBackButton(context);
+      }
+    }
+    if (leading != null) {
+      handelLeading = DefaultTextStyle(
+        style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
+            theme.typography.body,
+        child: leading!,
+      );
+    }
+
+    return AppBar(
+      key: key,
+      shape: shape ?? Border(bottom: BorderSide(color: theme.dividerColor)),
+      bottom: bottom,
+      primary: primary,
+      elevation: elevation,
+      shadowColor: shadowColor,
+      centerTitle: centerTitle,
+      titleSpacing: titleSpacing,
+      clipBehavior: clipBehavior,
+      leadingWidth: leadingWidth,
+      flexibleSpace: flexibleSpace,
+      bottomOpacity: bottomOpacity,
+      toolbarHeight: toolbarHeight,
+      toolbarOpacity: toolbarOpacity,
+      titleTextStyle: toolbarTextStyle,
+      foregroundColor: foregroundColor,
+      surfaceTintColor: surfaceTintColor,
+      toolbarTextStyle: toolbarTextStyle,
+      backgroundColor: defaultBackgroundColor,
+      notificationPredicate: notificationPredicate,
+      excludeHeaderSemantics: excludeHeaderSemantics,
+      scrolledUnderElevation: scrolledUnderElevation,
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      title: titleStyled,
+      leading: handelLeading,
+      iconTheme: defaultIconTheme,
+      actionsIconTheme: defaultIconTheme,
+      actions: actions ?? [if (hasEndDrawer(context)) handelEndDrawer!],
     );
   }
 
@@ -443,7 +507,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
                 color: foregroundColor ??
                     iconDrawerTheme?.color ??
                     defaultIconTheme.color,
-                iconDrawerTheme?.icon?.fluent ?? FluentIcons.collapse_menu,
+                iconDrawerTheme?.icon?.fluent ?? Icons.menu,
               ),
               onPressed: Scaffold.of(context).openDrawer,
             ),
@@ -459,12 +523,36 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
                 color: foregroundColor ??
                     iconEndDrawerTheme?.color ??
                     defaultIconTheme.color,
-                iconEndDrawerTheme?.icon?.fluent ?? FluentIcons.collapse_menu,
+                iconEndDrawerTheme?.icon?.fluent ?? Icons.menu,
               ),
               onPressed: Scaffold.of(context).openEndDrawer,
             ),
           )
         : null;
+
+    final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
+
+    final bool useCloseButton =
+        parentRoute is PageRoute<dynamic> && parentRoute.fullscreenDialog;
+
+    Widget? handelLeading = leading;
+    if (leading == null && automaticallyImplyLeading) {
+      if (hasDrawer(context)) {
+        handelLeading = handelDrawer;
+      } else if (parentRoute?.impliesAppBarDismissal ?? false) {
+        handelLeading = useCloseButton
+            ? _buildCloseButton(context)
+            : _buildBackButton(context);
+      }
+    }
+
+    if (leading != null) {
+      handelLeading = DefaultTextStyle(
+        style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
+            theme.typography.body!,
+        child: leading!,
+      );
+    }
 
     return AppBar(
       key: key,
@@ -495,16 +583,10 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
       excludeHeaderSemantics: excludeHeaderSemantics,
       scrolledUnderElevation: scrolledUnderElevation,
       automaticallyImplyLeading: automaticallyImplyLeading,
+      title: titleStyled,
+      leading: handelLeading,
       iconTheme: defaultIconTheme,
       actionsIconTheme: defaultIconTheme,
-      title: titleStyled,
-      leading: leading != null
-          ? DefaultTextStyle(
-              style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
-                  theme.typography.body!,
-              child: leading!,
-            )
-          : handelDrawer,
       actions: actions ?? [if (hasEndDrawer(context)) handelEndDrawer!],
     );
   }

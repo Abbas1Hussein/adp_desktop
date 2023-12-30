@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import '../../../core/common/construct/properties.dart';
 import '../../components.dart';
 
+enum BottomSheetPosition { top, bottom, center }
+
 /// A utility class for presenting different types of bottom sheets.
 abstract final class BottomSheetPresenter {
   const BottomSheetPresenter._();
@@ -38,7 +40,7 @@ abstract final class BottomSheetPresenter {
     return await showAdpBottomSheet(
       context: context,
       barrierDismissible: false,
-      child: AdaptiveBottomSheet(
+      builder: (context) => AdaptiveBottomSheet(
         insetPadding: effectivePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +98,7 @@ abstract final class BottomSheetPresenter {
 
     return await showAdpBottomSheet(
       context: context,
-      child: AdaptiveBottomSheet(
+      builder: (context) => AdaptiveBottomSheet(
         insetPadding: effectivePadding,
         child: _buildBottomSheetContent(title, message, context),
       ),
@@ -119,8 +121,8 @@ abstract final class BottomSheetPresenter {
     required AdaptiveBottomSheet child,
   }) async {
     return await showAdpBottomSheet<T?>(
-      child: child,
       context: context,
+      builder: (context) => child,
       barrierDismissible: barrierDismissible,
     );
   }
@@ -169,8 +171,6 @@ abstract final class BottomSheetPresenter {
     );
   }
 }
-
-enum BottomSheetPosition { top, bottom, center }
 
 extension _BottomSheetPresenterEX on BottomSheetPosition {
   BottomSheetPosition get _position => this;

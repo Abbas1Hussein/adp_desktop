@@ -20,7 +20,7 @@ void main() {
                 onPressed: () {
                   showAdpDialog(
                     context: context,
-                    child: AdaptiveDialog(
+                    builder: (context) => AdaptiveDialog(
                       title: Text(DummyText.generateQuestion),
                       content: Text(DummyText.generateAnswer),
                       primary: AdaptiveFlatButton(

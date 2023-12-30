@@ -10,7 +10,7 @@ class AdaptiveTypography {
   final TextStyle? headline;
   final TextStyle? subheading;
 
-  AdaptiveTypography({
+  const AdaptiveTypography({
     this.body,
     this.label,
     this.caption,
@@ -61,7 +61,5 @@ class AdaptiveTypography {
   }
 
   @override
-  int get hashCode {
-    return Object.hash(body, headline, caption, label, subheading);
-  }
+  int get hashCode => Object.hash(body, headline, caption, label, subheading);
 }

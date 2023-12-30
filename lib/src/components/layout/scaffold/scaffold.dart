@@ -1,10 +1,7 @@
-import 'package:fluent_ui/fluent_ui.dart' hide Colors;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:macos_ui/macos_ui.dart';
 
-import '../../../core/common/adaptive.dart';
+import '../../additional/color.dart';
 import '../../additional/typography.dart';
 import '../layout.dart';
 
@@ -23,15 +20,11 @@ class AdaptiveScaffold extends StatelessWidget {
     this.onEndDrawerChanged,
     this.bottomNavigationBar,
     this.backgroundColor,
-    this.resizeToAvoidBottomInset,
     this.primary = true,
     this.drawerDragStartBehavior = DragStartBehavior.start,
     this.extendBody = false,
     this.extendBodyBehindAppBar = false,
     this.drawerScrimColor,
-    this.drawerEdgeDragWidth,
-    this.drawerEnableOpenDragGesture = true,
-    this.endDrawerEnableOpenDragGesture = true,
     this.restorationId,
     required this.body,
   });
@@ -60,7 +53,7 @@ class AdaptiveScaffold extends StatelessWidget {
   /// extended to include the height of the app bar and the top of the body
   /// is aligned with the top of the app bar.
   ///
-  /// This is useful if the app bar's [AppBar.backgroundColor] is not
+  /// This is useful if the app bar's [AdaptiveAppBar.backgroundColor] is not
   /// completely opaque.
   ///
   /// This property is false by default.
@@ -125,49 +118,23 @@ class AdaptiveScaffold extends StatelessWidget {
   /// Defaults to [AlignmentDirectional.centerEnd].
   final AlignmentDirectional persistentFooterAlignment;
 
-  /// A panel displayed to the side of the [body], often hidden on mobile
-  /// devices. Swipes in from either left-to-right ([TextDirection.ltr]) or
-  /// right-to-left ([TextDirection.rtl])
-  ///
-  /// Typically a [Drawer].
+  /// A panel displayed to the side of the [body].
   ///
   /// To open the drawer, use the [ScaffoldState.openDrawer] function.
   ///
   /// To close the drawer, use either [ScaffoldState.closeDrawer], [Navigator.pop]
   /// or press the escape key on the keyboard.
-  ///
-  /// {@tool dartpad}
-  /// To disable the drawer edge swipe on mobile, set the
-  /// [Scaffold.drawerEnableOpenDragGesture] to false. Then, use
-  /// [ScaffoldState.openDrawer] to open the drawer and [Navigator.pop] to close
-  /// it.
-  ///
-  /// ** See code in examples/api/lib/material/scaffold/scaffold.drawer.0.dart **
-  /// {@end-tool}
-  final Widget? drawer;
+  final AdaptiveDrawer? drawer;
 
   /// Optional callback that is called when the [Scaffold.drawer] is opened or closed.
   final DrawerCallback? onDrawerChanged;
 
-  /// A panel displayed to the side of the [body], often hidden on mobile
-  /// devices. Swipes in from right-to-left ([TextDirection.ltr]) or
-  /// left-to-right ([TextDirection.rtl])
-  ///
-  /// Typically a [Drawer].
+  /// A panel displayed to the side of the [body].
   ///
   /// To open the drawer, use the [ScaffoldState.openEndDrawer] function.
   ///
   /// To close the drawer, use either [ScaffoldState.closeEndDrawer], [Navigator.pop]
   /// or press the escape key on the keyboard.
-  ///
-  /// {@tool dartpad}
-  /// To disable the drawer edge swipe, set the
-  /// [Scaffold.endDrawerEnableOpenDragGesture] to false. Then, use
-  /// [ScaffoldState.openEndDrawer] to open the drawer and [Navigator.pop] to
-  /// close it.
-  ///
-  /// ** See code in examples/api/lib/material/scaffold/scaffold.end_drawer.0.dart **
-  /// {@end-tool}
   final Widget? endDrawer;
 
   /// Optional callback that is called when the [Scaffold.endDrawer] is opened or closed.
@@ -175,13 +142,10 @@ class AdaptiveScaffold extends StatelessWidget {
 
   /// The color to use for the scrim that obscures primary content while a drawer is open.
   ///
-  /// If this is null, then [DrawerThemeData.scrimColor] is used. If that
-  /// is also null, then it defaults to [Colors.black54].
+  /// defaults to [Colors.black54].
   final Color? drawerScrimColor;
 
-  /// The color of the [Material] widget that underlies the entire Scaffold.
-  ///
-  /// The theme's [ThemeData.scaffoldBackgroundColor] by default.
+  /// The color of the widget that underlies the entire Scaffold.
   final Color? backgroundColor;
 
   /// A bottom navigation bar to display at the bottom of the scaffold.
@@ -193,55 +157,17 @@ class AdaptiveScaffold extends StatelessWidget {
   /// and the [body].
   final Widget? bottomNavigationBar;
 
-  /// If true the [body] and the scaffold's floating widgets should size
-  /// themselves to avoid the onscreen keyboard whose height is defined by the
-  /// ambient [MediaQuery]'s [MediaQueryData.viewInsets] `bottom` property.
-  ///
-  /// For example, if there is an onscreen keyboard displayed above the
-  /// scaffold, the body can be resized to avoid overlapping the keyboard, which
-  /// prevents widgets inside the body from being obscured by the keyboard.
-  ///
-  /// Defaults to true.
-  final bool? resizeToAvoidBottomInset;
-
   /// Whether this scaffold is being displayed at the top of the screen.
   ///
   /// If true then the height of the [appBar] will be extended by the height
   /// of the screen's status bar, i.e. the top padding for [MediaQuery].
   ///
   /// The default value of this property, like the default value of
-  /// [AppBar.primary], is true.
+  /// [AdaptiveAppBar.primary], is true.
   final bool primary;
 
   /// {@macro flutter.material.DrawerController.dragStartBehavior}
   final DragStartBehavior drawerDragStartBehavior;
-
-  /// The width of the area within which a horizontal swipe will open the
-  /// drawer.
-  ///
-  /// By default, the value used is 20.0 added to the padding edge of
-  /// `MediaQuery.paddingOf(context)` that corresponds to the surrounding
-  /// [TextDirection]. This ensures that the drag area for notched devices is
-  /// not obscured. For example, if `TextDirection.of(context)` is set to
-  /// [TextDirection.ltr], 20.0 will be added to
-  /// `MediaQuery.paddingOf(context).left`.
-  final double? drawerEdgeDragWidth;
-
-  /// Determines if the [Scaffold.drawer] can be opened with a drag
-  /// gesture on mobile.
-  ///
-  /// On desktop platforms, the drawer is not draggable.
-  ///
-  /// By default, the drag gesture is enabled on mobile.
-  final bool drawerEnableOpenDragGesture;
-
-  /// Determines if the [Scaffold.endDrawer] can be opened with a
-  /// gesture on mobile.
-  ///
-  /// On desktop platforms, the drawer is not draggable.
-  ///
-  /// By default, the drag gesture is enabled on mobile.
-  final bool endDrawerEnableOpenDragGesture;
 
   /// Restoration ID to save and restore the state of the [Scaffold].
   ///
@@ -260,66 +186,35 @@ class AdaptiveScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final typography = AdaptiveTypography.of(context);
+
     return Scaffold(
       appBar: appBar,
-      body: DefaultTextStyle(
-        style: typography.body!,
-        child: body ?? const SizedBox.shrink(),
-      ),
+      primary: primary,
+      extendBody: extendBody,
+      restorationId: restorationId,
+      onDrawerChanged: onDrawerChanged,
+      drawerScrimColor: drawerScrimColor,
+      onEndDrawerChanged: onEndDrawerChanged,
+      bottomNavigationBar: bottomNavigationBar,
+      extendBodyBehindAppBar: extendBodyBehindAppBar,
+      persistentFooterButtons: persistentFooterButtons,
+      drawerDragStartBehavior: drawerDragStartBehavior,
+      backgroundColor: handelBackgroundColor(backgroundColor, context),
+      persistentFooterAlignment: persistentFooterAlignment,
+      floatingActionButtonLocation: floatingActionButtonLocation,
+      floatingActionButtonAnimator: floatingActionButtonAnimator,
+      drawer: drawer != null
+          ? DefaultTextStyle(style: typography.body!, child: drawer!)
+          : null,
+      endDrawer: endDrawer != null
+          ? DefaultTextStyle(style: typography.body!, child: endDrawer!)
+          : null,
       floatingActionButton: floatingActionButton != null
           ? DefaultTextStyle(
               style: typography.body!, child: floatingActionButton!)
           : null,
-      floatingActionButtonLocation: floatingActionButtonLocation,
-      floatingActionButtonAnimator: floatingActionButtonAnimator,
-      extendBodyBehindAppBar: extendBodyBehindAppBar,
-      persistentFooterButtons: persistentFooterButtons,
-      persistentFooterAlignment: persistentFooterAlignment,
-      drawer: drawer != null
-          ? DefaultTextStyle(style: typography.body!, child: drawer!)
-          : null,
-      extendBody: extendBody,
-      endDrawer: endDrawer != null
-          ? DefaultTextStyle(style: typography.body!, child: endDrawer!)
-          : null,
-      onDrawerChanged: onDrawerChanged,
-      onEndDrawerChanged: onEndDrawerChanged,
-      drawerScrimColor: drawerScrimColor,
-      backgroundColor: _backgroundColorHandel(context),
-      bottomNavigationBar: bottomNavigationBar != null
-          ? DefaultTextStyle(
-              style: typography.body!,
-              child: bottomNavigationBar!,
-            )
-          : null,
-      // bottomSheet: bottomSheet != null
-      //     ? DefaultTextStyle(style: typography.body!, child: bottomSheet!)
-      //     : null,
-      primary: primary,
-      restorationId: restorationId,
-      drawerEdgeDragWidth: drawerEdgeDragWidth,
-      drawerDragStartBehavior: drawerDragStartBehavior,
-      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-      drawerEnableOpenDragGesture: drawerEnableOpenDragGesture,
-      endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture,
-    );
-  }
-
-  Color _backgroundColorHandel(BuildContext context) {
-    return adaptiveValue<Color>(
-      macos: () {
-        if (backgroundColor != null) {
-          return CupertinoDynamicColor.resolve(backgroundColor!, context);
-        } else {
-          return MacosTheme.brightnessOf(context).resolve(
-            CupertinoColors.white,
-            CupertinoColors.darkBackgroundGray,
-          );
-        }
-      },
-      windows: () {
-        return FluentTheme.of(context).resources.solidBackgroundFillColorBase;
-      },
+      body: DefaultTextStyle(
+          style: typography.body!, child: body ?? const SizedBox.shrink()),
     );
   }
 }

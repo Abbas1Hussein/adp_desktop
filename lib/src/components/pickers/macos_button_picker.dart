@@ -21,7 +21,7 @@ const kCupertinoActionStyle = TextStyle(
   fontFamily: '.SF UI Text',
   inherit: false,
   fontSize: 15.8,
-  fontWeight: MacosFontWeight.w590,
+  fontWeight: MacosFontWeight.w400,
   color: MacosColors.systemBlueColor,
   textBaseline: TextBaseline.alphabetic,
 );
@@ -40,16 +40,11 @@ abstract class MacosPickerButton extends BaseDateFormatter {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: kPickerButtonConstraints,
-      child: MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          platformBrightness: MacosTheme.brightnessOf(context),
-        ),
-        child: CupertinoContextMenuAction(
-          onPressed: onPressed,
-          child: DefaultTextStyle(
-            style: kCupertinoActionStyle,
-            child: child(context),
-          ),
+      child: CupertinoContextMenuAction(
+        onPressed: onPressed,
+        child: DefaultTextStyle(
+          style: kCupertinoActionStyle,
+          child: child(context),
         ),
       ),
     );

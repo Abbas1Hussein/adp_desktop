@@ -1,8 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:macos_ui/macos_ui.dart';
 
-import '../../../core/core.dart';
+import '../../additional/color.dart';
 
 class AdaptiveDrawer extends StatelessWidget {
   /// Creates a ADP Design drawer.
@@ -83,26 +82,12 @@ class AdaptiveDrawer extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
         duration: kAdaptiveDrawerDuration,
         borderRadius: borderRadius ?? kAdaptiveDrawerRadius,
-        color: backgroundColor ?? _backgroundColorHandel(context),
+        color: handelBackgroundColor(backgroundColor, context),
         child: ConstrainedBox(
           constraints: BoxConstraints.expand(width: width),
           child: child,
         ),
       ),
-    );
-  }
-
-  Color _backgroundColorHandel(BuildContext context) {
-    return adaptiveValue<Color>(
-      macos: () {
-        return MacosTheme.brightnessOf(context).resolve(
-          CupertinoColors.white,
-          CupertinoColors.darkBackgroundGray,
-        );
-      },
-      windows: () {
-        return FluentTheme.of(context).resources.solidBackgroundFillColorBase;
-      },
     );
   }
 }

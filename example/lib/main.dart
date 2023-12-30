@@ -1,10 +1,11 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -47,45 +48,60 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
-      appBar: AdaptiveAppBar(title: const Text('Abbas Hussein')),
+      endDrawer: const AdaptiveDrawer(),
       drawer: AdaptiveDrawer(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(DummyText.generateAnswer),
+          ),
+        ),
+      ),
+      appBar: AdaptiveAppBar(title: const Text('Abbas Hussein')),
+      body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Padding(padding: EdgeInsets.all(8.0), child: AdaptiveBackButton()),
-            ...List.generate(
-              5,
-              (index) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AdaptiveListTile(
-                  title: Text('T ${index + 1}'),
-                  subtitle: Text('SUB ${index + 1}'),
-                  leading: Text('L ${index + 1}'),
-                  trailing: Text('TR ${index + 1}'),
-                ),
-              ),
+            Text(DummyText.generateQuestion),
+            Text(DummyText.generateAnswer),
+            AdaptiveFlatButton(
+              child: const Text('Go'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  AdaptivePageRoute(
+                    builder: (context) {
+                      return  AdaptiveScaffoldPage(
+                        appBar: AdaptiveAppBarPage(),
+                        content: const SizedBox.shrink(),
+                      );
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AdaptiveFlatButton(
-                child: const Text('AdaptiveFlatButton'),
-                onPressed: () {},
-              ),
-
-              const AdaptiveBackButton(),
-
-              const AdaptiveDatePicker(),
-              const AdaptiveTimePicker(),
-            ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const AdaptiveIcon(AdpIcons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: AdaptiveIcon(AdpIcons.home),
+            label: 'home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: AdaptiveIcon(AdpIcons.save),
+            label: 'save',
+          ),
+          BottomNavigationBarItem(
+            icon: AdaptiveIcon(AdpIcons.alarm),
+            label: 'alarm',
+          ),
+        ],
       ),
     );
   }

@@ -1299,8 +1299,6 @@ enum AdpIcons {
 extension AdaptiveIconsEx on AdpIcons {
   IconData get platform {
     return adaptiveValue<IconData>(
-      macos: () => cupertino,
-      windows: () => fluent,
-    );
+        macos: () => cupertino, windows: () => fluent);
   }
 }
