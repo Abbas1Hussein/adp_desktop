@@ -70,10 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   AdaptivePageRoute(
-                    builder: (context) {
-                      return  AdaptiveScaffoldPage(
+                    builder: (context, animation, secondaryAnimation) {
+                      return const AdaptiveScaffoldPage(
                         appBar: AdaptiveAppBarPage(),
-                        content: const SizedBox.shrink(),
+                        content: SizedBox.shrink(),
                       );
                     },
                   ),
