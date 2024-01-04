@@ -40,9 +40,8 @@ class BottomSheetWindows extends StatelessWidget {
     final defaultInsetPadding = EdgeInsets.fromLTRB(
         8.0, MediaQuery.sizeOf(context).height * 0.5, 8.0, 8.0);
 
-    final color = backgroundColor ??
-        theme.bottomSheetTheme.backgroundColor ??
-        theme.resources.solidBackgroundFillColorBase;
+    final color =
+        backgroundColor ?? theme.resources.solidBackgroundFillColorBase;
 
     final innerBorderColor = theme.resources.layerFillColorAlt;
 

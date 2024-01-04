@@ -1,16 +1,10 @@
-export 'properties/properties.dart';
 export 'checkbox/checkbox.dart';
 export 'back_button.dart';
 export 'menu/menu.dart';
 export 'radio/radio.dart';
+export 'button/button.dart';
 
 export 'text_button/text_button.dart';
-export 'text_button/platforms/platforms.dart'
-    show TextButtonWindowsProperty, TextButtonMacosProperty;
-
-export 'filled_button/filled_button.dart';
-export 'filled_button/platforms/platforms.dart'
-    show FilledButtonWindowsProperty, FilledButtonMacosProperty;
 
 export 'flat_button/flat_button.dart';
 export 'flat_button/platforms/platforms.dart'

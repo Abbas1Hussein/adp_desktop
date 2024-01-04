@@ -1,6 +1,6 @@
 import '../adaptive.dart';
 
-typedef LogicCallback<T> = T Function();
+export 'property.dart';
 
 abstract class CoreProperties<W, M> {
   CoreProperties({this.windows, this.macos});
@@ -15,28 +15,29 @@ final class Properties<W, M> extends CoreProperties<W, M> {
   Properties.windows(W windows) : super(windows: windows);
 
   Properties.macos(M macos) : super(macos: macos);
-
 }
+
+typedef PropertiesCallback<T> = T Function();
 
 final class PropertiesLogic<W, M> extends CoreProperties<W, M> {
   factory PropertiesLogic({
-    LogicCallback<W>? windows,
-    LogicCallback<M>? macos,
+    PropertiesCallback<W>? windows,
+    PropertiesCallback<M>? macos,
   }) {
     return PropertiesLogic._internal(windows: windows, macos: macos);
   }
 
-  factory PropertiesLogic.windows(LogicCallback<W>? windows) {
+  factory PropertiesLogic.windows(PropertiesCallback<W>? windows) {
     return PropertiesLogic._internal(windows: windows);
   }
 
-  factory PropertiesLogic.macos(LogicCallback<M>? macos) {
+  factory PropertiesLogic.macos(PropertiesCallback<M>? macos) {
     return PropertiesLogic._internal(macos: macos);
   }
 
   PropertiesLogic._internal({
-    LogicCallback<W>? windows,
-    LogicCallback<M>? macos,
+    PropertiesCallback<W>? windows,
+    PropertiesCallback<M>? macos,
   }) {
     adaptiveValue<void>(
       windows: () {
@@ -48,13 +49,3 @@ final class PropertiesLogic<W, M> extends CoreProperties<W, M> {
     );
   }
 }
-
-abstract class CoreWindowsProperty {
-  const CoreWindowsProperty();
-}
-
-abstract class CoreMacosProperty {
-  const CoreMacosProperty();
-}
-
-mixin NoneProperty implements CoreWindowsProperty, CoreMacosProperty {}

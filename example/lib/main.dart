@@ -1,6 +1,5 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
@@ -47,61 +46,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return AdaptiveScaffold(
-      endDrawer: const AdaptiveDrawer(),
-      drawer: AdaptiveDrawer(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(DummyText.generateAnswer),
-          ),
-        ),
-      ),
       appBar: AdaptiveAppBar(title: const Text('Abbas Hussein')),
+      endDrawer: const AdaptiveDrawer(),
+      drawer: const AdaptiveDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(DummyText.generateQuestion),
             Text(DummyText.generateAnswer),
-            AdaptiveFlatButton(
-              child: const Text('Go'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  AdaptivePageRoute(
-                    builder: (context, animation, secondaryAnimation) {
-                      return const AdaptiveScaffoldPage(
-                        appBar: AdaptiveAppBarPage(),
-                        content: SizedBox.shrink(),
-                      );
-                    },
-                  ),
-                );
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                AdaptiveTextButton(
+                  onPressed: () {},
+                  child: const Text('OK'),
+                ),
+                AdaptiveTextButton(
+                  onPressed: () {},
+                  child: const Text('Cancel'),
+                ),
+              ],
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const AdaptiveIcon(AdpIcons.add),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: AdaptiveIcon(AdpIcons.home),
-            label: 'home',
-          ),
-          BottomNavigationBarItem(
-            icon: AdaptiveIcon(AdpIcons.save),
-            label: 'save',
-          ),
-          BottomNavigationBarItem(
-            icon: AdaptiveIcon(AdpIcons.alarm),
-            label: 'alarm',
-          ),
-        ],
       ),
     );
   }

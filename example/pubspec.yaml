@@ -17,7 +17,7 @@ dependencies:
   macos_ui: ^2.0.2
   fluent_ui: ^4.7.5
   adp_desktop:
-    path: D:\flutter_repo\packages\flutter\adp_desktop
+    path: D:\flutter\clone\adp_desktop
 
 
 

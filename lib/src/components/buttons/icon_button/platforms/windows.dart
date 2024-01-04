@@ -1,13 +1,10 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../../properties/windows.dart';
+import '../../../../core/common/construct/property.dart';
 
-const _kWindowsIconBoxConstraints = BoxConstraints(
-  minHeight: 20,
-  minWidth: 20,
-  maxWidth: 30,
-  maxHeight: 30,
-);
+
+const _kWindowsIconBoxConstraints =
+    BoxConstraints(minHeight: 20, minWidth: 20, maxWidth: 30, maxHeight: 30);
 
 class IconButtonWindows extends StatelessWidget {
   const IconButtonWindows({
@@ -107,14 +104,25 @@ class IconButtonWindows extends StatelessWidget {
   }
 }
 
-class IconButtonWindowsProperty extends ButtonWindowsProperty {
+class IconButtonWindowsProperty extends CoreWindowsProperty {
   const IconButtonWindowsProperty({
-    super.style,
-    super.focusable,
-    super.autofocus,
-    super.focusNode,
+    this.style,
+    this.focusable,
+    this.autofocus,
+    this.focusNode,
     this.iconButtonMode,
   });
+
+  /// Customizes this button's appearance.
+  final ButtonStyle? style;
+
+  /// {@macro flutter.widgets.Focus.focusNode}
+  final FocusNode? focusNode;
+
+  /// {@macro flutter.widgets.Focus.autofocus}
+  final bool? autofocus;
+
+  final bool? focusable;
 
   /// How this icon button will behave.
   ///

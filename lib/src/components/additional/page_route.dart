@@ -8,10 +8,10 @@ typedef PageRouteBuilder = Widget Function(
   Animation<double> secondaryAnimation,
 );
 
+enum AdaptiveTransition { entrance, horizontal , page}
+
 class AdaptivePageRoute extends PageRoute {
   AdaptivePageRoute({
-    required this.builder,
-    this.transition = AdaptiveTransition.page,
     super.settings,
     super.barrierDismissible,
     super.fullscreenDialog,
@@ -19,6 +19,8 @@ class AdaptivePageRoute extends PageRoute {
     Color? barrierColor,
     String? barrierLabel,
     bool maintainState = true,
+    this.transition = AdaptiveTransition.page,
+    required this.builder,
   })  : _barrierColor = barrierColor,
         _barrierLabel = barrierLabel,
         _maintainState = maintainState;
@@ -76,5 +78,7 @@ class AdaptivePageRoute extends PageRoute {
   }
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 300);
+  Duration get transitionDuration => const Duration(milliseconds: 250);
 }
+
+

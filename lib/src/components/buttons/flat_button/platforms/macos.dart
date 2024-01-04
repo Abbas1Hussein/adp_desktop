@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../../../../core/common/construct/property.dart';
 import '../../../../core/common/platform_ruining.dart';
-import '../../properties/macos.dart';
 
 class FlatButtonMacos extends StatelessWidget {
   const FlatButtonMacos({
@@ -80,7 +80,8 @@ class FlatButtonMacos extends StatelessWidget {
             ? BoxDecoration(
                 color: backgroundColor,
                 borderRadius: borderRadius,
-                backgroundBlendMode: backgroundColor != null ? BlendMode.color : null,
+                backgroundBlendMode:
+                    backgroundColor != null ? BlendMode.color : null,
               )
             : null,
         child: PushButton(
@@ -90,6 +91,7 @@ class FlatButtonMacos extends StatelessWidget {
           alignment: property?.alignment ?? Alignment.center,
           semanticLabel: property?.semanticLabel,
           secondary: property?.secondary,
+          pressedOpacity: property?.pressedOpacity ?? 0.4,
           disabledColor: disabledColor ?? CupertinoColors.quaternarySystemFill,
           color: color ?? theme.primaryColor,
           child: child,
@@ -99,11 +101,41 @@ class FlatButtonMacos extends StatelessWidget {
   }
 }
 
-class FlatButtonMacosProperty extends ButtonMacosProperty {
+class FlatButtonMacosProperty extends CoreMacosProperty {
   const FlatButtonMacosProperty({
-    super.controlSize,
-    super.alignment,
-    super.semanticLabel,
-    super.secondary,
+    this.controlSize,
+    this.alignment,
+    this.pressedOpacity,
+    this.semanticLabel,
+    this.secondary,
   });
+
+  /// The size of the button.
+  final ControlSize? controlSize;
+
+  /// The opacity that the button will fade to when it is pressed.
+  /// The button will have an opacity of 1.0 when it is not pressed.
+  ///
+  /// This defaults to 0.4. If null, opacity will not change on pressed if using
+  /// your own custom effects is desired.
+  final double? pressedOpacity;
+
+  /// The alignment of the button's [title].
+  ///
+  /// Typically buttons are sized to be just big enough to contain the child and its
+  /// [padding]. If the button's size is constrained to a fixed size, for example by
+  /// enclosing it with a [SizedBox], this property defines how the child is aligned
+  /// within the available space.
+  ///
+  /// Always defaults to [Alignment.center].
+  final AlignmentGeometry? alignment;
+
+  /// The semantic label used by screen readers.
+  final String? semanticLabel;
+
+  /// Whether the button is used as a secondary action button (e.g. Cancel buttons in dialogs)
+  ///
+  /// Sets its background color to [PushButtonThemeData]'s [secondaryColor] attributes (defaults
+  /// are gray colors). Can still be overridden if the [activeTrackColor] attribute is non-null.
+  final bool? secondary;
 }

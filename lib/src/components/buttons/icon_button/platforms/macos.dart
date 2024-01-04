@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../../properties/macos.dart';
+import '../../../../core/common/construct/property.dart';
 
-const _kMacosIconBoxConstraints = BoxConstraints(
-  minHeight: 20,
-  minWidth: 20,
-  maxWidth: 30,
-  maxHeight: 30,
-);
+const _kMacosIconBoxConstraints =
+    BoxConstraints(minHeight: 20, minWidth: 20, maxWidth: 30, maxHeight: 30);
 
 class IconButtonMacos extends StatelessWidget {
   const IconButtonMacos({
@@ -84,11 +80,11 @@ class IconButtonMacos extends StatelessWidget {
   }
 }
 
-class IconButtonMacosProperty extends ButtonMacosProperty {
+class IconButtonMacosProperty extends CoreMacosProperty {
   const IconButtonMacosProperty({
-    super.alignment,
-    super.pressedOpacity,
-    super.semanticLabel,
+    this.alignment,
+    this.pressedOpacity,
+    this.semanticLabel,
     this.shape,
   });
 
@@ -96,4 +92,24 @@ class IconButtonMacosProperty extends ButtonMacosProperty {
   ///
   /// Defaults to `BoxShape.rectangle`.
   final BoxShape? shape;
+
+  /// The opacity that the button will fade to when it is pressed.
+  /// The button will have an opacity of 1.0 when it is not pressed.
+  ///
+  /// This defaults to 0.4. If null, opacity will not change on pressed if using
+  /// your own custom effects is desired.
+  final double? pressedOpacity;
+
+  /// The alignment of the button's [title].
+  ///
+  /// Typically buttons are sized to be just big enough to contain the child and its
+  /// [padding]. If the button's size is constrained to a fixed size, for example by
+  /// enclosing it with a [SizedBox], this property defines how the child is aligned
+  /// within the available space.
+  ///
+  /// Always defaults to [Alignment.center].
+  final AlignmentGeometry? alignment;
+
+  /// The semantic label used by screen readers.
+  final String? semanticLabel;
 }

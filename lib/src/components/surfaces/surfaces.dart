@@ -1,5 +1,6 @@
 export 'card/card.dart';
 export 'list_tile/list_title.dart';
+export 'tooltip/tooltip.dart';
 
 export 'dialog/dialog.dart';
 export 'dialog/show.dart';

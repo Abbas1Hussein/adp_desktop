@@ -14,7 +14,7 @@ import 'platforms/platforms.dart';
 /// - On macOS, [MacosWindow] is utilized.
 /// - On Windows, [NavigationView] is used.
 class AdaptiveNavigationView
-    extends CoreAdaptiveComponent<NVWindowsProperty, NVMacosProperty> {
+    extends CoreAdaptiveComponent<NavigationViewWindowsProperty, NavigationViewMacosProperty> {
   /// The Navigation passes the new value to the callback but does not actually
   /// change state until the parent widget rebuilds the navigation with the new
   /// value.

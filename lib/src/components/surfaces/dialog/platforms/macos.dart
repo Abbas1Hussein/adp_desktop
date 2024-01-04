@@ -244,8 +244,6 @@ extension _AdaptiveFlatButtonEx on AdaptiveFlatButton {
       alignment: property?.alignment ?? Alignment.center,
       pressedOpacity: property?.pressedOpacity ?? 0.6,
       semanticLabel: property?.semanticLabel,
-      borderRadius: property?.borderRadius,
-      padding: property?.padding,
       disabledColor: disabledColor,
       controlSize: ControlSize.large,
       secondary: property?.secondary ?? secondary,

@@ -20,7 +20,7 @@ class NavigationViewWindows extends StatelessWidget {
   });
 
   /// The Windows-specific property for customizing the navigation view.
-  final NVWindowsProperty? property;
+  final NavigationViewWindowsProperty? property;
 
   /// The list of widgets representing the body of each navigation item.
   final List<Widget> tabs;
@@ -104,8 +104,8 @@ class NavigationViewWindows extends StatelessWidget {
   }
 }
 
-class NVWindowsProperty extends CoreWindowsProperty {
-  const NVWindowsProperty({
+class NavigationViewWindowsProperty extends CoreWindowsProperty {
+  const NavigationViewWindowsProperty({
     this.header,
     this.leading,
     this.indicator,

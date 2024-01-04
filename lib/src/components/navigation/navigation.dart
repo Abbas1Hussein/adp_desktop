@@ -13,6 +13,6 @@ export 'navigation_view/navigation_view_size.dart';
 export 'navigation_view/navigation_view_item.dart';
 export 'navigation_view/platforms/platforms.dart'
     show
-        NVWindowsProperty,
-        NVMacosProperty;
+        NavigationViewWindowsProperty,
+        NavigationViewMacosProperty;
 

@@ -6,7 +6,7 @@ export 'common/construct/platforms.dart' hide CorePlatforms;
 export 'enum/target.dart' show DesktopTargetPlatform;
 export 'common/construct/properties.dart';
 export 'extension/context.dart';
-export 'extension/object.dart';
+export 'extension/property.dart';
 export 'extension/time.dart';
 export 'extension/widget.dart';
 export 'common/platform_ruining.dart';

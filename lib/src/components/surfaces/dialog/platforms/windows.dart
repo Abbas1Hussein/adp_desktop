@@ -42,7 +42,7 @@ class DialogWindows extends StatelessWidget {
 class DialogWindowsProperty extends CoreWindowsProperty {
   const DialogWindowsProperty({
     this.style,
-    this.constraints,
+    this.constraints = kDefaultContentDialogConstraints,
   });
 
   /// The style used by this dialog. If non-null, it's merged with
@@ -50,5 +50,5 @@ class DialogWindowsProperty extends CoreWindowsProperty {
   final ContentDialogThemeData? style;
 
   /// The constraints of the dialog. It defaults to `BoxConstraints(maxWidth: 368)`
-  final BoxConstraints? constraints;
+  final BoxConstraints constraints;
 }

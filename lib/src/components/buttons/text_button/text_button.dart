@@ -1,7 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:macos_ui/macos_ui.dart';
 
-import '../../../core/common/construct/component.dart';
-import 'platforms/platforms.dart';
+import '../button/base_button.dart';
+import '../button/platforms/macos.dart';
 
 /// A custom text button widget that adapts its appearance based on the platform.
 ///
@@ -9,78 +10,60 @@ import 'platforms/platforms.dart';
 /// styling and behavior:
 /// - On macOS, [CustomCupertinoTextButton] is utilized.
 /// - On Windows, [HyperlinkButton] is used.
-///
-/// ## Usage for Properties
-///
-/// Create an instance of the `Properties` class to customize the appearance
-/// of the `AdaptiveTextButton` widget on different platforms.
-///
-/// ```dart
-/// Properties(
-///   windows: TextButtonWindowsProperty(
-///     autofocus: true,
-///     focusable: false,
-///   ),
-///   macos: TextButtonMacosProperty(
-///     isDestructiveAction: false,
-///     isDefaultAction: true,
-///   ),
-/// );
-/// ```
-class AdaptiveTextButton extends CoreAdaptiveComponent<TextButtonWindowsProperty, TextButtonMacosProperty> {
+class AdaptiveTextButton extends AdaptiveBaseButton {
   const AdaptiveTextButton({
     super.key,
     super.builders,
-    super.properties,
-    this.onLongPress,
-    this.onPressed,
-    this.color,
-    this.disabledColor,
-    required this.child,
+    super.border,
+    super.onTapUp,
+    super.onTapDown,
+    super.onLongPress,
+    super.hoverColor,
+    super.pressedColor,
+    super.disabledColor,
+    super.backgroundColor,
+    super.mouseCursor,
+    required super.child,
+    required super.onPressed,
   });
-
-  /// The child widget displayed within the button.
-  ///
-  /// Typically a [Text] widget.
-  final Widget child;
-
-  /// Called when the button is tapped.
-  final VoidCallback? onPressed;
-
-  /// Called when the button is long-pressed.
-  final VoidCallback? onLongPress;
-
-  /// The color of the TextButton.
-  ///
-  /// If null, the default platform-specific color will be used.
-  final Color? color;
-
-  /// The color to be used when the button is in a disabled state.
-  ///
-  /// If null, the default disabled color for the respective platform will be used.
-  final Color? disabledColor;
 
   @override
   Widget windows(BuildContext context) {
-    return TextButtonWindows(
-      color: color,
-      property: properties?.windows,
-      disabledColor: disabledColor,
-      onLongPress: onLongPress,
-      onPressed: onPressed,
-      child: child,
+    return MouseRegion(
+      cursor: mouseCursor,
+      child: HyperlinkButton(
+        style: windowsDefaultStyle(),
+        onTapUp: onTapUp,
+        onTapDown: onTapDown,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        child: child,
+      ),
     );
   }
 
   @override
   Widget macos(BuildContext context) {
-    return TextButtonMacos(
-      color: color,
-      property: properties?.macos,
-      disabledColor: disabledColor,
-      onLongPress: onLongPress,
+    final theme = MacosTheme.of(context);
+    return MacosButton(
+      mouseCursor: mouseCursor,
+      border: border,
+      onTapUp: onTapUp,
+      onTapDown: onTapDown,
       onPressed: onPressed,
-      child: child,
+      onLongPress: onLongPress,
+      hoverColor: hoverColor,
+      pressedColor: pressedColor,
+      disabledColor: disabledColor ?? Colors.transparent,
+      backgroundColor: backgroundColor ?? Colors.transparent,
+      child: DefaultTextStyle(
+        style: theme.typography.body.copyWith(
+          color: theme.primaryColor,
+          letterSpacing: 0.5,
+          fontWeight: MacosFontWeight.w590,
+        ),
+        child: child,
+      ),
     );
   }
 }

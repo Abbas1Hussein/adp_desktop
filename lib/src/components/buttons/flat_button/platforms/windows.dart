@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../../properties/windows.dart';
+import '../../../../core/common/construct/property.dart';
 
 class FlatButtonWindows extends StatelessWidget {
   const FlatButtonWindows({
@@ -66,11 +66,22 @@ class FlatButtonWindows extends StatelessWidget {
   }
 }
 
-class FlatButtonWindowsProperty extends ButtonWindowsProperty {
+class FlatButtonWindowsProperty extends CoreWindowsProperty {
   const FlatButtonWindowsProperty({
-    super.style,
-    super.autofocus,
-    super.focusNode,
-    super.focusable,
+    this.style,
+    this.autofocus,
+    this.focusNode,
+    this.focusable,
   });
+
+  /// Customizes this button's appearance.
+  final ButtonStyle? style;
+
+  /// {@macro flutter.widgets.Focus.focusNode}
+  final FocusNode? focusNode;
+
+  /// {@macro flutter.widgets.Focus.autofocus}
+  final bool? autofocus;
+
+  final bool? focusable;
 }
