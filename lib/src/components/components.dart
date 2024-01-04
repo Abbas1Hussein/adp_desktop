@@ -8,4 +8,4 @@ export 'layout/layout.dart';
 export 'navigation/navigation.dart';
 export 'pickers/pickers.dart';
 export 'surfaces/surfaces.dart';
-export 'transition/transition.dart';
+export 'transitions/transitions.dart';

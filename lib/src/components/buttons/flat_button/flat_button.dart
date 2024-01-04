@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import 'platforms/platforms.dart';

@@ -2,7 +2,7 @@ export 'checkbox/checkbox.dart';
 export 'back_button.dart';
 export 'menu/menu.dart';
 export 'radio/radio.dart';
-export 'button/button.dart';
+export 'button/button.dart' hide AdaptiveButtonType;
 
 export 'text_button/text_button.dart';
 

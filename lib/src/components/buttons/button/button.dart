@@ -20,7 +20,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
     super.mouseCursor,
     required super.child,
     required super.onPressed,
-  }) : type = _AdaptiveButtonType.base;
+  }) : type = AdaptiveButtonType.base;
 
   const AdaptiveButton.filled({
     super.builders,
@@ -36,7 +36,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
     super.mouseCursor,
     required super.child,
     required super.onPressed,
-  }) : type = _AdaptiveButtonType.filled;
+  }) : type = AdaptiveButtonType.filled;
 
   const AdaptiveButton.outlined({
     super.builders,
@@ -52,19 +52,16 @@ class AdaptiveButton extends AdaptiveBaseButton {
     super.mouseCursor,
     required super.child,
     required super.onPressed,
-  }) : type = _AdaptiveButtonType.outlined;
+  }) : type = AdaptiveButtonType.outlined;
 
-  /// the style of the adaptive button.
-  ///
-  // ignore: library_private_types_in_public_api
-  final _AdaptiveButtonType type;
+  final AdaptiveButtonType type;
 
   @override
   Widget windows(BuildContext context) {
     Widget? button;
 
     switch (type) {
-      case _AdaptiveButtonType.base:
+      case AdaptiveButtonType.base:
         button = Button(
           style: windowsDefaultStyle(),
           onTapUp: onTapUp,
@@ -73,7 +70,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
           onLongPress: onLongPress,
           child: child,
         );
-      case _AdaptiveButtonType.filled:
+      case AdaptiveButtonType.filled:
         button = FilledButton(
           style: windowsDefaultStyle(),
           onTapUp: onTapUp,
@@ -83,7 +80,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
           child: child,
         );
 
-      case _AdaptiveButtonType.outlined:
+      case AdaptiveButtonType.outlined:
         button = OutlinedButton(
           style: windowsDefaultStyle(),
           onTapUp: onTapUp,
@@ -104,7 +101,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
   Widget macos(BuildContext context) {
     final theme = MacosTheme.of(context);
     switch (type) {
-      case _AdaptiveButtonType.base:
+      case AdaptiveButtonType.base:
         return MacosButton(
           border: border,
           onTapUp: onTapUp,
@@ -118,7 +115,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
           backgroundColor: backgroundColor,
           child: child,
         );
-      case _AdaptiveButtonType.filled:
+      case AdaptiveButtonType.filled:
         return MacosButton(
           border: border,
           onTapUp: onTapUp,
@@ -140,7 +137,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
             child: child,
           ),
         );
-      case _AdaptiveButtonType.outlined:
+      case AdaptiveButtonType.outlined:
         return MacosButton(
           border: border ??
               Border.all(
@@ -171,4 +168,4 @@ class AdaptiveButton extends AdaptiveBaseButton {
   }
 }
 
-enum _AdaptiveButtonType { base, filled, outlined }
+enum AdaptiveButtonType { base, filled, outlined }

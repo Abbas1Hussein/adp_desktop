@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../transition/transition.dart';
+import '../transitions/transitions.dart';
 
 typedef PageRouteBuilder = Widget Function(
   BuildContext context,

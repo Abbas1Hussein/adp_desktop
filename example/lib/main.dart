@@ -16,6 +16,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {},
                   child: const Text('OK'),
                 ),
-                AdaptiveDivider(direction: Axis.vertical),
+                const AdaptiveDivider(direction: Axis.vertical),
                 AdaptiveTextButton(
                   onPressed: () {},
                   child: const Text('Cancel'),
