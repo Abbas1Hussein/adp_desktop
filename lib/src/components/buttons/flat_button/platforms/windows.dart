@@ -40,28 +40,23 @@ class FlatButtonWindows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = FluentTheme.of(context);
-    return Button(
+    return FilledButton(
       onPressed: onPressed,
       onLongPress: onLongPress,
       focusNode: property?.focusNode,
       autofocus: property?.autofocus ?? false,
       focusable: property?.focusable ?? true,
       style: property?.style ??
-          theme.buttonTheme.defaultButtonStyle?.copyWith(
-            backgroundColor: _backgroundColor,
-          ) ??
-          ButtonStyle(backgroundColor: _backgroundColor),
-      child: child,
+          ButtonStyle(backgroundColor: _backgroundColor)
+              .merge(theme.buttonTheme.defaultButtonStyle),
+      child: DefaultTextStyle(style: theme.typography.body!, child: child),
     );
   }
 
   ButtonState<Color?>? get _backgroundColor {
     return ButtonState.resolveWith(
-      (states) => ButtonState.forStates(
-        states,
-        none: color,
-        disabled: disabledColor,
-      ),
+      (states) =>
+          ButtonState.forStates(states, none: color, disabled: disabledColor),
     );
   }
 }
@@ -69,19 +64,22 @@ class FlatButtonWindows extends StatelessWidget {
 class FlatButtonWindowsProperty extends CoreWindowsProperty {
   const FlatButtonWindowsProperty({
     this.style,
-    this.autofocus,
     this.focusNode,
-    this.focusable,
+    this.focusable = true,
+    this.autofocus = false,
   });
 
-  /// Customizes this button's appearance.
+  /// Customizes the visual style of this button.
   final ButtonStyle? style;
 
   /// {@macro flutter.widgets.Focus.focusNode}
+  /// An optional [FocusNode] that can be used to control the focus behavior of this button.
   final FocusNode? focusNode;
 
   /// {@macro flutter.widgets.Focus.autofocus}
-  final bool? autofocus;
+  /// If true, this button will automatically request focus when the widget is first built.
+  final bool autofocus;
 
-  final bool? focusable;
+  /// If false, this button is not focusable.
+  final bool focusable;
 }

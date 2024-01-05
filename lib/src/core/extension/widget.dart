@@ -39,7 +39,7 @@ extension ApplyDisabledEffect on Widget {
     return IgnorePointer(
       ignoring: isDisabled,
       child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 80),
+        duration: const Duration(milliseconds: 120),
         opacity: isDisabled ? disabledOpacity : 1,
         child: this,
       ),

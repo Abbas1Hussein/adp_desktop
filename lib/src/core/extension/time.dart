@@ -5,22 +5,12 @@ extension TimeOfDayEx on TimeOfDay {
 
   /// to convert TimeOfDay to DateTime
   DateTime toDateTime() {
-    return DateTime(
-      dateTime.year,
-      dateTime.month,
-      dateTime.day,
-      hour,
-      minute,
-    );
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, hour, minute);
   }
 
   ///  to convert Duration to TimeOfDay
   Duration convertTimeOfDayToDuration() {
-    return Duration(
-      hours: hour,
-      minutes: minute,
-      seconds: dateTime.second,
-    );
+    return Duration(hours: hour, minutes: minute, seconds: dateTime.second);
   }
 }
 

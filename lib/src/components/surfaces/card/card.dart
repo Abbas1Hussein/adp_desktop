@@ -1,50 +1,75 @@
 import 'package:fluent_ui/fluent_ui.dart' hide Card;
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 
+const BorderRadius _kCardBorderRadius = BorderRadius.all(Radius.circular(12.0));
+
 class AdaptiveCard extends CoreAdaptiveComponent {
   const AdaptiveCard({
-    this.color,
-    this.clipBehavior,
-    this.shadowColor,
-    this.elevation,
-    this.padding,
-    this.margin,
-    this.child,
-    this.surfaceTintColor,
-    this.shape,
     super.builders,
     super.key,
+    this.shape,
+    this.color,
+    this.child,
+    this.margin,
+    this.alignment,
+    this.foregroundShape,
+    this.clipBehavior = Clip.none,
+    this.padding = const EdgeInsets.all(8),
   });
 
-  /// The background color of the card.
+  /// The card's background color.
   final Color? color;
 
-  /// The color of the shadow cast by the card.
-  final Color? shadowColor;
+  /// The widget below this widget in the tree.
+  ///
+  /// {@macro flutter.widgets.ProxyWidget.child}
+  final Widget? child;
 
-  /// The clipping behavior applied to the card.
-  final Clip? clipBehavior;
+  /// The shape of the adp card.
+  final ShapeDecoration? shape;
 
-  /// The margin around the card.
+  /// The foreground shape of the adp card.
+  final ShapeDecoration? foregroundShape;
+
+  /// Align the [child] within the card.
+  ///
+  /// If non-null, the card will expand to fill its parent and position its
+  /// child within itself according to the given value. If the incoming
+  /// constraints are unbounded, then the child will be shrink-wrapped instead.
+  ///
+  /// Ignored if [child] is null.
+  ///
+  /// See also:
+  ///
+  ///  * [Alignment], a class with convenient constants typically used to
+  ///    specify an [AlignmentGeometry].
+  ///  * [AlignmentDirectional], like [Alignment] for specifying alignments
+  ///    relative to text direction.
+  final AlignmentGeometry? alignment;
+
+  /// The empty space that surrounds the card.
+  ///
+  /// Defines the card's outer [Container.margin].
+  ///
+  /// If that's null, the default margin is 4.0
+  /// logical pixels on all sides: `EdgeInsets.all(4.0)`.
   final EdgeInsetsGeometry? margin;
 
-  /// The padding within the card.
-  final EdgeInsetsGeometry? padding;
+  /// The empty space that inside the card.
+  ///
+  /// Defines the card's inner [Container.padding].
+  ///
+  /// If that's null, the default padding is 8.0
+  /// logical pixels on all sides: `EdgeInsets.all(8.0)`.
+  final EdgeInsetsGeometry padding;
 
-  /// The shape of the card.
-  final ShapeBorder? shape;
-
-  /// The elevation (z-coordinate) of the card, controlling the shadow intensity.
-  final double? elevation;
-
-  /// The tint color applied to the card's surface.
-  final Color? surfaceTintColor;
-
-  /// The child widget contained within the card.
-  final Widget? child;
+  /// {@macro flutter.material.Material.clipBehavior}
+  ///
+  /// If that's null then the behavior will be [Clip.none].
+  final Clip clipBehavior;
 
   @override
   Widget windows(BuildContext context) {
@@ -52,34 +77,48 @@ class AdaptiveCard extends CoreAdaptiveComponent {
 
     return _card(
       platformColor: theme.cardColor,
-      platformBorder: Border.all(color: theme.resources.cardStrokeColorDefault),
+      platformShape: RoundedRectangleBorder(
+        borderRadius: _kCardBorderRadius,
+        side: BorderSide(color: theme.resources.cardStrokeColorDefault),
+      ),
     );
   }
 
   @override
   Widget macos(BuildContext context) {
+    final theme = MacosTheme.of(context);
+
     return _card(
-      platformColor: MacosColors.windowBackgroundColor,
-      platformBorder: Border.all(color: MacosColors.controlAccentColor),
+      platformColor: theme.brightness.resolve(
+        CupertinoColors.white,
+        CupertinoColors.quaternarySystemFill,
+      ),
+      platformShape: RoundedRectangleBorder(
+        borderRadius: _kCardBorderRadius,
+        side: BorderSide(
+          color: theme.dividerColor,
+          width: 0.5,
+          style: theme.brightness == Brightness.dark
+              ? BorderStyle.none
+              : BorderStyle.solid,
+        ),
+      ),
     );
   }
 
   Widget _card({
-    BoxBorder? platformBorder,
     required Color platformColor,
+    required ShapeBorder platformShape,
   }) {
-    return Card(
+    return Container(
       margin: margin,
-      elevation: elevation,
+      padding: padding,
+      alignment: alignment,
       clipBehavior: clipBehavior,
-      surfaceTintColor: surfaceTintColor,
-      shape: shape ?? platformBorder,
-      color: color ?? platformColor,
-      shadowColor: shadowColor,
-      child: Padding(
-        padding: padding ?? EdgeInsets.zero,
-        child: child,
-      ),
+      decoration: shape ??
+          ShapeDecoration(shape: platformShape, color: color ?? platformColor),
+      foregroundDecoration: foregroundShape,
+      child: child,
     );
   }
 }

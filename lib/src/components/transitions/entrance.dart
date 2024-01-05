@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 
 import '../../core/common/construct/component.dart';
 
-
+/// A widget that provides an adaptive entrance transition for the child based on the platform.
+///
+/// On macOS, it uses [CupertinoFullscreenDialogTransition] for a native-looking transition.
+/// On Windows, it uses a custom [EntrancePageTransition] for the entrance animation.
 class AdaptiveEntranceTransition extends CoreAdaptiveComponent {
   const AdaptiveEntranceTransition({
     Key? key,
@@ -12,8 +15,13 @@ class AdaptiveEntranceTransition extends CoreAdaptiveComponent {
     required this.secondaryAnimation,
   }) : super(key: key);
 
+  /// The widget to apply the entrance transition to.
   final Widget child;
+
+  /// The primary animation for the entrance transition.
   final Animation<double> animation;
+
+  /// The secondary animation for the entrance transition.
   final Animation<double> secondaryAnimation;
 
   @override

@@ -99,15 +99,13 @@ abstract class AdaptiveBaseButton extends CoreAdaptiveComponent {
     return ButtonStyle(
       shape: ButtonState.all(border),
       backgroundColor: ButtonState.resolveWith(
-        (states) {
-          if (states.isPressing) return pressedColor;
-
-          if (states.isHovering) return hoverColor;
-
-          if (states.isDisabled) return disabledColor;
-
-          return backgroundColor;
-        },
+        (states) => ButtonState.forStates(
+          states,
+          pressed: pressedColor,
+          hovering: hoverColor,
+          disabled: disabledColor,
+          none: backgroundColor,
+        ),
       ),
     );
   }

@@ -30,7 +30,7 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
       child: ColoredBox(
         color: color ??
             MacosTheme.of(context).brightness.resolve(
-                  MacosColors.disabledControlTextColor,
+                  MacosColors.disabledControlTextColor.highContrastColor,
                   MacosColors.disabledControlTextColor.darkColor,
                 ),
       ),

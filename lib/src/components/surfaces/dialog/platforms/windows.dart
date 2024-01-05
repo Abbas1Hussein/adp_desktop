@@ -45,10 +45,13 @@ class DialogWindowsProperty extends CoreWindowsProperty {
     this.constraints = kDefaultContentDialogConstraints,
   });
 
-  /// The style used by this dialog. If non-null, it's merged with
-  /// [FluentThemeData.dialogTheme]
+  /// The style used by this dialog.
+  ///
+  /// If non-null, it's merged with [FluentThemeData.dialogTheme].
   final ContentDialogThemeData? style;
 
-  /// The constraints of the dialog. It defaults to `BoxConstraints(maxWidth: 368)`
+  /// The constraints of the dialog.
+  ///
+  /// Defaults to [kDefaultContentDialogConstraints].
   final BoxConstraints constraints;
 }

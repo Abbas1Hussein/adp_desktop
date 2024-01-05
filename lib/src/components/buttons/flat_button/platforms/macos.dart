@@ -62,39 +62,39 @@ class FlatButtonMacos extends StatelessWidget {
   /// If no control size is provided, the default is set to [ControlSize.large].
   ///
   /// The returned BorderRadius is used for styling the button's background.
-  BorderRadiusGeometry? get borderRadius {
-    return property?.controlSize?.borderRadius ??
-        const BorderRadius.all(Radius.circular(4.0));
-  }
+  BorderRadiusGeometry? get borderRadius => property?.controlSize.borderRadius;
 
   @override
   Widget build(BuildContext context) {
     final theme = MacosTheme.of(context);
 
-    final backgroundColor = enabled ? color : disabledColor;
+    final activeColor = color ?? theme.primaryColor;
+    final inActiveColor = disabledColor ?? CupertinoColors.quaternarySystemFill;
+
+    final backgroundColor = enabled ? activeColor : inActiveColor;
 
     return GestureDetector(
       onLongPress: enabled ? onLongPress : null,
       child: Container(
-        foregroundDecoration: isNotRunningOnMacOS
+        foregroundDecoration: isNotRunningOnMacOS &&
+                ((color != null && enabled) || disabledColor != null)
             ? BoxDecoration(
                 color: backgroundColor,
                 borderRadius: borderRadius,
-                backgroundBlendMode:
-                    backgroundColor != null ? BlendMode.color : null,
+                backgroundBlendMode: BlendMode.color,
               )
             : null,
         child: PushButton(
           borderRadius: borderRadius,
           onPressed: enabled ? (onPressed ?? () {}) : null,
-          controlSize: property?.controlSize ?? ControlSize.regular,
+          controlSize: property?.controlSize ?? ControlSize.large,
           alignment: property?.alignment ?? Alignment.center,
           semanticLabel: property?.semanticLabel,
           secondary: property?.secondary,
+          disabledColor: inActiveColor,
+          color: activeColor,
           pressedOpacity: property?.pressedOpacity ?? 0.4,
-          disabledColor: disabledColor ?? CupertinoColors.quaternarySystemFill,
-          color: color ?? theme.primaryColor,
-          child: child,
+          child: DefaultTextStyle(style: theme.typography.body, child: child),
         ),
       ),
     );
@@ -103,22 +103,24 @@ class FlatButtonMacos extends StatelessWidget {
 
 class FlatButtonMacosProperty extends CoreMacosProperty {
   const FlatButtonMacosProperty({
-    this.controlSize,
-    this.alignment,
-    this.pressedOpacity,
+    this.controlSize = ControlSize.large,
+    this.alignment = Alignment.center,
+    this.pressedOpacity = 0.4,
+    this.secondary = false,
     this.semanticLabel,
-    this.secondary,
   });
 
   /// The size of the button.
-  final ControlSize? controlSize;
+  ///
+  /// Defaults to [ControlSize.large].
+  final ControlSize controlSize;
 
   /// The opacity that the button will fade to when it is pressed.
   /// The button will have an opacity of 1.0 when it is not pressed.
   ///
   /// This defaults to 0.4. If null, opacity will not change on pressed if using
   /// your own custom effects is desired.
-  final double? pressedOpacity;
+  final double pressedOpacity;
 
   /// The alignment of the button's [title].
   ///
@@ -128,7 +130,7 @@ class FlatButtonMacosProperty extends CoreMacosProperty {
   /// within the available space.
   ///
   /// Always defaults to [Alignment.center].
-  final AlignmentGeometry? alignment;
+  final AlignmentGeometry alignment;
 
   /// The semantic label used by screen readers.
   final String? semanticLabel;
@@ -137,5 +139,5 @@ class FlatButtonMacosProperty extends CoreMacosProperty {
   ///
   /// Sets its background color to [PushButtonThemeData]'s [secondaryColor] attributes (defaults
   /// are gray colors). Can still be overridden if the [activeTrackColor] attribute is non-null.
-  final bool? secondary;
+  final bool secondary;
 }

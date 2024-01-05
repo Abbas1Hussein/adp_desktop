@@ -167,9 +167,9 @@ class DialogMacosProperty extends CoreMacosProperty {
   const DialogMacosProperty({
     this.appIcon,
     this.suppress,
-    this.direction,
-    this.dialogMode,
-    this.horizontalActions,
+    this.horizontalActions = true,
+    this.direction = Axis.horizontal,
+    this.dialogMode = MacosDialogMode.macOS,
   });
 
   /// This should be your application's icon.
@@ -182,7 +182,7 @@ class DialogMacosProperty extends CoreMacosProperty {
   /// horizontally or vertically.
   ///
   /// for only [MacosDialogMode.macOS], Defaults to `true`.
-  final bool? horizontalActions;
+  final bool horizontalActions;
 
   /// the axis for laying out [appIcon] and [title] in the macOS dialog.
   ///
@@ -190,7 +190,7 @@ class DialogMacosProperty extends CoreMacosProperty {
   /// If set to [Axis.horizontal], buttons will be laid out horizontally.
   ///
   /// Defaults to `Axis.horizontal`.
-  final Axis? direction;
+  final Axis direction;
 
   /// A widget to allow users to suppress alerts of this type.
   ///
@@ -231,7 +231,9 @@ class DialogMacosProperty extends CoreMacosProperty {
   final Widget? suppress;
 
   /// Represents the dialog mode for the macOS dialog.
-  final MacosDialogMode? dialogMode;
+  ///
+  /// Defaults to [MacosDialogMode.macOS].
+  final MacosDialogMode dialogMode;
 }
 
 extension _AdaptiveFlatButtonEx on AdaptiveFlatButton {

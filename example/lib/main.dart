@@ -4,8 +4,8 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
-    isDebugging: true
+    DesktopTargetPlatform.macOS,
+    isDebugging: true,
   );
 
   runApp(const App());
@@ -19,7 +19,7 @@ class App extends StatelessWidget {
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       properties: Properties(
         macos: AppMacosProperty(
           darkTheme: MacosThemeData.dark(),
@@ -50,23 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AdaptiveAppBar(title: const Text('Abbas Hussein')),
       endDrawer: const AdaptiveDrawer(),
       drawer: const AdaptiveDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(DummyText.generateQuestion),
-            Text(DummyText.generateAnswer),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                AdaptiveTextButton(onPressed: () {}, child: const Text('OK')),
-                const AdaptiveDivider(direction: Axis.vertical),
-                AdaptiveTextButton(
-                    onPressed: () {}, child: const Text('Cancel')),
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [],
       ),
     );
   }
