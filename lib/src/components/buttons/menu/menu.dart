@@ -1,6 +1,5 @@
 export 'popup/popup.dart';
 export 'popup/popup_item.dart';
-export 'popup/platforms/platforms.dart' hide PopupMenuMacos, PopupMenuWindows;
 
 
 export 'pulldown/pulldown.dart';

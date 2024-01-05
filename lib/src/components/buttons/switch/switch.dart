@@ -5,13 +5,30 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/component.dart';
 import '../../../core/extension/widget.dart';
 
-/// A custom switch button widget that adapts its appearance based on the platform.
+/// The toggle switch represents a physical switch that allows users to turn
+/// things on or off, like a light switch. Use toggle switch controls to present
+/// users with two mutually exclusive options (such as on/off), where choosing
+/// an option provides immediate results.
+///
+/// Use a toggle switch for binary operations that take effect right after the
+/// user flips the toggle switch
+///
+/// Think of the toggle switch as a physical power switch for a device: you flip
+/// it on or off when you want to enable or disable the action performed by the device.
 ///
 /// Use this widget to create switch buttons with platform-specific
 /// styling and behavior:
 /// - On macOS, [MacosSwitch] is utilized.
 /// - On Windows, [ToggleSwitch] is used.
 class AdaptiveSwitch extends CoreAdaptiveComponent {
+  /// Creates a adp switch.
+  ///
+  /// See also:
+  ///
+  ///  * [AdaptiveCheckbox], which let the user select multiple items from a collection of
+  ///    two or more items
+  ///  * [AdaptiveRadioButton], which let the user select one item from a collection of two
+  ///    or more options
   const AdaptiveSwitch({
     super.key,
     super.builders,
@@ -52,20 +69,25 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
   /// ```
   final ValueChanged<bool>? onChanged;
 
-  /// Widget used as the label associated with the switch.
+  /// The label of the radio button.
+  ///
+  /// This, if non-null, is displayed at the right of the switcher,
+  /// and is affected by user touch.
+  ///
+  /// Usually a [Text] or [Icon] widget
   final Widget? label;
-
-  /// Color of the switch knob when it is in the `on` state.
-  final Color? activeKnobColor;
-
-  /// Color of the switch knob when it is in the `off` state.
-  final Color? trackKnobColor;
 
   /// Background color of the switch when it is in the `on` state.
   final Color? activeColor;
 
+  /// Color of the switch knob when it is in the `on` state.
+  final Color? activeKnobColor;
+
   /// Background color of the switch when it is in the `off` state.
   final Color? trackColor;
+
+  /// Color of the switch knob when it is in the `off` state.
+  final Color? trackKnobColor;
 
   /// A semantic label providing accessibility information for the switch.
   final String? semanticLabel;
@@ -92,7 +114,8 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
       activeColor: backgroundColorOnState,
       trackColor: backgroundColorOffState,
       size: ControlSize.small,
-    ).margeWith(
+    )
+        .margeWith(
           label != null
               ? GestureDetector(
                   onTap: _enabled ? () => onChanged!(!value) : null,
@@ -103,7 +126,8 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
                 )
               : null,
           10.0,
-        ).applyDisabledEffect(!_enabled);
+        )
+        .applyDisabledEffect(!_enabled);
   }
 
   @override

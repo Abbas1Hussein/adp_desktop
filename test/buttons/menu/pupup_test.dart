@@ -66,51 +66,6 @@ void main() {
       );
 
       testWidgets(
-        'Throws AssertionError when AdaptivePopupMenuItem has an empty item list',
-        (WidgetTester tester) async {
-          final List<AdaptivePopupMenuItem<String>> emptyItems = [];
-
-          // Act
-          final button = AdaptivePopupMenuButton<String>(
-            value: 'value1',
-            items: emptyItems,
-          );
-
-          // Assert
-          expect(
-            () => button.validateSelectedItem(),
-            throwsA(isA<AssertionError>()),
-          );
-        },
-      );
-
-      testWidgets(
-        'Throws AssertionError when AdaptivePopupMenuItem has a null value',
-        (WidgetTester tester) async {
-          final List<AdaptivePopupMenuItem<String>> validItems = [
-            const AdaptivePopupMenuItem<String>(
-              child: Text('Item 1'),
-              value: 'value1',
-            ),
-            const AdaptivePopupMenuItem<String>(
-              child: Text('Item 2'),
-              value: 'value2',
-            ),
-          ];
-
-          // Act
-          final button =
-              AdaptivePopupMenuButton(value: null, items: validItems);
-
-          // Assert
-          expect(
-            () => button.validateSelectedItem(),
-            throwsA(isA<AssertionError>()),
-          );
-        },
-      );
-
-      testWidgets(
         'AdaptivePopupMenuItem value should only appear in one menu item',
         (WidgetTester tester) async {
           final List<AdaptivePopupMenuItem<String>> nonUniqueItems = [

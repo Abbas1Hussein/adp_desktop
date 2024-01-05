@@ -5,13 +5,20 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/component.dart';
 import '../../../core/extension/widget.dart';
 
-/// A custom checkbox button widget that adapts its appearance based on the platform.
+/// A checkbox is a type of button that lets the user choose between
+/// two opposite states, actions, or values. A selected checkbox is
+/// considered on when it contains a checkmark and off when it's empty.
+/// A checkbox is almost always followed by a title unless it appears in
+/// a checklist.
 ///
 /// Use this widget to create checkbox buttons with platform-specific
 /// styling and behavior:
 /// - On macOS, [MacosCheckbox] is utilized.
 /// - On Windows, [Checkbox] is used.
 class AdaptiveCheckbox extends CoreAdaptiveComponent {
+  /// Creates a adp-style checkbox.
+  ///
+  /// * [AdaptiveRadioButton], let users select one option from a collection of two or more mutually exclusive, visible options.
   const AdaptiveCheckbox({
     Key? key,
     this.label,
@@ -28,19 +35,29 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// - If `null`, the checkbox is in its third state.
   final bool? value;
 
-  /// Callback function invoked when the AdaptiveCheckbox value changes.
+  /// Called when the value of the [AdaptiveCheckbox] should change.
+  ///
+  /// This callback passes a new value, but doesn't update its
+  /// state internally.
+  ///
+  /// If null, the checkbox is considered disabled.
   final ValueChanged<bool?>? onChanged;
 
-  /// Label widget associated with the AdaptiveCheckbox.
+  /// The label of the adp radio button.
+  ///
+  /// This, if non-null, is displayed at the right of the checkbox,
+  /// and is affected by user touch.
+  ///
+  /// Usually a [Text] or [Icon] widget.
   final Widget? label;
 
   /// Semantic label for accessibility.
   final String? semanticLabel;
 
-  /// Color to use when the AdaptiveCheckbox is checked.
+  /// Color to use when the checkbox is checked.
   final Color? checkedColor;
 
-  /// Color to use when the AdaptiveCheckbox is unchecked.
+  /// Color to use when the checkbox is unchecked.
   ///
   /// On macOS platform, this color will be used when the [onChanged] callback is null.
   final Color? uncheckedColor;
@@ -49,6 +66,7 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   ///
   /// On macOS platform, this color will be used when the [onChanged] callback is null.
   final Color? uncheckedBorderColor;
+
 
   bool get _enabled => onChanged != null;
 
@@ -65,8 +83,7 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
         offBorderColor: uncheckedBorderColor ?? CupertinoColors.tertiaryLabel,
         semanticLabel: semanticLabel,
       ),
-    )
-        .margeWith(
+    ).margeWith(
           label != null
               ? GestureDetector(
                   onTap: _enabled
@@ -76,8 +93,7 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
                 )
               : null,
           4.0,
-        )
-        .applyDisabledEffect(!_enabled);
+        ).applyDisabledEffect(!_enabled);
   }
 
   @override

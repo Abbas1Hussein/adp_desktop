@@ -6,59 +6,63 @@ import 'platforms/platforms.dart';
 import 'pulldown_item.dart';
 import 'single_choice.dart';
 
-/// Callback type for handling the selection of items in a pulldown menu.
-///
-/// The [value] parameter represents the selected value of generic type [T].
-typedef PulldownMenuSelectedCallback<T> = void Function(T? value);
-
 /// A cross-platform adaptive pulldown menu button.
 ///
-/// This widget serves as a unified interface for creating pulldown menu button.
-/// that seamlessly work across both macOS and Windows platforms.
+/// A pull-down button (often referred to as a pull-down menu) is a type of
+/// pop-up button that, when clicked, displays a menu containing a list of
+/// choices. The menu appears below the button.
+///
+/// Use a pull-down button to present a list of commands.
 ///
 /// - On macOS, [MacosPulldownButton] is utilized.
 /// - On Windows, [DropDownButton] is used.
-///
-/// Example usage:
-///
-/// ```dart
-/// AdaptivePulldownMenuButton<String>(
-///   title: 'Adp Menu',
-///   onSelected: (String? value) {
-///     // Handle the selected value
-///   },
-///   items: const [
-///     AdaptivePulldownMenuItem(
-///       leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
-///       child: Text('New folder'),
-///     ),
-///     AdaptivePulldownMenuItem(
-///       leading: AdaptiveIcon(AdaptiveIcons.folderOpen),
-///       child: Text('Open'),
-///     ),
-///     AdaptivePulldownMenuItem(
-///       leading: AdaptiveIcon(AdaptiveIcons.wand),
-///       child: Text('Open with'),
-///     ),
-///     AdaptivePulldownMenuItem(
-///       leading: AdaptiveIcon(AdaptiveIcons.delete),
-///       child: Text('Remove'),
-///       selected: false,
-///     ),
-///     AdaptivePulldownMenuItem(
-///       leading: AdaptiveIcon(AdaptiveIcons.phone),
-///       child: Text('Import from phone ...'),
-///     ),
-///     AdaptivePulldownMenuDivider(),
-///     AdaptivePulldownMenuItem(
-///       leading: AdaptiveIcon(AdaptiveIcons.star),
-///       child: Text('Give us a star'),
-///     ),
-///   ],
-/// );
-/// ```
 class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
     PulldownMenuWindowsProperty, PulldownMenuMacosProperty> {
+  /// Creates an instance of AdaptivePulldownMenuButton.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// AdaptivePulldownMenuButton<String>(
+  ///   title: 'Adp Menu',
+  ///   onSelected: (String? value) {
+  ///     // Handle the selected value
+  ///   },
+  ///   items: const [
+  ///     AdaptivePulldownMenuItem(
+  ///       leading: AdaptiveIcon(AdpIcons.folderAdd),
+  ///       child: Text('New folder'),
+  ///     ),
+  ///     AdaptivePulldownMenuItem(
+  ///       leading: AdaptiveIcon(AdpIcons.folderOpen),
+  ///       child: Text('Open'),
+  ///     ),
+  ///     AdaptivePulldownMenuItem(
+  ///       leading: AdaptiveIcon(AdpIcons.wand),
+  ///       child: Text('Open with'),
+  ///     ),
+  ///     AdaptivePulldownMenuItem(
+  ///       leading: AdaptiveIcon(AdpIcons.delete),
+  ///       child: Text('Remove'),
+  ///       enabled: false, // this will disabled.
+  ///     ),
+  ///     AdaptivePulldownMenuItem(
+  ///       leading: AdaptiveIcon(AdpIcons.phone),
+  ///       child: Text('Import from phone ...'),
+  ///     ),
+  ///     AdaptivePulldownMenuDivider(),
+  ///     AdaptivePulldownMenuItem(
+  ///       leading: AdaptiveIcon(AdpIcons.star),
+  ///       child: Text('Give us a star'),
+  ///     ),
+  ///   ],
+  /// );
+  /// ```
+  ///
+  /// See also:
+  ///
+  /// * [AdaptivePulldownMenuButton.singleChoice] focuses on only one AdaptivePulldownMenuItem.
+  /// * [AdaptivePopupMenuButton]
   const AdaptivePulldownMenuButton({
     super.key,
     super.builders,
@@ -66,6 +70,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
     this.onOpen,
     this.onSelected,
     this.focusNode,
+    this.pulldownColor,
     this.autofocus = false,
     this.disabled = false,
     this.disabledTitle,
@@ -73,21 +78,20 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
     required this.items,
   }) : _type = SelectionType.none;
 
-  /// When used, this constructor will focus on only one [AdaptivePulldownMenuItem].
+  /// When used, will focus on only one [AdaptivePulldownMenuItem].
   ///
-  /// If [_selected] is true, it will be focused.
+  /// If [AdaptivePulldownMenuItem.enabled] is true, it will be focused.
+  ///
+  /// - Should be exactly one item with the specified 'enabled' value set to true.
   ///
   /// Example:
   /// ```dart
   /// AdaptivePulldownMenuItem(
-  ///   selected: true,
-  ///   leading: AdaptiveIcon(AdaptiveIcons.star),
+  ///   enabled: true,
+  ///   leading: AdaptiveIcon(AdpIcons.star),
   ///   child: Text('Give us a star'),
   /// ),
   /// ```
-  /// - Should be exactly one item with the specified 'selected' value set to true.
-  ///
-  /// The default selected value for [AdaptivePulldownMenuItem] is false.
   const AdaptivePulldownMenuButton.singleChoice({
     super.key,
     super.builders,
@@ -95,6 +99,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
     this.onOpen,
     this.onSelected,
     this.focusNode,
+    this.pulldownColor,
     this.autofocus = false,
     this.disabled = false,
     this.disabledTitle,
@@ -105,21 +110,21 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
   /// The title text to be displayed on the pulldown button.
   final String title;
 
-  /// The list of menu items to be displayed in the menu.
+  /// The list of menu entries for the pull-down menu.
   ///
-  /// Use:
-  /// * [AdaptivePulldownMenuItem] for selectable items.
-  /// * [AdaptivePulldownMenuDivider] for visual separators.
-  final List<AdaptivePulldownMenuItemEntry<T>> items;
+  /// Can be either [AdaptivePulldownMenuItem]s or [AdaptivePulldownMenuDivider]s.
+  final List<AdaptivePulldownMenuItemEntry> items;
 
   /// A callback function that is called when a menu item is selected.
   ///
   /// The callback will receive the value of the selected item as its argument.
   final PulldownMenuSelectedCallback<T>? onSelected;
 
-  /// {@macro flutter.widgets.Focus.focusNode}
-  /// The focus node to control the focus behavior of the pulldown menu.
-  final FocusNode? focusNode;
+  /// The pulldown color. If null,
+  ///
+  /// on windows: [FluentThemeData.menuColor] is used.
+  /// on macos: [MacosPulldownButtonTheme.pulldownColor] is used.
+  final Color? pulldownColor;
 
   /// {@macro flutter.widgets.Focus.autofocus}
   /// If true, the pulldown menu will automatically focus when displayed.
@@ -127,15 +132,20 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
   /// Default is false.
   final bool autofocus;
 
-  /// A custom title to be displayed when the button is disabled.
-  ///
-  /// If null, the [title] will be used as a fallback.
-  final String? disabledTitle;
+  /// {@macro flutter.widgets.Focus.focusNode}
+  /// The focus node to control the focus behavior of the pulldown menu.
+  final FocusNode? focusNode;
 
   /// If true, the pulldown button won't be clickable.
   ///
   /// Default is false.
   final bool disabled;
+
+  /// The text that is displayed when the pull-down is disabled.
+  ///
+  /// If the pulldown is [disabled], this is displayed as a
+  /// title for the pull-down button.
+  final String? disabledTitle;
 
   /// Called when the pull-down button is tapped.
   ///
@@ -165,6 +175,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
       focusNode: focusNode,
       autofocus: autofocus,
       onSelected: onSelected,
+      menuColor: pulldownColor,
       disabledTitle: disabledTitle,
       property: properties?.windows,
     );
@@ -181,6 +192,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
       focusNode: focusNode,
       autofocus: autofocus,
       onSelected: onSelected,
+      pulldownColor: pulldownColor,
       disabledTitle: disabledTitle,
       property: properties?.macos,
     );
@@ -188,16 +200,15 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
 
   void validateSelectedItem() {
     assert(
-      items.isNotEmpty,
-      "Validation failed in the $runtimeType.\n"
-      "The list of items should not be empty.",
+    items.isNotEmpty,
+    "Validation failed in the $runtimeType.\n""The list of items should not be empty.",
     );
 
     if (_type == SelectionType.single) {
       // Filter items to include only selected items (if applicable)
       final selectedItems =
           items.whereType<AdaptivePulldownMenuItem<T?>>().where((item) {
-        return item.selected ?? false;
+        return item.enabled ?? false;
       });
 
       // Check if there is exactly one selected item

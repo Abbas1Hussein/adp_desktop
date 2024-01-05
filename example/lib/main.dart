@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.macOS,
+    DesktopTargetPlatform.windows,
     isDebugging: true,
   );
 
@@ -19,7 +19,7 @@ class App extends StatelessWidget {
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       properties: Properties(
         macos: AppMacosProperty(
           darkTheme: MacosThemeData.dark(),
@@ -42,7 +42,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool currentValue = false;
+  int currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,28 @@ class _HomeScreenState extends State<HomeScreen> {
       endDrawer: const AdaptiveDrawer(),
       drawer: const AdaptiveDrawer(),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AdaptivePulldownMenuButton(items: [], title: 'title'),
+          Center(
+            child: AdaptivePopupMenuButton(
+              placeholder: const Text('placeholder'),
+              disabledPlaceholder: const Text('disabledPlaceholder'),
+              onChanged: (value) {},
+              items: const [
+                AdaptivePopupMenuItem(
+                  value: 0,
+                  child: Text('${1}'),
+                ),
+                AdaptivePopupMenuItem(
+                  value: 1,
+                  child: Text('${2}'),
+                ),
+              ],
+              value: 0,
+            ),
+          ),
+        ],
       ),
     );
   }

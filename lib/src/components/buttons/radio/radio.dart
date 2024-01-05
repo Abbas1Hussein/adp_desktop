@@ -5,13 +5,32 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/component.dart';
 import '../../../core/extension/widget.dart';
 
-/// A custom radio button widget that adapts its appearance based on the platform.
+/// Radio buttons, also called option buttons, let users select one option from
+/// a collection of two or more mutually exclusive, but related, options. Radio
+/// buttons are always used in groups, and each option is represented by one
+/// radio button in the group.
 ///
-/// Use this widget to create checkbox buttons with platform-specific
+/// In the default state, no radio button in a RadioButtons group is selected.
+/// That is, all radio buttons are cleared. However, once a user has selected a
+/// radio button, the user can't deselect the button to restore the group to its
+/// initial cleared state.
+///
+/// The singular behavior of a RadioButtons group distinguishes it from check
+/// boxes, which support multi-selection and deselection, or clearing.
+///
+/// Use this widget to create radio buttons with platform-specific
 /// styling and behavior:
 /// - On macOS, [MacosRadioButton] is utilized.
 /// - On Windows, [RadioButton] is used.
 class AdaptiveRadio<T> extends CoreAdaptiveComponent {
+  /// Creates a adp radio button.
+  ///
+  /// See also:
+  ///
+  ///   * [AdaptiveSlider], which let the user lie within a range of values,
+  ///     (for example, 10, 20, 30, ... 100).
+  ///   * [AdaptiveCheckbox], which let the user select multiple options.
+  ///   * [AdaptivePopup], which let the user select multiple options from a popup
   const AdaptiveRadio({
     super.key,
     super.builders,

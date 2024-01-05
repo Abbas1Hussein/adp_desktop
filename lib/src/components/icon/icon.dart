@@ -2,9 +2,13 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
+import '../../core/common/construct/model.dart';
 import 'icons.dart';
 
 class AdaptiveIcon extends CoreAdaptiveComponent {
+  /// Creates an adp icon.
+  ///
+  /// The [size] and [color] default to the value given by the current platform Theme.
   const AdaptiveIcon(
     this.adaptiveIcons, {
     this.size,
@@ -32,29 +36,50 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   }) : adaptiveIcons = null;
 
   /// The size of the icon in logical pixels.
+  ///
+  /// Icons occupy a square with width and height equal to size.
+  ///
+  /// Defaults to the current platform theme size,
+  /// if any defaults to 24.0.
   final double? size;
 
-  /// The color of the icon.
+  /// The color to use when drawing the icon.
+  ///
+  /// Defaults to the current [MacosIconTheme] color, if any.
+  ///
+  /// The color (whether specified explicitly here or obtained from the
+  /// [MacosIconTheme]) will be further adjusted by the opacity of the current
+  /// [MacosIconTheme], if any.
+  ///
+  /// If no [MacosIconTheme] and no [MacosTheme] is specified, icons will
+  /// default to the color value of [CupertinoColors.activeBlue.color].
+  ///
+  /// See [MacosTheme] to set the current theme and [MacosThemeData.brightness]
+  /// for setting the current theme's brightness.
   final Color? color;
 
-  /// Semantic label for the icon.
-  final String? semanticLabel;
-
-  /// icons used for different platforms.
+  /// The icon to display, used for different platforms.
+  /// The available icons are described in [CupertinoIcons], [FluentIcons].
+  ///
+  /// The icon can be null, in which case the widget will render as an empty
+  /// space of the specified [size].
   final AdpIcons? adaptiveIcons;
 
-  /// The text direction to use for rendering the icon.
-  final TextDirection? textDirection;
-
-  /// The Fluent UI icon data to be displayed on Windows.
+  /// The Fluent UI icon data to be displayed on Windows [FluentIcons].
   ///
   /// used on [AdaptiveIcon.custom].
   final IconData? fluent;
 
-  /// The Cupertino icon data to be displayed on macOS.
+  /// The Cupertino icon data to be displayed on macOS [CupertinoIcons].
   ///
   /// used on [AdaptiveIcon.custom].
   final IconData? cupertino;
+
+  /// Semantic label for the icon.
+  final String? semanticLabel;
+
+  /// The text direction to use for rendering the icon.
+  final TextDirection? textDirection;
 
   @override
   Widget macos(BuildContext context) {
@@ -82,3 +107,20 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
     );
   }
 }
+
+// class AdaptiveIconTheme extends CoreModel<IconThemeData, MacosIconTheme> {
+//   final Color color;
+//   final double size;
+//
+//   @override
+//   MacosIconTheme toMacos(BuildContext context) {
+//     return MacosIconTheme.of(context).copyWith(
+//
+//     );
+//   }
+//
+//   @override
+//   IconThemeData toWindows(BuildContext context) {
+//    return IconThemeData
+//   }
+// }

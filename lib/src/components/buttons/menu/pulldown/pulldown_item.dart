@@ -1,3 +1,4 @@
+import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/widgets.dart';
 
 /// Represents an entry in an [AdaptiveMenu], which can be either a
@@ -6,7 +7,8 @@ abstract class AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuItemEntry();
 }
 
-class AdaptivePulldownMenuDivider<T> implements AdaptivePulldownMenuItemEntry<T> {
+class AdaptivePulldownMenuDivider<T>
+    implements AdaptivePulldownMenuItemEntry<T> {
   const AdaptivePulldownMenuDivider();
 }
 
@@ -16,12 +18,12 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   ///
   /// The [child] parameter is required and represents the main content of the menu item.
   /// You can also provide optional [leading] and [trailing] widgets to be displayed
-  /// before and after the main content, respectively. The [selected] parameter indicates
+  /// before and after the main content, respectively. The [enabled] parameter indicates
   /// whether the menu item is selected.
   const AdaptivePulldownMenuItem({
     this.leading,
     this.trailing,
-    this.selected,
+    this.enabled,
     this.onTap,
     this.value,
     required this.child,
@@ -43,12 +45,11 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   /// An optional trailing widget for the menu item.
   final Widget? trailing;
 
-  /// Indicates whether the menu item is selected or not.
+  /// Indicates whether the menu item is enabled or not.
   ///
   /// - When used with [AdaptivePulldownMenuButton.singleChoice], if `true`, this item is the selected item.
-  ///   Only one item should be set to `true`.
   ///
-  ///  If null, Default is `false`.
+  /// - It must not be empty, Only one item should be set to `true` (enabled).
   ///
   /// Example usage with AdaptivePulldownMenuButton.singleChoice:
   /// ```dart
@@ -56,8 +57,8 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   ///   title: 'menu',
   ///   items: [
   ///     AdaptivePulldownMenuItem(
-  ///       selected: true, // Only one item should be set to `true`.
-  ///       leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
+  ///       enabled: true, // Only one item should be set to `true`.
+  ///       leading: AdaptiveIcon(AdpIcons.folderAdd),
   ///       child: Text('New folder'),
   ///     ),
   ///     // ... other menu items ...
@@ -65,7 +66,7 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   /// );
   /// ```
   ///
-  /// - When used with [AdaptivePulldownMenuButton], if set to `true`, the menu item is disabled.
+  /// - When used with [AdaptivePulldownMenuButton], if set to `false`, the menu item is disabled.
   ///
   ///  If null, Default is `true`.
   ///
@@ -75,7 +76,7 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   ///   title: 'menu',
   ///   items: [
   ///     AdaptivePulldownMenuItem(
-  ///       selected: false, // item will be disabled.
+  ///       enabled: false, // item will be disabled.
   ///       leading: AdaptiveIcon(AdaptiveIcons.folderAdd),
   ///       child: Text('New folder'),
   ///     ),
@@ -83,7 +84,7 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   ///   ],
   /// );
   /// ```
-  final bool? selected;
+  final bool? enabled;
 
   /// A callback function that is called when a menu item is tap.
   final VoidCallback? onTap;
@@ -93,37 +94,32 @@ class AdaptivePulldownMenuItem<T> extends AdaptivePulldownMenuItemEntry<T> {
   /// This method constructs a row containing the leading, child, and trailing widgets
   /// with appropriate spacing. It returns a widget suitable for displaying in a list
   /// or menu.
-  Widget buildListTile() {
+  Widget buildListTile(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if (leading != null)
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: leading,
-            ),
+        Expanded(
+          child: Row(
+            children: [
+              if (leading != null)
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: leading,
+                  ),
+                ),
+              child,
+            ],
           ),
-        child,
+        ),
         if (trailing != null)
           Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: trailing,
             ),
-          )
+          ),
       ],
     );
   }
-
-  static Widget disabledOpacity(Widget? child, bool defaultSelected) {
-    if (child == null) return const SizedBox.shrink();
-    return AnimatedOpacity(
-      duration: const Duration(milliseconds: 80),
-      opacity: defaultSelected ? 1 : 0.4,
-      child: child,
-    );
-  }
-
 }

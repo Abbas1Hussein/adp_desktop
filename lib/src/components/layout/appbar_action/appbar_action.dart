@@ -117,9 +117,9 @@ class AdaptiveAppBarPulldownButton extends AdaptiveAppBarActionEntry
             if (e is AdaptivePulldownMenuItem) {
               return MacosPulldownMenuItem(
                 onTap: e.onTap,
-                title: e.buildListTile(),
                 label: _extractLabel(e),
-                enabled: e.selected ?? false,
+                title: e.buildListTile(context),
+                enabled: e.enabled ?? false,
               );
             }
             return const MacosPulldownMenuDivider();
@@ -159,7 +159,7 @@ class AdaptiveAppBarPulldownButton extends AdaptiveAppBarActionEntry
                   leading: e.leading,
                   trailing: e.trailing,
                   onPressed: e.onTap,
-                  selected: e.selected ?? false,
+                  selected: e.enabled ?? false,
                 );
               }
               return const MenuFlyoutSeparator();

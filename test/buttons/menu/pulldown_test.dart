@@ -14,7 +14,7 @@ void main() {
         wrapAppWithScaffold(
           child: AdaptivePulldownMenuButton<String>(
             title: 'Adp Menu',
-            onSelected: (String? value) {},
+            onSelected: (index, value) {},
             items: const [
               AdaptivePulldownMenuItem(
                 leading: AdaptiveIcon(AdpIcons.folderAdd),
@@ -43,7 +43,7 @@ void main() {
         child: AdaptivePulldownMenuButton<String>(
           title: 'Adp Menu',
           disabledTitle: 'Adp Menu Disabled',
-          onSelected: (String? value) {},
+          onSelected: (index, value) {},
           items: const [
             AdaptivePulldownMenuItem(
               leading: AdaptiveIcon(AdpIcons.folderAdd),
