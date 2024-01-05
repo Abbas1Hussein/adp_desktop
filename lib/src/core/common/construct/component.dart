@@ -2,12 +2,16 @@ import 'package:fluent_ui/fluent_ui.dart' hide Builder;
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core.dart';
+import 'builders.dart';
 
 abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
     Macos extends CoreMacosProperty> extends StatelessWidget {
+
   const CoreAdaptiveComponent({this.builders, this.properties, super.key});
 
-  final CoreAdaptiveBuilder? builders;
+  final CoreAdaptiveBuilder<Builder<FluentThemeData, Windows?>,
+      Builder<MacosThemeData, Macos?>>? builders;
+
   final CoreProperties<Windows, Macos>? properties;
 
   @override
@@ -21,7 +25,7 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
           return builders!.windows!.call(
             body,
             FluentTheme.of(context),
-            (properties?.windows),
+            properties?.windows,
           );
         }
         return body;
@@ -33,7 +37,7 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
           return builders!.macos!.call(
             body,
             MacosTheme.of(context),
-            (properties?.macos),
+            properties?.macos,
           );
         }
         return body;

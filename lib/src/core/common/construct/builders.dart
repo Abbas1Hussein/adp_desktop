@@ -1,24 +1,21 @@
-import 'package:fluent_ui/fluent_ui.dart' hide Builder;
-import 'package:macos_ui/macos_ui.dart';
+import 'package:flutter/widgets.dart';
 
 import 'platforms.dart';
-import 'properties.dart';
 
-typedef Builder<ThemeData, Property> = Widget Function(
-    Widget platformChild, ThemeData theme, Property property);
+typedef Builder<ThemePlatformData, Property> = Widget Function(
+  Widget platformChild,
+  ThemePlatformData theme,
+  Property property,
+);
 
-abstract class CoreAdaptiveBuilder extends CorePlatforms<Builder<FluentThemeData, CoreWindowsProperty?>, Builder<MacosThemeData, CoreMacosProperty?>> {
+abstract class CoreAdaptiveBuilder<W, M> extends CorePlatforms<W, M> {
   const CoreAdaptiveBuilder({super.windows, super.macos});
 }
 
-final class AdaptiveBuilder extends CoreAdaptiveBuilder {
+final class AdaptiveBuilder<W, M> extends CoreAdaptiveBuilder<W, M> {
   const AdaptiveBuilder({super.windows, super.macos});
 
-  AdaptiveBuilder.windows(
-    Builder<FluentThemeData, CoreWindowsProperty?> windows,
-  ) : super(windows: windows);
+  const AdaptiveBuilder.windows(W windows) : super(windows: windows);
 
-  AdaptiveBuilder.macos(
-    Builder<MacosThemeData, CoreMacosProperty?> macos,
-  ) : super(macos: macos);
+  const AdaptiveBuilder.macos(M macos) : super(macos: macos);
 }

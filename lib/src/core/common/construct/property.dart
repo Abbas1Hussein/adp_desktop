@@ -1,4 +1,3 @@
-//part 'properties.dart';
 
 abstract class CoreWindowsProperty {
   const CoreWindowsProperty();

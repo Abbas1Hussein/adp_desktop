@@ -5,9 +5,9 @@ import 'package:macos_ui/macos_ui.dart';
 void main() {
   DefaultsPlatformManager.initialize(
     DesktopTargetPlatform.windows,
-    targetWeb: DesktopTargetPlatform.macOS,
-    isDebugging: true,
+    isDebugging: true
   );
+
   runApp(const App());
 }
 
@@ -16,7 +16,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
@@ -60,15 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                AdaptiveTextButton(
-                  onPressed: () {},
-                  child: const Text('OK'),
-                ),
+                AdaptiveTextButton(onPressed: () {}, child: const Text('OK')),
                 const AdaptiveDivider(direction: Axis.vertical),
                 AdaptiveTextButton(
-                  onPressed: () {},
-                  child: const Text('Cancel'),
-                ),
+                    onPressed: () {}, child: const Text('Cancel')),
               ],
             ),
           ],

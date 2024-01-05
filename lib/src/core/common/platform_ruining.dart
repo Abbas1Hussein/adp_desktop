@@ -41,6 +41,9 @@ abstract final class PlatformRuining {
   static final isRealMacos =
       !kIsWeb && _defaultTargetPlatform == TargetPlatform.macOS;
 
+  /// Indicates whether the app is running on either Real or Debugging macOS.
+  static final isMacos = isRealMacos || isFakeMacos;
+
   /// Check if the app is running on Debugging Windows.
   ///
   /// Returns true if [DefaultsPlatformManager] is initialized with [DesktopTargetPlatform.windows] and isDebugging is 'true'.
@@ -72,6 +75,9 @@ abstract final class PlatformRuining {
   /// }
   static final isRealWindows =
       !kIsWeb && _defaultTargetPlatform == TargetPlatform.windows;
+
+  /// Indicates whether the app is running on either Real or Debugging Windows.
+  static final isWindows = isRealWindows || isFakeWindows;
 
   /// Retrieve the current platform from [DefaultsPlatformManager], or use the default if it's null.
   static final targetPlatform = _debugDesktopTargetPlatform ??

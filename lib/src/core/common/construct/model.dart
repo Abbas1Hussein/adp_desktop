@@ -5,8 +5,8 @@ abstract class CoreModel<W, M> {
 
   W toWindows(BuildContext context);
 
-  // fromWindows(W w) {}
-
   M toMacos(BuildContext context);
-// fromMacos(M m) {}
+
+// W fromWindows(W windows) => throw UnimplementedError;
+// M fromMacos(M macos) => throw UnimplementedError;
 }

@@ -17,8 +17,6 @@ final class Properties<W, M> extends CoreProperties<W, M> {
   Properties.macos(M macos) : super(macos: macos);
 }
 
-typedef PropertiesCallback<T> = T Function();
-
 final class PropertiesLogic<W, M> extends CoreProperties<W, M> {
   factory PropertiesLogic({
     PropertiesCallback<W>? windows,
@@ -49,3 +47,5 @@ final class PropertiesLogic<W, M> extends CoreProperties<W, M> {
     );
   }
 }
+
+typedef PropertiesCallback<T> = T Function();
