@@ -4,7 +4,12 @@ import 'package:macos_ui/macos_ui.dart' as macos_ui;
 import '../../../core/common/construct/component.dart';
 import 'progress_bar_macos.dart';
 
-/// A custom progress bar indicator widget that adapts its appearance based on the platform.
+/// A progress control provides feedback to the user that a long-running
+/// operation is underway. It can mean that the user cannot interact with the
+/// app when the progress indicator is visible, and can also indicate how long
+/// the wait time might be.
+///
+/// It can be determinate or indeterminate.
 ///
 /// Use this widget to create progress bar indicator with platform-specific
 /// styling and behavior:
@@ -24,6 +29,11 @@ class AdaptiveProgressBarIndicator extends CoreAdaptiveComponent {
   /// If [value] is non-null, it should be between 0 and 100, representing the progress percentage.
   /// If [value] is null, the progress bar will be considered indeterminate,
   /// indicating that the progress is ongoing without a specific completion percentage.
+  ///
+  /// See also:
+  ///
+  /// * [AdaptiveCircularProgressIndicator] that shows progress in a circular form,
+  /// either as a spinner or as a circle that fills in as progress continues.
   const AdaptiveProgressBarIndicator({
     super.key,
     super.builders,
@@ -59,8 +69,8 @@ class AdaptiveProgressBarIndicator extends CoreAdaptiveComponent {
     return ProgressBarMacos(
       height: height,
       value: clampedValue,
-      trackColor: activeTrackColor,
       semanticLabel: semanticLabel,
+      trackColor: activeTrackColor,
       backgroundColor: inactiveTrackColor,
     );
   }
@@ -68,10 +78,10 @@ class AdaptiveProgressBarIndicator extends CoreAdaptiveComponent {
   @override
   Widget windows(BuildContext context) {
     return ProgressBar(
-      value: clampedValue,
       strokeWidth: height,
-      activeColor: activeTrackColor,
+      value: clampedValue,
       semanticLabel: semanticLabel,
+      activeColor: activeTrackColor,
       backgroundColor: inactiveTrackColor,
     );
   }

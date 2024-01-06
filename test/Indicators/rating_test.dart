@@ -9,13 +9,14 @@ import '../wrap_app.dart';
 void main() {
   initializeDesktopDefaults();
 
-
   group('AdaptiveRatingIndicator widget tests', () {
     testWidgets('Widget renders correctly on both platform',
         (WidgetTester tester) async {
       const double rating = 3;
       await tester.pumpWidget(
-        wrapApp(child: const AdaptiveRatingIndicator(rating: rating)),
+        wrapApp(
+          child: const AdaptiveRatingIndicator(rating: rating, amount: 5),
+        ),
       );
 
       adaptiveValue(

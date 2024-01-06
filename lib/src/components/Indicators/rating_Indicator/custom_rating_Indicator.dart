@@ -3,25 +3,24 @@ import 'package:flutter/material.dart';
 class CustomRatingBarIndicator extends StatelessWidget {
   /// Creates a read only rating bar indicator.
   const CustomRatingBarIndicator({
+    this.onChanged,
+    this.spacing = 0,
+    this.iconSize = 16,
+    this.semanticLabel,
+    required this.amount,
+    required this.rating,
     required this.icon,
     required this.unratedColor,
-    this.onChanged,
-    this.rating = 0.0,
-    this.amount = 5,
-    this.iconSize = 16,
-    this.spacing = 0,
-    this.semanticLabel,
     super.key,
   });
 
   /// The icon used for rating.
   final Widget icon;
 
-  /// The color for unrated items.
-  final Color unratedColor;
-
   /// The number of items in the rating bar.
   final int amount;
+  /// The color for unrated items.
+  final Color unratedColor;
 
   /// The spacing between items.
   final double spacing;

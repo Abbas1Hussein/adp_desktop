@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-
 class ProgressBarMacos extends StatelessWidget {
   const ProgressBarMacos({
     super.key,
@@ -36,12 +35,14 @@ class ProgressBarMacos extends StatelessWidget {
     if (value != null) {
       return ProgressBar(
         value: value!,
+        height: height,
         backgroundColor: backgroundColor,
         semanticLabel: semanticLabel,
         trackColor: trackColor,
       );
     } else {
       return IndeterminateProgressBar(
+        height: height,
         backgroundColor: backgroundColor,
         semanticLabel: semanticLabel,
         trackColor: trackColor,
@@ -73,12 +74,13 @@ class IndeterminateProgressBar extends StatefulWidget {
   final String? semanticLabel;
 
   @override
-  _IndeterminateProgressBarState createState() {
-    return _IndeterminateProgressBarState();
+  IndeterminateProgressBarState createState() {
+    return IndeterminateProgressBarState();
   }
 }
 
-class _IndeterminateProgressBarState extends State<IndeterminateProgressBar> with SingleTickerProviderStateMixin {
+class IndeterminateProgressBarState extends State<IndeterminateProgressBar>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   static const int _kIndeterminateLinearDuration = 1300;

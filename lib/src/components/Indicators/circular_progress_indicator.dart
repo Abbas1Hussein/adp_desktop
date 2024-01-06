@@ -4,7 +4,12 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/core.dart';
 
-/// A custom circular progress indicator widget that adapts its appearance based on the platform.
+/// A progress control provides feedback to the user that a long-running
+/// operation is underway. It can mean that the user cannot interact with the
+/// app when the progress indicator is visible, and can also indicate how long
+/// the wait time might be.
+///
+/// It can be determinate or indeterminate.
 ///
 /// Use this widget to create circular progress indicator with platform-specific
 /// styling and behavior:
@@ -15,25 +20,23 @@ import '../../core/core.dart';
 class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
   /// Creates an AdaptiveCircularProgressIndicator.
   ///
-  /// * [semanticLabel] is used for accessibility by screen readers.
-  ///
-  /// * [inactiveColor] the inner color of the progress circle when [value] is null.
-  ///
-  /// * [activeColor] the border color of the progress circle.
-  ///
-  /// * [radius] specifies the radius of the progress circle. Defaults to 15 pixels.
+  /// [radius] must be non-negative
   ///
   /// If [value] is non-null, it should be between 0 and 100, representing the progress percentage.
   /// If [value] is null, the circular progress will be considered indeterminate,
   /// indicating that the progress is ongoing without a specific completion percentage.
+  ///
+  /// See also:
+  ///
+  ///   * [AdaptiveProgressBarIndicator], a progress widget that shows progress in a horizontal bar.
   const AdaptiveCircularProgressIndicator({
     super.key,
     super.builders,
-    this.inactiveColor,
-    this.semanticLabel,
+    this.value,
     this.radius = 15,
     this.activeColor,
-    this.value,
+    this.inactiveColor,
+    this.semanticLabel,
   });
 
   /// The progress value, ranging from 0 to 100.
@@ -49,7 +52,7 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
 
   /// The inner color of the progress circle.
   ///
-  /// If [value] is null, it will be ignored.
+  /// on macos: If [value] is null, it will be ignored.
   final Color? inactiveColor;
 
   /// The semantic label used by screen readers.
@@ -61,21 +64,12 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
   @override
   Widget macos(BuildContext context) {
     if (value != null) {
-      return Container(
-        decoration: PlatformRuining.isFakeMacos && activeColor != null
-            ? BoxDecoration(
-                color: activeColor,
-                backgroundBlendMode: BlendMode.color,
-                shape: BoxShape.circle,
-              )
-            : null,
-        child: ProgressCircle(
-          radius: radius,
-          value: progressValue,
-          borderColor: activeColor,
-          innerColor: inactiveColor,
-          semanticLabel: semanticLabel,
-        ),
+      return ProgressCircle(
+        radius: radius,
+        value: progressValue,
+        innerColor: activeColor,
+        borderColor: inactiveColor,
+        semanticLabel: semanticLabel,
       );
     }
     return Semantics(
@@ -93,7 +87,7 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
         value: progressValue,
         activeColor: activeColor,
         semanticLabel: semanticLabel,
-        backgroundColor: value != null ? inactiveColor : null,
+        backgroundColor: inactiveColor,
       ),
     );
   }

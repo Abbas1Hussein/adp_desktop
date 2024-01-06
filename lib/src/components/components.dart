@@ -4,6 +4,7 @@ export 'buttons/buttons.dart';
 export 'fields/fields.dart';
 export 'icon/icon.dart';
 export 'icon/icons.dart';
+export 'icon/icon_theme.dart';
 export 'layout/layout.dart';
 export 'navigation/navigation.dart';
 export 'pickers/pickers.dart';

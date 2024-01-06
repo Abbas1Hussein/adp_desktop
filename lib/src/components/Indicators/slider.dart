@@ -6,13 +6,23 @@ import '../../core/core.dart';
 
 enum DivisionsDirection {
   /// Divisions will be displayed above the slider.
+  ///
+  /// if is vertical [top] will be left.
   top,
 
   /// Divisions will be displayed below the slider.
+  ///
+  /// if is vertical [bottom] will be right.
   bottom,
 }
 
-/// A custom slider widget that adapts its appearance based on the platform.
+/// A slider is a control that lets the user select from a range of values by
+/// moving a thumb control along a track.
+///
+/// A slider is a good choice when you know that users think of the value as a
+/// relative quantity, not a numeric value. For example, users think about
+/// setting their audio volume to low or medium — not about setting the value to
+/// 2 or 5.
 ///
 /// Use this widget to create sliders with platform-specific
 /// styling and behavior:
@@ -37,11 +47,12 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
   ///   },
   /// )
   /// ```
+  /// See also:
+  ///
+  ///   * [AdaptiveRatingIndicator], that allows users to view and set ratings.
   const AdaptiveSlider({
     super.key,
     super.builders,
-    this.min = 0.0,
-    this.max = 100.0,
     this.thumbColor,
     this.activeColor,
     this.inactiveColor,
@@ -50,6 +61,8 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
     this.divisionsDirection = DivisionsDirection.bottom,
     this.mouseCursor = SystemMouseCursors.grabbing,
     this.vertical = false,
+    this.min = 0.0,
+    this.max = 100.0,
     this.size = double.infinity,
     required this.value,
     required this.onChanged,
@@ -63,7 +76,9 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
           'Value $value is not between minimum $min and maximum $max',
         );
 
-  /// The current value of the slider.
+  /// The value of this slider.
+  ///
+  /// This value must be between [min] and [max], inclusive.
   final double value;
 
   /// A callback function that is called when the slider value changes.
@@ -71,10 +86,18 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
   /// If null, the slider will be displayed as disabled.
   final ValueChanged<double>? onChanged;
 
-  /// The minimum value of the slider.
+  /// The maximum value the user can select.
+  ///
+  /// Defaults to 0.0. Must be greater than or equal to [min].
+  ///
+  /// If the [max] is equal to the [min], then the slider is disabled.
   final double min;
 
-  /// The maximum value of the slider.
+  /// The minimum value the user can select.
+  ///
+  /// Defaults to 100.0. Must be less than or equal to [max].
+  ///
+  /// If the [max] is equal to the [min], then the slider is disabled.
   final double max;
 
   /// The maximum width of the slider.
@@ -126,6 +149,8 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
   /// by Defaults [SystemMouseCursors.grabbing].
   final MouseCursor mouseCursor;
 
+  bool get enabled => onChanged != null;
+
   @override
   Widget macos(BuildContext context) {
     return MouseRegion(
@@ -133,21 +158,19 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
       child: MacosSlider(
         max: max,
         min: min,
-        value: onChanged != null ? value : 0,
+        value: enabled ? value : 0,
         splits: divisions ?? 15,
         discrete: divisions != null,
-        onChanged: (value) {
-          if (onChanged != null) onChanged!(value);
-        },
+        onChanged: (value) => onChanged?.call(value),
         color: activeColor ?? CupertinoColors.systemBlue,
-        backgroundColor: onChanged != null
+        backgroundColor: enabled
             ? inactiveColor ?? MacosColors.sliderBackgroundColor
             : CupertinoColors.quaternarySystemFill,
-        tickBackgroundColor: onChanged != null
+        tickBackgroundColor: enabled
             ? inactiveColor ?? MacosColors.tickBackgroundColor
             : CupertinoColors.quaternarySystemFill,
         semanticLabel: value.toStringAsFixed(0),
-        thumbColor: thumbColor ?? MacosColors.sliderThumbColor,
+        thumbColor: thumbColor ?? activeColor ?? MacosColors.sliderThumbColor,
       ),
     );
   }
@@ -157,14 +180,13 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
     return Slider(
       min: min,
       max: max,
-      value: onChanged != null ? value : 0,
       onChanged: onChanged,
       divisions: divisions,
+      value: enabled ? value : 0,
       style: SliderThemeData(
         useThumbBall: divisions == null,
         thumbColor: thumbColor != null ? ButtonState.all(thumbColor) : null,
-        activeColor:
-            activeColor != null ? ButtonState.all(activeColor) : null,
+        activeColor: activeColor != null ? ButtonState.all(activeColor) : null,
         inactiveColor:
             inactiveColor != null ? ButtonState.all(inactiveColor) : null,
         margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -198,6 +220,7 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
       macos: () => _buildMacosDivisions(),
       windows: () => _buildWindowsDivisions(),
     );
+
     return Column(
       children: [
         if (divisionsDirection == DivisionsDirection.top) adpDivisions,

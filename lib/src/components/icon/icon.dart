@@ -2,7 +2,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
-import '../../core/common/construct/model.dart';
 import 'icons.dart';
 
 class AdaptiveIcon extends CoreAdaptiveComponent {
@@ -45,17 +44,7 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
 
   /// The color to use when drawing the icon.
   ///
-  /// Defaults to the current [MacosIconTheme] color, if any.
-  ///
-  /// The color (whether specified explicitly here or obtained from the
-  /// [MacosIconTheme]) will be further adjusted by the opacity of the current
-  /// [MacosIconTheme], if any.
-  ///
-  /// If no [MacosIconTheme] and no [MacosTheme] is specified, icons will
-  /// default to the color value of [CupertinoColors.activeBlue.color].
-  ///
-  /// See [MacosTheme] to set the current theme and [MacosThemeData.brightness]
-  /// for setting the current theme's brightness.
+  /// Defaults to the current [AdaptiveIconTheme] color, if any.
   final Color? color;
 
   /// The icon to display, used for different platforms.
@@ -108,19 +97,3 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   }
 }
 
-// class AdaptiveIconTheme extends CoreModel<IconThemeData, MacosIconTheme> {
-//   final Color color;
-//   final double size;
-//
-//   @override
-//   MacosIconTheme toMacos(BuildContext context) {
-//     return MacosIconTheme.of(context).copyWith(
-//
-//     );
-//   }
-//
-//   @override
-//   IconThemeData toWindows(BuildContext context) {
-//    return IconThemeData
-//   }
-// }

@@ -4,12 +4,6 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../core/common/adaptive.dart';
 
 class AdaptiveTypography {
-  final TextStyle? body;
-  final TextStyle? label;
-  final TextStyle? caption;
-  final TextStyle? headline;
-  final TextStyle? subheading;
-
   const AdaptiveTypography({
     this.body,
     this.label,
@@ -17,6 +11,12 @@ class AdaptiveTypography {
     this.headline,
     this.subheading,
   });
+
+  final TextStyle? body;
+  final TextStyle? label;
+  final TextStyle? caption;
+  final TextStyle? headline;
+  final TextStyle? subheading;
 
   static AdaptiveTypography of(BuildContext context) => _data(context);
 

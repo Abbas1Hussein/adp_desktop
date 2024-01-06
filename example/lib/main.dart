@@ -42,38 +42,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentValue = 0;
+  double currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
       appBar: AdaptiveAppBar(title: const Text('Abbas Hussein')),
-      endDrawer: const AdaptiveDrawer(),
       drawer: const AdaptiveDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          AdaptivePulldownMenuButton(items: [], title: 'title'),
-          Center(
-            child: AdaptivePopupMenuButton(
-              placeholder: const Text('placeholder'),
-              disabledPlaceholder: const Text('disabledPlaceholder'),
-              onChanged: (value) {},
-              items: const [
-                AdaptivePopupMenuItem(
-                  value: 0,
-                  child: Text('${1}'),
-                ),
-                AdaptivePopupMenuItem(
-                  value: 1,
-                  child: Text('${2}'),
-                ),
-              ],
-              value: 0,
-            ),
-          ),
-        ],
-      ),
+      endDrawer: const AdaptiveDrawer(),
     );
   }
 }

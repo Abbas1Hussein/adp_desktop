@@ -56,7 +56,7 @@ Color handelBackgroundColor(Color? color, BuildContext context) {
   return adaptiveValue<Color>(
     macos: () {
       if (color != null) {
-        return CupertinoDynamicColor.resolve(color, context);
+        return MacosDynamicColor.resolve(color, context);
       } else {
         return MacosTheme.brightnessOf(context).resolve(
           CupertinoColors.white,
