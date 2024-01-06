@@ -1,11 +1,78 @@
+import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../additional/color.dart';
-import '../../additional/typography.dart';
-import '../layout.dart';
 
+/// The Scaffold is designed to be a top level container for
+/// a [AdpApp]. This means that adding a Scaffold
+/// to each route on a adp app will provide the app with
+/// platform's basic visual layout structure.
+///
+/// It is typically not necessary to nest Scaffolds. For example, in a
+/// tabbed UI, where the [bottomNavigationBar] is a [TabBar]
+/// and the body is a [TabBarView], you might be tempted to make each tab bar
+/// view a scaffold with a differently titled AppBar. Rather, it would be
+/// better to add a listener to the [TabController] that updates the
+/// AppBar
+///
+/// {@tool snippet}
+/// Add a listener to the app's tab controller so that the [AdaptiveAppBar] title of the
+/// app's one and only adp scaffold is reset each time a new tab is selected.
+///
+/// ```dart
+/// TabController(vsync: tickerProvider, length: tabCount)..addListener(() {
+///   if (!tabController.indexIsChanging) {
+///     setState(() {
+///       // Rebuild the enclosing scaffold with a new AppBar title
+///       appBarTitle = 'Tab ${tabController.index}';
+///     });
+///   }
+/// })
+/// ```
+/// {@end-tool}
+///
+/// Although there are some use cases, like a presentation app that
+/// shows embedded flutter content, where nested scaffolds are
+/// appropriate, it's best to avoid nesting scaffolds.
+///
+/// See also:
+///
+///  * [AdaptiveAppBar], which is a horizontal bar typically shown at the top of an app
+///    using the [appBar] property.
+///  * [BottomAppBar], which is a horizontal bar typically shown at the bottom
+///    of an app using the [bottomNavigationBar] property.
+///  * [FloatingActionButton], which is a circular button typically shown in the
+///    bottom right corner of the app using the [floatingActionButton] property.
+///  * [AdaptiveDrawer], which is a vertical panel that is typically displayed to the
+///    left of the body (and often hidden on phones) using the [drawer]
+///    property.
+///  * [BottomNavigationBar], which is a horizontal array of buttons typically
+///    shown along the bottom of the app using the [bottomNavigationBar]
+///    property.
+///  * [SnackBar], which is a lightweight message with an optional action which
+///    briefly displays at the bottom of the screen. Use the
+///    [ScaffoldMessengerState.showSnackBar] method to show snack bars.
+///  * [MaterialBanner], which displays an important, succinct message, at the
+///    top of the screen, below the app bar. Use the
+///    [ScaffoldMessengerState.showMaterialBanner] method to show material banners.
+///  * [ScaffoldState], which is the state associated with this widget.
+///  * <https://material.io/design/layout/responsive-layout-grid.html>
 class AdaptiveScaffold extends StatelessWidget {
+  /// Creates an adaptive scaffold.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// const AdaptiveScaffold(
+  ///   appBar: AdaptiveAppBar(
+  ///     title: Text('Adaptive App'),
+  ///     leading: AdaptiveIcon(AdpIcons.home),
+  ///   ),
+  ///   drawer: const AdaptiveDrawer(),
+  ///   endDrawer: const AdaptiveDrawer(),
+  ///   content: Center(child: AdaptiveDatePicker()),
+  /// );
+  /// ```
   const AdaptiveScaffold({
     super.key,
     this.appBar,

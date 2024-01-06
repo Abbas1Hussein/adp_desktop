@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:flutter/cupertino.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 
 import '../base_text_field.dart';
 import 'platforms/platforms.dart';

@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/core.dart';
@@ -7,7 +6,15 @@ import '../appbar/appbar_page.dart';
 
 const _contentPadding = EdgeInsets.all(4.0);
 
-/// A custom scaffold page that adapts its appearance based on the platform.
+/// The Scaffold Page is designed to be a top level container for
+/// a [AdpApp]. This means that adding a Scaffold Page
+/// to each route on a adp app will provide the app with
+/// platform's basic visual layout structure.
+///
+/// See also:
+///
+///  * [AdaptiveScaffold] a more generic scaffold widget for consistent adaptive styling.
+///  * [AdaptiveAppBar], which is a horizontal bar typically shown at the top of an app.
 ///
 /// Use this widget to create a scaffold page with platform-specific
 /// styling and behavior:
@@ -23,12 +30,13 @@ class AdaptiveScaffoldPage extends CoreAdaptiveComponent {
   ///     title: Text('Adaptive App'),
   ///     leading: AdaptiveIcon(AdpIcons.home),
   ///   ),
-  ///   content: Center(child: AdaptiveDatePicker()),
+  ///   drawer: const AdaptiveDrawer(),
   /// );
   /// ```
-  ///
   /// See also:
-  ///  * [AdaptiveScaffold], a more generic scaffold widget for consistent adaptive styling.
+  ///
+  ///  * [AdaptiveAppBarPage], which is a horizontal bar typically shown at the top of an app,
+  ///  using the [appBar] property.
   const AdaptiveScaffoldPage({
     super.key,
     super.builders,
@@ -80,12 +88,8 @@ class AdaptiveScaffoldPage extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context) {
-    final defaultBackgroundColor = CupertinoDynamicColor.resolve(
-      backgroundColor ??
-          MacosTheme.brightnessOf(context).resolve(
-            CupertinoColors.white,
-            CupertinoColors.darkBackgroundGray,
-          ),
+    final defaultBackgroundColor = MacosDynamicColor.resolve(
+      backgroundColor ?? MacosTheme.of(context).canvasColor,
       context,
     );
 

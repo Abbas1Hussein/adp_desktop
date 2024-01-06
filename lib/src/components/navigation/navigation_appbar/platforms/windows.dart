@@ -1,8 +1,10 @@
+import 'package:adp_desktop/src/components/buttons/back_button.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart';
 
 import '../../../layout/appbar_action/appbar_action.dart';
 import '../../../layout/appbar_action/extension.dart';
+
+const double _kDefaultAppBarHeight = 44.0;
 
 class NABWindows {
   const NABWindows({
@@ -13,13 +15,13 @@ class NABWindows {
     this.actionsIconTheme,
     this.foregroundColor,
     this.backgroundColor,
-    this.centerTitle,
     this.toolbarHeight,
     this.automaticallyImplyLeading = false,
     this.toolbarOpacity = 1.0,
     this.leadingWidth,
     this.titleTextStyle,
     this.titleWidth,
+    required this.centerTitle,
     required this.insets,
     required this.context,
   });
@@ -27,7 +29,7 @@ class NABWindows {
   final Widget? title;
   final Widget? leading;
   final EdgeInsets insets;
-  final bool? centerTitle;
+  final bool centerTitle;
   final double? titleWidth;
   final double toolbarOpacity;
   final double? leadingWidth;
@@ -37,31 +39,32 @@ class NABWindows {
   final TextStyle? titleTextStyle;
   final bool automaticallyImplyLeading;
   final List<AdaptiveAppBarActionEntry>? actions;
-
   final Color? foregroundColor;
   final TextStyle? toolbarTextStyle;
   final IconThemeData? actionsIconTheme;
+
+  bool get canPop {
+    return leading == null &&
+        automaticallyImplyLeading &&
+        ModalRoute.of(context)?.canPop == true;
+  }
 
   NavigationAppBar call() {
     final theme = FluentTheme.of(context);
 
     return NavigationAppBar(
       title: _buildLeadingWithTitle(theme),
-      automaticallyImplyLeading: automaticallyImplyLeading,
+      leading: canPop ? const AdaptiveBackButton().windows(context) : null,
+      automaticallyImplyLeading: false,
       backgroundColor:
-          (backgroundColor ?? theme.navigationPaneTheme.overlayBackgroundColor)
-              ?.withOpacity(toolbarOpacity),
-      actions: _buildActions(context, theme, actions),
-      height: toolbarHeight ?? (kToolbarHeight - 11),
+          (backgroundColor ?? theme.navigationPaneTheme.overlayBackgroundColor)?.withOpacity(toolbarOpacity),
+      actions: _buildActions(context, theme),
+      height: toolbarHeight ?? (_kDefaultAppBarHeight),
     );
   }
 
-  Widget? _buildActions(
-    BuildContext context,
-    FluentThemeData theme,
-    List<AdaptiveAppBarActionEntry>? actionEntry,
-  ) {
-    if (actionEntry == null) return null;
+  Widget? _buildActions(BuildContext context, FluentThemeData theme) {
+    if (actions == null) return null;
 
     return Padding(
       padding: insets,
@@ -75,7 +78,7 @@ class NABWindows {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Spacer(),
-              ...actionEntry.map(
+              ...actions!.map(
                 (e) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1.0),
@@ -90,29 +93,29 @@ class NABWindows {
     );
   }
 
-  Widget _buildLeadingWithTitle(FluentThemeData fluentTheme) {
-    final leadingWidget = leading != null
-        ? DefaultTextStyle(
-            style: toolbarTextStyle ?? fluentTheme.typography.caption!,
-            child: SizedBox(width: leadingWidth, child: leading),
-          )
-        : null;
-
+  Widget _buildLeadingWithTitle(FluentThemeData theme) {
     return Row(
       children: [
-        if (leading != null) leadingWidget!,
-        if (leading != null) const SizedBox(width: 8),
-        if (centerTitle == true) const Spacer(),
-        if (title != null)
+        if (leading != null)
           DefaultTextStyle(
-            style: titleTextStyle ??
-                fluentTheme.typography.bodyLarge!
-                    .copyWith(fontWeight: FontWeight.bold),
-            child: SizedBox(
-                width: titleWidth,
-                child: centerTitle == true ? Center(child: title) : title),
+            style: toolbarTextStyle ?? theme.typography.caption!,
+            child: SizedBox(width: leadingWidth, child: leading),
           ),
-        if (centerTitle == true) const Spacer(),
+        if (leading != null) const SizedBox(width: 8.0),
+        if (centerTitle) const Spacer(),
+        if (title != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: DefaultTextStyle(
+              style: titleTextStyle ??
+                  theme.typography.bodyStrong!
+                      .copyWith(fontWeight: FontWeight.bold),
+              child: SizedBox(
+                  width: titleWidth,
+                  child: centerTitle == true ? Center(child: title) : title),
+            ),
+          ),
+        if (centerTitle) const Spacer(),
       ],
     );
   }

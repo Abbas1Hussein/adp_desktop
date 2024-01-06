@@ -9,17 +9,21 @@ import 'platforms/platforms.dart';
 /// placed inside this padding.
 const _kPaddingInsets = EdgeInsets.symmetric(horizontal: 8, vertical: 4.0);
 
-/// A custom navigation appBar that adapts its appearance based on the platform.
+/// The bar displayed at the top of the app.
 ///
-/// Use this component within [AdaptiveNavigationView] to create navigation appBar with platform-specific
+/// See also:
+///
+///   * [AdaptiveNavigationView], which uses this to render the app bar.
+///
+/// Use this component to create navigation appBar with platform-specific
 /// styling and behavior:
 /// - On macOS, [ToolBar] is utilized.
 /// - On Windows, [NavigationAppBar] is used.
 class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   const AdaptiveNavigationAppBar({
-    this.leading,
     this.title,
     this.actions,
+    this.leading,
     this.toolbarTextStyle,
     this.foregroundColor,
     this.backgroundColor,
@@ -28,19 +32,44 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
     this.toolbarHeight,
     this.titleTextStyle,
     this.titleWidth,
-    this.centerTitle = false,
+    this.centerTitle = true,
     this.toolbarOpacity = 1.0,
     this.padding = _kPaddingInsets,
-    this.automaticallyImplyLeading = false,
+    this.automaticallyImplyLeading = true,
   });
 
-  /// The title widget to display in the app bar.
+  /// The [title] of the adp navigation appBar .
+  ///
+  /// Typically a [Text] widget that contains the app name.
   final Widget? title;
 
-  /// The leading widget to display in the app bar.
+  /// Specifies the width of the title of the [AdaptiveNavigationAppBar].
+  final double? titleWidth;
+
+  /// The widget at the beginning of the app bar, before [title].
+  ///
+  /// Typically the [leading] widget is an [AdaptiveIcon] or an [AdaptiveIconButton].
+  ///
+  /// If this is null and [automaticallyImplyLeading] is set to true, the
+  /// view will imply an appropriate widget. If the parent [Navigator] can
+  /// go back, the app bar will use an [AdaptiveIconButton] that calls [Navigator.maybePop].
+  ///
+  /// See also:
+  ///
+  ///   * [automaticallyImplyLeading], that controls whether we should try to
+  /// imply the leading widget, if [leading] is null
   final Widget? leading;
 
-  /// Whether to automatically imply leading widget.
+  /// Specifies the width of the leading of the [AdaptiveNavigationAppBar].
+  final double? leadingWidth;
+
+  /// Controls whether the [AdaptiveNavigationAppBar] should try to imply if the [leading] widget
+  /// is null.
+  ///
+  /// If `true` and [leading] are null, the adp navigation appBar will automatically try to
+  /// deduce what the leading widget should be. If `false` and [leading] is
+  /// null, leading space is given to [title]. If the [leading] widget is not
+  /// null, this parameter has no effect.
   final bool automaticallyImplyLeading;
 
   /// The icon theme for actions in the app bar.
@@ -48,30 +77,19 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
 
   /// The list of actions to display in the app bar.
   ///
-  /// Supported actions include:
-  ///
   /// - [AdaptiveAppBarDivider]
   /// - [AdaptiveAppBarButton]
   /// - [AdaptiveAppBarPulldownButton]
   /// - [AdaptiveAppBarCustomItem]
   final List<AdaptiveAppBarActionEntry>? actions;
 
-  /// The background color of the app bar.
-  final Color? backgroundColor;
-
-  /// Whether to center the title in the app bar.
-  final bool? centerTitle;
+  /// Whether the [title] should be centered.
+  final bool centerTitle;
 
   /// The opacity of the app bar.
   final double toolbarOpacity;
 
-  /// The width of the leading widget.
-  final double? leadingWidth;
-
-  /// The width of the title.
-  final double? titleWidth;
-
-  /// The height of the toolbar.
+  /// Specifies the height of this [AdaptiveNavigationAppBar].
   final double? toolbarHeight;
 
   /// The text style for the title.
@@ -83,6 +101,9 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   /// The foreground color of the app bar.
   final Color? foregroundColor;
 
+  /// The background color of the app bar.
+  final Color? backgroundColor;
+
   /// space to inscribe inside the nav app bar. The [title], if any, is
   /// placed inside this padding.
   final EdgeInsets padding;
@@ -91,7 +112,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   ToolBar toMacos(BuildContext context) {
     return NABMacos(
       title: title,
-      insets: padding,
+      padding: padding,
       leading: leading,
       actions: actions,
       titleWidth: titleWidth,

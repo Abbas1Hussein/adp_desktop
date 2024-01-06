@@ -369,12 +369,8 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
   Widget macos(BuildContext context) {
     final theme = MacosTheme.of(context);
 
-    final defaultBackgroundColor = backgroundColor != null
-        ? MacosDynamicColor.resolve(backgroundColor!, context)
-        : MacosTheme.brightnessOf(context).resolve(
-            CupertinoColors.white,
-            CupertinoColors.darkBackgroundGray,
-          );
+    final defaultBackgroundColor = MacosDynamicColor.resolve(
+        backgroundColor ?? theme.canvasColor, context);
 
     final defaultIconTheme = IconThemeData(
       size: iconTheme?.size ?? (theme.iconTheme.size),
@@ -451,7 +447,6 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
 
     return AppBar(
       key: key,
-      shape: shape ?? Border(bottom: BorderSide(color: theme.dividerColor)),
       bottom: bottom,
       primary: primary,
       elevation: elevation,
@@ -477,6 +472,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
       leading: handelLeading,
       iconTheme: defaultIconTheme,
       actionsIconTheme: defaultIconTheme,
+      shape: shape ?? Border(bottom: BorderSide(color: theme.dividerColor)),
       actions: actions ?? [if (hasEndDrawer(context)) handelEndDrawer!],
     );
   }

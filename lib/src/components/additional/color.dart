@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/adaptive.dart';
@@ -54,19 +53,9 @@ abstract final class AdpColors {
 
 Color handelBackgroundColor(Color? color, BuildContext context) {
   return adaptiveValue<Color>(
-    macos: () {
-      if (color != null) {
-        return MacosDynamicColor.resolve(color, context);
-      } else {
-        return MacosTheme.brightnessOf(context).resolve(
-          CupertinoColors.white,
-          CupertinoColors.darkBackgroundGray,
-        );
-      }
-    },
-    windows: () {
-      return color ??
-          FluentTheme.of(context).resources.solidBackgroundFillColorBase;
-    },
+    macos: () => MacosDynamicColor.resolve(
+        color ?? MacosTheme.of(context).canvasColor, context),
+    windows: () =>
+        color ?? FluentTheme.of(context).resources.solidBackgroundFillColorBase,
   );
 }

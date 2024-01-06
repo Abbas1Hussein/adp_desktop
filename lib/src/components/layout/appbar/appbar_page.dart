@@ -50,11 +50,11 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
   const AdaptiveAppBarPage({
     super.key,
     this.title,
-    this.leading,
-    this.backgroundColor,
     this.actions,
+    this.leading,
     this.dividerColor,
     this.borderRadius,
+    this.backgroundColor,
     this.automaticallyImplyLeading = true,
     this.height = kAppBarPageHeight,
   }) : platformActions = null;
@@ -108,18 +108,23 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
     super.key,
     this.title,
     this.leading,
-    this.backgroundColor,
     this.dividerColor,
     this.borderRadius,
+    this.backgroundColor,
     this.platformActions,
     this.automaticallyImplyLeading = true,
     this.height = kAppBarPageHeight,
   }) : actions = null;
 
-  /// The height of the app bar.
+  /// Specifies the height of this [AdaptiveAppBarPage].
+  ///
+  /// on Windows: Defaults to [kAppBarPageHeight] which is 48.0.
+  /// on macOS: Defaults to [kAppBarPageHeight] + 8 which is 56.0.
   final double height;
 
-  /// The title of the app bar.
+  /// The [title] of the adaptive appBar page.
+  ///
+  /// Typically, a [Text] widget.
   final Widget? title;
 
   /// The widget displayed before the title.
@@ -184,7 +189,9 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: [
-                if (leading == null && automaticallyImplyLeading && (Navigator.canPop(context)))
+                if (leading == null &&
+                    automaticallyImplyLeading &&
+                    (Navigator.canPop(context)))
                   Center(child: const AdaptiveBackButton().windows(context)),
                 if (leading != null)
                   IconTheme.merge(
@@ -224,36 +231,24 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context) {
-    const lightBackgroundColor = CupertinoColors.white;
-    const darkBackgroundColor = CupertinoColors.darkBackgroundGray;
+    final theme = MacosTheme.of(context);
 
     final defaultBackgroundColor = CupertinoDynamicColor.resolve(
-      backgroundColor ??
-          MacosTheme.brightnessOf(context).resolve(
-            lightBackgroundColor,
-            darkBackgroundColor,
-          ),
+      backgroundColor ?? theme.canvasColor,
       context,
     );
 
-    final styledTitle = (backgroundColor != null && title != null)
+    final styledTitle = title != null
         ? DefaultTextStyle(
-            style: MacosTheme.of(context).typography.title3.copyWith(
-                  fontSize: 15,
-                  color: const CupertinoDynamicColor.withBrightness(
-                    color: lightBackgroundColor,
-                    darkColor: darkBackgroundColor,
-                  ),
-                  fontWeight: MacosFontWeight.w590,
-                ),
+            style: theme.typography.title3.copyWith(fontWeight: MacosFontWeight.w590),
             child: title!,
           )
-        : title;
+        : null;
 
     return ToolBar(
-      title: styledTitle,
       leading: leading,
       height: height + 8,
+      title: styledTitle,
       automaticallyImplyLeading: automaticallyImplyLeading,
       decoration: BoxDecoration(
         color: defaultBackgroundColor,

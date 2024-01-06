@@ -4,7 +4,8 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
+    targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
 
@@ -42,14 +43,41 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double currentValue = 0;
+  int currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveScaffold(
-      appBar: AdaptiveAppBar(title: const Text('Abbas Hussein')),
-      drawer: const AdaptiveDrawer(),
-      endDrawer: const AdaptiveDrawer(),
+    return AdaptiveNavigationView(
+      navigationAppBar: const AdaptiveNavigationAppBar(
+        title: Text('Adaptive app'),
+        leading: AdaptiveIcon(AdpIcons.home),
+        automaticallyImplyLeading: true,
+      ),
+      currentIndex: currentValue,
+      onChanged: (value) {
+        setState(() {
+          currentValue = value;
+        });
+      },
+      items: [
+        const AdaptiveNavigationViewItem(
+          label: Text('label'),
+          icon: AdaptiveIcon(AdpIcons.add),
+        ),
+        const AdaptiveNavigationViewItem(
+          label: Text('label - 2'),
+          icon: AdaptiveIcon(AdpIcons.homeFilled),
+        ),
+        const AdaptiveNavigationViewItem(
+          label: Text('label - 3'),
+          icon: AdaptiveIcon(AdpIcons.heartBroken),
+        ),
+      ],
+      children: [
+        const SizedBox(),
+        const SizedBox(),
+        const SizedBox(),
+      ],
     );
   }
 }

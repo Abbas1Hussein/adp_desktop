@@ -1,8 +1,40 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../additional/color.dart';
 
+/// Drawers are typically used with the [Scaffold.drawer] property. The child of
+/// the drawer is usually a [ListView] whose first child is a [DrawerHeader]
+/// that displays status information about the current user. The remaining
+/// drawer children are often constructed with [AdaptiveListTile]s, often concluding
+/// with an [AboutListTile].
+///
+/// The [AdaptiveAppBar] automatically displays an appropriate [AdaptiveIconButton] to show the
+/// [AdaptiveDrawer] when a [AdaptiveDrawer] is available in the [AdaptiveScaffold]. The [AdaptiveScaffold]
+/// automatically handles the edge-swipe gesture to show the drawer.
+///
+/// An open drawer may be closed with a swipe to close gesture, pressing the
+/// escape key, by tapping the scrim, or by calling pop route function such as
+/// [Navigator.pop]. For example a drawer item might close the drawer when tapped:
+///
+/// ```dart
+/// AdaptiveListTile(
+///   leading: const AdaptiveIcon(AdpIcons.archive),
+///   title: const Text('Change history'),
+///   onTap: () {
+///     // change app state...
+///     Navigator.pop(context); // close the drawer
+///   },
+/// );
+/// ```
+///
+/// See also:
+///
+///  * [Scaffold.drawer], where one specifies a [Drawer] so that it can be
+///    shown.
+///  * [Scaffold.of], to obtain the current [ScaffoldState], which manages the
+///    display and animation of the drawer.
+///  * [ScaffoldState.openDrawer], which displays its [Drawer], if any.
+///  * <https://material.io/design/components/navigation-drawer.html>
 class AdaptiveDrawer extends StatelessWidget {
   /// Creates a ADP Design drawer.
   ///
@@ -22,6 +54,10 @@ class AdaptiveDrawer extends StatelessWidget {
     this.shadowColor = const Color(0xFF000000),
   }) : assert(elevation >= 0.0);
 
+  /// Sets the color that holds all of the [AdaptiveDrawer]'s
+  /// contents.
+  ///
+  /// If this is null, then [handelBackgroundColor] is used.
   final Color? backgroundColor;
 
   /// The z-coordinate at which to place this drawer relative to its parent.
@@ -38,9 +74,6 @@ class AdaptiveDrawer extends StatelessWidget {
   ///   * [elevation], which affects how the drop shadow is painted.
   final Color shadowColor;
 
-  /// The target border radius of the rounded corners for a rectangle shape.
-  final BorderRadius? borderRadius;
-
   /// The shape of the drawer.
   final BoxShape? shape;
 
@@ -51,6 +84,9 @@ class AdaptiveDrawer extends StatelessWidget {
 
   /// The widget below this widget in the tree.
   final Widget? child;
+
+  /// The target border radius of the rounded corners for a rectangle shape.
+  final BorderRadius? borderRadius;
 
   /// The semantic label of the drawer used by accessibility frameworks to
   /// announce screen transitions when the drawer is opened and closed.

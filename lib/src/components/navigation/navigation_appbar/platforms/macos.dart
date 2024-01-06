@@ -1,3 +1,4 @@
+import 'package:adp_desktop/src/components/buttons/back_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
@@ -19,7 +20,6 @@ class NABMacos extends StatelessWidget {
     this.leading,
     this.title,
     this.actions,
-    this.centerTitle,
     this.backgroundColor,
     this.foregroundColor,
     this.actionsIconTheme,
@@ -30,24 +30,31 @@ class NABMacos extends StatelessWidget {
     this.toolbarTextStyle,
     this.titleTextStyle,
     this.titleWidth,
-    required this.insets,
+    required this.padding,
+    required this.centerTitle,
   });
 
   final Widget? leading;
   final Widget? title;
-  final EdgeInsets insets;
+  final EdgeInsets padding;
   final List<AdaptiveAppBarActionEntry>? actions;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final bool automaticallyImplyLeading;
   final IconThemeData? actionsIconTheme;
-  final bool? centerTitle;
+  final bool centerTitle;
   final double toolbarOpacity;
   final double? leadingWidth;
   final TextStyle? toolbarTextStyle;
   final TextStyle? titleTextStyle;
   final double? titleWidth;
   final double? toolbarHeight;
+
+  bool canPop(BuildContext context) {
+    return leading == null &&
+        automaticallyImplyLeading &&
+        ModalRoute.of(context)?.canPop == true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,29 +64,33 @@ class NABMacos extends StatelessWidget {
         ? DefaultTextStyle(
             maxLines: 1,
             style: titleTextStyle ??
-                CupertinoTheme.of(context).textTheme.navTitleTextStyle,
+                typography.title3.copyWith(fontWeight: MacosFontWeight.w510),
             child: title!,
           )
         : null;
     final leadingWidget = leading != null
         ? DefaultTextStyle(
-            style: toolbarTextStyle ?? MacosTheme.of(context).typography.body,
-            child: IconTheme(
-              data: actionsIconTheme ??
-                  IconTheme.of(context).copyWith(
-                    color: foregroundColor ??
-                        MacosTheme.of(context).typography.body.color,
-                  ),
-              child: leading!,
+            style: toolbarTextStyle ?? typography.body,
+            child: MacosIconTheme(
+              data: MacosIconTheme.of(context).copyWith(
+                color: foregroundColor,
+              ),
+              child: IconTheme(
+                data: actionsIconTheme ??
+                    IconTheme.of(context).copyWith(color: foregroundColor),
+                child: leading!,
+              ),
             ),
           )
         : null;
 
     return ToolBar(
-      padding: insets,
+      padding: padding,
       title: styledTitle,
-      leading: leadingWidget,
-      automaticallyImplyLeading: automaticallyImplyLeading,
+      leading: canPop(context)
+          ? const AdaptiveBackButton().macos(context)
+          : leadingWidget,
+      automaticallyImplyLeading: false,
       actions: _buildAction(context, typography),
       height: toolbarHeight ?? _kToolbarHeight,
       decoration: BoxDecoration(
@@ -87,28 +98,27 @@ class NABMacos extends StatelessWidget {
             .withOpacity(toolbarOpacity),
       ),
       titleWidth: titleWidth ?? _kTitleWidth,
-      centerTitle: centerTitle ?? false,
+      centerTitle: centerTitle,
     );
   }
 
   List<ToolbarItem>? _buildAction(
-    BuildContext context,
-    MacosTypography typography,
-  ) {
+      BuildContext context, MacosTypography typography) {
     final toolbarItems = actions?.map(
       (e) => e.toMacOS(
         context,
         customItem: (child) {
           return DefaultTextStyle(
             style: typography.body,
-            child: IconTheme(
-              data: actionsIconTheme ??
-                  IconTheme.of(context).copyWith(
-                    color: foregroundColor ?? typography.body.color,
-                  ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: child,
+            child: MacosIconTheme(
+              data: MacosIconTheme.of(context).copyWith(color: foregroundColor),
+              child: IconTheme(
+                data: actionsIconTheme ??
+                    IconTheme.of(context).copyWith(color: foregroundColor),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: child,
+                ),
               ),
             ),
           );

@@ -59,7 +59,7 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    late final adpSize = widget.size;
+    final adpSize = widget.size;
 
     return MacosWindow(
       sidebarState: widget.property?.sidebarState ??
@@ -81,15 +81,20 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
         topOffset: adpSize?.topOffset ?? 0.0,
         windowBreakpoint: widget.property?.windowBreakpoint ?? 736.0,
         builder: (context, scrollController) {
-          return SidebarItems(
-            items: _buildItems(),
-            shape: widget.property?.shape,
-            selectedColor: widget.selectedColor,
-            unselectedColor: widget.unselectedColor,
-            currentIndex: widget.currentIndex,
-            onChanged: (value) => widget.onChanged?.call(value),
-            itemSize: widget.property?.itemSize ?? SidebarItemSize.large,
-            scrollController: scrollController,
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              color: MacosTheme.of(context).canvasColor,
+            ),
+            child: SidebarItems(
+              items: _buildItems(),
+              shape: widget.property?.shape,
+              selectedColor: widget.selectedColor,
+              unselectedColor: widget.unselectedColor,
+              currentIndex: widget.currentIndex,
+              onChanged: (value) => widget.onChanged?.call(value),
+              itemSize: widget.property?.itemSize ?? SidebarItemSize.large,
+              scrollController: scrollController,
+            ),
           );
         },
       ),
@@ -99,12 +104,19 @@ class _NavigationViewMacosState extends State<NavigationViewMacos> {
             toolBar: widget.toolBar,
             children: [
               ContentArea(
-                minWidth: size.width,
+                minWidth: double.infinity,
                 builder: (context, scrollController) {
-                  if (widget.tabs.isNotEmpty) {
-                    return widget.tabs[widget.currentIndex];
-                  }
-                  return const SizedBox.shrink();
+                  return DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: MacosTheme.of(context).canvasColor,
+                    ),
+                    child: widget.tabs.isNotEmpty
+                        ? DefaultTextStyle(
+                            style: MacosTheme.of(context).typography.body,
+                            child: widget.tabs[widget.currentIndex],
+                          )
+                        : const SizedBox.expand(),
+                  );
                 },
               ),
             ],
