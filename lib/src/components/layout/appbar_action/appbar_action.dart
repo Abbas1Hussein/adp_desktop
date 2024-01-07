@@ -3,21 +3,22 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/model.dart';
 import '../../buttons/menu/pulldown/pulldown_item.dart';
+import '../../icon/icons.dart';
 
-/// An abstract class representing an entry in the adaptive appbar action.
+/// An abstract class representing an entry in the adaptive action.
 ///
 /// Subclasses:
-/// - [AdaptiveAppBarDivider].
-/// - [AdaptiveAppBarButton].
-/// - [AdaptiveAppBarPulldownButton].
-/// - [AdaptiveAppBarCustomItem].
-abstract class AdaptiveAppBarActionEntry {
-  const AdaptiveAppBarActionEntry();
+/// - [AdaptiveActionDivider].
+/// - [AdaptiveActionButton].
+/// - [AdaptiveActionPulldownButton].
+/// - [AdaptiveActionCustomItem].
+abstract class AdaptiveActionEntry {
+  const AdaptiveActionEntry();
 }
 
-class AdaptiveAppBarDivider extends AdaptiveAppBarActionEntry
+class AdaptiveActionDivider extends AdaptiveActionEntry
     implements CoreModel<Widget, ToolBarDivider> {
-  const AdaptiveAppBarDivider();
+  const AdaptiveActionDivider();
 
   @override
   ToolBarDivider toMacos(BuildContext context) {
@@ -33,9 +34,9 @@ class AdaptiveAppBarDivider extends AdaptiveAppBarActionEntry
   }
 }
 
-class AdaptiveAppBarButton extends AdaptiveAppBarActionEntry
+class AdaptiveActionButton extends AdaptiveActionEntry
     implements CoreModel<Widget, ToolBarIconButton> {
-  const AdaptiveAppBarButton({
+  const AdaptiveActionButton({
     this.onPressed,
     this.showLabel = true,
     this.tooltipMessage,
@@ -47,6 +48,8 @@ class AdaptiveAppBarButton extends AdaptiveAppBarActionEntry
   final String label;
 
   /// The icon widget representing the button.
+  ///
+  /// Usually an [AdaptiveIcon] widget.
   final Widget icon;
 
   /// A flag indicating whether to show the label text.
@@ -75,8 +78,8 @@ class AdaptiveAppBarButton extends AdaptiveAppBarActionEntry
       message: tooltipMessage ?? label,
       child: CommandBarButton(
         icon: icon,
-        label: showLabel ? Text(label) : null,
         onPressed: onPressed,
+        label: showLabel ? Text(label) : null,
       ).build(
         context,
         CommandBarItemDisplayMode.inPrimary,
@@ -85,9 +88,9 @@ class AdaptiveAppBarButton extends AdaptiveAppBarActionEntry
   }
 }
 
-class AdaptiveAppBarPulldownButton extends AdaptiveAppBarActionEntry
+class AdaptiveActionPulldownButton extends AdaptiveActionEntry
     implements CoreModel<Widget, ToolBarPullDownButton> {
-  const AdaptiveAppBarPulldownButton({
+  const AdaptiveActionPulldownButton({
     required this.items,
     required this.label,
     required this.icon,
@@ -98,19 +101,19 @@ class AdaptiveAppBarPulldownButton extends AdaptiveAppBarActionEntry
   final String label;
 
   /// The icon data representing the pulldown button.
-  final IconData icon;
+  final AdpIcons icon;
 
   /// An optional message to be displayed as a tooltip for the pulldown button.
   final String? tooltipMessage;
 
   /// The list of items to be displayed in the pulldown menu.
-  final List<AdaptivePulldownMenuItemEntry> items;
+  final List<AdaptivePulldownMenuItemEntry<void>> items;
 
   @override
   ToolBarPullDownButton toMacos(BuildContext context) {
     return ToolBarPullDownButton(
-      icon: icon,
       label: label,
+      icon: icon.cupertino,
       tooltipMessage: tooltipMessage ?? label,
       items: items
           .map((e) {
@@ -150,7 +153,7 @@ class AdaptiveAppBarPulldownButton extends AdaptiveAppBarActionEntry
       message: tooltipMessage ?? label,
       child: DropDownButton(
         title: Text(label),
-        leading: Icon(icon),
+        leading: Icon(icon.fluent),
         items: items
             .map((e) {
               if (e is AdaptivePulldownMenuItem) {
@@ -171,8 +174,8 @@ class AdaptiveAppBarPulldownButton extends AdaptiveAppBarActionEntry
   }
 }
 
-class AdaptiveAppBarCustomItem extends AdaptiveAppBarActionEntry {
-  const AdaptiveAppBarCustomItem({required this.child});
+class AdaptiveActionCustomItem extends AdaptiveActionEntry {
+  const AdaptiveActionCustomItem({required this.child});
 
   /// The custom widget to be included as the item.
   final Widget child;

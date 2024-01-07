@@ -48,36 +48,54 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveNavigationView(
-      navigationAppBar: const AdaptiveNavigationAppBar(
-        title: Text('Adaptive app'),
-        leading: AdaptiveIcon(AdpIcons.home),
-        automaticallyImplyLeading: true,
+      navigationAppBar: AdaptiveNavigationAppBar(
+        title: const Text('Adaptive app'),
+        leading: const AdaptiveIcon(AdpIcons.home),
+        actions: [
+          AdaptiveActionPulldownButton(
+            items: [
+              const AdaptivePulldownMenuItem(child: Text('data')),
+              const AdaptivePulldownMenuDivider(),
+            ],
+            label: 'label',
+            icon: AdpIcons.archive,
+          ),
+          const AdaptiveActionDivider(),
+          AdaptiveActionButton(
+            label: 'add',
+            onPressed: () {},
+            icon: const AdaptiveIcon(AdpIcons.add),
+          ),
+          AdaptiveActionButton(
+            label: 'remove',
+            onPressed: () {},
+            icon: const AdaptiveIcon(AdpIcons.delete),
+          ),
+          AdaptiveActionButton(
+            label: 'edit',
+            onPressed: () {},
+            icon: const AdaptiveIcon(AdpIcons.edit),
+          ),
+        ],
       ),
       currentIndex: currentValue,
-      onChanged: (value) {
-        setState(() {
-          currentValue = value;
-        });
-      },
-      items: [
-        const AdaptiveNavigationViewItem(
-          label: Text('label'),
-          icon: AdaptiveIcon(AdpIcons.add),
+      onChanged: (value) => setState(() => currentValue = value),
+      items: List.generate(
+        3,
+        (index) => AdaptiveNavigationViewItem(
+          icon: [
+            const AdaptiveIcon(AdpIcons.archive),
+            const AdaptiveIcon(AdpIcons.alarm),
+            const AdaptiveIcon(AdpIcons.app)
+          ][index],
+          label: Text('label: ${index + 1}'),
         ),
-        const AdaptiveNavigationViewItem(
-          label: Text('label - 2'),
-          icon: AdaptiveIcon(AdpIcons.homeFilled),
-        ),
-        const AdaptiveNavigationViewItem(
-          label: Text('label - 3'),
-          icon: AdaptiveIcon(AdpIcons.heartBroken),
-        ),
-      ],
-      children: [
-        const SizedBox(),
-        const SizedBox(),
-        const SizedBox(),
-      ],
+      ),
+      children: List.generate(
+          3,
+          (index) => Center(
+                child: Text('${index + 1}'),
+              )),
     );
   }
 }

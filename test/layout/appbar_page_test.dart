@@ -17,13 +17,13 @@ void main() {
               title: const Text('Adaptive AppBar'),
               leading: const AdaptiveIcon(AdpIcons.home),
               actions: [
-                AdaptiveAppBarButton(
+                AdaptiveActionButton(
                   icon: const AdaptiveIcon(AdpIcons.add),
                   label: 'add',
                   onPressed: () {},
                 ),
-                const AdaptiveAppBarDivider(),
-                AdaptiveAppBarButton(
+                const AdaptiveActionDivider(),
+                AdaptiveActionButton(
                   icon: const AdaptiveIcon(AdpIcons.search),
                   label: 'search',
                   onPressed: () {},

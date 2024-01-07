@@ -3,37 +3,35 @@ import 'package:macos_ui/macos_ui.dart';
 
 import 'appbar_action.dart';
 
-
-/// Extension on [AdaptiveAppBarActionEntry] to provide platform-specific rendering.
-extension AppBarActionExtension on AdaptiveAppBarActionEntry {
+/// Extension on [AdaptiveActionEntry] to provide platform-specific rendering.
+extension AppBarActionExtension on AdaptiveActionEntry {
   /// Casts the action entry to a specific type.
   T _asType<T>() => this as T;
 
   /// Converts the action entry to a Windows-specific widget.
   Widget toWindows(BuildContext context) {
-    if (this is AdaptiveAppBarButton) {
-      return _asType<AdaptiveAppBarButton>().toWindows(context);
-    } else if (this is AdaptiveAppBarPulldownButton) {
-      return _asType<AdaptiveAppBarPulldownButton>().toWindows(context);
-    } else if (this is AdaptiveAppBarDivider) {
-      return _asType<AdaptiveAppBarDivider>().toWindows(context);
+    if (this is AdaptiveActionButton) {
+      return _asType<AdaptiveActionButton>().toWindows(context);
+    } else if (this is AdaptiveActionPulldownButton) {
+      return _asType<AdaptiveActionPulldownButton>().toWindows(context);
+    } else if (this is AdaptiveActionDivider) {
+      return _asType<AdaptiveActionDivider>().toWindows(context);
     } else {
-      return _asType<AdaptiveAppBarCustomItem>().child;
+      return _asType<AdaptiveActionCustomItem>().child;
     }
   }
 
   /// Converts the action entry to a macOS-specific toolbar item.
-  ToolbarItem toMacOS(BuildContext context, {
-    Widget Function(Widget child)? customItem,
-  }) {
-    if (this is AdaptiveAppBarButton) {
-      return _asType<AdaptiveAppBarButton>().toMacos(context);
-    } else if (this is AdaptiveAppBarPulldownButton) {
-      return _asType<AdaptiveAppBarPulldownButton>().toMacos(context);
-    } else if (this is AdaptiveAppBarDivider) {
-      return _asType<AdaptiveAppBarDivider>().toMacos(context);
+  ToolbarItem toMacOS(BuildContext context,
+      {Widget Function(Widget child)? customItem}) {
+    if (this is AdaptiveActionButton) {
+      return _asType<AdaptiveActionButton>().toMacos(context);
+    } else if (this is AdaptiveActionPulldownButton) {
+      return _asType<AdaptiveActionPulldownButton>().toMacos(context);
+    } else if (this is AdaptiveActionDivider) {
+      return _asType<AdaptiveActionDivider>().toMacos(context);
     } else {
-      final child = _asType<AdaptiveAppBarCustomItem>().child;
+      final child = _asType<AdaptiveActionCustomItem>().child;
       return CustomToolbarItem(
         inOverflowedBuilder: (context) => customItem?.call(child) ?? child,
         inToolbarBuilder: (context) => customItem?.call(child) ?? child,

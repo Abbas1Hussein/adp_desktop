@@ -71,7 +71,8 @@ class AdaptiveIconTheme extends CoreAdaptiveComponent {
   }
 }
 
-class AdaptiveIconThemeData extends CoreModel<IconThemeData, MacosIconThemeData> {
+class AdaptiveIconThemeData
+    extends CoreModel<IconThemeData, MacosIconThemeData> {
   const AdaptiveIconThemeData({this.color, this.size, this.opacity});
 
   final Color? color;
@@ -89,11 +90,13 @@ class AdaptiveIconThemeData extends CoreModel<IconThemeData, MacosIconThemeData>
   }
 
   static AdaptiveIconThemeData _fromMacos(MacosIconThemeData data) {
-    return AdaptiveIconThemeData(size: data.size, color: data.color, opacity: data.opacity);
+    return AdaptiveIconThemeData(
+        size: data.size, color: data.color, opacity: data.opacity);
   }
 
   static AdaptiveIconThemeData _fromWindows(IconThemeData data) {
-    return AdaptiveIconThemeData(size: data.size, color: data.color, opacity: data.opacity);
+    return AdaptiveIconThemeData(
+        size: data.size, color: data.color, opacity: data.opacity);
   }
 
   /// Creates an icon theme with some reasonable default values.
@@ -132,4 +135,14 @@ class AdaptiveIconThemeData extends CoreModel<IconThemeData, MacosIconThemeData>
       opacity: other.opacity,
     );
   }
+}
+
+extension MacosIconThemeDataEx on MacosIconThemeData {
+  IconThemeData toWindowsData() =>
+      IconThemeData(color: color, size: size, opacity: opacity);
+}
+
+extension IconThemeDataEx on IconThemeData {
+  MacosIconThemeData toMacosData() =>
+      MacosIconThemeData(color: color, size: size, opacity: opacity);
 }

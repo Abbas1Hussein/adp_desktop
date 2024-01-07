@@ -39,10 +39,10 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
   ///
   /// Supported actions:
   ///
-  /// - [AdaptiveAppBarDivider]
-  /// - [AdaptiveAppBarButton]
-  /// - [AdaptiveAppBarPulldownButton]
-  /// - [AdaptiveAppBarCustomItem]
+  /// - [AdaptiveActionDivider]
+  /// - [AdaptiveActionButton]
+  /// - [AdaptiveActionPulldownButton]
+  /// - [AdaptiveActionCustomItem]
   ///
   /// See also:
   ///
@@ -142,7 +142,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
   final BorderRadiusGeometry? borderRadius;
 
   /// Common actions for the app bar on both platforms.
-  final List<AdaptiveAppBarActionEntry>? actions;
+  final List<AdaptiveActionEntry>? actions;
 
   /// Platform-specific actions for the app bar.
   final CoreProperties<CommandBar?, List<ToolbarItem>?>? platformActions;
