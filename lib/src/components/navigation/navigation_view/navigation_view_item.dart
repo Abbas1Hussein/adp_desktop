@@ -1,8 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../../../core/common/construct/model.dart';
+
 /// Represents a menu item in an [AdaptiveNavigationView].
-class AdaptiveNavigationViewItem {
+class AdaptiveNavigationViewItem
+    extends CoreModel<NavigationPaneItem, SidebarItem> {
   const AdaptiveNavigationViewItem({
     this.trailing,
     this.focusNode,
@@ -34,7 +37,25 @@ class AdaptiveNavigationViewItem {
   /// The focus node used by this item.
   final FocusNode? focusNode;
 
-  NavigationPaneItem toPaneItem(Widget body, Color? unColor, Color? seColor) {
+  @override
+  SidebarItem toMacos(BuildContext context) {
+    return SidebarItem(
+      label: label,
+      leading: icon,
+      trailing: trailing,
+      focusNode: focusNode,
+      selectedColor: selectedColor,
+      unselectedColor: unselectedColor,
+    );
+  }
+
+  @override
+  NavigationPaneItem toWindows(
+    BuildContext context, {
+    Widget? body,
+    Color? unColor,
+    Color? seColor,
+  }) {
     final unselectedTileColor = unselectedColor != null
         ? ButtonState.all(unselectedColor)
         : unColor != null
@@ -49,23 +70,12 @@ class AdaptiveNavigationViewItem {
 
     return PaneItem(
       icon: icon,
-      body: body,
       title: label,
       trailing: trailing,
       focusNode: focusNode,
       tileColor: unselectedTileColor,
+      body: body ?? const SizedBox.shrink(),
       selectedTileColor: selectedTileColor,
-    );
-  }
-
-  SidebarItem toSidebarItem() {
-    return SidebarItem(
-      label: label,
-      leading: icon,
-      trailing: trailing,
-      focusNode: focusNode,
-      selectedColor: selectedColor,
-      unselectedColor: unselectedColor,
     );
   }
 }

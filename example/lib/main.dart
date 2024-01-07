@@ -4,7 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.macOS,
+    DesktopTargetPlatform.windows,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       properties: Properties(
         macos: AppMacosProperty(
           darkTheme: MacosThemeData.dark(),
@@ -51,35 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
       navigationAppBar: AdaptiveNavigationAppBar(
         title: const Text('Adaptive app'),
         leading: const AdaptiveIcon(AdpIcons.home),
-        actions: [
-          AdaptiveActionPulldownButton(
-            items: [
-              const AdaptivePulldownMenuItem(child: Text('data')),
-              const AdaptivePulldownMenuDivider(),
-            ],
-            label: 'label',
-            icon: AdpIcons.archive,
-          ),
-          const AdaptiveActionDivider(),
-          AdaptiveActionButton(
-            label: 'add',
-            onPressed: () {},
-            icon: const AdaptiveIcon(AdpIcons.add),
-          ),
-          AdaptiveActionButton(
-            label: 'remove',
-            onPressed: () {},
-            icon: const AdaptiveIcon(AdpIcons.delete),
-          ),
-          AdaptiveActionButton(
-            label: 'edit',
-            onPressed: () {},
-            icon: const AdaptiveIcon(AdpIcons.edit),
-          ),
-        ],
+        actions: _buildActions(),
       ),
+      onChanged: _onChanged,
       currentIndex: currentValue,
-      onChanged: (value) => setState(() => currentValue = value),
       items: List.generate(
         3,
         (index) => AdaptiveNavigationViewItem(
@@ -92,10 +67,46 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       children: List.generate(
-          3,
-          (index) => Center(
-                child: Text('${index + 1}'),
-              )),
+        3,
+        (index) => Center(child: Text('${index + 1}')),
+      ),
     );
+  }
+
+  void _onChanged(value) => setState(() => currentValue = value);
+
+  List<AdaptiveActionEntry> _buildActions() {
+    return [
+      AdaptiveActionPulldownButton(
+        items: [
+          const AdaptivePulldownMenuItem(child: Text('data')),
+          const AdaptivePulldownMenuDivider(),
+        ],
+        label: 'label',
+        icon: AdpIcons.archive,
+      ),
+      const AdaptiveActionDivider(),
+      AdaptiveActionButton(
+        label: 'add',
+        onPressed: () {
+          Navigator.push(context, AdaptivePageRoute(
+            builder: (context, animation, secondaryAnimation) {
+              return widget;
+            },
+          ));
+        },
+        icon: const AdaptiveIcon(AdpIcons.add),
+      ),
+      AdaptiveActionButton(
+        label: 'remove',
+        onPressed: () {},
+        icon: const AdaptiveIcon(AdpIcons.delete),
+      ),
+      AdaptiveActionButton(
+        label: 'edit',
+        onPressed: () {},
+        icon: const AdaptiveIcon(AdpIcons.edit),
+      ),
+    ];
   }
 }

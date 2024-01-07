@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import '../../fields/text_search_field/text_search_field.dart';
@@ -13,8 +14,8 @@ import 'platforms/platforms.dart';
 /// styling and behavior:
 /// - On macOS, [MacosWindow] is utilized.
 /// - On Windows, [NavigationView] is used.
-class AdaptiveNavigationView
-    extends CoreAdaptiveComponent<NavigationViewWindowsProperty, NavigationViewMacosProperty> {
+class AdaptiveNavigationView extends CoreAdaptiveComponent<
+    NavigationViewWindowsProperty, NavigationViewMacosProperty> {
   /// The Navigation passes the new value to the callback but does not actually
   /// change state until the parent widget rebuilds the navigation with the new
   /// value.
@@ -45,7 +46,7 @@ class AdaptiveNavigationView
     this.selectedColor,
     this.unselectedColor,
     this.currentIndex = 0,
-    this.suggestionsSearchField,
+    this.suggestions,
     required this.items,
     required this.children,
   });
@@ -79,35 +80,12 @@ class AdaptiveNavigationView
   final List<AdaptiveNavigationViewItem> items;
 
   /// An adaptive text search field for suggestions.
-  final AdaptiveTextSearchField? suggestionsSearchField;
+  final AdaptiveTextSearchField? suggestions;
 
   @override
   Widget build(BuildContext context) {
     validateLength();
     return super.build(context);
-  }
-
-  @override
-  Widget windows(BuildContext context) {
-    return NavigationViewWindows(
-      tabs: children,
-      items: items,
-      size: size,
-      onChanged: onChanged,
-      currentIndex: currentIndex,
-      tileColor: unselectedColor,
-      selectedTileColor: selectedColor,
-      property: properties?.windows,
-      searchField: suggestionsSearchField != null
-          ? Padding(
-              padding: properties?.windows?.displayMode == PaneDisplayMode.top
-                  ? const EdgeInsets.symmetric(horizontal: 4.0)
-                  : EdgeInsets.zero,
-              child: suggestionsSearchField?.windows(context),
-            )
-          : null,
-      appBar: navigationAppBar?.toWindows(context),
-    );
   }
 
   @override
@@ -121,8 +99,34 @@ class AdaptiveNavigationView
       unselectedColor: unselectedColor,
       selectedColor: selectedColor,
       property: properties?.macos,
-      searchField: suggestionsSearchField?.macos(context),
+      searchField: suggestions?.macos(context),
       toolBar: navigationAppBar?.toMacos(context),
+    );
+  }
+
+  @override
+  Widget windows(BuildContext context) {
+    return NavigationViewWindows(
+      tabs: children,
+      items: items,
+      size: size,
+      onChanged: onChanged,
+      currentIndex: currentIndex,
+      tileColor: unselectedColor,
+      selectedTileColor: selectedColor,
+      property: properties?.windows,
+      searchField: suggestions != null
+          ? Padding(
+              padding: properties?.windows?.displayMode == PaneDisplayMode.top
+                  ? const EdgeInsets.symmetric(horizontal: 4.0)
+                  :  EdgeInsets.zero,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 30.0),
+                child: suggestions?.windows(context),
+              ),
+            )
+          : null,
+      appBar: navigationAppBar?.toWindows(context , properties?.windows?.displayMode),
     );
   }
 

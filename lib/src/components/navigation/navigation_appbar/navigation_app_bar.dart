@@ -39,7 +39,6 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
     this.titleWidth,
     this.centerTitle = false,
     this.toolbarOpacity = 1.0,
-    this.contentInsets = _kContentInsets,
     this.automaticallyImplyLeading = true,
   });
 
@@ -55,11 +54,6 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   ///
   /// Defaults is false.
   final bool centerTitle;
-
-  /// The insets around the content inside the navigation app bar.
-  ///
-  /// Default is [_kContentInsets], which is a constant specifying the default insets.
-  final EdgeInsets contentInsets;
 
   /// The widget at the beginning of the app bar, before [title].
   ///
@@ -155,20 +149,21 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
 
   @override
   ToolBar toMacos(BuildContext context) {
-    final typography = MacosTheme.of(context).typography;
+    final theme = MacosTheme.of(context);
 
     final styledTitle = title != null
         ? DefaultTextStyle(
             maxLines: 1,
             style: titleTextStyle ??
-                typography.title3.copyWith(fontWeight: MacosFontWeight.w510),
+                theme.typography.title3
+                    .copyWith(fontWeight: MacosFontWeight.w510),
             child: title!,
           )
         : null;
 
     final styledLeading = leading != null
         ? DefaultTextStyle(
-            style: typography.body,
+            style: theme.typography.body,
             child: SizedBox(
               width: leadingWidth ?? kMacosLeadingWidth,
               child: leading!,
@@ -182,7 +177,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
             context,
             customItem: (child) {
               return DefaultTextStyle(
-                style: typography.body,
+                style: theme.typography.body,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: child,
@@ -194,12 +189,13 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
         .toList();
 
     return ToolBar(
-      padding: contentInsets,
+      padding: _kContentInsets,
       title: styledTitle,
       actions: buildActions,
       decoration: BoxDecoration(
-        color: (backgroundColor ?? MacosTheme.of(context).canvasColor)
-            .withOpacity(toolbarOpacity),
+        color: (backgroundColor ?? theme.canvasColor).withOpacity(
+          toolbarOpacity,
+        ),
       ),
       centerTitle: centerTitle,
       automaticallyImplyLeading: false,
@@ -210,17 +206,22 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   }
 
   @override
-  NavigationAppBar toWindows(BuildContext context) {
+  NavigationAppBar toWindows(
+    BuildContext context, [
+    PaneDisplayMode? displayMode,
+  ]) {
     final theme = FluentTheme.of(context);
+
+    final isTop = displayMode == PaneDisplayMode.top;
 
     final buildActions = actions != null
         ? Padding(
-            padding: contentInsets,
+            padding: _kContentInsets,
             child: Center(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Spacer(),
+                  if (!isTop) const Spacer(),
                   ...actions!.map(
                     (e) {
                       return Padding(
@@ -237,11 +238,16 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
 
     return NavigationAppBar(
       backgroundColor:
-          (backgroundColor ?? theme.navigationPaneTheme.overlayBackgroundColor)
+          (backgroundColor ?? theme.navigationPaneTheme.backgroundColor)
               ?.withOpacity(toolbarOpacity),
-      actions: buildActions,
+      actions: isTop
+          ? Padding(
+              padding: const EdgeInsets.only(top: 4.0), child: buildActions)
+          : buildActions,
       automaticallyImplyLeading: false,
-      title: _buildLeadingWithTitle(theme),
+      title: isTop
+          ? Center(child: _buildLeadingWithTitle(theme))
+          : _buildLeadingWithTitle(theme),
       leading: canPop(context) ? _buildBackButton : null,
       height: toolbarHeight ?? (kWindowsToolbarHeight),
     );

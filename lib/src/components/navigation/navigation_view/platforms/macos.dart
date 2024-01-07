@@ -57,85 +57,84 @@ class NavigationViewMacos extends StatefulWidget {
 class _NavigationViewMacosState extends State<NavigationViewMacos> {
   @override
   Widget build(BuildContext context) {
+    final theme = MacosTheme.of(context);
+
     final size = MediaQuery.sizeOf(context);
 
     final adpSize = widget.size;
 
-    return MacosWindow(
-      sidebarState: widget.property?.sidebarState ??
-          NSVisualEffectViewState.followsWindowActiveState,
-      disableWallpaperTinting:
-          widget.property?.disableWallpaperTinting ?? false,
-      sidebar: Sidebar(
-        top: widget.searchField,
-        bottom: widget.property?.bottom,
-        decoration: widget.property?.decoration,
-        dragClosed: widget.property?.dragClosed ?? true,
-        dragClosedBuffer: widget.property?.dragClosedBuffer,
-        isResizable: widget.property?.isResizable ?? true,
-        shownByDefault: widget.property?.shownByDefault ?? true,
-        snapToStartBuffer: widget.property?.snapToStartBuffer,
-        minWidth: adpSize?.minWidth ?? size.width * 0.2,
-        maxWidth: adpSize?.maxWidth ?? size.width * 0.3,
-        startWidth: adpSize?.startWidth ?? size.width * 0.2,
-        topOffset: adpSize?.topOffset ?? 0.0,
-        windowBreakpoint: widget.property?.windowBreakpoint ?? 736.0,
-        builder: (context, scrollController) {
-          return DecoratedBox(
-            decoration: BoxDecoration(
-              color: MacosTheme.of(context).canvasColor,
-            ),
-            child: SidebarItems(
-              items: _buildItems(),
-              shape: widget.property?.shape,
-              selectedColor: widget.selectedColor,
-              unselectedColor: widget.unselectedColor,
-              currentIndex: widget.currentIndex,
-              onChanged: (value) => widget.onChanged?.call(value),
-              itemSize: widget.property?.itemSize ?? SidebarItemSize.large,
-              scrollController: scrollController,
-            ),
-          );
-        },
-      ),
-      child: CupertinoTabView(
-        builder: (context) {
-          return MacosScaffold(
-            toolBar: widget.toolBar,
-            children: [
-              ContentArea(
-                minWidth: double.infinity,
-                builder: (context, scrollController) {
-                  return DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: MacosTheme.of(context).canvasColor,
-                    ),
-                    child: widget.tabs.isNotEmpty
-                        ? DefaultTextStyle(
-                            style: MacosTheme.of(context).typography.body,
-                            child: widget.tabs[widget.currentIndex],
-                          )
-                        : const SizedBox.expand(),
-                  );
-                },
+    return DecoratedBox(
+      decoration: BoxDecoration(color: theme.canvasColor),
+      child: MacosWindow(
+        sidebarState: widget.property?.sidebarState ?? NSVisualEffectViewState.followsWindowActiveState,
+        disableWallpaperTinting: widget.property?.disableWallpaperTinting ?? false,
+        sidebar: Sidebar(
+          top: widget.searchField,
+          bottom: widget.property?.bottom,
+          decoration: widget.property?.decoration,
+          dragClosed: widget.property?.dragClosed ?? true,
+          dragClosedBuffer: widget.property?.dragClosedBuffer,
+          isResizable: widget.property?.isResizable ?? true,
+          shownByDefault: widget.property?.shownByDefault ?? true,
+          snapToStartBuffer: widget.property?.snapToStartBuffer,
+          minWidth: adpSize?.minWidth ?? size.width * 0.2,
+          maxWidth: adpSize?.maxWidth ?? size.width * 0.3,
+          startWidth: adpSize?.startWidth ?? size.width * 0.2,
+          topOffset: adpSize?.topOffset ?? 0.0,
+          windowBreakpoint: widget.property?.windowBreakpoint ?? 736.0,
+          builder: (context, scrollController) {
+            return DecoratedBox(
+              decoration: BoxDecoration(color: theme.canvasColor),
+              child: SidebarItems(
+                items: _buildItems(context),
+                shape: widget.property?.itemsShape,
+                currentIndex: widget.currentIndex,
+                selectedColor: widget.selectedColor,
+                unselectedColor: widget.unselectedColor,
+                onChanged: (value) => widget.onChanged?.call(value),
+                itemSize: widget.property?.itemSize ?? SidebarItemSize.large,
+                scrollController: scrollController,
               ),
-            ],
-          );
-        },
+            );
+          },
+        ),
+        child: CupertinoTabView(
+          builder: (context) {
+            return MacosScaffold(
+              toolBar: widget.toolBar,
+              children: [
+                ContentArea(
+                  minWidth: double.infinity,
+                  builder: (context, scrollController) {
+                    return DecoratedBox(
+                      decoration: BoxDecoration(color: theme.canvasColor),
+                      child: widget.tabs.isNotEmpty
+                          ? DefaultTextStyle(
+                              style: theme.typography.body,
+                              child: widget.tabs[widget.currentIndex],
+                            )
+                          : const SizedBox.expand(),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
 
-  List<SidebarItem> _buildItems() {
+  List<SidebarItem> _buildItems(BuildContext context) {
     if (widget.items == null) return [];
 
-    return widget.items!.map((e) => e.toSidebarItem()).toList();
+    return widget.items!.map((e) => e.toMacos(context)).toList();
   }
 }
 
 class NavigationViewMacosProperty extends CoreMacosProperty {
   const NavigationViewMacosProperty({
-    this.shape,
+    this.itemsShape,
     this.bottom,
     this.itemSize,
     this.decoration,
@@ -220,10 +219,10 @@ class NavigationViewMacosProperty extends CoreMacosProperty {
   /// Defaults to [NSVisualEffectViewState.active].
   final NSVisualEffectViewState? sidebarState;
 
-  /// The [shape] property specifies the outline (border) of the
+  /// The [itemsShape] property specifies the outline (border) of the
   /// decoration. The shape must not be null. It's used alongside
   /// [selectedColor].
-  final ShapeBorder? shape;
+  final ShapeBorder? itemsShape;
 
   /// The size specifications for all [items].
   ///

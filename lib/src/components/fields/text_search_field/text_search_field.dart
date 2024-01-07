@@ -58,7 +58,9 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
   Widget macos(BuildContext context) {
     return DecoratedBox(
       decoration: decoration?.copyWith(
-            color: decoration?.color?.withOpacity(0.7),
+            color: decoration!.color!.withOpacity(0.6),
+            borderRadius: decoration?.borderRadius ??
+                kDefaultRoundedBorderDecoration.borderRadius,
           ) ??
           const BoxDecoration(),
       child: MacosSearchField<T>(

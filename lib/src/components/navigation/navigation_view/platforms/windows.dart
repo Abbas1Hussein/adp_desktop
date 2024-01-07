@@ -60,29 +60,31 @@ class NavigationViewWindows extends StatelessWidget {
           openWidth: size?.startWidth,
           headerHeight: size?.topOffset,
         ),
-        items: _buildItems(),
-        selected: currentIndex,
-        autoSuggestBox: searchField,
+        items: _buildItems(context),
         onChanged: onChanged,
+        selected: currentIndex,
         leading: property?.leading,
+        autoSuggestBox: searchField,
         menuButton: property?.menuButton,
         scrollBehavior: property?.scrollBehavior,
         scrollController: property?.scrollController,
         header: property?.header ?? const SizedBox.shrink(),
         displayMode: property?.displayMode ?? PaneDisplayMode.auto,
         indicator: property?.indicator ?? const StickyNavigationIndicator(),
-        autoSuggestBoxReplacement:
-            searchField != null ? const Icon(FluentIcons.search) : null,
+        autoSuggestBoxReplacement: searchField != null ? const Icon(FluentIcons.search) : null,
       ),
       onOpenSearch: property?.onOpenSearch,
-      contentShape: property?.contentShape ??
-          RoundedRectangleBorder(
+      contentShape: property?.contentShape ?? RoundedRectangleBorder(
+            borderRadius: BorderRadiusDirectional.only(
+              topStart: property?.displayMode == PaneDisplayMode.top
+                  ? Radius.zero
+                  : const Radius.circular(8.0),
+            ).resolve(Directionality.of(context)),
             side: BorderSide(
               color: FluentTheme.of(context).resources.cardStrokeColorDefault,
             ),
           ),
-      transitionBuilder: property?.transitionBuilder ??
-          (child, animation) {
+      transitionBuilder: property?.transitionBuilder ?? (child, animation) {
             return DrillInPageTransition(
               animation: animation,
               child: SafeArea(child: child),
@@ -91,16 +93,17 @@ class NavigationViewWindows extends StatelessWidget {
     );
   }
 
-  List<NavigationPaneItem> _buildItems() {
+  List<NavigationPaneItem> _buildItems(BuildContext context) {
     if (items == null || items!.isEmpty) return [];
 
     final body = tabs[currentIndex];
 
-    return items!.map(
-      (e) {
-        return e.toPaneItem(body, tileColor, selectedTileColor);
-      },
-    ).toList();
+    return items!
+        .map(
+          (e) => e.toWindows(context,
+              body: body, unColor: tileColor, seColor: selectedTileColor),
+        )
+        .toList();
   }
 }
 

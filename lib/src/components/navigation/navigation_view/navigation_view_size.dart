@@ -1,4 +1,4 @@
-/// Represents the size configuration for an adaptive navigation view.
+/// the size configuration for an adaptive navigation view.
 ///
 /// Use this class to define constraints and initial sizes for an adaptive navigation view.
 class AdaptiveNavigationViewSize {

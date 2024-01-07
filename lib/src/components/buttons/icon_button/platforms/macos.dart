@@ -46,7 +46,7 @@ class IconButtonMacos extends StatelessWidget {
 
   /// The border radius for the button.
   ///
-  /// This should only be set if setting [shape] to `BoxShape.rectangle`.
+  /// This should only be set if setting [itemsShape] to `BoxShape.rectangle`.
   ///
   /// Defaults to `BorderRadius.circular(7.0)`.
   final BorderRadius? borderRadius;

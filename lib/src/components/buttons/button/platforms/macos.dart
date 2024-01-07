@@ -38,7 +38,7 @@ class MacosButton extends StatefulWidget {
 
   /// A border to draw above the background [backgroundColor].
   ///
-  /// Follows the [shape] and [borderRadius].
+  /// Follows the [itemsShape] and [borderRadius].
   ///
   /// Use [Border] objects to describe borders that do not depend on the reading
   /// direction.
@@ -50,7 +50,7 @@ class MacosButton extends StatefulWidget {
 
   /// If non-null, the corners of this box are rounded by this [BorderRadius].
   ///
-  /// Applies only to boxes with rectangular shapes; ignored if [shape] is not
+  /// Applies only to boxes with rectangular shapes; ignored if [itemsShape] is not
   /// [BoxShape.rectangle].
   ///
   /// {@macro flutter.painting.BoxDecoration.clip}
