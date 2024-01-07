@@ -19,7 +19,7 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
   Widget build(BuildContext context) {
     return adaptiveValue(
       windows: () {
-        final body = windows(context);
+        final body = windows(context, properties?.windows);
 
         if (builders?.windows != null) {
           return builders!.windows!.call(
@@ -31,7 +31,7 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
         return body;
       },
       macos: () {
-        final body = macos(context);
+        final body = macos(context, properties?.macos);
 
         if (builders?.macos != null) {
           return builders!.macos!.call(
@@ -45,7 +45,7 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
     );
   }
 
-  Widget windows(BuildContext context);
+  Widget windows(BuildContext context, [Windows? property]);
 
-  Widget macos(BuildContext context);
+  Widget macos(BuildContext context, [Macos? property]);
 }

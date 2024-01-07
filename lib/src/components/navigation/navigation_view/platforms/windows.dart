@@ -1,175 +1,29 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../../core/common/construct/properties.dart';
-import '../navigation_view_item.dart';
-import '../navigation_view_size.dart';
-
-class NavigationViewWindows extends StatelessWidget {
-  const NavigationViewWindows({
-    super.key,
-    this.size,
-    this.items,
-    this.appBar,
-    this.property,
-    this.tileColor,
-    this.onChanged,
-    this.searchField,
-    this.currentIndex = 0,
-    this.selectedTileColor,
-    required this.tabs,
-  });
-
-  /// The Windows-specific property for customizing the navigation view.
-  final NavigationViewWindowsProperty? property;
-
-  /// The list of widgets representing the body of each navigation item.
-  final List<Widget> tabs;
-
-  /// The list of navigation items.
-  final List<AdaptiveNavigationViewItem>? items;
-
-  /// The adaptive app bar displayed at the top of the navigation view.
-  final NavigationAppBar? appBar;
-
-  /// The color of the tile when unselected.
-  final Color? tileColor;
-
-  /// The color of the tile when selected.
-  final Color? selectedTileColor;
-
-  /// The current selected index.
-  final int currentIndex;
-
-  /// Called when the current selected index should be changed.
-  final ValueChanged<int>? onChanged;
-
-  /// An optional search field widget.
-  final Widget? searchField;
-
-  /// The adaptive size constraints for the navigation view.
-  final AdaptiveNavigationViewSize? size;
-
-  @override
-  Widget build(BuildContext context) {
-    return NavigationView(
-      appBar: appBar,
-      pane: NavigationPane(
-        size: NavigationPaneSize(
-          openMaxWidth: size?.maxWidth,
-          openMinWidth: size?.minWidth,
-          openWidth: size?.startWidth,
-          headerHeight: size?.topOffset,
-        ),
-        items: _buildItems(context),
-        onChanged: onChanged,
-        selected: currentIndex,
-        leading: property?.leading,
-        autoSuggestBox: searchField,
-        menuButton: property?.menuButton,
-        scrollBehavior: property?.scrollBehavior,
-        scrollController: property?.scrollController,
-        header: property?.header ?? const SizedBox.shrink(),
-        displayMode: property?.displayMode ?? PaneDisplayMode.auto,
-        indicator: property?.indicator ?? const StickyNavigationIndicator(),
-        autoSuggestBoxReplacement: searchField != null ? const Icon(FluentIcons.search) : null,
-      ),
-      onOpenSearch: property?.onOpenSearch,
-      contentShape: property?.contentShape ?? RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.only(
-              topStart: property?.displayMode == PaneDisplayMode.top
-                  ? Radius.zero
-                  : const Radius.circular(8.0),
-            ).resolve(Directionality.of(context)),
-            side: BorderSide(
-              color: FluentTheme.of(context).resources.cardStrokeColorDefault,
-            ),
-          ),
-      transitionBuilder: property?.transitionBuilder ?? (child, animation) {
-            return DrillInPageTransition(
-              animation: animation,
-              child: SafeArea(child: child),
-            );
-          },
-    );
-  }
-
-  List<NavigationPaneItem> _buildItems(BuildContext context) {
-    if (items == null || items!.isEmpty) return [];
-
-    final body = tabs[currentIndex];
-
-    return items!
-        .map(
-          (e) => e.toWindows(context,
-              body: body, unColor: tileColor, seColor: selectedTileColor),
-        )
-        .toList();
-  }
-}
 
 class NavigationViewWindowsProperty extends CoreWindowsProperty {
   const NavigationViewWindowsProperty({
-    this.header,
-    this.leading,
-    this.indicator,
-    this.menuButton,
     this.displayMode,
-    this.onOpenSearch,
     this.contentShape,
     this.transitionBuilder,
-    this.scrollController,
-    this.scrollBehavior,
+    this.onDisplayModeChanged,
+    this.clipBehavior = Clip.antiAlias,
   });
 
-  /// Use this property to customize how the pane will be displayed.
-  /// [PaneDisplayMode.auto] is used by default.
-  final PaneDisplayMode? displayMode;
-
-  /// The menu button used by this pane.
+  /// {@macro flutter.rendering.ClipRectLayer.clipBehavior}
   ///
-  /// If null, [buildMenuButton] is used
-  final Widget? menuButton;
-
-  /// The header of the pane.
-  ///
-  /// If null, the space it should have taken will be removed from
-  /// the pane ([PaneDisplayMode.minimal] and [PaneDisplayMode.open] only).
-  ///
-  /// Usually a [Text] or an [Image].
-  ///
-  /// ![Top Pane Header](https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/images/navview-freeform-header-top.png)
-  /// ![Left Pane Header](https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/images/navview-freeform-header-left.png)
-  final Widget? header;
-
-  /// The scroll controller used by the pane when [displayMode] is
-  /// [PaneDisplayMode.compact] and [PaneDisplayMode.open].
-  ///
-  /// If null, a local scroll controller is created to control the scrolling and
-  /// keep the state of the scroll when the display mode is toggled.
-  final ScrollController? scrollController;
-
-  /// The scroll behavior used by the pane when [displayMode] is
-  /// [PaneDisplayMode.compact] and [PaneDisplayMode.open].
-  ///
-  /// If null, [NavigationViewScrollBehavior] is used.
-  final ScrollBehavior? scrollBehavior;
-
-  /// The leading Widget for the Pane
-  final Widget? leading;
-
-  /// A function called when building the navigation indicator
-  final Widget? indicator;
+  /// Defaults to [Clip.antiAlias].
+  final Clip clipBehavior;
 
   /// How the body content should be clipped
   ///
   /// The body content is not clipped on when the display mode is [PaneDisplayMode.minimal]
   final ShapeBorder? contentShape;
 
-  /// Called when the search button is tapped.
-  ///
-  /// This callback is invoked when [NavigationPane.autoSuggestBoxReplacement]
-  /// is tapped.
-  final VoidCallback? onOpenSearch;
+  /// Use this property to customize how the pane will be displayed.
+  /// [PaneDisplayMode.auto] is used by default.
+  final PaneDisplayMode? displayMode;
 
   /// The transition builder.
   ///
@@ -192,4 +46,76 @@ class NavigationViewWindowsProperty extends CoreWindowsProperty {
   ///
   ///  * --> default used [DrillInPageTransition]
   final AnimatedSwitcherTransitionBuilder? transitionBuilder;
+
+  /// Called when the display mode changes.
+  ///
+  /// This is called when the user clicks on the pane toggle button, or when
+  /// the display mode is set to [PaneDisplayMode.auto] and the window size
+  /// changes.
+  ///
+  /// If the display mode is set to compact, this listens to changes on the
+  /// toggle button and resizes. If the pane is closed, [PaneDisplayMode.compact]
+  /// is returned. If the pane is open, [PaneDisplayMode.open] is returned.
+  ///
+  /// If the display mode is set to minimal, this is called when the pane is opened
+  /// or closed. If the pane is closed, [PaneDisplayMode.minimal] is returned.
+  /// If the pane is open, [PaneDisplayMode.open] is returned.
+  final ValueChanged<PaneDisplayMode>? onDisplayModeChanged;
+}
+
+class NavigationSidebarWindowsProperty extends CoreWindowsProperty {
+  const NavigationSidebarWindowsProperty({
+    this.leading,
+    this.indicator,
+    this.menuButton,
+    this.onOpenSearch,
+    this.scrollBehavior,
+    this.scrollController,
+    this.toggleable = true,
+    this.searchFieldReplacement,
+  });
+
+  /// The leading Widget for the Pane
+  final Widget? leading;
+
+  /// A function called when building the navigation indicator
+  final Widget? indicator;
+
+  /// The menu button used by this pane.
+  ///
+  /// If null, [buildMenuButton] is used
+  final Widget? menuButton;
+
+  /// Whether the pane can be toggled or not.
+  ///
+  /// This is used when [displayMode] is [PaneDisplayMode.compact]. If false,
+  /// the pane will always be closed.
+  final bool toggleable;
+
+
+  /// Called when the search button is tapped.
+  ///
+  /// This callback is invoked when [NavigationPane.autoSuggestBoxReplacement]
+  /// is tapped.
+  final VoidCallback? onOpenSearch;
+
+  /// Used when the current display mode is [PaneDisplayMode.compact]
+  /// as a replacement to [searchField]. It's only displayed if
+  /// [searchField] is non-null.
+  ///
+  /// It's usually an [Icon] with [FluentIcons.search] as the icon.
+  final Widget? searchFieldReplacement;
+
+  /// The scroll controller used by the pane when [displayMode] is
+  /// [PaneDisplayMode.compact] and [PaneDisplayMode.open].
+  ///
+  /// If null, a local scroll controller is created to control the scrolling and
+  /// keep the state of the scroll when the display mode is toggled.
+  final ScrollController? scrollController;
+
+  /// The scroll behavior used by the pane when [displayMode] is
+  /// [PaneDisplayMode.compact] and [PaneDisplayMode.open].
+  ///
+  /// If null, [NavigationViewScrollBehavior] is used.
+  final ScrollBehavior? scrollBehavior;
 }

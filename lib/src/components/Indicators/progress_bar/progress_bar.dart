@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart' as macos_ui;
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 import 'progress_bar_macos.dart';
 
 /// A progress control provides feedback to the user that a long-running
@@ -65,23 +66,23 @@ class AdaptiveProgressBarIndicator extends CoreAdaptiveComponent {
   double? get clampedValue => value?.clamp(0, 100).toDouble();
 
   @override
-  Widget macos(BuildContext context) {
-    return ProgressBarMacos(
-      height: height,
-      value: clampedValue,
-      semanticLabel: semanticLabel,
-      trackColor: activeTrackColor,
-      backgroundColor: inactiveTrackColor,
-    );
-  }
-
-  @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return ProgressBar(
       strokeWidth: height,
       value: clampedValue,
       semanticLabel: semanticLabel,
       activeColor: activeTrackColor,
+      backgroundColor: inactiveTrackColor,
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    return ProgressBarMacos(
+      height: height,
+      value: clampedValue,
+      semanticLabel: semanticLabel,
+      trackColor: activeTrackColor,
       backgroundColor: inactiveTrackColor,
     );
   }

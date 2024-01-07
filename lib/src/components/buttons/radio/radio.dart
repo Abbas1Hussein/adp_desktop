@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
 
 /// Radio buttons, also called option buttons, let users select one option from
@@ -97,27 +98,7 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
   bool get _enabled => onChanged != null;
 
   @override
-  Widget macos(BuildContext context) {
-    return MacosRadioButton<T>(
-      value: value,
-      onColor: activeColor,
-      groupValue: groupValue,
-      offColor: disabledColor ?? CupertinoColors.tertiaryLabel,
-      onChanged: (value) => onChanged?.call(value as T),
-      semanticLabel: semanticLabel,
-    ).margeWith(
-          label != null
-              ? GestureDetector(
-                  onTap: _enabled ? () => onChanged!(value) : null,
-                  child: label,
-                )
-              : null,
-          4.0,
-        ).applyDisabledEffect(!_enabled);
-  }
-
-  @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
     return RadioButtonTheme.merge(
       data: RadioButtonThemeData(
@@ -169,5 +150,27 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
         onChanged: _enabled ? (_) => onChanged!(value) : null,
       ),
     );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    return MacosRadioButton<T>(
+      value: value,
+      onColor: activeColor,
+      groupValue: groupValue,
+      offColor: disabledColor ?? CupertinoColors.tertiaryLabel,
+      onChanged: (value) => onChanged?.call(value as T),
+      semanticLabel: semanticLabel,
+    )
+        .margeWith(
+          label != null
+              ? GestureDetector(
+                  onTap: _enabled ? () => onChanged!(value) : null,
+                  child: label,
+                )
+              : null,
+          4.0,
+        )
+        .applyDisabledEffect(!_enabled);
   }
 }

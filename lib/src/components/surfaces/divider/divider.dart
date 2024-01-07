@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 
 class AdaptiveDivider extends CoreAdaptiveComponent {
   const AdaptiveDivider({
@@ -23,7 +24,18 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
   final Axis direction;
 
   @override
-  Widget macos(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return Divider(
+      size: size,
+      direction: direction,
+      style: color != null
+          ? DividerThemeData(decoration: BoxDecoration(color: color))
+          : null,
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return SizedBox(
       height: direction == Axis.horizontal ? 0.5 : size,
       width: direction == Axis.vertical ? 0.5 : size,
@@ -37,14 +49,4 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
     );
   }
 
-  @override
-  Widget windows(BuildContext context) {
-    return Divider(
-      size: size,
-      direction: direction,
-      style: color != null
-          ? DividerThemeData(decoration: BoxDecoration(color: color))
-          : null,
-    );
-  }
 }

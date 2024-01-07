@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../../../core/common/construct/property.dart';
 import '../button/base_button.dart';
 import '../button/platforms/macos.dart';
 
@@ -35,7 +36,7 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
   });
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return MouseRegion(
       cursor: mouseCursor,
       child: HyperlinkButton(
@@ -50,7 +51,7 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final theme = MacosTheme.of(context);
     return MacosButton(
       mouseCursor: mouseCursor,

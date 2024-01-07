@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
 
 /// The toggle switch represents a physical switch that allows users to turn
@@ -95,43 +96,7 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
   bool get _enabled => onChanged != null;
 
   @override
-  Widget macos(BuildContext context) {
-    final theme = MacosTheme.of(context);
-
-    final knobColorOnState = activeKnobColor?.toMacosColor();
-    final knobColorOffState = trackKnobColor?.toMacosColor();
-    final backgroundColorOnState =
-        (activeColor ?? theme.primaryColor).toMacosColor();
-    final backgroundColorOffState =
-        (trackColor ?? CupertinoColors.quaternarySystemFill).toMacosColor();
-
-    final knobColor = value ? knobColorOnState : knobColorOffState;
-    return MacosSwitch(
-      value: value,
-      onChanged: onChanged,
-      knobColor: knobColor,
-      semanticLabel: semanticLabel,
-      activeColor: backgroundColorOnState,
-      trackColor: backgroundColorOffState,
-      size: ControlSize.small,
-    )
-        .margeWith(
-          label != null
-              ? GestureDetector(
-                  onTap: _enabled ? () => onChanged!(!value) : null,
-                  child: DefaultTextStyle(
-                    style: theme.typography.body,
-                    child: label!,
-                  ),
-                )
-              : null,
-          10.0,
-        )
-        .applyDisabledEffect(!_enabled);
-  }
-
-  @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
     final defaultDecoration =
@@ -189,5 +154,41 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
         }),
       ),
     );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    final theme = MacosTheme.of(context);
+
+    final knobColorOnState = activeKnobColor?.toMacosColor();
+    final knobColorOffState = trackKnobColor?.toMacosColor();
+    final backgroundColorOnState =
+        (activeColor ?? theme.primaryColor).toMacosColor();
+    final backgroundColorOffState =
+        (trackColor ?? CupertinoColors.quaternarySystemFill).toMacosColor();
+
+    final knobColor = value ? knobColorOnState : knobColorOffState;
+    return MacosSwitch(
+      value: value,
+      onChanged: onChanged,
+      knobColor: knobColor,
+      semanticLabel: semanticLabel,
+      activeColor: backgroundColorOnState,
+      trackColor: backgroundColorOffState,
+      size: ControlSize.small,
+    )
+        .margeWith(
+          label != null
+              ? GestureDetector(
+                  onTap: _enabled ? () => onChanged!(!value) : null,
+                  child: DefaultTextStyle(
+                    style: theme.typography.body,
+                    child: label!,
+                  ),
+                )
+              : null,
+          10.0,
+        )
+        .applyDisabledEffect(!_enabled);
   }
 }

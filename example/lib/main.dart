@@ -20,7 +20,7 @@ class App extends StatelessWidget {
     return AdpApp(
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       properties: Properties(
         macos: AppMacosProperty(
           darkTheme: MacosThemeData.dark(),
@@ -47,29 +47,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    BottomNavigation;
+
     return AdaptiveNavigationView(
-      navigationAppBar: AdaptiveNavigationAppBar(
+      appBar: AdaptiveNavigationAppBar(
         title: const Text('Adaptive app'),
         leading: const AdaptiveIcon(AdpIcons.home),
         actions: _buildActions(),
       ),
-      onChanged: _onChanged,
-      currentIndex: currentValue,
-      items: List.generate(
-        3,
-        (index) => AdaptiveNavigationViewItem(
-          icon: [
-            const AdaptiveIcon(AdpIcons.archive),
-            const AdaptiveIcon(AdpIcons.alarm),
-            const AdaptiveIcon(AdpIcons.app)
-          ][index],
-          label: Text('label: ${index + 1}'),
-        ),
+      sidebar: AdaptiveNavigationSidebar(
+        onChanged: _onChanged,
+        currentIndex: currentValue,
+        items: [
+          const AdaptiveNavigationSidebarItem(
+            label: Text('add'),
+            icon: AdaptiveIcon(AdpIcons.add),
+          ),
+          const AdaptiveNavigationSidebarItem(
+            label: Text('delete'),
+            icon: AdaptiveIcon(AdpIcons.delete),
+          ),
+          const AdaptiveNavigationSidebarItem(
+            label: Text('edit'),
+            icon: AdaptiveIcon(AdpIcons.edit),
+          ),
+        ],
       ),
-      children: List.generate(
-        3,
-        (index) => Center(child: Text('${index + 1}')),
-      ),
+      children: List.generate(3, (index) => const AdaptiveDatePicker()),
     );
   }
 

@@ -72,7 +72,7 @@ class AdaptiveScaffoldPage extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
     return Mica(
@@ -87,7 +87,7 @@ class AdaptiveScaffoldPage extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final defaultBackgroundColor = MacosDynamicColor.resolve(
       backgroundColor ?? MacosTheme.of(context).canvasColor,
       context,

@@ -1,8 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/physics.dart';
-import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
+import '../../core/common/construct/property.dart';
 
 class AdaptivePageTransition extends CoreAdaptiveComponent {
   const AdaptivePageTransition({
@@ -17,8 +17,18 @@ class AdaptivePageTransition extends CoreAdaptiveComponent {
   final Animation<double> secondaryAnimation;
 
   @override
-  Widget macos(BuildContext context) {
-    MacosAlertDialog;
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return DrillInPageTransition(
+      animation: CurvedAnimation(
+        parent: animation,
+        curve: FluentTheme.of(context).animationCurve,
+      ),
+      child: child,
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
 
     if (animation.status == AnimationStatus.reverse) {
       return ScaleTransition(
@@ -45,17 +55,6 @@ class AdaptivePageTransition extends CoreAdaptiveComponent {
         opacity: CurvedAnimation(parent: animation, curve: Curves.easeInSine),
         child: child,
       ),
-    );
-  }
-
-  @override
-  Widget windows(BuildContext context) {
-    return DrillInPageTransition(
-      animation: CurvedAnimation(
-        parent: animation,
-        curve: FluentTheme.of(context).animationCurve,
-      ),
-      child: child,
     );
   }
 }

@@ -9,10 +9,8 @@ export 'tab_view/platforms/platforms.dart'
 export 'navigation_appbar/navigation_app_bar.dart';
 
 export 'navigation_view/navigation_view.dart';
-export 'navigation_view/navigation_view_size.dart';
-export 'navigation_view/navigation_view_item.dart';
-export 'navigation_view/platforms/platforms.dart'
-    show
-        NavigationViewWindowsProperty,
-        NavigationViewMacosProperty;
+export 'navigation_view/navigation_sidebar.dart';
+export 'navigation_view/navigation_sidebar_size.dart';
+export 'navigation_view/navigation_sidebar_item.dart';
+export 'navigation_view/platforms/platforms.dart';
 

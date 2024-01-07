@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:fluent_ui/fluent_ui.dart';
 
+import '../../../core/common/construct/property.dart';
 import '../base_text_field.dart';
 import 'platforms/platforms.dart';
 
@@ -114,14 +115,15 @@ final class AdaptiveTextField extends BaseTextField {
     super.textInputAction,
 
   });
+  @override
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return TextFieldWindows(adpProperties: fieldProperties);
+  }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return TextFieldMacos(adpProperties: fieldProperties);
   }
 
-  @override
-  Widget windows(BuildContext context) {
-    return TextFieldWindows(adpProperties: fieldProperties);
-  }
+
 }

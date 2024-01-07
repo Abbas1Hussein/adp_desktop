@@ -150,9 +150,29 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
   final MouseCursor mouseCursor;
 
   bool get enabled => onChanged != null;
+  @override
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return Slider(
+      min: min,
+      max: max,
+      onChanged: onChanged,
+      divisions: divisions,
+      value: enabled ? value : 0,
+      style: SliderThemeData(
+        useThumbBall: divisions == null,
+        thumbColor: thumbColor != null ? ButtonState.all(thumbColor) : null,
+        activeColor: activeColor != null ? ButtonState.all(activeColor) : null,
+        inactiveColor:
+        inactiveColor != null ? ButtonState.all(inactiveColor) : null,
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+      ),
+      label: value.toStringAsFixed(0),
+      mouseCursor: mouseCursor,
+    );
+  }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return MouseRegion(
       cursor: mouseCursor,
       child: MacosSlider(
@@ -172,27 +192,6 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
         semanticLabel: value.toStringAsFixed(0),
         thumbColor: thumbColor ?? activeColor ?? MacosColors.sliderThumbColor,
       ),
-    );
-  }
-
-  @override
-  Widget windows(BuildContext context) {
-    return Slider(
-      min: min,
-      max: max,
-      onChanged: onChanged,
-      divisions: divisions,
-      value: enabled ? value : 0,
-      style: SliderThemeData(
-        useThumbBall: divisions == null,
-        thumbColor: thumbColor != null ? ButtonState.all(thumbColor) : null,
-        activeColor: activeColor != null ? ButtonState.all(activeColor) : null,
-        inactiveColor:
-            inactiveColor != null ? ButtonState.all(inactiveColor) : null,
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-      ),
-      label: value.toStringAsFixed(0),
-      mouseCursor: mouseCursor,
     );
   }
 

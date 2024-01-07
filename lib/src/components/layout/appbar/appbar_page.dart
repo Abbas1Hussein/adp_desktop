@@ -165,7 +165,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
     return ConstrainedBox(
@@ -230,7 +230,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final theme = MacosTheme.of(context);
 
     final defaultBackgroundColor = CupertinoDynamicColor.resolve(

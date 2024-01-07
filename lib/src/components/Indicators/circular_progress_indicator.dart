@@ -62,7 +62,21 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
   double? get progressValue => value?.clamp(0.0, 100.0);
 
   @override
-  Widget macos(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return SizedBox(
+      height: radius * 2,
+      width: radius * 2,
+      child: ProgressRing(
+        value: progressValue,
+        activeColor: activeColor,
+        semanticLabel: semanticLabel,
+        backgroundColor: inactiveColor,
+      ),
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     if (value != null) {
       return ProgressCircle(
         radius: radius,
@@ -78,17 +92,4 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
     );
   }
 
-  @override
-  Widget windows(BuildContext context) {
-    return SizedBox(
-      height: radius * 2,
-      width: radius * 2,
-      child: ProgressRing(
-        value: progressValue,
-        activeColor: activeColor,
-        semanticLabel: semanticLabel,
-        backgroundColor: inactiveColor,
-      ),
-    );
-  }
 }

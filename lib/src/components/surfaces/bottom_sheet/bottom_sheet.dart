@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 import 'platforms/platforms.dart';
 
 /// A custom bottom sheet widget that adapts its appearance based on the platform.
@@ -61,8 +62,8 @@ class AdaptiveBottomSheet extends CoreAdaptiveComponent {
   final Color? backgroundColor;
 
   @override
-  Widget macos(BuildContext context) {
-    return BottomSheetMacos(
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return BottomSheetWindows(
       insetPadding: insetPadding,
       backgroundColor: backgroundColor,
       insetAnimationCurve: insetAnimationCurve,
@@ -72,8 +73,8 @@ class AdaptiveBottomSheet extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget windows(BuildContext context) {
-    return BottomSheetWindows(
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    return BottomSheetMacos(
       insetPadding: insetPadding,
       backgroundColor: backgroundColor,
       insetAnimationCurve: insetAnimationCurve,

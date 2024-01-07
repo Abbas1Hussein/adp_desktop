@@ -3,7 +3,7 @@ import '../adaptive.dart';
 export 'property.dart';
 
 abstract class CoreProperties<W, M> {
-  CoreProperties({this.windows, this.macos});
+   CoreProperties({this.windows, this.macos});
 
   W? windows;
   M? macos;

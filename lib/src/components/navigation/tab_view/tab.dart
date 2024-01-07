@@ -4,11 +4,10 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/model.dart';
 import '../../../core/extension/widget.dart';
 
+const _kTabBorderRadius = BorderRadius.all(Radius.circular(4.0));
+
 class AdaptiveTab extends CoreModel<Tab, MacosTab> {
-  const AdaptiveTab({
-    this.icon,
-    required this.label,
-  });
+  const AdaptiveTab({this.icon, required this.label});
 
   final Widget label;
   final Widget? icon;
@@ -49,8 +48,6 @@ class AdaptiveTab extends CoreModel<Tab, MacosTab> {
     );
   }
 }
-
-const _kTabBorderRadius = BorderRadius.all(Radius.circular(4.0));
 
 class _MacosTab extends MacosTab {
   const _MacosTab({

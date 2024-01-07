@@ -3,6 +3,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/model.dart';
+import '../../../core/common/construct/property.dart';
 
 class AdaptiveTooltip extends CoreAdaptiveComponent {
   /// Creates a adp tooltip.
@@ -46,10 +47,10 @@ class AdaptiveTooltip extends CoreAdaptiveComponent {
   final bool useMousePosition;
 
   @override
-  Widget macos(BuildContext context) {
-    return MacosTooltipTheme(
-      data: MacosTooltipTheme.of(context).merge(theme?.toMacos(context)),
-      child: MacosTooltip(
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return TooltipTheme(
+      data: TooltipTheme.of(context).merge(theme?.toWindows(context)),
+      child: Tooltip(
         message: message,
         useMousePosition: useMousePosition,
         excludeFromSemantics: excludeFromSemantics,
@@ -59,10 +60,10 @@ class AdaptiveTooltip extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget windows(BuildContext context) {
-    return TooltipTheme(
-      data: TooltipTheme.of(context).merge(theme?.toWindows(context)),
-      child: Tooltip(
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    return MacosTooltipTheme(
+      data: MacosTooltipTheme.of(context).merge(theme?.toMacos(context)),
+      child: MacosTooltip(
         message: message,
         useMousePosition: useMousePosition,
         excludeFromSemantics: excludeFromSemantics,

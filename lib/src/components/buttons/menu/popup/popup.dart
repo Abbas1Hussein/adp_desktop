@@ -71,7 +71,6 @@ class AdaptivePopupMenuButton<T> extends CoreAdaptiveComponent {
     required this.items,
   });
 
-
   /// The value of the currently selected [AdaptivePopupMenuItem].
   ///
   /// If [value] is null and the button is enabled, [placeholder] will be displayed
@@ -169,7 +168,25 @@ class AdaptivePopupMenuButton<T> extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return ComboBox<T>(
+      value: value,
+      onTap: onTap,
+      style: style,
+      onChanged: onChanged,
+      focusNode: focusNode,
+      autofocus: autofocus,
+      popupColor: popupColor,
+      isExpanded: isExpanded,
+      selectedItemBuilder: selectedItemBuilder,
+      placeholder: hasValue ? null : placeholder,
+      disabledPlaceholder: hasValue ? null : disabledPlaceholder,
+      items: items?.map((e) => e.toWindows(context)).toList(),
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return SizedBox(
       height: isExpanded ? 28.0 : null,
       width: isExpanded ? double.infinity : null,
@@ -190,26 +207,8 @@ class AdaptivePopupMenuButton<T> extends CoreAdaptiveComponent {
     );
   }
 
-  @override
-  Widget windows(BuildContext context) {
-    return ComboBox<T>(
-      value: value,
-      onTap: onTap,
-      style: style,
-      onChanged: onChanged,
-      focusNode: focusNode,
-      autofocus: autofocus,
-      popupColor: popupColor,
-      isExpanded: isExpanded,
-      selectedItemBuilder: selectedItemBuilder,
-      placeholder: hasValue ? null : placeholder,
-      disabledPlaceholder: hasValue ? null : disabledPlaceholder,
-      items: items?.map((e) => e.toWindows(context)).toList(),
-    );
-  }
-
   void validateSelectedItem() {
-    if (value != null &&  (items != null && items!.isNotEmpty)) {
+    if (value != null && (items != null && items!.isNotEmpty)) {
       final selectedItemCount = items!.where((e) => e.value == value).length;
       final hasUniqueSelectedItem = selectedItemCount == 1;
 

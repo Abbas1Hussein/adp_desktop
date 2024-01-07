@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../../../core/common/construct/property.dart';
 import '../base_text_field.dart';
 import '../text_field/platforms/macos.dart';
 import 'search_item.dart';
@@ -53,9 +54,30 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
       children: [super.build(context)],
     );
   }
+  @override
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return AutoSuggestBox<T>(
+      style: style,
+      focusNode: focusNode,
+      decoration: decoration,
+      controller: controller,
+      autofocus: autofocus ?? false,
+      inputFormatters: inputFormatters,
+      placeholderStyle: placeholderStyle,
+      onChanged: (text, reason) => onChanged?.call(text),
+      placeholder: placeholder ?? FluentLocalizations.of(context).searchLabel,
+      noResultsFoundBuilder:
+      emptyWidget != null ? (context) => emptyWidget! : null,
+      items: suggestions.map((e) => e.toWindows(context)).toList(),
+      onSelected: (value) {
+        onSelected?.call(AdaptiveSearchItem.fromAutoSuggestBoxItem(value));
+      },
+      enabled: enabled ?? true,
+    );
+  }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return DecoratedBox(
       decoration: decoration?.copyWith(
             color: decoration!.color!.withOpacity(0.6),
@@ -87,28 +109,6 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
         onChanged: onChanged,
         enabled: enabled ?? true,
       ),
-    );
-  }
-
-  @override
-  Widget windows(BuildContext context) {
-    return AutoSuggestBox<T>(
-      style: style,
-      focusNode: focusNode,
-      decoration: decoration,
-      controller: controller,
-      autofocus: autofocus ?? false,
-      inputFormatters: inputFormatters,
-      placeholderStyle: placeholderStyle,
-      onChanged: (text, reason) => onChanged?.call(text),
-      placeholder: placeholder ?? FluentLocalizations.of(context).searchLabel,
-      noResultsFoundBuilder:
-          emptyWidget != null ? (context) => emptyWidget! : null,
-      items: suggestions.map((e) => e.toWindows(context)).toList(),
-      onSelected: (value) {
-        onSelected?.call(AdaptiveSearchItem.fromAutoSuggestBoxItem(value));
-      },
-      enabled: enabled ?? true,
     );
   }
 }

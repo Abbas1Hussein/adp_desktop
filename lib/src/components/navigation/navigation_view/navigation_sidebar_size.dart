@@ -1,15 +1,15 @@
-/// the size configuration for an adaptive navigation view.
+/// the size configuration for an adaptive navigation sidebar.
 ///
-/// Use this class to define constraints and initial sizes for an adaptive navigation view.
-class AdaptiveNavigationViewSize {
-  /// Creates an instance of [AdaptiveNavigationViewSize].
+/// Use this class to define constraints and initial sizes for an adaptive navigation sidebar.
+class AdaptiveNavigationSidebarSize {
+  /// Creates an instance of [AdaptiveNavigationSidebarSize].
   ///
   /// The [minWidth] and [maxWidth] properties, if provided, should adhere to certain constraints.
   ///
   /// The [startWidth] property, if provided, should be between [minWidth] and [maxWidth] if both are provided.
   ///
   /// The [topOffset] property represents the top offset of the adaptive navigation view.
-  const AdaptiveNavigationViewSize({
+  const AdaptiveNavigationSidebarSize({
     this.minWidth,
     this.maxWidth,
     this.startWidth,
@@ -25,21 +25,21 @@ class AdaptiveNavigationViewSize {
         assert(maxWidth == null || startWidth == null || startWidth <= maxWidth,
             'startWidth must be between minWidth and maxWidth');
 
-  /// The minimum width that the adaptive navigation view can have.
+  /// The minimum width that the adaptive navigation sidebar can have.
   ///
   /// If provided, [maxWidth] must also be provided, and [minWidth] should not be larger than [maxWidth].
   final double? minWidth;
 
-  /// The maximum width that the adaptive navigation view can have.
+  /// The maximum width that the adaptive navigation sidebar can have.
   ///
   /// If provided, [minWidth] must also be provided, and [minWidth] should not be larger than [maxWidth].
   final double? maxWidth;
 
-  /// The initial width of the adaptive navigation view.
+  /// The initial width of the adaptive navigation sidebar.
   ///
   /// If both [minWidth] and [maxWidth] are provided, [startWidth] must be between them.
   final double? startWidth;
 
-  /// The top offset of the adaptive navigation view.
+  /// The top offset of the adaptive navigation sidebar.
   final double? topOffset;
 }

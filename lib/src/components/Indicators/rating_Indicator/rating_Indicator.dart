@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
 import '../../icon/icons.dart';
 import 'custom_rating_Indicator.dart';
@@ -83,7 +84,7 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
   final String? semanticLabel;
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return RatingBar(
       amount: amount,
       rating: rating,
@@ -98,7 +99,7 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final ratedColor = ratedIconColor ?? CupertinoColors.activeOrange;
 
     return CustomRatingBarIndicator(

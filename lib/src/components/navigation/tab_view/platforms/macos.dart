@@ -120,8 +120,12 @@ class _TabViewMacosState extends State<TabViewMacos> {
 }
 
 class TabViewMacosProperty extends CoreMacosProperty {
-  const TabViewMacosProperty(
-      {this.axis, this.insets, this.padding, this.position});
+  const TabViewMacosProperty({
+    this.axis,
+    this.insets,
+    this.padding,
+    this.position,
+  });
 
   /// The padding of the tab view widget.
   ///

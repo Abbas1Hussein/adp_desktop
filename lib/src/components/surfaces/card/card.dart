@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 
 const BorderRadius _kCardBorderRadius = BorderRadius.all(Radius.circular(12.0));
 
@@ -72,7 +73,7 @@ class AdaptiveCard extends CoreAdaptiveComponent {
   final Clip clipBehavior;
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
     return _card(
@@ -85,7 +86,7 @@ class AdaptiveCard extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final theme = MacosTheme.of(context);
 
     return _card(

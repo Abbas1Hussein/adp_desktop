@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../../../core/common/construct/property.dart';
 import '../base_text_field.dart';
 import '../text_field/text_field.dart';
 import 'platforms/platforms.dart';
@@ -108,12 +109,12 @@ final class AdaptiveTextFormField extends BaseTextField {
         );
 
   @override
-  Widget macos(BuildContext context) {
-    return TextFormFieldMacos(adpProperties: formFieldProperties);
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return TextFormFieldWindows(adpProperties: formFieldProperties);
   }
 
   @override
-  Widget windows(BuildContext context) {
-    return TextFormFieldWindows(adpProperties: formFieldProperties);
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    return TextFormFieldMacos(adpProperties: formFieldProperties);
   }
 }

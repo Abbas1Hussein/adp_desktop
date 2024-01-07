@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-import './tab.dart';
 import '../../../core/common/construct/component.dart';
+import './tab.dart';
 import 'platforms/platforms.dart';
 
 /// A custom tab view widget that adapts its appearance based on the platform.
@@ -79,12 +79,12 @@ class AdaptiveTabView extends CoreAdaptiveComponent<TabViewWindowsProperty,
   final Color? unSelectedColor;
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [TabViewWindowsProperty? property]) {
     return TabViewWindows(
       tabs: tabs,
+      property: property,
       onChanged: onChanged,
       currentIndex: currentIndex,
-      property: properties?.windows,
       selectedColor: selectedColor,
       unSelectedColor: unSelectedColor,
       primaryBackgroundColor: primaryBackgroundColor,
@@ -94,12 +94,12 @@ class AdaptiveTabView extends CoreAdaptiveComponent<TabViewWindowsProperty,
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [TabViewMacosProperty? property]) {
     return TabViewMacos(
       tabs: tabs,
+      property: property,
       onChanged: onChanged,
       currentIndex: currentIndex,
-      property: properties?.macos,
       selectedColor: selectedColor,
       unSelectedColor: unSelectedColor,
       primaryBackgroundColor: primaryBackgroundColor,
@@ -107,6 +107,4 @@ class AdaptiveTabView extends CoreAdaptiveComponent<TabViewWindowsProperty,
       children: children,
     );
   }
-
-
 }

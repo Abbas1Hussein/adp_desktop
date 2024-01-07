@@ -28,7 +28,8 @@ import 'platforms/platforms.dart';
 ///   ),
 /// );
 /// ```
-class AdaptiveIconButton extends CoreAdaptiveComponent<IconButtonWindowsProperty, IconButtonMacosProperty> {
+class AdaptiveIconButton extends CoreAdaptiveComponent<
+    IconButtonWindowsProperty, IconButtonMacosProperty> {
   const AdaptiveIconButton({
     super.key,
     super.builders,
@@ -79,22 +80,7 @@ class AdaptiveIconButton extends CoreAdaptiveComponent<IconButtonWindowsProperty
   final BoxConstraints? constraints;
 
   @override
-  Widget macos(BuildContext context) {
-    return IconButtonMacos(
-      icon: icon,
-      color: color,
-      padding: padding,
-      onPressed: onPressed,
-      hoverColor: hoverColor,
-      constraints: constraints,
-      borderRadius: borderRadius,
-      disabledColor: disabledColor,
-      property: properties?.macos,
-    );
-  }
-
-  @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [IconButtonWindowsProperty? property]) {
     return IconButtonWindows(
       icon: icon,
       color: color,
@@ -104,7 +90,22 @@ class AdaptiveIconButton extends CoreAdaptiveComponent<IconButtonWindowsProperty
       constraints: constraints,
       borderRadius: borderRadius,
       disabledColor: disabledColor,
-      property: properties?.windows,
+      property: property,
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [IconButtonMacosProperty? property]) {
+    return IconButtonMacos(
+      icon: icon,
+      color: color,
+      padding: padding,
+      onPressed: onPressed,
+      hoverColor: hoverColor,
+      constraints: constraints,
+      borderRadius: borderRadius,
+      disabledColor: disabledColor,
+      property: property,
     );
   }
 }

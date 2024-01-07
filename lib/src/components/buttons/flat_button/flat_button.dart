@@ -62,25 +62,25 @@ class AdaptiveFlatButton extends CoreAdaptiveComponent<
   final Widget child;
 
   @override
-  Widget macos(BuildContext context) {
-    return FlatButtonMacos(
-      property: properties?.macos,
-      disabledColor: disabledColor,
-      onLongPress: onLongPress,
-      onPressed: onPressed,
+  Widget windows(BuildContext context, [FlatButtonWindowsProperty? property]) {
+    return FlatButtonWindows(
       color: color,
+      property: property,
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      disabledColor: disabledColor,
       child: child,
     );
   }
 
   @override
-  Widget windows(BuildContext context) {
-    return FlatButtonWindows(
-      property: properties?.windows,
-      disabledColor: disabledColor,
-      onLongPress: onLongPress,
-      onPressed: onPressed,
+  Widget macos(BuildContext context, [FlatButtonMacosProperty? property]) {
+    return FlatButtonMacos(
       color: color,
+      property: property,
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      disabledColor: disabledColor,
       child: child,
     );
   }

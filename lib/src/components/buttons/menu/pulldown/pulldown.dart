@@ -165,7 +165,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
   }
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [PulldownMenuWindowsProperty? property]) {
     return PulldownMenuWindows<T>(
       title: title,
       items: items,
@@ -177,12 +177,12 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
       onSelected: onSelected,
       menuColor: pulldownColor,
       disabledTitle: disabledTitle,
-      property: properties?.windows,
+      property: property,
     );
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [PulldownMenuMacosProperty? property]) {
     return PulldownMenuMacos<T>(
       title: title,
       items: items,
@@ -194,7 +194,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
       onSelected: onSelected,
       pulldownColor: pulldownColor,
       disabledTitle: disabledTitle,
-      property: properties?.macos,
+      property: property,
     );
   }
 

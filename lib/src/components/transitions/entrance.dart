@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../core/common/construct/component.dart';
+import '../../core/common/construct/property.dart';
 
 /// A widget that provides an adaptive entrance transition for the child based on the platform.
 ///
@@ -25,17 +26,17 @@ class AdaptiveEntranceTransition extends CoreAdaptiveComponent {
   final Animation<double> secondaryAnimation;
 
   @override
-  Widget macos(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    return EntrancePageTransition(animation: animation, child: child);
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return CupertinoFullscreenDialogTransition(
       secondaryRouteAnimation: secondaryAnimation,
       primaryRouteAnimation: animation,
       linearTransition: true,
       child: child,
     );
-  }
-
-  @override
-  Widget windows(BuildContext context) {
-    return EntrancePageTransition(animation: animation, child: child);
   }
 }

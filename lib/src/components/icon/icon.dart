@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
+import '../../core/common/construct/property.dart';
 import 'icons.dart';
 
 class AdaptiveIcon extends CoreAdaptiveComponent {
@@ -71,9 +72,9 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   final TextDirection? textDirection;
 
   @override
-  Widget macos(BuildContext context) {
-    final icon = cupertino ?? adaptiveIcons?.cupertino;
-    return MacosIcon(
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    final icon = fluent ?? adaptiveIcons?.fluent;
+    return Icon(
       icon,
       key: key,
       size: size,
@@ -84,9 +85,9 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget windows(BuildContext context) {
-    final icon = fluent ?? adaptiveIcons?.fluent;
-    return Icon(
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    final icon = cupertino ?? adaptiveIcons?.cupertino;
+    return MacosIcon(
       icon,
       key: key,
       size: size,

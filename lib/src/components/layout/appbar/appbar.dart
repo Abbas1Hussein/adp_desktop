@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide IconButton;
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 import '../../buttons/back_button.dart';
 import '../../buttons/close_button.dart';
 import '../../icon/icons.dart';
@@ -364,9 +365,118 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
   Widget _buildCloseButton(BuildContext context) {
     return Center(child: closeButton ?? const AdaptiveCloseButton());
   }
+  @override
+  Widget windows(BuildContext context,[ CoreWindowsProperty? property]) {
+    final theme = FluentTheme.of(context);
+
+    final defaultIconTheme = IconThemeData(
+      size: iconTheme?.size ?? theme.iconTheme.size,
+      color: iconTheme?.color ?? theme.iconTheme.color,
+    );
+
+    final titleStyled = title != null
+        ? DefaultTextStyle(
+      style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
+          theme.typography.subtitle!.copyWith(color: foregroundColor),
+      child: title!,
+    )
+        : null;
+
+    final handelDrawer = hasDrawer(context)
+        ? Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: IconButton(
+        icon: Icon(
+          size: iconDrawerTheme?.size ?? defaultIconTheme.size,
+          color: foregroundColor ??
+              iconDrawerTheme?.color ??
+              defaultIconTheme.color,
+          iconDrawerTheme?.icon?.fluent ?? Icons.menu,
+        ),
+        onPressed: Scaffold.of(context).openDrawer,
+      ),
+    )
+        : null;
+
+    final handelEndDrawer = hasEndDrawer(context)
+        ? Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: IconButton(
+        icon: Icon(
+          size: iconEndDrawerTheme?.size ?? defaultIconTheme.size,
+          color: foregroundColor ??
+              iconEndDrawerTheme?.color ??
+              defaultIconTheme.color,
+          iconEndDrawerTheme?.icon?.fluent ?? Icons.menu,
+        ),
+        onPressed: Scaffold.of(context).openEndDrawer,
+      ),
+    )
+        : null;
+
+    final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
+
+    final bool useCloseButton =
+        parentRoute is PageRoute<dynamic> && parentRoute.fullscreenDialog;
+
+    Widget? handelLeading = leading;
+    if (leading == null && automaticallyImplyLeading) {
+      if (hasDrawer(context)) {
+        handelLeading = handelDrawer;
+      } else if (parentRoute?.impliesAppBarDismissal ?? false) {
+        handelLeading = useCloseButton
+            ? _buildCloseButton(context)
+            : _buildBackButton(context);
+      }
+    }
+
+    if (leading != null) {
+      handelLeading = DefaultTextStyle(
+        style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
+            theme.typography.body!,
+        child: leading!,
+      );
+    }
+
+    return AppBar(
+      key: key,
+      shape: shape ??
+          Border(
+            bottom: BorderSide(
+              color: theme.resources.dividerStrokeColorDefault,
+            ),
+          ),
+      primary: primary,
+      bottom: bottom,
+      elevation: elevation,
+      shadowColor: shadowColor,
+      centerTitle: centerTitle,
+      titleSpacing: titleSpacing,
+      clipBehavior: clipBehavior,
+      flexibleSpace: flexibleSpace,
+      bottomOpacity: bottomOpacity,
+      toolbarHeight: toolbarHeight,
+      leadingWidth: leadingWidth,
+      toolbarOpacity: toolbarOpacity,
+      titleTextStyle: toolbarTextStyle,
+      foregroundColor: foregroundColor,
+      surfaceTintColor: surfaceTintColor,
+      backgroundColor: backgroundColor,
+      toolbarTextStyle: toolbarTextStyle,
+      notificationPredicate: notificationPredicate,
+      excludeHeaderSemantics: excludeHeaderSemantics,
+      scrolledUnderElevation: scrolledUnderElevation,
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      title: titleStyled,
+      leading: handelLeading,
+      iconTheme: defaultIconTheme,
+      actionsIconTheme: defaultIconTheme,
+      actions: actions ?? [if (hasEndDrawer(context)) handelEndDrawer!],
+    );
+  }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final theme = MacosTheme.of(context);
 
     final defaultBackgroundColor = MacosDynamicColor.resolve(
@@ -477,115 +587,6 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
     );
   }
 
-  @override
-  Widget windows(BuildContext context) {
-    final theme = FluentTheme.of(context);
-
-    final defaultIconTheme = IconThemeData(
-      size: iconTheme?.size ?? theme.iconTheme.size,
-      color: iconTheme?.color ?? theme.iconTheme.color,
-    );
-
-    final titleStyled = title != null
-        ? DefaultTextStyle(
-            style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
-                theme.typography.subtitle!.copyWith(color: foregroundColor),
-            child: title!,
-          )
-        : null;
-
-    final handelDrawer = hasDrawer(context)
-        ? Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: Icon(
-                size: iconDrawerTheme?.size ?? defaultIconTheme.size,
-                color: foregroundColor ??
-                    iconDrawerTheme?.color ??
-                    defaultIconTheme.color,
-                iconDrawerTheme?.icon?.fluent ?? Icons.menu,
-              ),
-              onPressed: Scaffold.of(context).openDrawer,
-            ),
-          )
-        : null;
-
-    final handelEndDrawer = hasEndDrawer(context)
-        ? Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: IconButton(
-              icon: Icon(
-                size: iconEndDrawerTheme?.size ?? defaultIconTheme.size,
-                color: foregroundColor ??
-                    iconEndDrawerTheme?.color ??
-                    defaultIconTheme.color,
-                iconEndDrawerTheme?.icon?.fluent ?? Icons.menu,
-              ),
-              onPressed: Scaffold.of(context).openEndDrawer,
-            ),
-          )
-        : null;
-
-    final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
-
-    final bool useCloseButton =
-        parentRoute is PageRoute<dynamic> && parentRoute.fullscreenDialog;
-
-    Widget? handelLeading = leading;
-    if (leading == null && automaticallyImplyLeading) {
-      if (hasDrawer(context)) {
-        handelLeading = handelDrawer;
-      } else if (parentRoute?.impliesAppBarDismissal ?? false) {
-        handelLeading = useCloseButton
-            ? _buildCloseButton(context)
-            : _buildBackButton(context);
-      }
-    }
-
-    if (leading != null) {
-      handelLeading = DefaultTextStyle(
-        style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
-            theme.typography.body!,
-        child: leading!,
-      );
-    }
-
-    return AppBar(
-      key: key,
-      shape: shape ??
-          Border(
-            bottom: BorderSide(
-              color: theme.resources.dividerStrokeColorDefault,
-            ),
-          ),
-      primary: primary,
-      bottom: bottom,
-      elevation: elevation,
-      shadowColor: shadowColor,
-      centerTitle: centerTitle,
-      titleSpacing: titleSpacing,
-      clipBehavior: clipBehavior,
-      flexibleSpace: flexibleSpace,
-      bottomOpacity: bottomOpacity,
-      toolbarHeight: toolbarHeight,
-      leadingWidth: leadingWidth,
-      toolbarOpacity: toolbarOpacity,
-      titleTextStyle: toolbarTextStyle,
-      foregroundColor: foregroundColor,
-      surfaceTintColor: surfaceTintColor,
-      backgroundColor: backgroundColor,
-      toolbarTextStyle: toolbarTextStyle,
-      notificationPredicate: notificationPredicate,
-      excludeHeaderSemantics: excludeHeaderSemantics,
-      scrolledUnderElevation: scrolledUnderElevation,
-      automaticallyImplyLeading: automaticallyImplyLeading,
-      title: titleStyled,
-      leading: handelLeading,
-      iconTheme: defaultIconTheme,
-      actionsIconTheme: defaultIconTheme,
-      actions: actions ?? [if (hasEndDrawer(context)) handelEndDrawer!],
-    );
-  }
 }
 
 /// The size is calculated based on the specified [toolbarHeight] and the preferred height

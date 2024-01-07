@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../../../core/common/construct/property.dart';
 import 'base_button.dart';
 import 'platforms/macos.dart';
 
@@ -57,7 +58,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
   final AdaptiveButtonType type;
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     Widget? button;
 
     switch (type) {
@@ -98,7 +99,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final theme = MacosTheme.of(context);
     switch (type) {
       case AdaptiveButtonType.base:

@@ -295,7 +295,7 @@ class AdpApp
   }
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [AppWindowsProperty? property]) {
     if (usesRouter) {
       return FluentApp.router(
         title: title,
@@ -305,15 +305,15 @@ class AdpApp
         builder: builder,
         themeMode: themeMode,
         onGenerateTitle: onGenerateTitle,
-        theme: properties?.windows?.theme,
         restorationScopeId: restorationScopeId,
         routerConfig: routerConfig,
         routerDelegate: routerDelegate,
         backButtonDispatcher: backButtonDispatcher,
         routeInformationParser: routeInformationParser,
         routeInformationProvider: routeInformationProvider,
-        shortcuts: properties?.windows?.shortcuts ?? shortcuts,
-        darkTheme: properties?.windows?.darkTheme,
+        theme: property?.theme,
+        darkTheme: property?.darkTheme,
+        shortcuts: property?.shortcuts ?? shortcuts,
         showSemanticsDebugger: showSemanticsDebugger,
         showPerformanceOverlay: showPerformanceOverlay,
         localizationsDelegates: _localizationsDelegatesWindows,
@@ -341,11 +341,11 @@ class AdpApp
       onUnknownRoute: onUnknownRoute,
       onGenerateRoute: onGenerateRoute,
       onGenerateTitle: onGenerateTitle,
-      theme: properties?.windows?.theme,
+      theme: property?.theme,
+      darkTheme: property?.darkTheme,
+      shortcuts: property?.shortcuts ?? shortcuts,
       navigatorObservers: navigatorObservers,
       restorationScopeId: restorationScopeId,
-      shortcuts: properties?.windows?.shortcuts ?? shortcuts,
-      darkTheme: properties?.windows?.darkTheme,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
       localizationsDelegates: _localizationsDelegatesWindows,
@@ -368,7 +368,7 @@ class AdpApp
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [AppMacosProperty? property]) {
     if (usesRouter) {
       return MacosApp.router(
         title: title,
@@ -380,13 +380,13 @@ class AdpApp
         builder: _macosBuilder,
         routerConfig: routerConfig,
         routerDelegate: routerDelegate,
-        theme: properties?.macos?.theme,
+        theme: property?.theme,
+        darkTheme: property?.darkTheme,
         onGenerateTitle: onGenerateTitle,
         restorationScopeId: restorationScopeId,
         backButtonDispatcher: backButtonDispatcher,
         routeInformationParser: routeInformationParser,
         routeInformationProvider: routeInformationProvider,
-        darkTheme: properties?.macos?.darkTheme,
         showSemanticsDebugger: showSemanticsDebugger,
         showPerformanceOverlay: showPerformanceOverlay,
         localizationsDelegates: _localizationsDelegatesMacos,
@@ -412,12 +412,12 @@ class AdpApp
       initialRoute: initialRoute,
       navigatorKey: navigatorKey,
       onUnknownRoute: onUnknownRoute,
-      theme: properties?.macos?.theme,
+      theme: property?.theme,
       onGenerateRoute: onGenerateRoute,
       onGenerateTitle: onGenerateTitle,
       navigatorObservers: navigatorObservers,
       restorationScopeId: restorationScopeId,
-      darkTheme: properties?.macos?.darkTheme,
+      darkTheme: property?.darkTheme,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
       localizationsDelegates: _localizationsDelegatesMacos,

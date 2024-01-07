@@ -1,8 +1,9 @@
-import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../additional/color.dart';
+import '../../additional/typography.dart';
+import '../layout.dart';
 
 /// The Scaffold is designed to be a top level container for
 /// a [AdpApp]. This means that adding a Scaffold

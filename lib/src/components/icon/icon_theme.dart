@@ -4,6 +4,7 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../core/common/adaptive.dart';
 import '../../core/common/construct/component.dart';
 import '../../core/common/construct/model.dart';
+import '../../core/common/construct/property.dart';
 
 class AdaptiveIconTheme extends CoreAdaptiveComponent {
   /// Creates an adp icon theme that controls the color, opacity, and size of
@@ -61,18 +62,17 @@ class AdaptiveIconTheme extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget macos(BuildContext context) {
-    return MacosIconTheme(data: data.toMacos(context), child: child);
+  Widget windows(BuildContext context,[CoreWindowsProperty? property]) {
+    return IconTheme(data: data.toWindows(context), child: child);
   }
 
   @override
-  Widget windows(BuildContext context) {
-    return IconTheme(data: data.toWindows(context), child: child);
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    return MacosIconTheme(data: data.toMacos(context), child: child);
   }
 }
 
-class AdaptiveIconThemeData
-    extends CoreModel<IconThemeData, MacosIconThemeData> {
+class AdaptiveIconThemeData extends CoreModel<IconThemeData, MacosIconThemeData> {
   const AdaptiveIconThemeData({this.color, this.size, this.opacity});
 
   final Color? color;

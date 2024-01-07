@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
 
 /// A checkbox is a type of button that lets the user choose between
@@ -67,11 +68,49 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// On macOS platform, this color will be used when the [onChanged] callback is null.
   final Color? uncheckedBorderColor;
 
-
   bool get _enabled => onChanged != null;
 
   @override
-  Widget macos(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    final checkboxTheme = CheckboxThemeData.standard(FluentTheme.of(context));
+
+    final BorderRadiusGeometry radius = BorderRadius.circular(6.0);
+
+    return Checkbox(
+      checked: value,
+      onChanged: onChanged,
+      semanticLabel: semanticLabel,
+      style: CheckboxThemeData(
+        checkedDecoration: _enabled
+            ? ButtonState.all(
+            BoxDecoration(color: checkedColor, borderRadius: radius))
+            : checkboxTheme.checkedDecoration,
+        uncheckedDecoration: _enabled && uncheckedColor != null
+            ? ButtonState.all(
+          BoxDecoration(
+            color: uncheckedColor,
+            borderRadius: radius,
+            border: Border.all(
+              color: uncheckedBorderColor ?? Colors.transparent,
+            ),
+          ),
+        )
+            : checkboxTheme.uncheckedDecoration,
+        padding: checkboxTheme.padding,
+        margin: checkboxTheme.margin,
+        thirdstateDecoration: checkboxTheme.thirdstateDecoration,
+        thirdstateIconColor: checkboxTheme.thirdstateIconColor,
+        foregroundColor: checkboxTheme.foregroundColor,
+        checkedIconColor: checkboxTheme.checkedIconColor,
+        uncheckedIconColor: checkboxTheme.uncheckedIconColor,
+        icon: checkboxTheme.icon,
+      ),
+      content: label,
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: MacosCheckbox(
@@ -96,42 +135,4 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
         ).applyDisabledEffect(!_enabled);
   }
 
-  @override
-  Widget windows(BuildContext context) {
-    final checkboxTheme = CheckboxThemeData.standard(FluentTheme.of(context));
-
-    final BorderRadiusGeometry radius = BorderRadius.circular(6.0);
-
-    return Checkbox(
-      checked: value,
-      onChanged: onChanged,
-      semanticLabel: semanticLabel,
-      style: CheckboxThemeData(
-        checkedDecoration: _enabled
-            ? ButtonState.all(
-                BoxDecoration(color: checkedColor, borderRadius: radius))
-            : checkboxTheme.checkedDecoration,
-        uncheckedDecoration: _enabled && uncheckedColor != null
-            ? ButtonState.all(
-                BoxDecoration(
-                  color: uncheckedColor,
-                  borderRadius: radius,
-                  border: Border.all(
-                    color: uncheckedBorderColor ?? Colors.transparent,
-                  ),
-                ),
-              )
-            : checkboxTheme.uncheckedDecoration,
-        padding: checkboxTheme.padding,
-        margin: checkboxTheme.margin,
-        thirdstateDecoration: checkboxTheme.thirdstateDecoration,
-        thirdstateIconColor: checkboxTheme.thirdstateIconColor,
-        foregroundColor: checkboxTheme.foregroundColor,
-        checkedIconColor: checkboxTheme.checkedIconColor,
-        uncheckedIconColor: checkboxTheme.uncheckedIconColor,
-        icon: checkboxTheme.icon,
-      ),
-      content: label,
-    );
-  }
 }

@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../core/common/construct/component.dart';
+import '../../../core/common/construct/property.dart';
 import 'macos_list_tile.dart';
 
 /// A custom list Tile widget that adapts its appearance based on the platform.
@@ -64,28 +65,7 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
   final bool useBackgroundColor;
 
   @override
-  Widget macos(BuildContext context) {
-    return CustomMacosListTile(
-      title: title,
-      enabled: enabled,
-      leading: leading,
-      subtitle: subtitle,
-      trailing: trailing,
-      mouseCursor: mouseCursor,
-      onTap: enabled ? onTap : null,
-      onLongPress: enabled ? onLongPress : null,
-      tileColor: tileColor ??
-          (useBackgroundColor
-              ? CupertinoColors.quaternarySystemFill
-              : Colors.transparent),
-      hoverColor: hoverColor ??
-          tileColor?.withOpacity(0.85) ??
-          CupertinoColors.quaternarySystemFill.withOpacity(0.10),
-    );
-  }
-
-  @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
     final defaultTileColor =
@@ -115,6 +95,27 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
                   )
                 : null,
       ),
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    return CustomMacosListTile(
+      title: title,
+      enabled: enabled,
+      leading: leading,
+      subtitle: subtitle,
+      trailing: trailing,
+      mouseCursor: mouseCursor,
+      onTap: enabled ? onTap : null,
+      onLongPress: enabled ? onLongPress : null,
+      tileColor: tileColor ??
+          (useBackgroundColor
+              ? CupertinoColors.quaternarySystemFill
+              : Colors.transparent),
+      hoverColor: hoverColor ??
+          tileColor?.withOpacity(0.85) ??
+          CupertinoColors.quaternarySystemFill.withOpacity(0.10),
     );
   }
 }

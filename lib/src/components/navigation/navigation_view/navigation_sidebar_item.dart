@@ -3,10 +3,10 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/model.dart';
 
-/// Represents a menu item in an [AdaptiveNavigationView].
-class AdaptiveNavigationViewItem
+/// Represents a menu item in an [AdaptiveNavigationSidebar].
+class AdaptiveNavigationSidebarItem
     extends CoreModel<NavigationPaneItem, SidebarItem> {
-  const AdaptiveNavigationViewItem({
+  const AdaptiveNavigationSidebarItem({
     this.trailing,
     this.focusNode,
     this.selectedColor,
@@ -38,10 +38,21 @@ class AdaptiveNavigationViewItem
   final FocusNode? focusNode;
 
   @override
-  SidebarItem toMacos(BuildContext context) {
+  SidebarItem toMacos(
+    BuildContext context, [
+    TextStyle? style,
+    MacosIconThemeData? data,
+  ]) {
+    final buildLabel = style != null
+        ? DefaultTextStyle.merge(style: style, child: label)
+        : label;
+
+    final buildIcon =
+        data != null ? MacosIconTheme.merge(data: data, child: icon) : icon;
+
     return SidebarItem(
-      label: label,
-      leading: icon,
+      label: buildLabel,
+      leading: buildIcon,
       trailing: trailing,
       focusNode: focusNode,
       selectedColor: selectedColor,
@@ -55,6 +66,7 @@ class AdaptiveNavigationViewItem
     Widget? body,
     Color? unColor,
     Color? seColor,
+    IconThemeData? data,
   }) {
     final unselectedTileColor = unselectedColor != null
         ? ButtonState.all(unselectedColor)
@@ -68,9 +80,12 @@ class AdaptiveNavigationViewItem
             ? ButtonState.all(seColor)
             : null;
 
+    final buildIcon =
+        data != null ? IconTheme.merge(data: data, child: icon) : icon;
+
     return PaneItem(
-      icon: icon,
       title: label,
+      icon: buildIcon,
       trailing: trailing,
       focusNode: focusNode,
       tileColor: unselectedTileColor,

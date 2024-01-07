@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
+import '../../core/common/construct/property.dart';
 
 /// A custom back button widget that adapts its appearance based on the platform.
 ///
@@ -36,7 +37,7 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
   final String? semanticLabel;
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Builder(
@@ -60,7 +61,7 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: MacosTooltip(

@@ -67,24 +67,24 @@ class AdaptiveDialog
   final AdaptiveFlatButton? secondary;
 
   @override
-  Widget macos(BuildContext context) {
-    return DialogMacos(
-      title: title,
-      message: content,
-      primary: primary,
-      secondary: secondary,
-      property: properties?.macos,
-    );
-  }
-
-  @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [DialogWindowsProperty? property]) {
     return DialogWindows(
       title: title,
       content: content,
       primary: primary.windows(context),
       secondary: secondary?.windows(context),
-      property: properties?.windows,
+      property: property,
+    );
+  }
+
+  @override
+  Widget macos(BuildContext context, [DialogMacosProperty? property]) {
+    return DialogMacos(
+      title: title,
+      message: content,
+      primary: primary,
+      secondary: secondary,
+      property: property,
     );
   }
 }

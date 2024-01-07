@@ -59,22 +59,22 @@ class AdaptiveTimePicker extends CoreAdaptiveComponent<
   final ValueChanged<TimeOfDay>? onSelected;
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [TimePickerWindowsProperty? property]) {
     return TimePickerWindows(
       onCancel: onCancel,
       initialTime: initialTime,
       onTimeChanged: onSelected,
-      property: properties?.windows,
+      property: property,
     );
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [TimePickerMacosProperty? property]) {
     return TimePickerMacos(
       onCancel: onCancel,
       initialTime: initialTime,
       onTimeChanged: onSelected,
-      property: properties?.macos,
+      property: property,
     );
   }
 }

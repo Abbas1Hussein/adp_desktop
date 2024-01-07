@@ -59,21 +59,21 @@ class AdaptiveDatePicker extends CoreAdaptiveComponent<
   final ValueChanged<DateTime>? onSelected;
 
   @override
-  Widget windows(BuildContext context) {
+  Widget windows(BuildContext context, [DatePickerWindowsProperty? property]) {
     return DatePickerWindows(
+      property: property,
       onCancel: onCancel,
       initialDate: initialDate,
-      property: properties?.windows,
       onDateTimeChanged: onSelected,
     );
   }
 
   @override
-  Widget macos(BuildContext context) {
+  Widget macos(BuildContext context, [DatePickerMacosProperty? property]) {
     return DatePickerMacos(
+      property: property,
       onCancel: onCancel,
       initialDate: initialDate,
-      property: properties?.macos,
       onDateTimeChanged: onSelected,
     );
   }
