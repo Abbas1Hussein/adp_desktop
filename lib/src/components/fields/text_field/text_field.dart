@@ -113,8 +113,8 @@ final class AdaptiveTextField extends BaseTextField {
     super.textAlignVertical,
     super.textCapitalization,
     super.textInputAction,
-
   });
+
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return TextFieldWindows(adpProperties: fieldProperties);
@@ -124,6 +124,4 @@ final class AdaptiveTextField extends BaseTextField {
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return TextFieldMacos(adpProperties: fieldProperties);
   }
-
-
 }

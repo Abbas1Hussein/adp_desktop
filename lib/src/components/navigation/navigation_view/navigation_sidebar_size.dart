@@ -8,7 +8,7 @@ class AdaptiveNavigationSidebarSize {
   ///
   /// The [startWidth] property, if provided, should be between [minWidth] and [maxWidth] if both are provided.
   ///
-  /// The [topOffset] property represents the top offset of the adaptive navigation view.
+  /// The [topOffset] property represents the top offset of the adaptive navigation sidebar.
   const AdaptiveNavigationSidebarSize({
     this.minWidth,
     this.maxWidth,

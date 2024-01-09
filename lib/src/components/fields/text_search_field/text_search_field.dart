@@ -54,6 +54,7 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
       children: [super.build(context)],
     );
   }
+
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return AutoSuggestBox<T>(
@@ -61,18 +62,18 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
       focusNode: focusNode,
       decoration: decoration,
       controller: controller,
-      autofocus: autofocus ?? false,
+      autofocus: autofocus,
       inputFormatters: inputFormatters,
       placeholderStyle: placeholderStyle,
       onChanged: (text, reason) => onChanged?.call(text),
       placeholder: placeholder ?? FluentLocalizations.of(context).searchLabel,
       noResultsFoundBuilder:
-      emptyWidget != null ? (context) => emptyWidget! : null,
+          emptyWidget != null ? (context) => emptyWidget! : null,
       items: suggestions.map((e) => e.toWindows(context)).toList(),
       onSelected: (value) {
         onSelected?.call(AdaptiveSearchItem.fromAutoSuggestBoxItem(value));
       },
-      enabled: enabled ?? true,
+      enabled: enabled,
     );
   }
 
@@ -80,7 +81,7 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return DecoratedBox(
       decoration: decoration?.copyWith(
-            color: decoration!.color!.withOpacity(0.6),
+            color: decoration?.color?.withOpacity(0.6),
             borderRadius: decoration?.borderRadius ??
                 kDefaultRoundedBorderDecoration.borderRadius,
           ) ??
@@ -89,7 +90,7 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
         style: style,
         focusNode: focusNode,
         controller: controller,
-        autofocus: autofocus ?? false,
+        autofocus: autofocus,
         inputFormatters: inputFormatters,
         emptyWidget: emptyWidget ??
             const Padding(
@@ -107,7 +108,7 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
           onSelected?.call(AdaptiveSearchItem.fromSearchItem(value));
         },
         onChanged: onChanged,
-        enabled: enabled ?? true,
+        enabled: enabled,
       ),
     );
   }

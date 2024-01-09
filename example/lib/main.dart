@@ -1,10 +1,11 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 void main() {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -47,28 +48,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    return AdaptiveTabView(
-      onChanged: _onChanged,
-      currentIndex: currentValue,
-      contentMargin: EdgeInsets.all(16.0),
-      tabs: List.generate(
-        3,
-        (index) => AdaptiveTab(
-          icon: [
-            const AdaptiveIcon(AdpIcons.alarm),
-            const AdaptiveIcon(AdpIcons.add),
-            const AdaptiveIcon(AdpIcons.airplane)
-          ][index],
-          label: Text('AdaptiveTab'),
+    return AdaptiveScaffoldPage(
+      appBar: const AdaptiveAppBarPage(),
+      content:  Center(
+        child: AdaptiveIconButton(
+         onPressed: () {},
+          icon: const AdaptiveIcon(AdpIcons.airplane),
         ),
-      ),
-      children: List.generate(
-        3,
-        (index) => AdaptiveDatePicker(),
       ),
     );
   }
-
-  void _onChanged(value) => setState(() => currentValue = value);
 }

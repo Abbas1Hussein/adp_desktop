@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 abstract class BaseDateFormatter extends StatelessWidget {
-  final DateTime initialDate;
-  final MaterialLocalizations localizations;
-
   const BaseDateFormatter({
     super.key,
     required this.initialDate,
     required this.localizations,
   });
+
+  final DateTime initialDate;
+  final MaterialLocalizations localizations;
 
   List<String> get _splitFullDateData {
     return localizations.formatFullDate(initialDate).split(',');

@@ -52,9 +52,6 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// Usually a [Text] or [Icon] widget.
   final Widget? label;
 
-  /// Semantic label for accessibility.
-  final String? semanticLabel;
-
   /// Color to use when the checkbox is checked.
   final Color? checkedColor;
 
@@ -67,6 +64,10 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   ///
   /// On macOS platform, this color will be used when the [onChanged] callback is null.
   final Color? uncheckedBorderColor;
+
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
 
   bool get _enabled => onChanged != null;
 

@@ -4,9 +4,16 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/property.dart';
 import 'base_button.dart';
-import 'platforms/macos.dart';
+import 'macos.dart';
 
+/// An adaptive button that adjusts its appearance based on the platform.
+///
+/// This widget provides three variants:
+/// - [AdaptiveButtonType.base]: A standard adaptive button.
+/// - [AdaptiveButtonType.filled]: A filled adaptive colored button.
+/// - [AdaptiveButtonType.outlined]: An outlined adaptive button with a border.
 class AdaptiveButton extends AdaptiveBaseButton {
+  /// Creates an instance of [AdaptiveButton] with the base type.
   const AdaptiveButton({
     super.builders,
     super.key,
@@ -21,8 +28,9 @@ class AdaptiveButton extends AdaptiveBaseButton {
     super.mouseCursor,
     required super.child,
     required super.onPressed,
-  }) : type = AdaptiveButtonType.base;
+  }) : _type = AdaptiveButtonType.base;
 
+  /// Creates an instance of [AdaptiveButton] with the filled type.
   const AdaptiveButton.filled({
     super.builders,
     super.key,
@@ -37,8 +45,9 @@ class AdaptiveButton extends AdaptiveBaseButton {
     super.mouseCursor,
     required super.child,
     required super.onPressed,
-  }) : type = AdaptiveButtonType.filled;
+  }) : _type = AdaptiveButtonType.filled;
 
+  /// Creates an instance of [AdaptiveButton] with the outlined type.
   const AdaptiveButton.outlined({
     super.builders,
     super.key,
@@ -53,15 +62,16 @@ class AdaptiveButton extends AdaptiveBaseButton {
     super.mouseCursor,
     required super.child,
     required super.onPressed,
-  }) : type = AdaptiveButtonType.outlined;
+  }) : _type = AdaptiveButtonType.outlined;
 
-  final AdaptiveButtonType type;
+  /// The type of the adaptive button, determining its visual style.
+  final AdaptiveButtonType _type;
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     Widget? button;
 
-    switch (type) {
+    switch (_type) {
       case AdaptiveButtonType.base:
         button = Button(
           style: windowsDefaultStyle(),
@@ -101,7 +111,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final theme = MacosTheme.of(context);
-    switch (type) {
+    switch (_type) {
       case AdaptiveButtonType.base:
         return MacosButton(
           border: border,
@@ -132,8 +142,10 @@ class AdaptiveButton extends AdaptiveBaseButton {
           hoverColor: hoverColor ?? theme.primaryColor.withOpacity(0.6),
           child: DefaultTextStyle(
             style: theme.typography.body.copyWith(
-              color:
-                  CupertinoDynamicColor.resolve(CupertinoColors.white, context),
+              color: CupertinoDynamicColor.resolve(
+                CupertinoColors.white,
+                context,
+              ),
             ),
             child: child,
           ),
@@ -143,8 +155,10 @@ class AdaptiveButton extends AdaptiveBaseButton {
           border: border ??
               Border.all(
                 width: 1.5,
-                color: theme.brightness.resolve(CupertinoColors.black,
-                    CupertinoColors.extraLightBackgroundGray),
+                color: theme.brightness.resolve(
+                  CupertinoColors.black,
+                  CupertinoColors.extraLightBackgroundGray,
+                ),
                 strokeAlign: BorderSide.strokeAlignOutside,
               ),
           padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 12.0),
@@ -160,8 +174,9 @@ class AdaptiveButton extends AdaptiveBaseButton {
           pressedColor: pressedColor,
           hoverColor: hoverColor,
           child: DefaultTextStyle(
-            style: theme.typography.body
-                .copyWith(fontWeight: MacosFontWeight.w510),
+            style: theme.typography.body.copyWith(
+              fontWeight: MacosFontWeight.w510,
+            ),
             child: child,
           ),
         );
@@ -169,4 +184,14 @@ class AdaptiveButton extends AdaptiveBaseButton {
   }
 }
 
-enum AdaptiveButtonType { base, filled, outlined }
+/// different types of [AdaptiveButton] variants.
+enum AdaptiveButtonType {
+  /// The base type represents a standard adaptive button.
+  base,
+
+  /// The filled type represents a filled adaptive button with colored styling.
+  filled,
+
+  /// The outlined type represents an outlined adaptive button with a border.
+  outlined,
+}

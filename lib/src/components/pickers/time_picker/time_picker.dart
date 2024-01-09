@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../core/core.dart';
 import 'platforms/platforms.dart';
 
-/// A custom time picker widget that adapts its appearance based on the platform.
+/// The time picker gives you a standardized way to let users pick a time value
+/// using touch, mouse, or keyboard input.
+///
+/// See also:
+///
+///  * [DatePicker], which gives you a standardized way to let users pick a
+///    localized date value
 ///
 /// Use this widget to create time picker with platform-specific
 /// styling and behavior:
@@ -20,6 +26,11 @@ class AdaptiveTimePicker extends CoreAdaptiveComponent<
   /// You do not need to manually update the state; the [AdaptiveTimePicker] handles
   /// state changes directly.
   ///
+  /// The [properties] parameter allows you to customize the visual and functional aspects
+  /// of the tab view separately for Windows and macOS platforms.
+  /// You can provide specific [properties] for each platform using `TimePickerWindowsProperty`
+  /// and `TimePickerMacosProperty` respectively.
+  ///
   /// Usage:
   /// ```dart
   /// AdaptiveTimePicker(
@@ -32,9 +43,6 @@ class AdaptiveTimePicker extends CoreAdaptiveComponent<
   ///   },
   /// )
   /// ```
-  /// See also:
-  ///
-  ///  * [AdaptiveDatePicker] for a corresponding date selection.
   const AdaptiveTimePicker({
     super.key,
     super.builders,
@@ -55,26 +63,25 @@ class AdaptiveTimePicker extends CoreAdaptiveComponent<
 
   /// A callback function called when the user selects a time in the picker.
   /// It provides the selected [TimeOfDay] as an argument.
-  /// It can be null if you don't need to handle date selection.
   final ValueChanged<TimeOfDay>? onSelected;
 
   @override
   Widget windows(BuildContext context, [TimePickerWindowsProperty? property]) {
     return TimePickerWindows(
+      property: property,
       onCancel: onCancel,
       initialTime: initialTime,
       onTimeChanged: onSelected,
-      property: property,
     );
   }
 
   @override
   Widget macos(BuildContext context, [TimePickerMacosProperty? property]) {
     return TimePickerMacos(
+      property: property,
       onCancel: onCancel,
       initialTime: initialTime,
       onTimeChanged: onSelected,
-      property: property,
     );
   }
 }

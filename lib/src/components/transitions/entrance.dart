@@ -4,11 +4,21 @@ import 'package:flutter/cupertino.dart';
 import '../../core/common/construct/component.dart';
 import '../../core/common/construct/property.dart';
 
-/// A widget that provides an adaptive entrance transition for the child based on the platform.
+/// An entrance transition that combines a slide-up animation with a fade-in effect
+/// for incoming content. This is particularly useful for page transitions where
+/// the user is taken to the top of a navigational stack, such as switching tabs
+/// or navigating between left-nav items.
 ///
-/// On macOS, it uses [CupertinoFullscreenDialogTransition] for a native-looking transition.
-/// On Windows, it uses a custom [EntrancePageTransition] for the entrance animation.
+/// See also:
+///
+/// * [AdaptiveHorizontalSlideTransition] for a horizontal slide transition.
 class AdaptiveEntranceTransition extends CoreAdaptiveComponent {
+  /// Creates an adp entrance transition.
+  ///
+  ///  * `animation` is a linear route animation from 0.0 to 1.0
+  ///    when this screen is being pushed.
+  ///  * `secondaryAnimation` is a linear route animation from 0.0 to 1.0
+  ///    when another screen is being pushed on top of this one.
   const AdaptiveEntranceTransition({
     Key? key,
     required this.child,

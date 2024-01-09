@@ -40,7 +40,7 @@ class AdaptiveCloseButton extends StatelessWidget {
         button: true,
         label: closeLabel,
         child: AdaptiveIconButton(
-          color: color,
+          backgroundColor: color,
           hoverColor: hoverColor,
           builders: AdaptiveBuilder(
             windows: (platformChild, theme, property) {

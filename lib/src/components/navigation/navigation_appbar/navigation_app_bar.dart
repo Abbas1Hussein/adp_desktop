@@ -49,9 +49,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   /// Specifies the width of the [title] in nav app bar.
   final double? titleWidth;
 
-  /// Whether the [title] should be centered.
-  ///
-  /// Defaults is false.
+  /// Whether the [title] should be centered, Defaults is false.
   final bool centerTitle;
 
   /// The widget at the beginning of the app bar, before [title].

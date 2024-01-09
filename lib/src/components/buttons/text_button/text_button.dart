@@ -3,22 +3,21 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/property.dart';
 import '../button/base_button.dart';
-import '../button/platforms/macos.dart';
+import '../button/macos.dart';
 
 /// A borderless button with mainly text-based content
+///
+/// See also:
+///
+/// * [AdaptiveButtonType.base] A standard adaptive button.
+/// * [AdaptiveButtonType.filled] A filled adaptive colored button.
+/// * [AdaptiveButtonType.outlined] An outlined adaptive button with a border.
 ///
 /// Use this widget to create text buttons with platform-specific
 /// styling and behavior:
 /// - On macOS, [MacosButton] is utilized.
 /// - On Windows, [HyperlinkButton] is used.
 class AdaptiveTextButton extends AdaptiveBaseButton {
-  /// Creates a adp text-button.
-  ///
-  /// See also:
-  ///
-  ///   * [AdaptiveButton], an adp button.
-  ///   * [AdaptiveButton.outlined], an outlined button.
-  ///   * [AdaptiveButton.filled], a colored button.
   const AdaptiveTextButton({
     super.key,
     super.builders,

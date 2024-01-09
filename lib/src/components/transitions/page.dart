@@ -4,20 +4,29 @@ import 'package:flutter/physics.dart';
 import '../../core/common/construct/component.dart';
 import '../../core/common/construct/property.dart';
 
+/// the transition involves scaling and fading effects.
+///
+/// See also:
+///
+/// * [AdaptiveHorizontalSlideTransition] for a horizontal slide transition.
+/// * [AdaptiveEntranceTransition] for a entrance transition.
 class AdaptivePageTransition extends CoreAdaptiveComponent {
   const AdaptivePageTransition({
     Key? key,
     required this.child,
     required this.animation,
-    required this.secondaryAnimation,
   }) : super(key: key);
 
+  /// The widget to be animated
   final Widget child;
+
+  /// The animation to drive this transition
   final Animation<double> animation;
-  final Animation<double> secondaryAnimation;
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+
+    TransitionRoute;
     return DrillInPageTransition(
       animation: CurvedAnimation(
         parent: animation,
@@ -29,7 +38,6 @@ class AdaptivePageTransition extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
-
     if (animation.status == AnimationStatus.reverse) {
       return ScaleTransition(
         scale: CurvedAnimation(

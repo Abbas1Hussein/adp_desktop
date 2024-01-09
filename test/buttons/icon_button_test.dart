@@ -13,13 +13,7 @@ void main() {
     (WidgetTester tester) async {
       await tester.pumpWidget(
         wrapApp(
-          child:  AdaptiveIconButton(
-            properties: Properties(
-              windows: const IconButtonWindowsProperty(),
-              macos: const IconButtonMacosProperty(),
-            ),
-            icon: const AdaptiveIcon(AdpIcons.add),
-          ),
+          child: const AdaptiveIconButton(icon: AdaptiveIcon(AdpIcons.add)),
         ),
       );
 

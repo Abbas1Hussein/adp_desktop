@@ -6,17 +6,21 @@ import '../../../core/extension/widget.dart';
 
 const _kTabBorderRadius = BorderRadius.all(Radius.circular(4.0));
 
+/// Represents a tab in the adaptive tab view.
+///
+/// See also:
+///
+///   * [AdaptiveTabView], the widget that uses [AdaptiveTab] to create a
+///     consistent tab view experience.
 class AdaptiveTab extends CoreModel<Tab, MacosTab> {
-  const AdaptiveTab({
-    this.icon,
-    required this.label,
-  });
+  const AdaptiveTab({this.icon, required this.label});
 
-  /// The main content of the tab,
-  ///
-  /// typically an [Text].
+  /// The main content of the tab, typically an [Text].
   final Widget label;
 
+  /// An optional widget representing an icon for the tab.
+  ///
+  /// typically an [AdaptiveIcon].
   final Widget? icon;
 
   @override
@@ -112,7 +116,7 @@ class _MacosTab extends MacosTab {
 
     final color = (active ? selectedColor : unSelectedColor);
 
-    return Padding(
+    final result = Padding(
       padding: padding ?? EdgeInsets.zero,
       child: GestureDetector(
         onTap: onTap,
@@ -152,6 +156,12 @@ class _MacosTab extends MacosTab {
         ),
       ),
     );
+
+    if (text is Text) {
+      final message = text as Text;
+      return MacosTooltip(message: message.data ?? '', child: result);
+    }
+    return result;
   }
 
   @override

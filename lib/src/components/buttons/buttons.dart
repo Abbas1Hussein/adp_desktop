@@ -13,6 +13,3 @@ export 'flat_button/platforms/platforms.dart'
 export 'switch/switch.dart';
 
 export 'icon_button/icon_button.dart';
-export 'icon_button/platforms/platforms.dart'
-    show IconButtonWindowsProperty, IconButtonMacosProperty;
-

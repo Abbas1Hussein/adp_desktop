@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import '../../../../core/extension/widget.dart';
+import '../../../core/extension/widget.dart';
 
 /// A macOS style button.
 class MacosButton extends StatefulWidget {
@@ -28,76 +28,18 @@ class MacosButton extends StatefulWidget {
   final Color? pressedColor;
   final Color? backgroundColor;
   final Color? disabledColor;
-
   final double pressedOpacity;
 
-  final EdgeInsetsGeometry? padding;
-
-  /// The mouse cursor to use when hovering over this widget.
   final MouseCursor mouseCursor;
-
-  /// A border to draw above the background [backgroundColor].
-  ///
-  /// Follows the [itemsShape] and [borderRadius].
-  ///
-  /// Use [Border] objects to describe borders that do not depend on the reading
-  /// direction.
-  ///
-  /// Use [BoxBorder] objects to describe borders that should flip their left
-  /// and right edges based on whether the text is being read left-to-right or
-  /// right-to-left.
-  final BoxBorder? border;
-
-  /// If non-null, the corners of this box are rounded by this [BorderRadius].
-  ///
-  /// Applies only to boxes with rectangular shapes; ignored if [itemsShape] is not
-  /// [BoxShape.rectangle].
-  ///
-  /// {@macro flutter.painting.BoxDecoration.clip}
-  final BorderRadiusGeometry? borderRadius;
-
-  /// Called when the button is tapped or otherwise activated.
-  ///
-  /// If this callback, [onLongPress], [onTapDown], and [onTapUp] are null,
-  /// then the button will be disabled.
-  ///
-  /// See also:
-  ///
-  ///  * [enabled], which is true if the button is enabled.
   final VoidCallback? onPressed;
-
-  /// Called when the button is pressed.
-  ///
-  /// If this callback, [onLongPress], [onPressed] and [onTapUp] are null,
-  /// then the button will be disabled.
-  ///
-  /// See also:
-  ///
-  ///  * [enabled], which is true if the button is enabled.
   final VoidCallback? onTapDown;
-
-  /// Called when the button is released.
-  ///
-  /// If this callback, [onLongPress], [onPressed] and [onTapDown] are null,
-  /// then the button will be disabled.
-  ///
-  /// See also:
-  ///
-  ///  * [enabled], which is true if the button is enabled.
   final VoidCallback? onTapUp;
-
-  /// Called when the button is long-pressed.
-  ///
-  /// If this callback, [onPressed], [onTapDown] and [onTapUp] are null,
-  /// then the button will be disabled.
-  ///
-  /// See also:
-  ///
-  ///  * [enabled], which is true if the button is enabled.
   final VoidCallback? onLongPress;
 
-  /// Whether the button is enabled or disabled. Buttons are disabled by default. To
-  /// enable a button, set its [onPressed] property to a non-null value.
+  final BoxBorder? border;
+  final EdgeInsetsGeometry? padding;
+  final BorderRadiusGeometry? borderRadius;
+
   bool get enabled =>
       onPressed != null ||
       onLongPress != null ||

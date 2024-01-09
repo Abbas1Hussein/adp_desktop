@@ -47,16 +47,18 @@ class FlatButtonWindows extends StatelessWidget {
       autofocus: property?.autofocus ?? false,
       focusable: property?.focusable ?? true,
       style: property?.style ??
-          ButtonStyle(backgroundColor: _backgroundColor)
-              .merge(theme.buttonTheme.defaultButtonStyle),
+          ButtonStyle(backgroundColor: _backgroundColor).merge(theme.buttonTheme.defaultButtonStyle),
       child: DefaultTextStyle(style: theme.typography.body!, child: child),
     );
   }
 
   ButtonState<Color?>? get _backgroundColor {
     return ButtonState.resolveWith(
-      (states) =>
-          ButtonState.forStates(states, none: color, disabled: disabledColor),
+      (states) => ButtonState.forStates(
+        states,
+        none: color,
+        disabled: disabledColor,
+      ),
     );
   }
 }

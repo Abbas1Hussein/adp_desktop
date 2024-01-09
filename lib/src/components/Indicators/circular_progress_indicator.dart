@@ -91,5 +91,4 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
       child: CupertinoActivityIndicator(color: activeColor, radius: radius),
     );
   }
-
 }

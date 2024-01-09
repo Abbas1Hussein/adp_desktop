@@ -2,23 +2,38 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 import '../transitions/transitions.dart';
 
+/// A function type for building a page route widget.
 typedef PageRouteBuilder = Widget Function(
   BuildContext context,
   Animation<double> animation,
   Animation<double> secondaryAnimation,
 );
 
-enum AdaptiveTransition { entrance, horizontal , page}
+/// An enumeration representing different adaptive transition types.
+enum AdaptiveTransition { entrance, horizontal, page }
 
-class AdaptivePageRoute extends PageRoute {
+/// A modal route that replaces the entire screen with a platform-adaptive
+/// transition.
+///
+///
+/// By default, when a modal route is replaced by another, the previous route
+/// remains in memory. To free all the resources when this is not necessary, set
+/// [maintainState] to false.
+///
+/// If `barrierDismissible` is true, then pressing the escape key on the keyboard
+/// will cause the current route to be popped with null as the value.
+///
+/// The type `T` specifies the return type of the route which can be supplied as
+/// the route is popped from the stack via [Navigator.pop] by providing the
+/// optional `result` argument.
+class AdaptivePageRoute<T> extends PageRoute<T> {
   AdaptivePageRoute({
     super.settings,
     super.barrierDismissible,
-    super.fullscreenDialog,
     super.allowSnapshotting,
     Color? barrierColor,
     String? barrierLabel,
-    bool maintainState = true,
+    bool maintainState = false,
     this.transition = AdaptiveTransition.page,
     required this.builder,
   })  : _barrierColor = barrierColor,
@@ -69,16 +84,10 @@ class AdaptivePageRoute extends PageRoute {
           child: child,
         );
       case AdaptiveTransition.page:
-        return AdaptivePageTransition(
-          secondaryAnimation: secondaryAnimation,
-          animation: animation,
-          child: child,
-        );
+        return AdaptivePageTransition(animation: animation, child: child);
     }
   }
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 250);
 }
-
-

@@ -11,4 +11,3 @@ export 'dialog/platforms/platforms.dart'
 
 export 'bottom_sheet/bottom_sheet.dart';
 export 'bottom_sheet/show.dart';
-export 'bottom_sheet/bottom_sheet_presenter.dart';

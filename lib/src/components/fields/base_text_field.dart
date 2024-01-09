@@ -230,7 +230,7 @@ abstract class BaseTextField extends CoreAdaptiveComponent {
   final TextAlignVertical? textAlignVertical;
 
   /// Autofocus on the text field.
-  final bool? autofocus;
+  final bool autofocus;
 
   /// Character to use for obscuring the text.
   final String? obscuringCharacter;
@@ -239,7 +239,7 @@ abstract class BaseTextField extends CoreAdaptiveComponent {
   final List<TextInputFormatter>? inputFormatters;
 
   /// Enable or disable the text field.
-  final bool? enabled;
+  final bool enabled;
 
   /// Width of the cursor.
   final double? cursorWidth;

@@ -14,18 +14,18 @@ class AdaptiveSearchItem<T>
     required this.searchKey,
   });
 
+  /// The value of the search item. This can be any type of object.
+  final T? value;
+
   /// The string to search for.
   final String searchKey;
 
-  /// The value of the search item. This can be any type of object.
-  final T? value;
+  /// The callback to call when this item is selected from the search results.
+  final VoidCallback? onSelected;
 
   /// The widget to display in the search results overlay. If not specified, a
   /// [Text] widget with the default styling will appear instead.
   final Widget? child;
-
-  /// The callback to call when this item is selected from the search results.
-  final VoidCallback? onSelected;
 
   @override
   SearchResultItem toMacos(BuildContext context) {

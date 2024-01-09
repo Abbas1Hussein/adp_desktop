@@ -150,6 +150,7 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
   final MouseCursor mouseCursor;
 
   bool get enabled => onChanged != null;
+
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return Slider(
@@ -163,7 +164,7 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
         thumbColor: thumbColor != null ? ButtonState.all(thumbColor) : null,
         activeColor: activeColor != null ? ButtonState.all(activeColor) : null,
         inactiveColor:
-        inactiveColor != null ? ButtonState.all(inactiveColor) : null,
+            inactiveColor != null ? ButtonState.all(inactiveColor) : null,
         margin: const EdgeInsets.symmetric(horizontal: 8),
       ),
       label: value.toStringAsFixed(0),

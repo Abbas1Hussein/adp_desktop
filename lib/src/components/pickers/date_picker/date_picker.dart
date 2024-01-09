@@ -3,7 +3,13 @@ import 'package:fluent_ui/fluent_ui.dart';
 import '../../../core/common/construct/component.dart';
 import 'platforms/platforms.dart';
 
-/// A custom date picker widget that adapts its appearance based on the platform.
+/// The date picker gives you a standardized way to let users pick a localized
+/// date value using touch, mouse, or keyboard input.
+///
+/// See also:
+///
+///  * [TimePicker], which gives you a standardized way to let users pick a time
+///    value
 ///
 /// Use this widget to create date picker with platform-specific
 /// styling and behavior:
@@ -20,6 +26,11 @@ class AdaptiveDatePicker extends CoreAdaptiveComponent<
   /// You do not need to manually update the state; the [AdaptiveDatePicker] handles
   /// state changes directly.
   ///
+  /// The [properties] parameter allows you to customize the visual and functional aspects
+  /// of the tab view separately for Windows and macOS platforms.
+  /// You can provide specific [properties] for each platform using `DatePickerWindowsProperty`
+  /// and `DatePickerMacosProperty` respectively.
+  ///
   /// Usage:
   /// ```dart
   /// AdaptiveDatePicker(
@@ -32,9 +43,6 @@ class AdaptiveDatePicker extends CoreAdaptiveComponent<
   ///   },
   /// )
   /// ```
-  /// See also:
-  ///
-  ///  * [AdaptiveTimePicker] for a corresponding time selection.
   const AdaptiveDatePicker({
     super.key,
     super.builders,
@@ -55,7 +63,6 @@ class AdaptiveDatePicker extends CoreAdaptiveComponent<
 
   /// A callback function called when the user selects a date in the picker.
   /// It provides the selected [DateTime] as an argument.
-  /// It can be null if you don't need to handle date selection.
   final ValueChanged<DateTime>? onSelected;
 
   @override
