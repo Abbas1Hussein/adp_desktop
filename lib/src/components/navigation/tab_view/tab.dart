@@ -7,30 +7,47 @@ import '../../../core/extension/widget.dart';
 const _kTabBorderRadius = BorderRadius.all(Radius.circular(4.0));
 
 class AdaptiveTab extends CoreModel<Tab, MacosTab> {
-  const AdaptiveTab({this.icon, required this.label});
+  const AdaptiveTab({
+    this.icon,
+    required this.label,
+  });
 
+  /// The main content of the tab,
+  ///
+  /// typically an [Text].
   final Widget label;
+
   final Widget? icon;
 
   @override
   MacosTab toMacos(
     BuildContext context, {
+    TextStyle? style,
     bool isActive = true,
-    VoidCallback? onChanged,
     Color? selectedColor,
     Color? unSelectedColor,
+    VoidCallback? onChanged,
+    MacosIconThemeData? data,
     EdgeInsetsGeometry? padding,
-    Axis axis = Axis.horizontal,
+    Axis? direction,
   }) {
+    final labelStyled = style != null
+        ? DefaultTextStyle.merge(style: style, child: label)
+        : label;
+
+    final iconStyled = data != null && icon != null
+        ? MacosIconTheme.merge(data: data, child: icon!)
+        : icon;
+
     return _MacosTab(
-      axis: axis,
-      icon: icon,
-      text: label,
-      padding: padding,
       active: isActive,
+      padding: padding,
+      onTap: onChanged,
+      icon: iconStyled,
+      text: labelStyled,
+      direction: direction,
       selectedColor: selectedColor,
       unSelectedColor: unSelectedColor,
-      onTap: () => onChanged?.call(),
     );
   }
 
@@ -38,11 +55,21 @@ class AdaptiveTab extends CoreModel<Tab, MacosTab> {
   Tab toWindows(
     BuildContext context, {
     bool isActive = false,
+    IconThemeData? data,
+    TextStyle? style,
     Widget? body,
   }) {
+    final labelStyled = style != null
+        ? DefaultTextStyle.merge(style: style, child: label)
+        : label;
+
+    final iconStyled = data != null && icon != null
+        ? IconTheme.merge(data: data, child: icon!)
+        : icon;
+
     return Tab(
-      text: label,
-      icon: icon,
+      icon: iconStyled,
+      text: labelStyled,
       disabled: isActive,
       body: body ?? const SizedBox.shrink(),
     );
@@ -57,17 +84,16 @@ class _MacosTab extends MacosTab {
     this.padding,
     this.selectedColor,
     this.unSelectedColor,
-    this.axis = Axis.horizontal,
+    this.direction,
     super.active,
   }) : super(label: '');
 
-  final Axis axis;
+  final Axis? direction;
 
   final Widget? icon;
   final Widget? text;
 
   final VoidCallback? onTap;
-
   final EdgeInsetsGeometry? padding;
 
   final Color? selectedColor;
@@ -89,7 +115,7 @@ class _MacosTab extends MacosTab {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: GestureDetector(
-        onTap: () => onTap?.call(),
+        onTap: onTap,
         child: PhysicalModel(
           color: color ?? defaultPhysicalColor,
           borderRadius: _kTabBorderRadius,
@@ -98,11 +124,29 @@ class _MacosTab extends MacosTab {
               borderRadius: _kTabBorderRadius,
               color: color ?? defaultDecorationColor,
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-              child: axis == Axis.vertical
-                  ? icon?.margeWith(text, 2.0, axis)
-                  : text?.margeWith(icon),
+            child: MacosIconTheme(
+              data: MacosIconThemeData(
+                size: 16.0,
+                color: brightness.resolve(
+                  const Color.fromRGBO(0, 0, 0, 0.5),
+                  const Color.fromRGBO(255, 255, 255, 1),
+                ),
+                opacity: active ? 1.0 : 0.5,
+              ),
+              child: DefaultTextStyle(
+                style: MacosTheme.of(context).typography.body.copyWith(
+                      fontWeight: active
+                          ? MacosFontWeight.w510
+                          : MacosFontWeight.normal,
+                    ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                  child: direction == Axis.vertical && icon != null
+                      ? icon!.margeWith(text, 2.0, Axis.vertical)
+                      : text?.margeWith(icon),
+                ),
+              ),
             ),
           ),
         ),

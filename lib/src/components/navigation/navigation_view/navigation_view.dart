@@ -10,10 +10,6 @@ import 'platforms/platforms.dart';
 /// that adjusts its appearance based on the underlying platform,
 /// making it easy to create consistent navigation experiences.
 ///
-/// The AdaptiveNavigationView is designed to be a top level container for
-/// a [AdpApp]. This means that adding a AdaptiveNavigationView
-/// to each route on a adp app will provide the app with
-/// platform's basic visual layout structure.
 ///
 /// See also:
 ///

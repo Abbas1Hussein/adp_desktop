@@ -48,70 +48,27 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    BottomNavigation;
-
-    return AdaptiveNavigationView(
-      appBar: AdaptiveNavigationAppBar(
-        title: const Text('Adaptive app'),
-        leading: const AdaptiveIcon(AdpIcons.home),
-        actions: _buildActions(),
+    return AdaptiveTabView(
+      onChanged: _onChanged,
+      currentIndex: currentValue,
+      contentMargin: EdgeInsets.all(16.0),
+      tabs: List.generate(
+        3,
+        (index) => AdaptiveTab(
+          icon: [
+            const AdaptiveIcon(AdpIcons.alarm),
+            const AdaptiveIcon(AdpIcons.add),
+            const AdaptiveIcon(AdpIcons.airplane)
+          ][index],
+          label: Text('AdaptiveTab'),
+        ),
       ),
-      sidebar: AdaptiveNavigationSidebar(
-        onChanged: _onChanged,
-        currentIndex: currentValue,
-        items: [
-          const AdaptiveNavigationSidebarItem(
-            label: Text('add'),
-            icon: AdaptiveIcon(AdpIcons.add),
-          ),
-          const AdaptiveNavigationSidebarItem(
-            label: Text('delete'),
-            icon: AdaptiveIcon(AdpIcons.delete),
-          ),
-          const AdaptiveNavigationSidebarItem(
-            label: Text('edit'),
-            icon: AdaptiveIcon(AdpIcons.edit),
-          ),
-        ],
+      children: List.generate(
+        3,
+        (index) => AdaptiveDatePicker(),
       ),
-      children: List.generate(3, (index) => const AdaptiveDatePicker()),
     );
   }
 
   void _onChanged(value) => setState(() => currentValue = value);
-
-  List<AdaptiveActionEntry> _buildActions() {
-    return [
-      AdaptiveActionPulldownButton(
-        items: [
-          const AdaptivePulldownMenuItem(child: Text('data')),
-          const AdaptivePulldownMenuDivider(),
-        ],
-        label: 'label',
-        icon: AdpIcons.archive,
-      ),
-      const AdaptiveActionDivider(),
-      AdaptiveActionButton(
-        label: 'add',
-        onPressed: () {
-          Navigator.push(context, AdaptivePageRoute(
-            builder: (context, animation, secondaryAnimation) {
-              return widget;
-            },
-          ));
-        },
-        icon: const AdaptiveIcon(AdpIcons.add),
-      ),
-      AdaptiveActionButton(
-        label: 'remove',
-        onPressed: () {},
-        icon: const AdaptiveIcon(AdpIcons.delete),
-      ),
-      AdaptiveActionButton(
-        label: 'edit',
-        onPressed: () {},
-        icon: const AdaptiveIcon(AdpIcons.edit),
-      ),
-    ];
-  }
 }

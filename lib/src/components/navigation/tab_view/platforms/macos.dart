@@ -9,41 +9,43 @@ class TabViewMacos extends StatefulWidget {
     super.key,
     this.property,
     this.onChanged,
-    this.selectedColor,
-    this.unSelectedColor,
-    this.primaryBackgroundColor,
-    this.secondaryBackgroundColor,
+    this.primaryColor,
+    this.secondaryColor,
+    this.selectedTabColor,
+    this.unselectedTabColor,
+    this.selectedIconTheme,
+    this.unselectedIconTheme,
+    this.selectedLabelStyle,
+    this.unselectedLabelStyle,
+    this.contentMargin,
     required this.tabs,
     required this.children,
     required this.currentIndex,
+    required this.contentPadding,
   });
 
-  /// The macOS-specific property for customizing the tab view.
   final TabViewMacosProperty? property;
 
-  /// The index of the currently selected tab.
   final int currentIndex;
-
-  /// Callback function called when the selected tab index changes.
   final ValueChanged<int>? onChanged;
 
-  /// List of AdaptiveTab objects representing tabs in the view.
+  final List<Widget> children;
   final List<AdaptiveTab> tabs;
 
-  /// The primary background color.
-  final Color? primaryBackgroundColor;
+  final Color? primaryColor;
+  final Color? secondaryColor;
 
-  /// The secondary background color.
-  final Color? secondaryBackgroundColor;
+  final Color? selectedTabColor;
+  final Color? unselectedTabColor;
 
-  /// The color to be applied to the selected tab.
-  final Color? selectedColor;
+  final TextStyle? selectedLabelStyle;
+  final TextStyle? unselectedLabelStyle;
 
-  /// The color to be applied to unselected tabs.
-  final Color? unSelectedColor;
+  final MacosIconThemeData? selectedIconTheme;
+  final MacosIconThemeData? unselectedIconTheme;
 
-  /// List of widgets representing the content associated with each tab.
-  final List<Widget> children;
+  final EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry? contentMargin;
 
   @override
   State<TabViewMacos> createState() => _TabViewMacosState();
@@ -61,6 +63,9 @@ class _TabViewMacosState extends State<TabViewMacos> {
     super.initState();
   }
 
+  bool isSelectedIndex(AdaptiveTab tab) =>
+      macosTabController.index == widget.tabs.indexOf(tab);
+
   void _onChanged(AdaptiveTab tab) {
     final index = macosTabController.index = widget.tabs.indexOf(tab);
     widget.onChanged?.call(index);
@@ -76,38 +81,48 @@ class _TabViewMacosState extends State<TabViewMacos> {
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: widget.primaryBackgroundColor ?? backgroundColor,
+        color: widget.primaryColor ?? backgroundColor,
       ),
-      child: MacosIconTheme(
-        data: const MacosIconThemeData(size: 16.0),
-        child: DefaultTextStyle(
-          style: MacosTheme.of(context).typography.body,
-          child: MacosTabView(
-            controller: macosTabController,
-            position: widget.property?.position ?? MacosTabPosition.top,
-            padding: widget.property?.padding ?? const EdgeInsets.all(12.0),
-            tabs: widget.tabs.map((tab) {
-              return tab.toMacos(
-                context,
-                isActive: macosTabController.index == widget.tabs.indexOf(tab),
-                onChanged: () => _onChanged(tab),
-                padding: widget.property?.insets,
-                axis: widget.property?.axis ?? Axis.horizontal,
-                selectedColor: widget.selectedColor,
-                unSelectedColor: widget.unSelectedColor,
-              );
-            }).toList(),
-            children: widget.children.map((child) {
-              return ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-                child: ColoredBox(
-                  color: widget.secondaryBackgroundColor ?? backgroundColor,
+      child: MacosTabView(
+        controller: macosTabController,
+        position: widget.property?.position ?? MacosTabPosition.top,
+        padding: widget.contentMargin ?? const EdgeInsets.all(12.0),
+        tabs: widget.tabs.map((tab) {
+          final isActive = isSelectedIndex(tab);
+
+          return tab.toMacos(
+            context,
+            isActive: isActive,
+            onChanged: () => _onChanged(tab),
+            padding: widget.property?.paddingTab,
+            selectedColor: widget.selectedTabColor,
+            unSelectedColor: widget.unselectedTabColor,
+            direction: widget.property?.direction ?? Axis.horizontal,
+            data: isActive
+                ? widget.selectedIconTheme
+                : widget.unselectedIconTheme,
+            style: isActive
+                ? widget.selectedLabelStyle
+                : widget.unselectedLabelStyle,
+          );
+        }).toList(),
+        children: widget.children.map((child) {
+          return Padding(
+            padding: widget.contentPadding,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+              child: ColoredBox(
+                color: widget.secondaryColor ?? backgroundColor,
+                child: CustomSingleChildLayout(
+                  delegate: DesktopTextSelectionToolbarLayoutDelegate(
+                    anchor: Offset.zero,
+                  ),
                   child: child,
                 ),
-              );
-            }).toList(),
-          ),
-        ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
@@ -121,27 +136,25 @@ class _TabViewMacosState extends State<TabViewMacos> {
 
 class TabViewMacosProperty extends CoreMacosProperty {
   const TabViewMacosProperty({
-    this.axis,
-    this.insets,
-    this.padding,
-    this.position,
+    this.direction,
+    this.paddingTab = EdgeInsets.zero,
+    this.position = MacosTabPosition.top,
   });
 
-  /// The padding of the tab view widget.
+  /// Determines the direction along which tabs will be displayed.
   ///
-  /// Defaults to `EdgeInsets.all(12.0)`.
-  final EdgeInsetsGeometry? padding;
+  /// if [AdaptiveTab.icon] is null, always be [Axis.horizontal].
+  ///
+  /// Defaults to [Axis.horizontal].
+  final Axis? direction;
 
-  /// The placement of the [tabs], typically [MacosTabPosition.top].
-  final MacosTabPosition? position;
+  /// The placement of the [tabs],
+  ///
+  /// Defaults and typically [MacosTabPosition.top].
+  final MacosTabPosition position;
 
   /// Specifies the insets for tabs.
   ///
   /// Defaults to [EdgeInsets.zero].
-  final EdgeInsetsGeometry? insets;
-
-  /// Determines the axis along which tabs will be displayed.
-  ///
-  /// Defaults to [Axis.horizontal].
-  final Axis? axis;
+  final EdgeInsetsGeometry? paddingTab;
 }

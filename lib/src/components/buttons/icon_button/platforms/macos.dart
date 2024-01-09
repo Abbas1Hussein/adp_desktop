@@ -103,7 +103,7 @@ class IconButtonMacosProperty extends CoreMacosProperty {
   /// The alignment of the button's [title].
   ///
   /// Typically buttons are sized to be just big enough to contain the child and its
-  /// [padding]. If the button's size is constrained to a fixed size, for example by
+  /// [margin]. If the button's size is constrained to a fixed size, for example by
   /// enclosing it with a [SizedBox], this property defines how the child is aligned
   /// within the available space.
   ///

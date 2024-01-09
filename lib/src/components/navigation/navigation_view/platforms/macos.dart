@@ -100,7 +100,7 @@ class NavigationSidebarMacosProperty extends CoreMacosProperty {
 
   /// The [itemsShape] property specifies the outline (border) of the
   /// decoration. The shape must not be null. It's used alongside
-  /// [selectedItemColor].
+  /// [selectedTabColor].
   final ShapeBorder? itemsShape;
 
   /// The size specifications for all [items].

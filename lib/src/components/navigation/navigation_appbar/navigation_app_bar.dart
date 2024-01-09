@@ -7,11 +7,10 @@ import '../../layout/appbar_action/appbar_action.dart';
 import '../../layout/appbar_action/extension.dart';
 
 /// Constants for default toolbar heights on different platforms
-const kWindowsToolbarHeight = 44.0;
-
 const kMacosToolbarHeight = 52.0;
 const kMacosTitleWidth = 150.0;
 const kMacosLeadingWidth = 20.0;
+const kWindowsToolbarHeight = 44.0;
 
 /// Insets for padding inside the navigation app bar
 const _kContentInsets = EdgeInsets.symmetric(horizontal: 8, vertical: 4.0);
@@ -148,64 +147,6 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   Widget get _buildBackButton => backButton ?? const AdaptiveBackButton();
 
   @override
-  ToolBar toMacos(BuildContext context) {
-    final theme = MacosTheme.of(context);
-
-    final styledTitle = title != null
-        ? DefaultTextStyle(
-            maxLines: 1,
-            style: titleTextStyle ??
-                theme.typography.title3
-                    .copyWith(fontWeight: MacosFontWeight.w510),
-            child: title!,
-          )
-        : null;
-
-    final styledLeading = leading != null
-        ? DefaultTextStyle(
-            style: theme.typography.body,
-            child: SizedBox(
-              width: leadingWidth ?? kMacosLeadingWidth,
-              child: leading!,
-            ),
-          )
-        : null;
-
-    final buildActions = actions
-        ?.map(
-          (e) => e.toMacOS(
-            context,
-            customItem: (child) {
-              return DefaultTextStyle(
-                style: theme.typography.body,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: child,
-                ),
-              );
-            },
-          ),
-        )
-        .toList();
-
-    return ToolBar(
-      padding: _kContentInsets,
-      title: styledTitle,
-      actions: buildActions,
-      decoration: BoxDecoration(
-        color: (backgroundColor ?? theme.canvasColor).withOpacity(
-          toolbarOpacity,
-        ),
-      ),
-      centerTitle: centerTitle,
-      automaticallyImplyLeading: false,
-      titleWidth: titleWidth ?? kMacosTitleWidth,
-      height: toolbarHeight ?? kMacosToolbarHeight,
-      leading: canPop(context) ? _buildBackButton : styledLeading,
-    );
-  }
-
-  @override
   NavigationAppBar toWindows(
     BuildContext context, [
     PaneDisplayMode? displayMode,
@@ -278,6 +219,64 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
           ),
         if (centerTitle) const Spacer(),
       ],
+    );
+  }
+
+  @override
+  ToolBar toMacos(BuildContext context) {
+    final theme = MacosTheme.of(context);
+
+    final styledTitle = title != null
+        ? DefaultTextStyle(
+            maxLines: 1,
+            style: titleTextStyle ??
+                theme.typography.title3
+                    .copyWith(fontWeight: MacosFontWeight.w510),
+            child: title!,
+          )
+        : null;
+
+    final styledLeading = leading != null
+        ? DefaultTextStyle(
+            style: theme.typography.body,
+            child: SizedBox(
+              width: leadingWidth ?? kMacosLeadingWidth,
+              child: leading!,
+            ),
+          )
+        : null;
+
+    final buildActions = actions
+        ?.map(
+          (e) => e.toMacOS(
+            context,
+            customItem: (child) {
+              return DefaultTextStyle(
+                style: theme.typography.body,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: child,
+                ),
+              );
+            },
+          ),
+        )
+        .toList();
+
+    return ToolBar(
+      padding: _kContentInsets,
+      title: styledTitle,
+      actions: buildActions,
+      decoration: BoxDecoration(
+        color: (backgroundColor ?? theme.canvasColor).withOpacity(
+          toolbarOpacity,
+        ),
+      ),
+      centerTitle: centerTitle,
+      automaticallyImplyLeading: false,
+      titleWidth: titleWidth ?? kMacosTitleWidth,
+      height: toolbarHeight ?? kMacosToolbarHeight,
+      leading: canPop(context) ? _buildBackButton : styledLeading,
     );
   }
 }

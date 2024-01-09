@@ -40,15 +40,6 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
   })  : assert(items.length >= 2),
         assert(currentIndex >= 0 && currentIndex < items.length);
 
-  /// The header of the sidebar.
-  ///
-  /// If null, the space it should have taken will be removed.
-  ///
-  /// Usually a [Text] or an [Image]. The `header` is a visual element that can be
-  /// displayed at the top of the navigation sidebar, providing additional context or branding.
-  /// If `null`, the space allocated for the header will be collapsed.
-  final Widget? header;
-
   /// The current selected index. This must be in the range of 0 to [items.length].
   final int currentIndex;
 
@@ -86,6 +77,15 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
   /// and `NavigationSidebarMacosProperty` respectively.
   final CoreProperties<NavigationSidebarWindowsProperty,
       NavigationSidebarMacosProperty>? properties;
+
+  /// The header of the sidebar.
+  ///
+  /// If null, the space it should have taken will be removed.
+  ///
+  /// Usually a [Text] or an [Image]. The `header` is a visual element that can be
+  /// displayed at the top of the navigation sidebar, providing additional context or branding.
+  /// If `null`, the space allocated for the header will be collapsed.
+  final Widget? header;
 
   /// The color of the item when selected.
   ///

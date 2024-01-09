@@ -11,43 +11,45 @@ class TabViewWindows extends StatelessWidget {
     super.key,
     this.property,
     this.onChanged,
-    this.primaryBackgroundColor,
-    this.secondaryBackgroundColor,
-    this.unSelectedColor,
-    this.selectedColor,
+    this.primaryColor,
+    this.secondaryColor,
+    this.selectedTabColor,
+    this.unselectedTabColor,
+    this.selectedIconTheme,
+    this.unselectedIconTheme,
+    this.selectedLabelStyle,
+    this.unselectedLabelStyle,
+    this.contentMargin,
     required this.tabs,
     required this.children,
     required this.currentIndex,
+    required this.contentPadding,
   });
 
   /// The Windows-specific property for customizing the tab view.
   final TabViewWindowsProperty? property;
 
-  /// The index of the currently selected tab.
   final int currentIndex;
-
-  /// Callback function called when the selected tab index changes.
   final ValueChanged<int>? onChanged;
 
-  /// List of AdaptiveTab objects representing tabs in the view.
+  final List<Widget> children;
   final List<AdaptiveTab> tabs;
 
-  /// List of widgets representing the content associated with each tab.
-  final List<Widget> children;
+  final Color? primaryColor;
+  final Color? secondaryColor;
 
-  /// The primary background color.
-  final Color? primaryBackgroundColor;
+  final Color? selectedTabColor;
+  final Color? unselectedTabColor;
 
-  /// The secondary background color.
-  final Color? secondaryBackgroundColor;
+  final TextStyle? selectedLabelStyle;
+  final TextStyle? unselectedLabelStyle;
 
-  /// The color to be applied to the selected tab.
-  final Color? selectedColor;
+  final IconThemeData? selectedIconTheme;
+  final IconThemeData? unselectedIconTheme;
 
-  /// The color to be applied to unselected tabs.
-  final Color? unSelectedColor;
+  final EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry? contentMargin;
 
-  /// Returns the widget associated with the currently selected tab.
   Widget get body => children[currentIndex];
 
   @override
@@ -55,29 +57,29 @@ class TabViewWindows extends StatelessWidget {
     final theme = FluentTheme.of(context);
 
     final activeColor =
-        selectedColor ?? theme.resources.solidBackgroundFillColorTertiary;
+        selectedTabColor ?? theme.resources.solidBackgroundFillColorTertiary;
 
-    final inactiveColor = unSelectedColor ??
+    final inactiveColor = unselectedTabColor ??
         theme.resources.layerOnMicaBaseAltFillColorTransparent;
 
     return FluentTheme(
       data: theme.copyWith(
         resources: theme.brightness.isDark
             ? ResourceDictionary.dark(
-                solidBackgroundFillColorTertiary: activeColor,
-                layerOnMicaBaseAltFillColorTransparent: inactiveColor,
-              )
+          solidBackgroundFillColorTertiary: activeColor,
+          layerOnMicaBaseAltFillColorTransparent: inactiveColor,
+        )
             : ResourceDictionary.light(
-                solidBackgroundFillColorTertiary: activeColor,
-                layerOnMicaBaseAltFillColorTransparent: inactiveColor,
-                layerOnMicaBaseAltFillColorDefault: primaryBackgroundColor !=
-                        null
-                    ? theme.resources.layerOnMicaBaseAltFillColorDefault
-                    : theme.resources.layerOnMicaBaseAltFillColorTransparent,
-              ),
+          solidBackgroundFillColorTertiary: activeColor,
+          layerOnMicaBaseAltFillColorTransparent: inactiveColor,
+          layerOnMicaBaseAltFillColorDefault: primaryColor !=
+              null
+              ? theme.resources.layerOnMicaBaseAltFillColorDefault
+              : theme.resources.layerOnMicaBaseAltFillColorTransparent,
+        ),
       ),
       child: Mica(
-        backgroundColor: primaryBackgroundColor,
+        backgroundColor: primaryColor,
         child: TabView(
           tabs: _buildTabs(context),
           onChanged: _onChanged,
@@ -90,7 +92,7 @@ class TabViewWindows extends StatelessWidget {
           minTabWidth: property?.minTabWidth ?? _kMinTileWidth,
           showScrollButtons: property?.showScrollButtons ?? true,
           tabWidthBehavior:
-              property?.tabWidthBehavior ?? TabWidthBehavior.equal,
+          property?.tabWidthBehavior ?? TabWidthBehavior.equal,
         ),
       ),
     );
@@ -99,19 +101,29 @@ class TabViewWindows extends StatelessWidget {
   List<Tab> _buildTabs(BuildContext context) {
     return List.generate(
       tabs.length,
-      (index) {
-        final tab = tabs[index];
-        return tab.toWindows(
+          (index) {
+        final isActive = currentIndex == index;
+        return tabs[index].toWindows(
           context,
           body: Card(
-            backgroundColor: secondaryBackgroundColor ??
-                FluentTheme.of(context)
+            padding: contentPadding,
+            margin: contentMargin ?? EdgeInsets.zero,
+            backgroundColor: secondaryColor ??
+                FluentTheme
+                    .of(context)
                     .resources
                     .solidBackgroundFillColorTertiary,
             borderRadius: BorderRadius.zero,
-            child: body,
+            child: CustomSingleChildLayout(
+              delegate: DesktopTextSelectionToolbarLayoutDelegate(
+                anchor: Offset.zero,
+              ),
+              child: body,
+            ),
           ),
-          isActive: currentIndex == index,
+          isActive: isActive,
+          style: isActive ? selectedLabelStyle : unselectedLabelStyle,
+          data: isActive ? selectedIconTheme : unselectedIconTheme,
         );
       },
     );
@@ -126,9 +138,19 @@ class TabViewWindowsProperty extends CoreWindowsProperty {
     this.footer,
     this.minTabWidth,
     this.maxTabWidth,
-    this.showScrollButtons,
-    this.tabWidthBehavior,
+    this.showScrollButtons = true,
+    this.tabWidthBehavior = TabWidthBehavior.equal,
   });
+
+  /// Displayed before all the tabs and buttons.
+  ///
+  /// Usually a [Text]
+  final Widget? header;
+
+  /// Displayed after all the tabs and buttons.
+  ///
+  /// Usually a [Text] widget
+  final Widget? footer;
 
   /// The min width a tab can have. Must not be negative.
   ///
@@ -141,19 +163,11 @@ class TabViewWindowsProperty extends CoreWindowsProperty {
   final double? maxTabWidth;
 
   /// Whether the buttons that scroll forward or backward
-  /// should be displayed, if necessary. Defaults to true
-  final bool? showScrollButtons;
+  /// should be displayed, if necessary. Defaults to true.
+  final bool showScrollButtons;
 
   /// Indicates how a tab will size itself
-  final TabWidthBehavior? tabWidthBehavior;
-
-  /// Displayed before all the tabs and buttons.
   ///
-  /// Usually a [Text]
-  final Widget? header;
-
-  /// Displayed after all the tabs and buttons.
-  ///
-  /// Usually a [Text] widget
-  final Widget? footer;
+  /// Defaults to [TabWidthBehavior.equal].
+  final TabWidthBehavior tabWidthBehavior;
 }
