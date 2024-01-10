@@ -8,6 +8,7 @@ import '../../../core/common/construct/property.dart';
 import '../../buttons/back_button.dart';
 import '../../buttons/close_button.dart';
 import '../../icon/icons.dart';
+import '../title_bar/title_bar.dart';
 
 class AdaptiveAppBar extends CoreAdaptiveComponent
     implements PreferredSizeWidget {
@@ -29,7 +30,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
     this.titleSpacing,
     this.toolbarOpacity = 1.0,
     this.bottomOpacity = 1.0,
-    this.centerTitle = true,
+    this.centerTitle = false,
     this.primary = true,
     this.toolbarHeight,
     this.leadingWidth,
@@ -365,8 +366,9 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
   Widget _buildCloseButton(BuildContext context) {
     return Center(child: closeButton ?? const AdaptiveCloseButton());
   }
+
   @override
-  Widget windows(BuildContext context,[ CoreWindowsProperty? property]) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
     final defaultIconTheme = IconThemeData(
@@ -376,42 +378,42 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
 
     final titleStyled = title != null
         ? DefaultTextStyle(
-      style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
-          theme.typography.subtitle!.copyWith(color: foregroundColor),
-      child: title!,
-    )
+            style: toolbarTextStyle?.copyWith(color: foregroundColor) ??
+                theme.typography.subtitle!.copyWith(color: foregroundColor),
+            child: title!,
+          )
         : null;
 
     final handelDrawer = hasDrawer(context)
         ? Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: IconButton(
-        icon: Icon(
-          size: iconDrawerTheme?.size ?? defaultIconTheme.size,
-          color: foregroundColor ??
-              iconDrawerTheme?.color ??
-              defaultIconTheme.color,
-          iconDrawerTheme?.icon?.fluent ?? Icons.menu,
-        ),
-        onPressed: Scaffold.of(context).openDrawer,
-      ),
-    )
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: Icon(
+                size: iconDrawerTheme?.size ?? defaultIconTheme.size,
+                color: foregroundColor ??
+                    iconDrawerTheme?.color ??
+                    defaultIconTheme.color,
+                iconDrawerTheme?.icon?.fluent ?? Icons.menu,
+              ),
+              onPressed: Scaffold.of(context).openDrawer,
+            ),
+          )
         : null;
 
     final handelEndDrawer = hasEndDrawer(context)
         ? Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: IconButton(
-        icon: Icon(
-          size: iconEndDrawerTheme?.size ?? defaultIconTheme.size,
-          color: foregroundColor ??
-              iconEndDrawerTheme?.color ??
-              defaultIconTheme.color,
-          iconEndDrawerTheme?.icon?.fluent ?? Icons.menu,
-        ),
-        onPressed: Scaffold.of(context).openEndDrawer,
-      ),
-    )
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: IconButton(
+              icon: Icon(
+                size: iconEndDrawerTheme?.size ?? defaultIconTheme.size,
+                color: foregroundColor ??
+                    iconEndDrawerTheme?.color ??
+                    defaultIconTheme.color,
+                iconEndDrawerTheme?.icon?.fluent ?? Icons.menu,
+              ),
+              onPressed: Scaffold.of(context).openEndDrawer,
+            ),
+          )
         : null;
 
     final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
@@ -586,7 +588,6 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
       actions: actions ?? [if (hasEndDrawer(context)) handelEndDrawer!],
     );
   }
-
 }
 
 /// The size is calculated based on the specified [toolbarHeight] and the preferred height

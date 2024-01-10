@@ -47,8 +47,16 @@ class FlatButtonWindows extends StatelessWidget {
       autofocus: property?.autofocus ?? false,
       focusable: property?.focusable ?? true,
       style: property?.style ??
-          ButtonStyle(backgroundColor: _backgroundColor).merge(theme.buttonTheme.defaultButtonStyle),
-      child: DefaultTextStyle(style: theme.typography.body!, child: child),
+          ButtonStyle(backgroundColor: _backgroundColor).merge(
+            theme.buttonTheme.defaultButtonStyle,
+          ),
+      child: IconTheme(
+        data: theme.iconTheme.copyWith(color: Colors.white),
+        child: DefaultTextStyle(
+          style: theme.typography.body!.copyWith(color: Colors.white),
+          child: child,
+        ),
+      ),
     );
   }
 

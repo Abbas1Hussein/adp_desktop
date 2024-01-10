@@ -262,9 +262,9 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
         .toList();
 
     return ToolBar(
-      padding: _kContentInsets,
       title: styledTitle,
       actions: buildActions,
+      padding: _kContentInsets,
       decoration: BoxDecoration(
         color: (backgroundColor ?? theme.canvasColor).withOpacity(
           toolbarOpacity,

@@ -85,7 +85,7 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
         delegate: DesktopTextSelectionToolbarLayoutDelegate(
           anchor: Offset.zero,
         ),
-        child: children[sidebar?.currentIndex ?? 0],
+        child: children.isNotEmpty ? children[sidebar?.currentIndex ?? 0] : null,
       ),
     );
   }
@@ -105,8 +105,12 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
 
     return NavigationPaneTheme(
       data: NavigationPaneThemeData(
-        selectedTextStyle: ButtonState.all(sidebar?.selectedLabelStyle),
-        unselectedTextStyle: ButtonState.all(sidebar?.unselectedLabelStyle),
+        selectedTextStyle: sidebar?.selectedLabelStyle != null
+            ? ButtonState.all(sidebar!.selectedLabelStyle)
+            : null,
+        unselectedTextStyle: sidebar?.unselectedLabelStyle != null
+            ? ButtonState.all(sidebar!.unselectedLabelStyle)
+            : null,
       ),
       child: NavigationView(
         contentShape: property?.contentShape,
@@ -116,6 +120,7 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
         clipBehavior: property?.clipBehavior ?? Clip.antiAlias,
         appBar: appBar?.toWindows(context, property?.displayMode),
         pane: sidebar?.toWindows(context, body, property?.displayMode),
+        content: sidebar == null ? const SizedBox.shrink() : null,
         paneBodyBuilder: (item, body) {
           return backgroundColor != null
               ? ColoredBox(color: backgroundColor!, child: body)
@@ -146,7 +151,9 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
                 return ColoredBox(
                   color: backgroundColor ?? theme.canvasColor,
                   child: DefaultTextStyle(
-                      style: theme.typography.body, child: body),
+                    style: theme.typography.body,
+                    child: body,
+                  ),
                 );
               },
             ),
@@ -157,11 +164,14 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
   }
 
   void validateLength() {
-    final hasSameLength = sidebar?.items.length == children.length;
-    assert(
-      hasSameLength,
-      "\n`items` and `tabs` must have the same length."
-      "\nCurrently: items has ${sidebar?.items.length} elements and tabs has ${children.length} elements.",
-    );
+    if (sidebar != null) {
+      final hasSameLength = sidebar!.items.length == children.length;
+
+      assert(
+        hasSameLength,
+        "\n`items` and `children` must have the same length."
+        "\nCurrently: items has ${sidebar!.items.length} elements and tabs has ${children.length} elements.",
+      );
+    }
   }
 }

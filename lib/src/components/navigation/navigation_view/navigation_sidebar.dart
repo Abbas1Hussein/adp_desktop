@@ -36,7 +36,7 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
     this.unselectedItemColor,
     this.selectedItemColor,
     this.properties,
-    required this.items,
+    this.items = const [],
   })  : assert(items.length >= 2),
         assert(currentIndex >= 0 && currentIndex < items.length);
 

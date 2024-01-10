@@ -28,9 +28,14 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
     return Divider(
       size: size,
       direction: direction,
-      style: color != null
-          ? DividerThemeData(decoration: BoxDecoration(color: color))
-          : null,
+      style: DividerThemeData(
+        horizontalMargin: EdgeInsets.zero,
+        verticalMargin: EdgeInsets.zero,
+        decoration: BoxDecoration(
+          color: color ??
+              FluentTheme.of(context).resources.dividerStrokeColorDefault,
+        ),
+      ),
     );
   }
 
@@ -48,5 +53,4 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
       ),
     );
   }
-
 }

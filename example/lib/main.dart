@@ -1,11 +1,10 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-void main() {
+void main() async {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.macOS,
+    DesktopTargetPlatform.windows,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
@@ -48,14 +47,60 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveScaffoldPage(
-      appBar: const AdaptiveAppBarPage(),
-      content:  Center(
-        child: AdaptiveIconButton(
-         onPressed: () {},
-          icon: const AdaptiveIcon(AdpIcons.airplane),
+    return AdaptiveTitleBar(
+      appTitle: const Text('adp app'),
+      appIcon: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: AdaptiveIcon(AdpIcons.home),
+      ),
+      child: AdaptiveNavigationView(
+        appBar: const AdaptiveNavigationAppBar(),
+        sidebar: AdaptiveNavigationSidebar(
+          searchField: const AdaptiveTextSearchField(suggestions: []),
+          currentIndex: currentValue,
+          onChanged: (value) {
+            setState(() => currentValue = value);
+          },
+          items: [
+            const AdaptiveNavigationSidebarItem(
+              label: Text('app'),
+              icon: AdaptiveIcon(AdpIcons.app),
+            ),
+            const AdaptiveNavigationSidebarItem(
+              label: Text('movie'),
+              icon: AdaptiveIcon(AdpIcons.move),
+            ),
+            const AdaptiveNavigationSidebarItem(
+              label: Text('archive'),
+              icon: AdaptiveIcon(AdpIcons.archive),
+            ),
+            const AdaptiveNavigationSidebarItem(
+              label: Text('shield'),
+              icon: AdaptiveIcon(AdpIcons.shield),
+            ),
+            const AdaptiveNavigationSidebarItem(
+              label: Text('download'),
+              icon: AdaptiveIcon(AdpIcons.download),
+            ),
+            const AdaptiveNavigationSidebarItem(
+              label: Text('settings'),
+              icon: AdaptiveIcon(AdpIcons.settings),
+            ),
+          ],
         ),
+        children: children,
       ),
     );
+  }
+
+  List<Widget> get children {
+    return [
+      const AdaptiveWindowButtons(),
+      const Text('AdaptiveTab 2'),
+      const Text('AdaptiveTab 3'),
+      const Text('AdaptiveTab 4'),
+      const Text('AdaptiveTab 5'),
+      const Text('AdaptiveTab 6'),
+    ].map((e) => Center(child: e)).toList();
   }
 }

@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
+
 import '../../enum/target.dart';
 
 abstract class CorePlatforms<WINDOWS, MACOS> {
@@ -41,12 +44,28 @@ class DefaultsPlatformManager {
     DesktopTargetPlatform? targetWeb,
     bool isDebugging = false,
   }) {
+    _initWindowCong();
     return _instance ??= DefaultsPlatformManager._(
       platform,
       targetLinux: targetLinux,
       targetWeb: targetWeb,
       isDebugging: isDebugging,
     );
+  }
+
+  static Future<void> _initWindowCong() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = const WindowOptions(
+      titleBarStyle: TitleBarStyle.hidden,
+    );
+
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
   }
 
   DesktopTargetPlatform get desktopTargetPlatform => _platform;

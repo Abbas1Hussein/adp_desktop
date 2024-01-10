@@ -83,46 +83,49 @@ class _TabViewMacosState extends State<TabViewMacos> {
       decoration: BoxDecoration(
         color: widget.primaryColor ?? backgroundColor,
       ),
-      child: MacosTabView(
-        controller: macosTabController,
-        position: widget.property?.position ?? MacosTabPosition.top,
-        padding: widget.contentMargin ?? const EdgeInsets.all(12.0),
-        tabs: widget.tabs.map((tab) {
-          final isActive = isSelectedIndex(tab);
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: MacosTabView(
+          controller: macosTabController,
+          position: widget.property?.position ?? MacosTabPosition.top,
+          padding: widget.contentMargin ?? const EdgeInsets.all(12.0),
+          tabs: widget.tabs.map((tab) {
+            final isActive = isSelectedIndex(tab);
 
-          return tab.toMacos(
-            context,
-            isActive: isActive,
-            onChanged: () => _onChanged(tab),
-            padding: widget.property?.paddingTab,
-            selectedColor: widget.selectedTabColor,
-            unSelectedColor: widget.unselectedTabColor,
-            direction: widget.property?.direction ?? Axis.horizontal,
-            data: isActive
-                ? widget.selectedIconTheme
-                : widget.unselectedIconTheme,
-            style: isActive
-                ? widget.selectedLabelStyle
-                : widget.unselectedLabelStyle,
-          );
-        }).toList(),
-        children: widget.children.map((child) {
-          return Padding(
-            padding: widget.contentPadding,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-              child: ColoredBox(
-                color: widget.secondaryColor ?? backgroundColor,
-                child: CustomSingleChildLayout(
-                  delegate: DesktopTextSelectionToolbarLayoutDelegate(
-                    anchor: Offset.zero,
+            return tab.toMacos(
+              context,
+              isActive: isActive,
+              onChanged: () => _onChanged(tab),
+              padding: widget.property?.paddingTab,
+              selectedColor: widget.selectedTabColor,
+              unSelectedColor: widget.unselectedTabColor,
+              direction: widget.property?.direction ?? Axis.horizontal,
+              data: isActive
+                  ? widget.selectedIconTheme
+                  : widget.unselectedIconTheme,
+              style: isActive
+                  ? widget.selectedLabelStyle
+                  : widget.unselectedLabelStyle,
+            );
+          }).toList(),
+          children: widget.children.map((child) {
+            return Padding(
+              padding: widget.contentPadding,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+                child: ColoredBox(
+                  color: widget.secondaryColor ?? backgroundColor,
+                  child: CustomSingleChildLayout(
+                    delegate: DesktopTextSelectionToolbarLayoutDelegate(
+                      anchor: Offset.zero,
+                    ),
+                    child: child,
                   ),
-                  child: child,
                 ),
               ),
-            ),
-          );
-        }).toList(),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

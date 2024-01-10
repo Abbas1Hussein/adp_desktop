@@ -34,9 +34,9 @@ class AdaptiveFlatButton extends CoreAdaptiveComponent<
     super.builders,
     super.properties,
     this.color,
-    this.disabledColor,
     this.onPressed,
     this.onLongPress,
+    this.disabledColor,
     required this.child,
   });
 

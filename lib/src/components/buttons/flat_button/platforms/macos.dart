@@ -94,7 +94,16 @@ class FlatButtonMacos extends StatelessWidget {
           disabledColor: inActiveColor,
           color: activeColor,
           pressedOpacity: property?.pressedOpacity ?? 0.4,
-          child: DefaultTextStyle(style: theme.typography.body, child: child),
+          child: MacosIconTheme(
+            data: theme.iconTheme.copyWith(
+              color: MacosColors.white,
+              size: 14.0,
+            ),
+            child: DefaultTextStyle(
+              style: theme.typography.body.copyWith(color: MacosColors.white),
+              child: child,
+            ),
+          ),
         ),
       ),
     );
