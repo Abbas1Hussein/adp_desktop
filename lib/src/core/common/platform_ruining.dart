@@ -11,7 +11,7 @@ abstract final class PlatformRuining {
 
   /// Check if the app is running on Debugging macOS.
   ///
-  /// Returns true if [DefaultsPlatformManager] is initialized with [DesktopTargetPlatform.macOS] and isDebugging is 'true'.
+  /// Returns true if [DefaultsPlatformManager._platform] is initialized with [DesktopTargetPlatform.macOS] and isDebugging is 'true'.
   /// Otherwise, returns false.
   ///
   /// Example usage:
@@ -41,12 +41,12 @@ abstract final class PlatformRuining {
   static final isRealMacos =
       !isWeb && _defaultTargetPlatform == TargetPlatform.macOS;
 
-  /// Indicates whether the app is running on either Real or Debugging macOS.
+  /// whether the app is running on either Real or Debugging macOS.
   static final isMacos = isRealMacos || isFakeMacos;
 
   /// Check if the app is running on Debugging Windows.
   ///
-  /// Returns true if [DefaultsPlatformManager] is initialized with [DesktopTargetPlatform.windows] and isDebugging is 'true'.
+  /// Returns true if [DefaultsPlatformManager._platform] is initialized with [DesktopTargetPlatform.windows] and isDebugging is 'true'.
   /// Otherwise, returns false.
   ///
   /// Example usage:
@@ -62,7 +62,7 @@ abstract final class PlatformRuining {
 
   /// Check if the app is running on Real Windows.
   ///
-  /// Returns true if [DefaultsPlatformManager] is not initialized or initialized with isDebugging as 'false'.
+  /// Returns true if [DefaultsPlatformManager._platform] is not initialized or initialized with isDebugging as 'false'.
   ///
   /// Example usage:
   /// ```dart
@@ -76,27 +76,25 @@ abstract final class PlatformRuining {
   static final isRealWindows =
       !isWeb && _defaultTargetPlatform == TargetPlatform.windows;
 
-  /// Indicates whether the app is running on either Real or Debugging Windows.
+  /// whether the app is running on either Real or Debugging Windows.
   static final isWindows = isRealWindows || isFakeWindows;
 
+  /// whether the application is running on the web platform.
   static const isWeb = kIsWeb;
 
   /// Retrieve the current platform from [DefaultsPlatformManager], or use the default if it's null.
-  static final targetPlatform = _debugDesktopTargetPlatform ??
-      _defaultTargetPlatform.desktopTargetPlatform;
+  static final targetPlatform = _debugDesktopTargetPlatform ?? _defaultTargetPlatform.desktopTargetPlatform;
 
   /// The default target platform when not in debugging mode.
   static final _defaultTargetPlatform = defaultTargetPlatform;
 
-  /// Indicates whether the app is currently in debugging mode.
-  static final isDebugging =
-      kPlatformManager != null && kPlatformManager!.isDebugging;
+  /// whether the app is currently in debugging mode.
+  static final isDebugging = kPlatformManager != null && kPlatformManager!.isDebugging;
 
   /// The target platform when in debugging mode, obtained
   ///
   /// from [kPlatformManager]. Null if not in debugging mode.
-  static final _debugDesktopTargetPlatform =
-      isDebugging ? kPlatformManager!.desktopTargetPlatform : null;
+  static final _debugDesktopTargetPlatform = isDebugging ? kPlatformManager!.desktopTargetPlatform : null;
 
   /// check if the current or target platforms match the specified platform.
   static bool _isTargetPlatform(DesktopTargetPlatform platform) {

@@ -493,9 +493,9 @@ class AdpApp
   Widget _buildTitleBar(BuildContext context, Widget? child) {
     if (child == null) return const SizedBox.shrink();
 
-    if (titleBarConfig?.mode == TitleBarMode.hidden) return child;
-
-    if (PlatformRuining.isWeb) return child;
+    if (titleBarConfig?.mode == TitleBarMode.hidden || PlatformRuining.isWeb) {
+      return child;
+    }
 
     return AdaptiveTitleBar(child: child);
   }

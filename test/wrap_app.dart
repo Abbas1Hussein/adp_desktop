@@ -5,6 +5,7 @@ void initializeDesktopDefaults([DesktopTargetPlatform? platform]) {
   DefaultsPlatformManager.initialize(
     platform ?? DesktopTargetPlatform.windows,
     isDebugging: true,
+    isTesting: true,
   );
 }
 
@@ -15,7 +16,5 @@ Widget wrapApp({required Widget child}) {
 Widget wrapAppWithScaffold({
   required Widget child,
 }) {
-  return wrapApp(
-    child: AdaptiveScaffoldPage(content: child),
-  );
+  return wrapApp(child: AdaptiveScaffoldPage(content: child));
 }

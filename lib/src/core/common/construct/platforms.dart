@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -41,17 +44,24 @@ class DefaultsPlatformManager {
 
   /// Initializes the DefaultsPlatformManager with the specified parameters.
   ///
+  /// - [isTesting] is only for testing.
+  ///
   /// Throws an error if the manager is already initialized.
   factory DefaultsPlatformManager.initialize(
     DesktopTargetPlatform platform, {
     DesktopTargetPlatform? targetLinux,
     DesktopTargetPlatform? targetWeb,
     bool isDebugging = false,
+    @visibleForTesting
+    bool isTesting = false,
   }) {
     if (_instance != null) {
       throw StateError('DefaultsPlatformManager is already initialized.');
     }
-    _initializeWindowConfiguration();
+    if (!kIsWeb && !isTesting) {
+      _initializeWindowConfiguration();
+    }
+
     return _instance = DefaultsPlatformManager._(
       platform,
       targetWeb: targetWeb,
@@ -80,10 +90,12 @@ class DefaultsPlatformManager {
   DesktopTargetPlatform get desktopTargetPlatform => _platform;
 
   /// Gets the target Linux platform or defaults to Windows if not specified.
-  DesktopTargetPlatform get targetLinux => _targetLinux ?? DesktopTargetPlatform.windows;
+  DesktopTargetPlatform get targetLinux =>
+      _targetLinux ?? DesktopTargetPlatform.windows;
 
   /// Gets the target web platform or defaults to Windows if not specified.
-  DesktopTargetPlatform get targetWeb => _targetWeb ?? DesktopTargetPlatform.windows;
+  DesktopTargetPlatform get targetWeb =>
+      _targetWeb ?? DesktopTargetPlatform.windows;
 
   /// Gets the debugging status for the application.
   bool get isDebugging => _isDebugging;

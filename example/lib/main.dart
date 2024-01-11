@@ -4,9 +4,9 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() async {
   DefaultsPlatformManager.initialize(
+    isDebugging: true,
     DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.macOS,
-    isDebugging: true,
   );
   runApp(const App());
 }
