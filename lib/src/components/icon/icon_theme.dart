@@ -52,10 +52,8 @@ class AdaptiveIconTheme extends CoreAdaptiveComponent {
     return Builder(
       builder: (BuildContext context) {
         return adaptiveValue(
-          macos: () =>
-              MacosIconTheme.merge(data: data.toMacos(context), child: child),
-          windows: () =>
-              IconTheme.merge(data: data.toWindows(context), child: child),
+          macos: () => MacosIconTheme.merge(data: data.toMacos(context), child: child),
+          windows: () => IconTheme.merge(data: data.toWindows(context), child: child),
         );
       },
     );

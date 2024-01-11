@@ -1,11 +1,12 @@
 library adp_desktop;
 
-import 'package:adp_desktop/src/components/buttons/window_button/window_button.dart';
+import 'package:adp_desktop/src/components/components.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:macos_ui/macos_ui.dart';
 
+import 'src/components/layout/title_bar/title_bar.dart';
 import 'src/core/core.dart';
 
 export 'src/components/components.dart';
@@ -13,6 +14,80 @@ export 'src/core/core.dart';
 
 class AdpApp
     extends CoreAdaptiveComponent<AppWindowsProperty, AppMacosProperty> {
+  const AdpApp({
+    super.key,
+    super.properties,
+    this.themeMode,
+    this.navigatorKey,
+    this.home,
+    this.routes = const <String, WidgetBuilder>{},
+    this.initialRoute,
+    this.onGenerateRoute,
+    this.onGenerateInitialRoutes,
+    this.onUnknownRoute,
+    this.navigatorObservers = const <NavigatorObserver>[],
+    this.builder,
+    this.shortcuts,
+    this.onGenerateTitle,
+    this.color,
+    this.locale,
+    this.localizationsDelegates,
+    this.localeListResolutionCallback,
+    this.localeResolutionCallback,
+    this.actions,
+    this.restorationScopeId,
+    this.showPerformanceOverlay = false,
+    this.checkerboardRasterCacheImages = false,
+    this.checkerboardOffscreenLayers = false,
+    this.showSemanticsDebugger = false,
+    this.debugShowCheckedModeBanner = true,
+    this.supportedLocales,
+    this.scrollBehavior,
+    this.title = '',
+    this.titleBarConfig,
+  })  : routeInformationProvider = null,
+        routeInformationParser = null,
+        routerDelegate = null,
+        backButtonDispatcher = null,
+        routerConfig = null;
+
+  const AdpApp.router({
+    super.key,
+    super.properties,
+    this.themeMode,
+    this.builder,
+    this.shortcuts,
+    this.onGenerateTitle,
+    this.routeInformationProvider,
+    this.routeInformationParser,
+    this.backButtonDispatcher,
+    this.color,
+    this.locale,
+    this.localizationsDelegates,
+    this.localeListResolutionCallback,
+    this.localeResolutionCallback,
+    this.actions,
+    this.restorationScopeId,
+    this.showPerformanceOverlay = false,
+    this.checkerboardRasterCacheImages = false,
+    this.checkerboardOffscreenLayers = false,
+    this.showSemanticsDebugger = false,
+    this.debugShowCheckedModeBanner = true,
+    this.supportedLocales,
+    this.scrollBehavior,
+    this.title = '',
+    this.titleBarConfig,
+    required RouterConfig<Object> this.routerConfig,
+    required RouterDelegate<Object> this.routerDelegate,
+  })  : navigatorObservers = const <NavigatorObserver>[],
+        routes = const <String, WidgetBuilder>{},
+        navigatorKey = null,
+        onGenerateRoute = null,
+        home = null,
+        onGenerateInitialRoutes = null,
+        onUnknownRoute = null,
+        initialRoute = null;
+
   /// Determines which theme will be used by the application if both [theme]
   /// and [darkTheme] are provided.
   ///
@@ -104,6 +179,32 @@ class AdpApp
   /// {@macro flutter.widgets.widgetsApp.localizationsDelegates}
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
+  /// Returns an iterable of common localizations delegates.
+  ///
+  /// This includes the localizations delegates provided through [localizationsDelegates],
+  /// if available. Additionally, it includes the default localizations delegates from
+  /// Cupertino, Material, Widgets, and Fluent.
+  ///
+  /// If [localizationsDelegates] is not provided, the common localizations
+  /// delegates include the following:
+  ///   - [DefaultCupertinoLocalizations.delegate]
+  ///   - [DefaultMaterialLocalizations.delegate]
+  ///   - [DefaultWidgetsLocalizations.delegate]
+  ///   - [FluentLocalizations.delegate]
+  ///
+  /// These localizations delegates are used to handle localization-related
+  /// tasks such as formatting dates, numbers, and providing localized messages.
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _commonLocalizationsDelegates sync* {
+    if (localizationsDelegates != null) {
+      yield* localizationsDelegates!;
+    }
+    yield DefaultCupertinoLocalizations.delegate;
+    yield DefaultMaterialLocalizations.delegate;
+    yield DefaultWidgetsLocalizations.delegate;
+    yield FluentLocalizations.delegate;
+  }
+
   /// {@macro flutter.widgets.widgetsApp.localeListResolutionCallback}
   ///
   /// This callback is passed along to the [WidgetsApp] built by this widget.
@@ -138,6 +239,13 @@ class AdpApp
 
   /// {@macro flutter.widgets.widgetsApp.debugShowCheckedModeBanner}
   final bool debugShowCheckedModeBanner;
+
+  /// Configuration for the title bar in the application.
+  ///
+  /// If provided, this [AdaptiveTitleBarConfig] will be used to customize
+  /// the appearance and behavior of the title bar. If not provided, the
+  /// title bar will use default settings.
+  final AdaptiveTitleBarConfig? titleBarConfig;
 
   /// {@macro flutter.widgets.widgetsApp.actions}
   /// {@tool snippet}
@@ -211,90 +319,7 @@ class AdpApp
   /// {@macro flutter.widgets.widgetsApp.shortcuts.seeAlso}
   final Map<LogicalKeySet, Intent>? shortcuts;
 
-
-  const AdpApp({
-    this.themeMode,
-    this.navigatorKey,
-    this.home,
-    this.routes = const <String, WidgetBuilder>{},
-    this.initialRoute,
-    this.onGenerateRoute,
-    this.onGenerateInitialRoutes,
-    this.onUnknownRoute,
-    this.navigatorObservers = const <NavigatorObserver>[],
-    this.builder,
-    this.shortcuts,
-    this.onGenerateTitle,
-    this.color,
-    this.locale,
-    this.localizationsDelegates,
-    this.localeListResolutionCallback,
-    this.localeResolutionCallback,
-    this.actions,
-    this.restorationScopeId,
-    this.showPerformanceOverlay = false,
-    this.checkerboardRasterCacheImages = false,
-    this.checkerboardOffscreenLayers = false,
-    this.showSemanticsDebugger = false,
-    this.debugShowCheckedModeBanner = true,
-    this.title = '',
-    this.supportedLocales,
-    this.scrollBehavior,
-    super.key,
-    super.properties,
-  })  : routeInformationProvider = null,
-        routeInformationParser = null,
-        routerDelegate = null,
-        backButtonDispatcher = null,
-        routerConfig = null;
-
-  const AdpApp.router({
-    this.themeMode,
-    this.builder,
-    this.shortcuts,
-    this.onGenerateTitle,
-    this.routeInformationProvider,
-    this.routeInformationParser,
-    this.routerDelegate,
-    this.backButtonDispatcher,
-    this.routerConfig,
-    this.color,
-    this.locale,
-    this.localizationsDelegates,
-    this.localeListResolutionCallback,
-    this.localeResolutionCallback,
-    this.actions,
-    this.restorationScopeId,
-    this.showPerformanceOverlay = false,
-    this.checkerboardRasterCacheImages = false,
-    this.checkerboardOffscreenLayers = false,
-    this.showSemanticsDebugger = false,
-    this.debugShowCheckedModeBanner = true,
-    this.title = '',
-    this.supportedLocales,
-    this.scrollBehavior,
-    super.key,
-    super.properties,
-  })  : assert(routerDelegate != null || routerConfig != null),
-        navigatorObservers = const <NavigatorObserver>[],
-        routes = const <String, WidgetBuilder>{},
-        navigatorKey = null,
-        onGenerateRoute = null,
-        home = null,
-        onGenerateInitialRoutes = null,
-        onUnknownRoute = null,
-        initialRoute = null;
-
   bool get usesRouter => routerDelegate != null || routerConfig != null;
-
-  Iterable<LocalizationsDelegate<dynamic>>
-      get _commonLocalizationsDelegates sync* {
-    if (localizationsDelegates != null) {
-      yield* localizationsDelegates!;
-    }
-    yield DefaultMaterialLocalizations.delegate;
-    yield DefaultWidgetsLocalizations.delegate;
-  }
 
   @override
   Widget windows(BuildContext context, [AppWindowsProperty? property]) {
@@ -304,7 +329,7 @@ class AdpApp
         color: color,
         locale: locale,
         actions: actions,
-        builder: builder,
+        builder: _buildBuilderWithTitleBar,
         themeMode: themeMode,
         onGenerateTitle: onGenerateTitle,
         restorationScopeId: restorationScopeId,
@@ -318,7 +343,7 @@ class AdpApp
         shortcuts: property?.shortcuts ?? shortcuts,
         showSemanticsDebugger: showSemanticsDebugger,
         showPerformanceOverlay: showPerformanceOverlay,
-        localizationsDelegates: _localizationsDelegatesWindows,
+        localizationsDelegates: _commonLocalizationsDelegates,
         localeResolutionCallback: localeResolutionCallback,
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         checkerboardOffscreenLayers: checkerboardOffscreenLayers,
@@ -336,7 +361,7 @@ class AdpApp
       routes: routes,
       locale: locale,
       actions: actions,
-      builder: builder,
+      builder: _buildBuilderWithTitleBar,
       themeMode: themeMode,
       initialRoute: initialRoute,
       navigatorKey: navigatorKey,
@@ -350,7 +375,7 @@ class AdpApp
       restorationScopeId: restorationScopeId,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
-      localizationsDelegates: _localizationsDelegatesWindows,
+      localizationsDelegates: _commonLocalizationsDelegates,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       localeResolutionCallback: localeResolutionCallback,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
@@ -361,12 +386,6 @@ class AdpApp
       supportedLocales:
           supportedLocales ?? FluentLocalizations.supportedLocales,
     );
-  }
-
-  Iterable<LocalizationsDelegate<dynamic>>
-      get _localizationsDelegatesWindows sync* {
-    yield* _commonLocalizationsDelegates;
-    yield FluentLocalizations.delegate;
   }
 
   @override
@@ -391,7 +410,7 @@ class AdpApp
         routeInformationProvider: routeInformationProvider,
         showSemanticsDebugger: showSemanticsDebugger,
         showPerformanceOverlay: showPerformanceOverlay,
-        localizationsDelegates: _localizationsDelegatesMacos,
+        localizationsDelegates: _commonLocalizationsDelegates,
         localeResolutionCallback: localeResolutionCallback,
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         checkerboardOffscreenLayers: checkerboardOffscreenLayers,
@@ -422,7 +441,7 @@ class AdpApp
       darkTheme: property?.darkTheme,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
-      localizationsDelegates: _localizationsDelegatesMacos,
+      localizationsDelegates: _commonLocalizationsDelegates,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       localeResolutionCallback: localeResolutionCallback,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
@@ -432,12 +451,6 @@ class AdpApp
       scrollBehavior: scrollBehavior ?? const MacosScrollBehavior(),
       supportedLocales: supportedLocales ?? const [Locale('en', 'US')],
     );
-  }
-
-  Iterable<LocalizationsDelegate<dynamic>>
-      get _localizationsDelegatesMacos sync* {
-    yield* _commonLocalizationsDelegates;
-    yield DefaultCupertinoLocalizations.delegate;
   }
 
   Widget _macosBuilder(context, child) {
@@ -468,9 +481,23 @@ class AdpApp
               ),
             ),
           ),
-      child:
-          builder?.call(context, child) ?? (child ?? const SizedBox.shrink()),
+      child: _buildBuilderWithTitleBar(context, child),
     );
+  }
+
+  Widget _buildBuilderWithTitleBar(BuildContext context, Widget? child) {
+    return builder?.call(context, _buildTitleBar(context, child)) ??
+        _buildTitleBar(context, child);
+  }
+
+  Widget _buildTitleBar(BuildContext context, Widget? child) {
+    if (child == null) return const SizedBox.shrink();
+
+    if (titleBarConfig?.mode == TitleBarMode.hidden) return child;
+
+    if (PlatformRuining.isWeb) return child;
+
+    return AdaptiveTitleBar(child: child);
   }
 }
 

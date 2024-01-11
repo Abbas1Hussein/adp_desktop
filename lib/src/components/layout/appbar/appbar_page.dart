@@ -116,12 +116,6 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
     this.height = kAppBarPageHeight,
   }) : actions = null;
 
-  /// Specifies the height of this [AdaptiveAppBarPage].
-  ///
-  /// on Windows: Defaults to [kAppBarPageHeight] which is 48.0.
-  /// on macOS: Defaults to [kAppBarPageHeight] + 8 which is 56.0.
-  final double height;
-
   /// The [title] of the adaptive appBar page.
   ///
   /// Typically, a [Text] widget.
@@ -147,6 +141,12 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
   /// Platform-specific actions for the app bar.
   final CoreProperties<CommandBar?, List<ToolbarItem>?>? platformActions;
 
+  /// Specifies the height of this [AdaptiveAppBarPage].
+  ///
+  /// on Windows: Defaults to [kAppBarPageHeight] which is 48.0.
+  /// on macOS: Defaults to [kAppBarPageHeight] + 8 which is 56.0.
+  final double height;
+
   /// Controls whether the appbar should try to imply if the [leading] widget
   /// is null.
   ///
@@ -168,63 +168,56 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
-    return ConstrainedBox(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       constraints: BoxConstraints(minHeight: height, maxHeight: height),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: dividerColor ?? theme.resources.controlStrokeColorDefault,
-            ),
+      decoration: ShapeDecoration(
+        color: backgroundColor ??  theme.resources.solidBackgroundFillColorTertiary,
+        shape: borderRadius != null
+            ? RoundedRectangleBorder(borderRadius: borderRadius!)
+            : LinearBorder.none,
+      ),
+      foregroundDecoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: dividerColor ?? theme.resources.controlStrokeColorDefault,
           ),
         ),
-        position: DecorationPosition.foreground,
-        child: Acrylic(
-          tint: backgroundColor ??
-              theme.resources.solidBackgroundFillColorSecondary,
-          shape: borderRadius != null
-              ? RoundedRectangleBorder(borderRadius: borderRadius!)
-              : null,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                if (leading == null &&
-                    automaticallyImplyLeading &&
-                    (Navigator.canPop(context)))
-                  Center(child: const AdaptiveBackButton().windows(context)),
-                if (leading != null)
-                  IconTheme.merge(
-                    data: theme.iconTheme.copyWith(size: 18.0),
-                    child: leading!,
-                  ),
-                if (leading != null) const SizedBox(width: 4.0),
-                if (title != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2.7),
-                    child: DefaultTextStyle.merge(
-                      style: theme.typography.title?.copyWith(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      child: Center(child: title),
-                    ),
-                  ),
-                if (actions != null && actions!.isNotEmpty)
-                  Expanded(
-                    child: DynamicOverflow(
-                      alignment: MainAxisAlignment.end,
-                      overflowWidget: const SizedBox.shrink(),
-                      children:
-                          actions!.map((e) => e.toWindows(context)).toList(),
-                    ),
-                  ),
-                if (platformActions?.windows != null)
-                  Expanded(child: platformActions!.windows!),
-              ],
+      ),
+      child: Row(
+        children: [
+          if (leading == null &&
+              automaticallyImplyLeading &&
+              (Navigator.canPop(context)))
+            Center(child: const AdaptiveBackButton().windows(context)),
+          if (leading != null)
+            IconTheme.merge(
+              data: theme.iconTheme.copyWith(size: 18.0),
+              child: leading!,
             ),
-          ),
-        ),
+          if (leading != null) const SizedBox(width: 4.0),
+          if (title != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 2.7),
+              child: DefaultTextStyle.merge(
+                style: theme.typography.title?.copyWith(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                child: Center(child: title),
+              ),
+            ),
+          if (actions != null && actions!.isNotEmpty)
+            Expanded(
+              child: DynamicOverflow(
+                alignment: MainAxisAlignment.end,
+                overflowWidget: const SizedBox.shrink(),
+                children: actions!.map((e) => e.toWindows(context)).toList(),
+              ),
+            ),
+          if (platformActions?.windows != null)
+            Expanded(child: platformActions!.windows!),
+        ],
       ),
     );
   }
@@ -240,7 +233,8 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
 
     final styledTitle = title != null
         ? DefaultTextStyle(
-            style: theme.typography.title3.copyWith(fontWeight: MacosFontWeight.w590),
+            style: theme.typography.title3
+                .copyWith(fontWeight: MacosFontWeight.w590),
             child: title!,
           )
         : null;

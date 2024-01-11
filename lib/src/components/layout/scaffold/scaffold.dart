@@ -1,4 +1,3 @@
-import 'package:adp_desktop/src/components/icon/icon_theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -204,7 +203,7 @@ class AdaptiveScaffold extends StatelessWidget {
   ///
   /// To close the drawer, use either [ScaffoldState.closeEndDrawer], [Navigator.pop]
   /// or press the escape key on the keyboard.
-  final Widget? endDrawer;
+  final AdaptiveDrawer? endDrawer;
 
   /// Optional callback that is called when the [Scaffold.endDrawer] is opened or closed.
   final DrawerCallback? onEndDrawerChanged;

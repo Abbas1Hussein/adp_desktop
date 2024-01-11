@@ -8,33 +8,75 @@ import '../../../core/extension/context.dart';
 import '../../additional/color.dart';
 import '../../components.dart';
 
-class AdaptiveTitleBar extends StatefulWidget {
-  const AdaptiveTitleBar({
-    super.key,
+/// different modes for the title bar.
+enum TitleBarMode { hidden, normal }
+
+/// Configuration for [AdaptiveTitleBar].
+class AdaptiveTitleBarConfig {
+  AdaptiveTitleBarConfig({
+    this.mode,
     this.appIcon,
     this.appTitle,
+    this.dividerColor,
+    this.dividerThickness,
     this.backgroundColor,
-    required this.child,
   });
 
+  /// Icon widget representing the application.
+  ///
+  /// If null, defaults to [FlutterLogo].
   final Widget? appIcon;
+
+  /// Title widget displayed in the title bar.
+  ///
+  /// If null, defaults to obtaining the app name.
   final Widget? appTitle;
 
-  final Widget child;
+  /// Background color of the title bar.
   final Color? backgroundColor;
+
+  /// Color of the divider line at the bottom of the title bar.
+  final Color? dividerColor;
+
+  /// Thickness of the divider line at the bottom of the title bar.
+  final double? dividerThickness;
+
+  /// Mode for the title bar.
+  ///
+  /// whether the title bar should be hidden or normal, this only work on [AdpApp].
+  final TitleBarMode? mode;
+}
+
+/// an adaptive title bar that adjusts based on the platform.
+class AdaptiveTitleBar extends StatefulWidget {
+  /// Creates an `AdaptiveTitleBar`.
+  ///
+  /// The [child] parameter is the main content below the title bar.
+  /// The [config] parameter allows customizing the appearance of the title bar.
+  const AdaptiveTitleBar({super.key, this.config, required this.child});
+
+  /// The child widget to be displayed beneath the title bar.
+  final Widget child;
+
+  /// Configuration for the title bar appearance.
+  final AdaptiveTitleBarConfig? config;
 
   @override
   State<AdaptiveTitleBar> createState() => _AdaptiveTitleBarState();
 }
 
-class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> {
+class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
+    with WindowListener {
   Future<String>? getTitle;
+
+  double height = kWindowCaptionHeight;
 
   @override
   void initState() {
-    if (widget.appTitle == null) {
+    if (widget.config?.appTitle == null) {
       getTitle = windowManager.getTitle();
     }
+    windowManager.addListener(this);
     super.initState();
   }
 
@@ -42,74 +84,99 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DragToMoveArea(
-          child: ColoredBox(
-            color: handelBackgroundColor(widget.backgroundColor, context),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints.tightFor(
-                width: double.infinity,
-                height: kWindowCaptionHeight,
-              ),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: [
-                  AdaptiveWindowButtons(
-                    builders: AdaptiveBuilder(
-                      macos: (platformChild, theme, property) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: platformChild,
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        AdaptiveIconTheme.merge(
-                          data: const AdaptiveIconThemeData(size: 15.0),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
-                            child:
-                                widget.appIcon ?? const FlutterLogo(size: 15.0),
-                          ),
-                        ),
-                        DefaultTextStyle(
-                          style: context.typography.body!.copyWith(
-                            fontWeight: PlatformRuining.isMacos
-                                ? MacosFontWeight.w510
-                                : FontWeight.w400,
-                          ),
-                          child: _buildGetTitleBuilder(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color:
+                handelBackgroundColor(widget.config?.backgroundColor, context),
+            border: Border(
+              bottom: BorderSide(
+                color: widget.config?.dividerColor ??
+                    _getDefaultBuilderColor(context)!,
               ),
             ),
           ),
+          child: ConstrainedBox(
+            constraints:
+                BoxConstraints.tightFor(width: double.infinity, height: height),
+            child: Row(
+              textDirection: TextDirection.rtl,
+              children: [
+                AdaptiveWindowButtons(
+                  builders: AdaptiveBuilder(
+                    macos: (platformChild, theme, property) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: platformChild,
+                      );
+                    },
+                  ),
+                ),
+                const Expanded(
+                  child: DragToMoveArea(
+                    child: SizedBox(height: kWindowCaptionHeight),
+                  ),
+                ),
+                AdaptiveIconTheme.merge(
+                  data: const AdaptiveIconThemeData(size: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: widget.config?.appIcon ??
+                            const FlutterLogo(size: 15.0),
+                      ),
+                      DefaultTextStyle(
+                        style: context.typography.body!.copyWith(
+                          fontSize: 12,
+                          fontWeight: PlatformRuining.isMacos
+                              ? MacosFontWeight.w510
+                              : null,
+                        ),
+                        child: _buildAppTitleBuilder(),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-        const AdaptiveDivider(size: double.infinity),
         Expanded(child: widget.child)
       ],
     );
   }
 
-  Widget _buildGetTitleBuilder() {
-    if (widget.appTitle != null) return widget.appTitle!;
+  Widget _buildAppTitleBuilder() {
+    if (widget.config?.appTitle != null) return widget.config!.appTitle!;
 
     return FutureBuilder(
       future: getTitle,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data != null) {
-          return Text(snapshot.data!);
-        }
-        return const SizedBox.shrink();
-      },
+      builder: (context, snapshot) => Text(snapshot.data ?? ''),
     );
+  }
+
+  Color? _getDefaultBuilderColor(BuildContext context) {
+    return PlatformRuining.isMacos
+        ? MacosTheme.of(context).iconButtonTheme.disabledColor
+        : FluentTheme.of(context).resources.controlStrokeColorDefault;
+  }
+
+  @override
+  void onWindowMaximize() {
+    height = kWindowCaptionHeight - 8;
+    setState(() {});
+  }
+
+  @override
+  void onWindowUnmaximize() {
+    height = kWindowCaptionHeight;
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
   }
 }

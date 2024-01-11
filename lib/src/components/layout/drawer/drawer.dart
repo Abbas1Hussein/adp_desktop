@@ -98,10 +98,7 @@ class AdaptiveDrawer extends StatelessWidget {
   /// defaults to [Clip.none].
   final Clip clipBehavior;
 
-  static const kAdaptiveDrawerDuration = Duration(milliseconds: 300);
-
-  static const kAdaptiveDrawerRadius = BorderRadius.only(
-      topRight: Radius.circular(12.0), bottomRight: Radius.circular(12.0));
+  static const _kDrawerDuration = Duration(milliseconds: 300);
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +113,8 @@ class AdaptiveDrawer extends StatelessWidget {
         shape: BoxShape.rectangle,
         clipBehavior: clipBehavior,
         curve: Curves.fastOutSlowIn,
-        duration: kAdaptiveDrawerDuration,
-        borderRadius: borderRadius ?? kAdaptiveDrawerRadius,
+        duration: _kDrawerDuration,
+        borderRadius: borderRadius ?? BorderRadius.zero,
         color: handelBackgroundColor(backgroundColor, context),
         child: ConstrainedBox(
           constraints: BoxConstraints.expand(width: width),

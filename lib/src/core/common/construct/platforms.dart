@@ -10,7 +10,7 @@ abstract class CorePlatforms<WINDOWS, MACOS> {
   final MACOS? macos;
 }
 
-/// To test your app with a specific platform, initialize [DefaultsPlatformManager] and set isDebugging to true.
+/// Manages the default platform settings for a Flutter desktop application.
 ///
 /// Example usage:
 /// ```dart
@@ -20,7 +20,8 @@ abstract class CorePlatforms<WINDOWS, MACOS> {
 ///     isDebugging: true,
 ///   );
 ///   runApp(const App());
-///
+/// }
+/// ```
 class DefaultsPlatformManager {
   const DefaultsPlatformManager._(
     this._platform, {
@@ -38,45 +39,62 @@ class DefaultsPlatformManager {
 
   static DefaultsPlatformManager? _instance;
 
+  /// Initializes the DefaultsPlatformManager with the specified parameters.
+  ///
+  /// Throws an error if the manager is already initialized.
   factory DefaultsPlatformManager.initialize(
     DesktopTargetPlatform platform, {
     DesktopTargetPlatform? targetLinux,
     DesktopTargetPlatform? targetWeb,
     bool isDebugging = false,
   }) {
-    _initWindowCong();
-    return _instance ??= DefaultsPlatformManager._(
+    if (_instance != null) {
+      throw StateError('DefaultsPlatformManager is already initialized.');
+    }
+    _initializeWindowConfiguration();
+    return _instance = DefaultsPlatformManager._(
       platform,
-      targetLinux: targetLinux,
       targetWeb: targetWeb,
+      targetLinux: targetLinux,
       isDebugging: isDebugging,
     );
   }
 
-  static Future<void> _initWindowCong() async {
+  /// Initializes window configuration for the application.
+  ///
+  /// hiding defaults TitleBar.
+  static Future<void> _initializeWindowConfiguration() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     await windowManager.ensureInitialized();
-
     WindowOptions windowOptions = const WindowOptions(
       titleBarStyle: TitleBarStyle.hidden,
     );
 
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
-      await windowManager.focus();
     });
   }
 
+  /// Gets the desktop target platform for the application.
   DesktopTargetPlatform get desktopTargetPlatform => _platform;
 
-  DesktopTargetPlatform get targetLinux =>
-      _targetLinux ?? DesktopTargetPlatform.windows;
+  /// Gets the target Linux platform or defaults to Windows if not specified.
+  DesktopTargetPlatform get targetLinux => _targetLinux ?? DesktopTargetPlatform.windows;
 
-  DesktopTargetPlatform get targetWeb =>
-      _targetWeb ?? DesktopTargetPlatform.windows;
+  /// Gets the target web platform or defaults to Windows if not specified.
+  DesktopTargetPlatform get targetWeb => _targetWeb ?? DesktopTargetPlatform.windows;
 
+  /// Gets the debugging status for the application.
   bool get isDebugging => _isDebugging;
 
-  static DefaultsPlatformManager? get instance => _instance;
+  /// Gets the singleton instance of DefaultsPlatformManager.
+  ///
+  /// Throws an error if the manager is not initialized.
+  static DefaultsPlatformManager? get instance {
+    if (_instance == null) {
+      throw StateError('DefaultsPlatformManager is not initialized.');
+    }
+    return _instance;
+  }
 }

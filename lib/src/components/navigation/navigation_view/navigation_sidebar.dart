@@ -209,29 +209,31 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
     final theme = MacosTheme.of(context);
     final defaultSize = MediaQuery.sizeOf(context);
 
-    final buildTopWidgets = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (header != null)
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: DefaultTextStyle(
-              maxLines: 1,
-              style: theme.typography.body
-                  .copyWith(fontWeight: MacosFontWeight.w510),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: searchField != null ? 3.0 : 0.0,
+    final buildTopWidgets = header != null || searchField != null
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (header != null)
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: DefaultTextStyle(
+                    maxLines: 1,
+                    style: theme.typography.body
+                        .copyWith(fontWeight: MacosFontWeight.w510),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: searchField != null ? 3.0 : 0.0,
+                      ),
+                      child: header!,
+                    ),
+                  ),
                 ),
-                child: header!,
-              ),
-            ),
-          ),
-        if (searchField != null) searchField!.macos(context),
-      ],
-    );
+              if (searchField != null) searchField!.macos(context),
+            ],
+          )
+        : null;
 
     return Sidebar(
       top: buildTopWidgets,
@@ -264,15 +266,18 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
           },
         );
 
-        return SidebarItems(
-          shape: property?.itemsShape,
-          currentIndex: currentIndex,
-          selectedColor: selectedItemColor,
-          unselectedColor: unselectedItemColor,
-          scrollController: scrollController,
-          onChanged: (value) => onChanged?.call(value),
-          itemSize: property?.itemSize ?? SidebarItemSize.large,
-          items: buildItems,
+        return ColoredBox(
+          color: theme.canvasColor,
+          child: SidebarItems(
+            shape: property?.itemsShape,
+            currentIndex: currentIndex,
+            selectedColor: selectedItemColor,
+            unselectedColor: unselectedItemColor,
+            scrollController: scrollController,
+            onChanged: (value) => onChanged?.call(value),
+            itemSize: property?.itemSize ?? SidebarItemSize.large,
+            items: buildItems,
+          ),
         );
       },
     );

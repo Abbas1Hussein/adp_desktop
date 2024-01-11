@@ -40,10 +40,8 @@ class WindowButtonsWindows extends StatelessWidget {
   Widget build(BuildContext context) {
     const space = SizedBox(width: 4.0);
 
-    final isLeftToRight = Directionality.of(context) == TextDirection.ltr;
-
     return Row(
-      textDirection: isLeftToRight ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: TextDirection.rtl,
       mainAxisSize: MainAxisSize.min,
       children: [
         WindowCloseButtonsWindows(
@@ -165,12 +163,6 @@ class _WindowMaximizeButtonsWindowsState
   }
 
   @override
-  void dispose() {
-    windowManager.removeListener(this);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final config = AdaptiveWindowButtonConfig.of(context);
 
@@ -211,14 +203,20 @@ class _WindowMaximizeButtonsWindowsState
   void onWindowUnmaximize() {
     setState(() {});
   }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
 }
 
 Widget _buildWindowWindowsButton({
   bool show = true,
+  double? iconSize,
   Color? hoverColor,
   Color? disabledColor,
   Color? backgroundColor,
-  double? iconSize,
   required IconData icon,
   required VoidCallback? onPressed,
 }) {

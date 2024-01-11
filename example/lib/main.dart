@@ -4,11 +4,10 @@ import 'package:macos_ui/macos_ui.dart';
 
 void main() async {
   DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.macOS,
     isDebugging: true,
   );
-
   runApp(const App());
 }
 
@@ -18,9 +17,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdpApp(
-      home: const HomeScreen(),
-      debugShowCheckedModeBanner: false,
+      home: const FirstScreen(),
       themeMode: ThemeMode.dark,
+      debugShowCheckedModeBanner: false,
       properties: Properties(
         macos: AppMacosProperty(
           darkTheme: MacosThemeData.dark(),
@@ -47,60 +46,122 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveTitleBar(
-      appTitle: const Text('adp app'),
-      appIcon: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: AdaptiveIcon(AdpIcons.home),
+    return AdaptiveNavigationView(
+      appBar: AdaptiveNavigationAppBar(
+        leading: const AdaptiveIcon(AdpIcons.documentChart),
+        title: const Text('documentChart'),
+        actions: [
+          AdaptiveActionButton(
+            label: 'delete',
+            icon: const AdaptiveIcon(AdpIcons.delete),
+            onPressed: () {},
+          ),
+          AdaptiveActionButton(
+            label: 'archive',
+            icon: const AdaptiveIcon(AdpIcons.archive),
+            onPressed: () {},
+          ),
+          AdaptiveActionButton(
+            label: 'download',
+            icon: const AdaptiveIcon(AdpIcons.download),
+            onPressed: () {},
+          ),
+          AdaptiveActionButton(
+            label: 'settings',
+            icon: const AdaptiveIcon(AdpIcons.settings),
+            onPressed: () {},
+          ),
+        ],
       ),
-      child: AdaptiveNavigationView(
-        appBar: const AdaptiveNavigationAppBar(),
-        sidebar: AdaptiveNavigationSidebar(
-          searchField: const AdaptiveTextSearchField(suggestions: []),
-          currentIndex: currentValue,
-          onChanged: (value) {
-            setState(() => currentValue = value);
-          },
-          items: [
-            const AdaptiveNavigationSidebarItem(
-              label: Text('app'),
-              icon: AdaptiveIcon(AdpIcons.app),
-            ),
-            const AdaptiveNavigationSidebarItem(
-              label: Text('movie'),
-              icon: AdaptiveIcon(AdpIcons.move),
-            ),
-            const AdaptiveNavigationSidebarItem(
-              label: Text('archive'),
-              icon: AdaptiveIcon(AdpIcons.archive),
-            ),
-            const AdaptiveNavigationSidebarItem(
-              label: Text('shield'),
-              icon: AdaptiveIcon(AdpIcons.shield),
-            ),
-            const AdaptiveNavigationSidebarItem(
-              label: Text('download'),
-              icon: AdaptiveIcon(AdpIcons.download),
-            ),
-            const AdaptiveNavigationSidebarItem(
-              label: Text('settings'),
-              icon: AdaptiveIcon(AdpIcons.settings),
-            ),
-          ],
-        ),
-        children: children,
+      sidebar: AdaptiveNavigationSidebar(
+        currentIndex: currentValue,
+        onChanged: (value) {
+          setState(() => currentValue = value);
+        },
+        items: [
+          const AdaptiveNavigationSidebarItem(
+            label: Text('app'),
+            icon: AdaptiveIcon(AdpIcons.app),
+          ),
+          const AdaptiveNavigationSidebarItem(
+            label: Text('movie'),
+            icon: AdaptiveIcon(AdpIcons.move),
+          ),
+          const AdaptiveNavigationSidebarItem(
+            label: Text('archive'),
+            icon: AdaptiveIcon(AdpIcons.archive),
+          ),
+          const AdaptiveNavigationSidebarItem(
+            label: Text('shield'),
+            icon: AdaptiveIcon(AdpIcons.shield),
+          ),
+          const AdaptiveNavigationSidebarItem(
+            label: Text('download'),
+            icon: AdaptiveIcon(AdpIcons.download),
+          ),
+          const AdaptiveNavigationSidebarItem(
+            label: Text('settings'),
+            icon: AdaptiveIcon(AdpIcons.settings),
+          ),
+        ],
       ),
+      children: children,
     );
   }
 
   List<Widget> get children {
     return [
       const AdaptiveWindowButtons(),
-      const Text('AdaptiveTab 2'),
+      const FirstScreen(),
       const Text('AdaptiveTab 3'),
       const Text('AdaptiveTab 4'),
       const Text('AdaptiveTab 5'),
       const Text('AdaptiveTab 6'),
     ].map((e) => Center(child: e)).toList();
+  }
+}
+
+class FirstScreen extends StatelessWidget {
+  const FirstScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveScaffold(
+      drawer: const AdaptiveDrawer(),
+      endDrawer: const AdaptiveDrawer(),
+      appBar: AdaptiveAppBar(title: const Text('First Screen')),
+      body: Center(
+        child: AdaptiveButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              AdaptivePageRoute(
+                builder: (context, animation, secondaryAnimation) =>
+                    const SecondScreen(),
+              ),
+            );
+          },
+          child: const Text('Go to Second Screen'),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveScaffoldPage(
+      appBar: const AdaptiveAppBarPage(title: Text('Second Screen')),
+      content: Center(
+        child: AdaptiveButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Go back to First Screen'),
+        ),
+      ),
+    );
   }
 }

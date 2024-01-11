@@ -41,10 +41,8 @@ class WindowButtonsMacos extends StatelessWidget {
   Widget build(BuildContext context) {
     const space = SizedBox(width: 8.0);
 
-    final isLeftToRight = Directionality.of(context) == TextDirection.ltr;
-
     return Row(
-      textDirection: isLeftToRight ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: TextDirection.rtl,
       mainAxisSize: MainAxisSize.min,
       children: [
         WindowCloseButtonsMacos(

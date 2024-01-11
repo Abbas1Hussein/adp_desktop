@@ -85,7 +85,8 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
         delegate: DesktopTextSelectionToolbarLayoutDelegate(
           anchor: Offset.zero,
         ),
-        child: children.isNotEmpty ? children[sidebar?.currentIndex ?? 0] : null,
+        child:
+            children.isNotEmpty ? children[sidebar?.currentIndex ?? 0] : null,
       ),
     );
   }
@@ -139,9 +140,9 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
       child: MacosWindow(
         titleBar: property?.titleBar,
         sidebar: sidebar?.toMacos(context),
+        backgroundColor: theme.canvasColor,
         disableWallpaperTinting: property?.disableWallpaperTinting ?? false,
-        sidebarState: property?.sidebarState ??
-            NSVisualEffectViewState.followsWindowActiveState,
+        sidebarState: property?.sidebarState ?? NSVisualEffectViewState.followsWindowActiveState,
         child: MacosScaffold(
           toolBar: appBar?.toMacos(context),
           children: [

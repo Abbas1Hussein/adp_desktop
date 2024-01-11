@@ -8,7 +8,6 @@ import '../../../core/common/construct/property.dart';
 import '../../buttons/back_button.dart';
 import '../../buttons/close_button.dart';
 import '../../icon/icons.dart';
-import '../title_bar/title_bar.dart';
 
 class AdaptiveAppBar extends CoreAdaptiveComponent
     implements PreferredSizeWidget {
@@ -371,6 +370,8 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
+    final defaultBackgroundColor = backgroundColor ?? theme.navigationPaneTheme.backgroundColor;
+
     final defaultIconTheme = IconThemeData(
       size: iconTheme?.size ?? theme.iconTheme.size,
       color: iconTheme?.color ?? theme.iconTheme.color,
@@ -442,8 +443,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
 
     return AppBar(
       key: key,
-      shape: shape ??
-          Border(
+      shape: shape ?? Border(
             bottom: BorderSide(
               color: theme.resources.dividerStrokeColorDefault,
             ),
@@ -463,7 +463,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
       titleTextStyle: toolbarTextStyle,
       foregroundColor: foregroundColor,
       surfaceTintColor: surfaceTintColor,
-      backgroundColor: backgroundColor,
+      backgroundColor: defaultBackgroundColor,
       toolbarTextStyle: toolbarTextStyle,
       notificationPredicate: notificationPredicate,
       excludeHeaderSemantics: excludeHeaderSemantics,

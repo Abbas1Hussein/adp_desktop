@@ -9,6 +9,7 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
     super.key,
     this.color,
     this.size = 20.0,
+    this.thickness = 1,
     this.direction = Axis.horizontal,
   });
 
@@ -17,6 +18,9 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
 
   /// The backgroundColor of the divider.
   final Color? color;
+
+  /// The thickness of the divider.
+  final double thickness;
 
   /// The current direction of the divider.
   ///
@@ -29,6 +33,7 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
       size: size,
       direction: direction,
       style: DividerThemeData(
+        thickness: thickness,
         horizontalMargin: EdgeInsets.zero,
         verticalMargin: EdgeInsets.zero,
         decoration: BoxDecoration(
@@ -42,8 +47,8 @@ class AdaptiveDivider extends CoreAdaptiveComponent {
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return SizedBox(
-      height: direction == Axis.horizontal ? 0.5 : size,
-      width: direction == Axis.vertical ? 0.5 : size,
+      height: direction == Axis.horizontal ? thickness : size,
+      width: direction == Axis.vertical ? thickness : size,
       child: ColoredBox(
         color: color ??
             MacosTheme.of(context).brightness.resolve(

@@ -39,7 +39,7 @@ abstract final class PlatformRuining {
   ///   runApp(const App());
   /// }
   static final isRealMacos =
-      !kIsWeb && _defaultTargetPlatform == TargetPlatform.macOS;
+      !isWeb && _defaultTargetPlatform == TargetPlatform.macOS;
 
   /// Indicates whether the app is running on either Real or Debugging macOS.
   static final isMacos = isRealMacos || isFakeMacos;
@@ -74,10 +74,12 @@ abstract final class PlatformRuining {
   ///   runApp(const App());
   /// }
   static final isRealWindows =
-      !kIsWeb && _defaultTargetPlatform == TargetPlatform.windows;
+      !isWeb && _defaultTargetPlatform == TargetPlatform.windows;
 
   /// Indicates whether the app is running on either Real or Debugging Windows.
   static final isWindows = isRealWindows || isFakeWindows;
+
+  static const isWeb = kIsWeb;
 
   /// Retrieve the current platform from [DefaultsPlatformManager], or use the default if it's null.
   static final targetPlatform = _debugDesktopTargetPlatform ??
@@ -98,7 +100,7 @@ abstract final class PlatformRuining {
 
   /// check if the current or target platforms match the specified platform.
   static bool _isTargetPlatform(DesktopTargetPlatform platform) {
-    if (kIsWeb) {
+    if (isWeb) {
       return kPlatformManager?.targetWeb == platform;
     }
 

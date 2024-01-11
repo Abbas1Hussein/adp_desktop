@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/property.dart';
+import '../../navigation/tab_view/tab_view.dart';
 import '../base_text_field.dart';
 import '../text_field/platforms/macos.dart';
 import 'search_item.dart';
@@ -93,9 +94,9 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
         autofocus: autofocus,
         inputFormatters: inputFormatters,
         emptyWidget: emptyWidget ??
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('No matching results'),
+            Padding(
+              padding: kContentPadding,
+              child: Text(FluentLocalizations.of(context).noResultsFoundLabel),
             ),
         decoration: decoration != null ? null : kDefaultRoundedBorderDecoration,
         focusedDecoration:

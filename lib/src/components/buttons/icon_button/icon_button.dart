@@ -3,6 +3,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/property.dart';
+import '../../../core/extension/widget.dart';
 import '../../icon/icon.dart';
 
 const _kAdpIconConstraints = BoxConstraints(minHeight: 30, minWidth: 30);
@@ -28,10 +29,33 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
     this.backgroundColor,
     this.constraints = _kAdpIconConstraints,
     required this.icon,
+  }) : label = null;
+
+  /// Creates an instance of [AdaptiveIconButton.label].
+  ///
+  /// The [icon] is required and it specifies the widget to be used as the icon,
+  /// typically an [AdaptiveIcon] widget.
+  ///
+  /// The [label] is required and it specifies the widget to used within the [icon],
+  /// typically an [Text] widget.
+  const AdaptiveIconButton.label({
+    super.key,
+    super.builders,
+    this.onPressed,
+    this.hoverColor,
+    this.borderRadius,
+    this.disabledColor,
+    this.backgroundColor,
+    this.constraints = _kAdpIconConstraints,
+    required Widget this.label,
+    required this.icon,
   });
 
   /// The widget to use as the icon, typically an [AdaptiveIcon] widget.
   final Widget icon;
+
+  /// The widget to use within the icon, typically an [Text] widget.
+  final Widget? label;
 
   /// The callback that is called when the button is tapped.
   ///
@@ -73,8 +97,8 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
         icon: Padding(
           padding: const EdgeInsets.all(2.0),
           child: IconTheme.merge(
-            data: const IconThemeData(size: 20.0),
-            child: icon,
+            data: IconTheme.of(context),
+            child: icon.margeWith(label),
           ),
         ),
         onPressed: onPressed,
@@ -102,7 +126,7 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return MacosIconButton(
-      icon: icon,
+      icon: icon.margeWith(label),
       onPressed: onPressed,
       borderRadius: borderRadius,
       backgroundColor: backgroundColor,
