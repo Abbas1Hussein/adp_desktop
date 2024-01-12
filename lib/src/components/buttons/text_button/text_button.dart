@@ -21,7 +21,7 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
   const AdaptiveTextButton({
     super.key,
     super.builders,
-    super.border,
+    super.shape,
     super.onTapUp,
     super.onTapDown,
     super.onLongPress,
@@ -53,11 +53,11 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final theme = MacosTheme.of(context);
     return MacosButton(
-      mouseCursor: mouseCursor,
-      border: border,
+      shape: shape,
       onTapUp: onTapUp,
       onTapDown: onTapDown,
       onPressed: onPressed,
+      mouseCursor: mouseCursor,
       onLongPress: onLongPress,
       hoverColor: hoverColor,
       pressedColor: pressedColor,

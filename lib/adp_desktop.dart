@@ -1,12 +1,11 @@
 library adp_desktop;
 
-import 'package:adp_desktop/src/components/components.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:macos_ui/macos_ui.dart';
 
-import 'src/components/layout/title_bar/title_bar.dart';
+import 'src/components/components.dart';
 import 'src/core/core.dart';
 
 export 'src/components/components.dart';
@@ -497,7 +496,7 @@ class AdpApp
       return child;
     }
 
-    return AdaptiveTitleBar(child: child);
+    return AdaptiveTitleBar(config: titleBarConfig, child: child);
   }
 }
 

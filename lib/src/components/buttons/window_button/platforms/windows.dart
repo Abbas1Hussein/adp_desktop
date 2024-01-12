@@ -83,7 +83,7 @@ class WindowCloseButtonsWindows extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final config = AdaptiveWindowButtonConfig.of(context);
+    final config = AdaptiveWindowButtonsConfig.of(context);
 
     return _buildWindowWindowsButton(
       onPressed: onClose ?? config.onClose,
@@ -113,7 +113,7 @@ class WindowMinimizeButtonsWindows extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final config = AdaptiveWindowButtonConfig.of(context);
+    final config = AdaptiveWindowButtonsConfig.of(context);
 
     return _buildWindowWindowsButton(
       icon: FluentIcons.chrome_minimize,
@@ -164,7 +164,7 @@ class _WindowMaximizeButtonsWindowsState
 
   @override
   Widget build(BuildContext context) {
-    final config = AdaptiveWindowButtonConfig.of(context);
+    final config = AdaptiveWindowButtonsConfig.of(context);
 
     return FutureBuilder<bool>(
       future: config.isMaximized(),

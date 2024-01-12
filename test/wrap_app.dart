@@ -1,9 +1,9 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/widgets.dart';
 
-void initializeDesktopDefaults([DesktopTargetPlatform? platform]) {
+void initializeDesktopDefaultsTests([DesktopTargetPlatform? platform]) {
   DefaultsPlatformManager.initialize(
-    platform ?? DesktopTargetPlatform.windows,
+    platform ?? DesktopTargetPlatform.macOS,
     isDebugging: true,
     isTesting: true,
   );

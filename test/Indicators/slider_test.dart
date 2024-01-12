@@ -7,7 +7,7 @@ import '../slide_to.dart';
 import '../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaults();
+  initializeDesktopDefaultsTests();
 
   testWidgets(
     'AdaptiveSlider renders correctly with value',

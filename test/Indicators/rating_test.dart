@@ -7,7 +7,7 @@ import '../slide_to.dart';
 import '../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaults();
+  initializeDesktopDefaultsTests();
 
   group('AdaptiveRatingIndicator widget tests', () {
     testWidgets('Widget renders correctly on both platform',

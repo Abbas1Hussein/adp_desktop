@@ -6,7 +6,7 @@ abstract class AdaptiveBaseButton extends CoreAdaptiveComponent {
   const AdaptiveBaseButton({
     super.builders,
     super.key,
-    this.border,
+    this.shape,
     this.onTapUp,
     this.onTapDown,
     this.onLongPress,
@@ -34,15 +34,7 @@ abstract class AdaptiveBaseButton extends CoreAdaptiveComponent {
   /// The background color of the button when it is disabled.
   final Color? disabledColor;
 
-  /// A border to draw above the background [backgroundColor].
-  ///
-  /// Use [Border] objects to describe borders that do not depend on the reading
-  /// direction.
-  ///
-  /// Use [BoxBorder] objects to describe borders that should flip their left
-  /// and right edges based on whether the text is being read left-to-right or
-  /// right-to-left.
-  final BoxBorder? border;
+  final ShapeBorder? shape;
 
   /// The mouse cursor to use when hovering over this widget.
   final MouseCursor mouseCursor;
@@ -97,7 +89,7 @@ abstract class AdaptiveBaseButton extends CoreAdaptiveComponent {
 
   ButtonStyle windowsDefaultStyle() {
     return ButtonStyle(
-      shape: ButtonState.all(border),
+      shape: ButtonState.all(shape),
       backgroundColor: ButtonState.resolveWith(
         (states) => ButtonState.forStates(
           states,

@@ -1,11 +1,17 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/property.dart';
-import 'macos_list_tile.dart';
+import '../../../core/extension/widget.dart';
+import '../../buttons/button/macos.dart';
+import '../../navigation/tab_view/tab_view.dart';
 
-/// A custom list Tile widget that adapts its appearance based on the platform.
+const _kListTileContentPadding = kContentPadding;
+const _kListTileConstraints = BoxConstraints(maxHeight: 48.0, minWidth: 48.0);
+
+/// A widget that aims to approximate the [ListTile] widget found in Flutter's material library.
 ///
 /// Use this widget to create list Tiles with platform-specific
 /// styling and behavior:
@@ -14,108 +20,186 @@ import 'macos_list_tile.dart';
 class AdaptiveListTile extends CoreAdaptiveComponent {
   const AdaptiveListTile({
     super.builders,
-    this.leading,
     this.title,
+    this.leading,
     this.subtitle,
     this.trailing,
-    this.onTap,
-    this.onLongPress,
-    this.mouseCursor,
-    this.hoverColor,
-    this.useBackgroundColor = true,
     this.enabled = true,
-    this.tileColor,
+    this.mouseCursor,
+    this.onLongPress,
+    this.onTap,
+    this.contentPadding = _kListTileContentPadding,
+    this.shape = kDefaultListTileShape,
+    this.hoverColor,
+    this.pressColor,
+    this.disabledColor,
+    this.backgroundColor,
+    this.useBackgroundColor = false,
     Key? key,
   }) : super(key: key);
 
-  /// Determines if the tile is interactive.
+  /// Determines whether this list tile is interactive.
   final bool enabled;
 
-  /// The main title content of the list tile.
+  /// The primary content of the adp list tile.
+  ///
+  /// Typically a [Text] widget.
   final Widget? title;
 
   /// A widget to display before the title.
+  ///
+  /// Typically an [AdaptiveIcon] or a [CircleAvatar] widget.
   final Widget? leading;
 
-  /// A widget to display below the title.
+  /// Additional content displayed below the title.
+  ///
+  /// Typically a [Text] widget.
   final Widget? subtitle;
 
-  /// A widget to display after the title and subtitle.
+  /// A widget to display after the title.
+  ///
+  /// Typically an [AdaptiveIcon] widget.
   final Widget? trailing;
 
-  /// A callback for when the tile is long-pressed.
-  final GestureLongPressCallback? onLongPress;
+  /// Padding applied to the content of the list tile.
+  ///
+  /// Defaults to [_kListTileContentPadding].
+  final EdgeInsetsGeometry contentPadding;
 
-  /// A callback for when the tile is tapped.
-  final GestureTapCallback? onTap;
-
-  /// The mouse cursor to use when hovering over the tile.
+  /// The mouse cursor to be used when hovering over the tile.
+  ///
+  /// If `null`, the cursor will be `SystemMouseCursors.click` when enabled,
+  /// otherwise, it will be `SystemMouseCursors.forbidden`.
   final MouseCursor? mouseCursor;
 
-  /// The color when the tile is hovered over.
+  /// A callback function invoked when the user taps on this list tile.
+  ///
+  /// If provided, this function will be triggered when the user taps on the list tile.
+  /// If `null` or [enabled] == false,, the tile is non-tappable.
+  final GestureTapCallback? onTap;
+
+  /// A callback function invoked when the tile is long-pressed.
+  ///
+  /// If `null` or [enabled] == false, the tile does not respond to long-press gestures.
+  final GestureLongPressCallback? onLongPress;
+
+  /// The shape of the tile.
+  ///
+  /// [kDefaultListTileShape] is used by default.
+  final ShapeBorder shape;
+
+  /// The color of the tile when it is being hovered over.
   final Color? hoverColor;
 
-  /// The background color of the tile.
-  final Color? tileColor;
+  /// The color of the tile when it is pressed.
+  final Color? pressColor;
 
-  /// Determines whether to use the background color for the tile.
-  /// If set to true, the background color will be applied; otherwise, it remains transparent.
+  /// The color of the tile when it is disabled.
+  final Color? disabledColor;
+
+  /// The background color of the tile.
+  final Color? backgroundColor;
+
+  /// Determines whether to use the platform background color by default.
   ///
-  /// By default, it is set to true.
+  /// If set to `true`, the platform background color will be applied; otherwise, it remains transparent.
+  ///
+  /// if [backgroundColor] not null, this will ignore.
+  ///
+  /// By default, it is set to `false`.
   final bool useBackgroundColor;
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
-    final defaultTileColor =
-        theme.accentColor.defaultBrushFor(theme.brightness);
-
-    return GestureDetector(
-      onLongPress: enabled ? onLongPress : null,
-      child: ListTile(
-        title: title,
-        leading: leading,
-        subtitle: subtitle,
-        trailing: trailing,
-        cursor: mouseCursor ?? MouseCursor.defer,
-        onPressed: enabled ? (onTap ?? () {}) : null,
-        tileColor: tileColor != null || hoverColor != null
-            ? ButtonState.resolveWith(
-                (states) {
-                  if (states.contains(ButtonStates.hovering)) {
-                    return hoverColor ?? defaultTileColor;
-                  }
-                  return tileColor ?? defaultTileColor;
-                },
-              )
-            : useBackgroundColor
-                ? ButtonState.resolveWith(
-                    (states) => ButtonThemeData.buttonColor(context, states),
-                  )
-                : null,
+    return ConstrainedBox(
+      constraints: _kListTileConstraints.copyWith(
+        maxHeight: _kListTileConstraints.maxHeight + 6,
       ),
+      child: GestureDetector(
+        onLongPress: enabled ? onLongPress : null,
+        child: ListTile(
+          shape: shape,
+          title: title,
+          leading: leading,
+          subtitle: subtitle,
+          trailing: trailing,
+          contentPadding: contentPadding,
+          cursor: mouseCursor ??
+              (enabled
+                  ? SystemMouseCursors.click
+                  : SystemMouseCursors.forbidden),
+          onPressed: enabled ? (onTap ?? () {}) : null,
+          tileColor: ButtonState.resolveWith(
+            (states) {
+              return ButtonState.forStates(
+                states,
+                pressed: pressColor ??
+                    theme.resources.cardBackgroundFillColorSecondary,
+                hovering: hoverColor ??
+                    theme.resources.controlAltFillColorQuarternary,
+                disabled: disabledColor ??
+                    theme.resources.cardBackgroundFillColorDefault,
+                none: backgroundColor ??
+                    (useBackgroundColor
+                        ? theme.resources.cardBackgroundFillColorDefault
+                        : Colors.transparent),
+              );
+            },
+          ),
+        ),
+      ).applyDisabledEffect(!enabled, 0.3, false),
     );
   }
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
-    return CustomMacosListTile(
-      title: title,
-      enabled: enabled,
-      leading: leading,
-      subtitle: subtitle,
-      trailing: trailing,
-      mouseCursor: mouseCursor,
-      onTap: enabled ? onTap : null,
-      onLongPress: enabled ? onLongPress : null,
-      tileColor: tileColor ??
-          (useBackgroundColor
-              ? CupertinoColors.quaternarySystemFill
-              : Colors.transparent),
-      hoverColor: hoverColor ??
-          tileColor?.withOpacity(0.85) ??
-          CupertinoColors.quaternarySystemFill.withOpacity(0.10),
+    final textStyle = DefaultTextStyle.of(context).style.copyWith(
+          color: MacosDynamicColor.resolve(
+            MacosTheme.brightnessOf(context).resolve(
+              MacosColors.placeholderTextColor,
+              CupertinoColors.secondaryLabel,
+            ),
+            context,
+          ),
+          fontWeight: MacosFontWeight.w400,
+        );
+
+    return ConstrainedBox(
+      constraints: _kListTileConstraints,
+      child: MacosButton(
+        shape: shape,
+        padding: contentPadding,
+        mouseCursor: mouseCursor ?? SystemMouseCursors.click,
+        onPressed: enabled ? (onTap ?? () {}) : null,
+        onLongPress: enabled ? onLongPress : null,
+        pressedColor: pressColor,
+        disabledColor: disabledColor,
+        backgroundColor:
+            backgroundColor ?? (useBackgroundColor ? null : Colors.transparent),
+        hoverColor: hoverColor ?? CupertinoColors.secondaryLabel,
+        child: MacosListTile(
+          leading: leading != null
+              ? MacosIconTheme(
+                  data: MacosIconTheme.of(context), child: leading!)
+              : null,
+          title: Flexible(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (title != null) title!,
+                if (trailing != null)
+                  DefaultTextStyle(
+                    style: textStyle,
+                    child: FittedBox(child: trailing!),
+                  )
+              ],
+            ),
+          ),
+          subtitle: subtitle,
+        ),
+      ),
     );
   }
 }

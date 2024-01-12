@@ -84,7 +84,7 @@ class WindowCloseButtonsMacos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final config = AdaptiveWindowButtonConfig.of(context);
+    final config = AdaptiveWindowButtonsConfig.of(context);
 
     return _buildWindowMacosButton(
       show: show ?? config.showCloseButton,
@@ -115,7 +115,7 @@ class WindowMinimizeButtonsMacos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final config = AdaptiveWindowButtonConfig.of(context);
+    final config = AdaptiveWindowButtonsConfig.of(context);
 
     return _buildWindowMacosButton(
       show: show ?? config.showMinimizeButton,
@@ -174,7 +174,7 @@ class _WindowMaximizeButtonsMacosState extends State<WindowMaximizeButtonsMacos>
 
   @override
   Widget build(BuildContext context) {
-    final config = AdaptiveWindowButtonConfig.of(context);
+    final config = AdaptiveWindowButtonsConfig.of(context);
 
     return FutureBuilder<bool>(
       future: config.isMaximized(),
@@ -231,7 +231,9 @@ Widget _buildWindowMacosButton({
         pressedColor: hoverColor,
         disabledColor: disabledColor,
         backgroundColor: backgroundColor,
-        borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        ),
         child: const SizedBox.shrink(),
       ),
     );

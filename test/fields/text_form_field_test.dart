@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaults();
+  initializeDesktopDefaultsTests();
 
   late GlobalKey<FormState> key;
   late TextEditingController controller;

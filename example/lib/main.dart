@@ -5,8 +5,8 @@ import 'package:macos_ui/macos_ui.dart';
 void main() async {
   DefaultsPlatformManager.initialize(
     isDebugging: true,
-    DesktopTargetPlatform.macOS,
-    targetWeb: DesktopTargetPlatform.macOS,
+    DesktopTargetPlatform.windows,
+    targetWeb: DesktopTargetPlatform.windows,
   );
   runApp(const App());
 }
@@ -154,13 +154,28 @@ class SecondScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveScaffoldPage(
       appBar: const AdaptiveAppBarPage(title: Text('Second Screen')),
-      content: Center(
-        child: AdaptiveButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Go back to First Screen'),
-        ),
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Center(
+            child: AdaptiveListTile(
+              title: const Text('archive'),
+              leading: const AdaptiveIcon(AdpIcons.archive),
+              trailing: const AdaptiveIcon(AdpIcons.save),
+              subtitle: const Text('archive download done.'),
+              onTap: () {},
+              enabled: true,
+            ),
+          ),
+          Center(
+            child: AdaptiveButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Go back to First Screen'),
+            ),
+          ),
+        ],
       ),
     );
   }

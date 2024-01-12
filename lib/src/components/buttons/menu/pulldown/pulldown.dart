@@ -113,7 +113,7 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
   /// The list of menu entries for the pull-down menu.
   ///
   /// Can be either [AdaptivePulldownMenuItem]s or [AdaptivePulldownMenuDivider]s.
-  final List<AdaptivePulldownMenuItemEntry> items;
+  final List<AdaptivePulldownMenuItemEntry<T>> items;
 
   /// A callback function that is called when a menu item is selected.
   ///
@@ -165,7 +165,8 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
   }
 
   @override
-  Widget windows(BuildContext context, [PulldownMenuWindowsProperty? property]) {
+  Widget windows(BuildContext context,
+      [PulldownMenuWindowsProperty? property]) {
     return PulldownMenuWindows<T>(
       title: title,
       items: items,
@@ -200,8 +201,9 @@ class AdaptivePulldownMenuButton<T> extends CoreAdaptiveComponent<
 
   void validateSelectedItem() {
     assert(
-    items.isNotEmpty,
-    "Validation failed in the $runtimeType.\n""The list of items should not be empty.",
+      items.isNotEmpty,
+      "Validation failed in the $runtimeType.\n"
+      "The list of items should not be empty.",
     );
 
     if (_type == SelectionType.single) {

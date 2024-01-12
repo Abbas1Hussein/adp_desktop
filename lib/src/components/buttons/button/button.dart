@@ -17,7 +17,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
   const AdaptiveButton({
     super.builders,
     super.key,
-    super.border,
+    super.shape,
     super.onTapUp,
     super.onTapDown,
     super.onLongPress,
@@ -34,7 +34,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
   const AdaptiveButton.filled({
     super.builders,
     super.key,
-    super.border,
+    super.shape,
     super.onTapUp,
     super.onTapDown,
     super.onLongPress,
@@ -51,7 +51,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
   const AdaptiveButton.outlined({
     super.builders,
     super.key,
-    super.border,
+    super.shape,
     super.onTapUp,
     super.onTapDown,
     super.onLongPress,
@@ -114,7 +114,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
     switch (_type) {
       case AdaptiveButtonType.base:
         return MacosButton(
-          border: border,
+          shape: shape,
           onTapUp: onTapUp,
           onTapDown: onTapDown,
           onPressed: onPressed,
@@ -128,14 +128,15 @@ class AdaptiveButton extends AdaptiveBaseButton {
         );
       case AdaptiveButtonType.filled:
         return MacosButton(
-          border: border,
+          shape: shape ?? const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
           onTapUp: onTapUp,
           onTapDown: onTapDown,
           onPressed: onPressed,
           onLongPress: onLongPress,
           mouseCursor: mouseCursor,
           pressedOpacity: 0.6,
-          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
           disabledColor: disabledColor ?? CupertinoColors.secondaryLabel,
           backgroundColor: backgroundColor ?? theme.primaryColor,
           pressedColor: pressedColor ?? theme.primaryColor.withOpacity(0.6),
@@ -152,17 +153,18 @@ class AdaptiveButton extends AdaptiveBaseButton {
         );
       case AdaptiveButtonType.outlined:
         return MacosButton(
-          border: border ??
-              Border.all(
-                width: 1.5,
-                color: theme.brightness.resolve(
-                  CupertinoColors.black,
-                  CupertinoColors.extraLightBackgroundGray,
-                ),
-                strokeAlign: BorderSide.strokeAlignOutside,
+          shape: shape ?? RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2),
+            side: BorderSide(
+              width: 1.5,
+              color: theme.brightness.resolve(
+                CupertinoColors.black,
+                CupertinoColors.extraLightBackgroundGray,
               ),
+              strokeAlign: BorderSide.strokeAlignOutside,
+            )
+          ),
           padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 12.0),
-          borderRadius: BorderRadius.circular(2),
           pressedOpacity: 0.7,
           onTapUp: onTapUp,
           onTapDown: onTapDown,

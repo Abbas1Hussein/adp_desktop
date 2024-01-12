@@ -6,7 +6,7 @@ import '../slide_to.dart';
 import '../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaults();
+  initializeDesktopDefaultsTests();
 
   testWidgets('AdaptiveSwitch initializes correctly', (WidgetTester tester) async {
     await tester.pumpWidget(

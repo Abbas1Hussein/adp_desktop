@@ -6,7 +6,7 @@ import 'package:macos_ui/macos_ui.dart' as macos_ui;
 import '../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaults();
+  initializeDesktopDefaultsTests();
 
 
   testWidgets(

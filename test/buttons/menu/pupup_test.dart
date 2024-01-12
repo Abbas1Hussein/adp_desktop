@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaults();
+  initializeDesktopDefaultsTests();
 
   final List<String> foodItems = [
     'Pizza',

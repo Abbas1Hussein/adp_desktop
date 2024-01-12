@@ -7,7 +7,7 @@ import '../wrap_app.dart';
 import 'main_menu.dart';
 
 void main() {
-  initializeDesktopDefaults();
+  initializeDesktopDefaultsTests();
 
   late List<Widget> children;
   late List<AdaptiveTab> tabs;

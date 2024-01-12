@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:window_manager/window_manager.dart';
 
-class AdaptiveWindowButtonConfig {
-  const AdaptiveWindowButtonConfig({
+class AdaptiveWindowButtonsConfig {
+  const AdaptiveWindowButtonsConfig({
     Key? key,
     this.closeTheme,
     this.maximizeTheme,
@@ -39,8 +39,8 @@ class AdaptiveWindowButtonConfig {
   final AdaptiveWindowButtonThemeData? maximizeTheme;
   final AdaptiveWindowButtonThemeData? unmaximizeTheme;
 
-  factory AdaptiveWindowButtonConfig.fallback() {
-    return AdaptiveWindowButtonConfig(
+  factory AdaptiveWindowButtonsConfig.fallback() {
+    return AdaptiveWindowButtonsConfig(
       onClose: () => windowManager.close(),
       onRestore: () => windowManager.restore(),
       onMinimize: () => windowManager.minimize(),
@@ -51,21 +51,21 @@ class AdaptiveWindowButtonConfig {
     );
   }
 
-  static AdaptiveWindowButtonConfig of(BuildContext context) {
+  static AdaptiveWindowButtonsConfig of(BuildContext context) {
     return context
             .dependOnInheritedWidgetOfExactType<
-                AdaptiveWindowButtonController>()
+                AdaptiveWindowButtonsController>()
             ?.config ??
-        AdaptiveWindowButtonConfig.fallback();
+        AdaptiveWindowButtonsConfig.fallback();
   }
 
-  static AdaptiveWindowButtonConfig? maybeOf(BuildContext context) {
+  static AdaptiveWindowButtonsConfig? maybeOf(BuildContext context) {
     return context
-        .dependOnInheritedWidgetOfExactType<AdaptiveWindowButtonController>()
+        .dependOnInheritedWidgetOfExactType<AdaptiveWindowButtonsController>()
         ?.config;
   }
 
-  AdaptiveWindowButtonConfig copyWith({
+  AdaptiveWindowButtonsConfig copyWith({
     bool? showCloseButton,
     bool? showMinimizeButton,
     bool? showMaximizeButton,
@@ -81,7 +81,7 @@ class AdaptiveWindowButtonConfig {
     AdaptiveWindowButtonThemeData? maximizeTheme,
     AdaptiveWindowButtonThemeData? unmaximizeTheme,
   }) {
-    return AdaptiveWindowButtonConfig(
+    return AdaptiveWindowButtonsConfig(
       onClose: onClose ?? this.onClose,
       onRestore: onRestore ?? this.onRestore,
       onMinimize: onMinimize ?? this.onMinimize,
@@ -99,31 +99,31 @@ class AdaptiveWindowButtonConfig {
     );
   }
 
-  AdaptiveWindowButtonConfig merge(
-    AdaptiveWindowButtonConfig overrides,
+  AdaptiveWindowButtonsConfig merge(
+    AdaptiveWindowButtonsConfig? overrides,
   ) {
     return copyWith(
-      showCloseButton: overrides.showCloseButton,
-      showMinimizeButton: overrides.showMinimizeButton,
-      showMaximizeButton: overrides.showMaximizeButton,
-      onClose: overrides.onClose,
-      onRestore: overrides.onRestore,
-      onMinimize: overrides.onMinimize,
-      onMaximize: overrides.onMaximize,
-      onunMaximize: overrides.onunMaximize,
-      isMaximized: overrides.isMaximized,
-      isMinimized: overrides.isMinimized,
-      closeTheme: overrides.closeTheme,
-      minimizeTheme: overrides.minimizeTheme,
-      maximizeTheme: overrides.maximizeTheme,
-      unmaximizeTheme: overrides.unmaximizeTheme,
+      showCloseButton: overrides?.showCloseButton,
+      showMinimizeButton: overrides?.showMinimizeButton,
+      showMaximizeButton: overrides?.showMaximizeButton,
+      onClose: overrides?.onClose,
+      onRestore: overrides?.onRestore,
+      onMinimize: overrides?.onMinimize,
+      onMaximize: overrides?.onMaximize,
+      onunMaximize: overrides?.onunMaximize,
+      isMaximized: overrides?.isMaximized,
+      isMinimized: overrides?.isMinimized,
+      closeTheme: overrides?.closeTheme,
+      minimizeTheme: overrides?.minimizeTheme,
+      maximizeTheme: overrides?.maximizeTheme,
+      unmaximizeTheme: overrides?.unmaximizeTheme,
     );
   }
 
   @override
   operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! AdaptiveWindowButtonConfig) return false;
+    if (other is! AdaptiveWindowButtonsConfig) return false;
     return onClose == other.onClose &&
         onMinimize == other.onMinimize &&
         onMaximize == other.onMaximize &&
@@ -140,17 +140,17 @@ class AdaptiveWindowButtonConfig {
       isMaximized, isMinimized, minimizeTheme, maximizeTheme, closeTheme);
 }
 
-class AdaptiveWindowButtonController extends InheritedWidget {
-  final AdaptiveWindowButtonConfig config;
+class AdaptiveWindowButtonsController extends InheritedWidget {
+  final AdaptiveWindowButtonsConfig config;
 
-  const AdaptiveWindowButtonController({
+  const AdaptiveWindowButtonsController({
     Key? key,
     required this.config,
     required Widget child,
   }) : super(key: key, child: child);
 
   @override
-  bool updateShouldNotify(AdaptiveWindowButtonController oldWidget) {
+  bool updateShouldNotify(AdaptiveWindowButtonsController oldWidget) {
     return oldWidget.config != config;
   }
 }

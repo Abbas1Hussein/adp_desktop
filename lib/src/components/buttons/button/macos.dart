@@ -7,12 +7,11 @@ import '../../../core/extension/widget.dart';
 class MacosButton extends StatefulWidget {
   const MacosButton({
     super.key,
-    this.border,
+    this.shape,
     this.onTapUp,
     this.onTapDown,
     this.onPressed,
     this.onLongPress,
-    this.borderRadius,
     this.hoverColor,
     this.pressedColor,
     this.backgroundColor,
@@ -36,9 +35,8 @@ class MacosButton extends StatefulWidget {
   final VoidCallback? onTapUp;
   final VoidCallback? onLongPress;
 
-  final BoxBorder? border;
+  final ShapeBorder? shape;
   final EdgeInsetsGeometry? padding;
-  final BorderRadiusGeometry? borderRadius;
 
   bool get enabled =>
       onPressed != null ||
@@ -176,20 +174,18 @@ class MacosButtonState extends State<MacosButton>
                   data: MacosIconThemeData(color: iconColor, size: 18),
                   child: Container(
                     constraints: const BoxConstraints(minHeight: 25),
-                    decoration: BoxDecoration(
-                      border: widget.border,
+                    decoration: ShapeDecoration(
+                      shape: widget.shape ?? const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4))
+                      ),
                       color: buttonHeldDown
                           ? pressedColor
                           : (_isHovered ? hoverColor : fillColor),
-                      borderRadius: widget.borderRadius ??
-                          const BorderRadius.all(Radius.circular(4)),
                     ),
                     child: Padding(
                       padding: widget.padding ??
                           const EdgeInsets.symmetric(
-                            vertical: 6.0,
-                            horizontal: 13.0,
-                          ),
+                              vertical: 6.0, horizontal: 13.0),
                       child: widget.child,
                     ),
                   ),

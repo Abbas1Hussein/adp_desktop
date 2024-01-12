@@ -20,6 +20,7 @@ class AdaptiveTitleBarConfig {
     this.dividerColor,
     this.dividerThickness,
     this.backgroundColor,
+    this.buttonsConfig,
   });
 
   /// Icon widget representing the application.
@@ -43,8 +44,11 @@ class AdaptiveTitleBarConfig {
 
   /// Mode for the title bar.
   ///
-  /// whether the title bar should be hidden or normal, this only work on [AdpApp].
+  /// whether the title bar should be hidden or normal.
   final TitleBarMode? mode;
+
+  /// Configuration for window buttons.
+  final AdaptiveWindowButtonsConfig? buttonsConfig;
 }
 
 /// an adaptive title bar that adjusts based on the platform.
@@ -69,25 +73,34 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
     with WindowListener {
   Future<String>? getTitle;
 
+  bool isMaximized = false;
   double height = kWindowCaptionHeight;
+
+  late Color backgroundColor =
+      handelBackgroundColor(widget.config?.backgroundColor, context);
 
   @override
   void initState() {
-    if (widget.config?.appTitle == null) {
-      getTitle = windowManager.getTitle();
+    if (widget.config?.mode != TitleBarMode.hidden) {
+      if (widget.config?.appTitle == null) {
+        getTitle = windowManager.getTitle();
+      }
+      windowManager.addListener(this);
     }
-    windowManager.addListener(this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    if (widget.config?.mode == TitleBarMode.hidden) return widget.child;
+
+    final config = AdaptiveWindowButtonsConfig.of(context);
+
+    final buildTitleBar = Column(
       children: [
         DecoratedBox(
           decoration: BoxDecoration(
-            color:
-                handelBackgroundColor(widget.config?.backgroundColor, context),
+            color: backgroundColor,
             border: Border(
               bottom: BorderSide(
                 color: widget.config?.dividerColor ??
@@ -101,14 +114,17 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
             child: Row(
               textDirection: TextDirection.rtl,
               children: [
-                AdaptiveWindowButtons(
-                  builders: AdaptiveBuilder(
-                    macos: (platformChild, theme, property) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: platformChild,
-                      );
-                    },
+                AdaptiveWindowButtonsController(
+                  config: config.merge(widget.config?.buttonsConfig),
+                  child: AdaptiveWindowButtons(
+                    builders: AdaptiveBuilder(
+                      macos: (platformChild, theme, property) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: platformChild,
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const Expanded(
@@ -145,6 +161,14 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
         Expanded(child: widget.child)
       ],
     );
+
+    if (isMaximized) return buildTitleBar;
+
+    return DragToResizeArea(
+      resizeEdgeSize: 6,
+      enableResizeEdges: const [ResizeEdge.top],
+      child: buildTitleBar,
+    );
   }
 
   Widget _buildAppTitleBuilder() {
@@ -164,19 +188,25 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
 
   @override
   void onWindowMaximize() {
+    isMaximized = true;
+
     height = kWindowCaptionHeight - 8;
     setState(() {});
   }
 
   @override
   void onWindowUnmaximize() {
+    isMaximized = false;
+
     height = kWindowCaptionHeight;
     setState(() {});
   }
 
   @override
   void dispose() {
-    windowManager.removeListener(this);
+    if (widget.config?.mode != TitleBarMode.hidden) {
+      windowManager.removeListener(this);
+    }
     super.dispose();
   }
 }

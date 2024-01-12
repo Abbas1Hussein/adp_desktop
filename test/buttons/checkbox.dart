@@ -6,7 +6,7 @@ import 'package:macos_ui/macos_ui.dart';
 import '../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaults();
+  initializeDesktopDefaultsTests(DesktopTargetPlatform.macOS);
 
   testWidgets(
     'Renders correctly AdaptiveCheckbox',
@@ -17,7 +17,9 @@ void main() {
         ),
       );
 
-      adaptiveValue(
+      await tester.pumpAndSettle();
+
+      adaptiveValue<void>(
         macos: () {
           expect(find.byType(MacosCheckbox), findsOneWidget);
         },
