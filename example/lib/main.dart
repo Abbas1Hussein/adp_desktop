@@ -157,21 +157,10 @@ class SecondScreen extends StatelessWidget {
       content: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Center(
-            child: AdaptiveListTile(
-              title: const Text('archive'),
-              leading: const AdaptiveIcon(AdpIcons.archive),
-              trailing: const AdaptiveIcon(AdpIcons.save),
-              subtitle: const Text('archive download done.'),
-              onTap: () {},
-              enabled: true,
-            ),
-          ),
+          const Center(child: AdaptiveDatePicker()),
           Center(
             child: AdaptiveButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
               child: const Text('Go back to First Screen'),
             ),
           ),

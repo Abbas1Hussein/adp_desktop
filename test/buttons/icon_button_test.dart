@@ -9,22 +9,23 @@ void main() {
   initializeDesktopDefaultsTests();
 
   testWidgets(
-    'AdaptiveIconButton renders correctly with custom properties',
+    'AdaptiveIconButton renders correctly',
     (WidgetTester tester) async {
       await tester.pumpWidget(
-        wrapApp(
-          child: const AdaptiveIconButton(icon: AdaptiveIcon(AdpIcons.add)),
+        wrapAppWithScaffold(
+          child: const Center(
+            child: AdaptiveIconButton(
+              icon: AdaptiveIcon(AdpIcons.add),
+            ),
+          ),
         ),
       );
-
       adaptiveValue(
         macos: () {
-          // Expect the macOS version of the text button with custom properties to be rendered
           expect(find.byType(MacosIconButton), findsOneWidget);
           expect(find.byType(IconButton), findsNothing);
         },
         windows: () {
-          // Expect the windows version of the text button with custom properties to be rendered
           expect(find.byType(IconButton), findsOneWidget);
           expect(find.byType(MacosIconButton), findsNothing);
         },

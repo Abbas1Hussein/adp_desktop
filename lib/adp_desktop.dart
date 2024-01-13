@@ -181,26 +181,29 @@ class AdpApp
   /// Returns an iterable of common localizations delegates.
   ///
   /// This includes the localizations delegates provided through [localizationsDelegates],
-  /// if available. Additionally, it includes the default localizations delegates from
-  /// Cupertino, Material, Widgets, and Fluent.
-  ///
   /// If [localizationsDelegates] is not provided, the common localizations
   /// delegates include the following:
-  ///   - [DefaultCupertinoLocalizations.delegate]
-  ///   - [DefaultMaterialLocalizations.delegate]
   ///   - [DefaultWidgetsLocalizations.delegate]
-  ///   - [FluentLocalizations.delegate]
   ///
   /// These localizations delegates are used to handle localization-related
   /// tasks such as formatting dates, numbers, and providing localized messages.
-  Iterable<LocalizationsDelegate<dynamic>>
-      get _commonLocalizationsDelegates sync* {
+  Iterable<LocalizationsDelegate<dynamic>> get _commonLocalizationsDelegates sync* {
     if (localizationsDelegates != null) {
       yield* localizationsDelegates!;
     }
-    yield DefaultCupertinoLocalizations.delegate;
-    yield DefaultMaterialLocalizations.delegate;
     yield DefaultWidgetsLocalizations.delegate;
+  }
+
+  /// an iterable of macOS-specific localizations delegates.
+  Iterable<LocalizationsDelegate<dynamic>> get _macosLocalizationsDelegates sync* {
+    yield* _commonLocalizationsDelegates;
+    yield DefaultMaterialLocalizations.delegate;
+    yield DefaultCupertinoLocalizations.delegate;
+  }
+
+  /// an iterable of Windows-specific localizations delegates.
+  Iterable<LocalizationsDelegate<dynamic>> get _windowsLocalizationsDelegates sync* {
+    yield* _commonLocalizationsDelegates;
     yield FluentLocalizations.delegate;
   }
 
@@ -342,7 +345,7 @@ class AdpApp
         shortcuts: property?.shortcuts ?? shortcuts,
         showSemanticsDebugger: showSemanticsDebugger,
         showPerformanceOverlay: showPerformanceOverlay,
-        localizationsDelegates: _commonLocalizationsDelegates,
+        localizationsDelegates: _windowsLocalizationsDelegates,
         localeResolutionCallback: localeResolutionCallback,
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         checkerboardOffscreenLayers: checkerboardOffscreenLayers,
@@ -374,7 +377,7 @@ class AdpApp
       restorationScopeId: restorationScopeId,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
-      localizationsDelegates: _commonLocalizationsDelegates,
+      localizationsDelegates: _windowsLocalizationsDelegates,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       localeResolutionCallback: localeResolutionCallback,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
@@ -409,7 +412,7 @@ class AdpApp
         routeInformationProvider: routeInformationProvider,
         showSemanticsDebugger: showSemanticsDebugger,
         showPerformanceOverlay: showPerformanceOverlay,
-        localizationsDelegates: _commonLocalizationsDelegates,
+        localizationsDelegates: _macosLocalizationsDelegates,
         localeResolutionCallback: localeResolutionCallback,
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         checkerboardOffscreenLayers: checkerboardOffscreenLayers,
@@ -440,7 +443,7 @@ class AdpApp
       darkTheme: property?.darkTheme,
       showSemanticsDebugger: showSemanticsDebugger,
       showPerformanceOverlay: showPerformanceOverlay,
-      localizationsDelegates: _commonLocalizationsDelegates,
+      localizationsDelegates: _macosLocalizationsDelegates,
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       localeResolutionCallback: localeResolutionCallback,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,

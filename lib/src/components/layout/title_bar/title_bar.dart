@@ -73,8 +73,8 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
     with WindowListener {
   Future<String>? getTitle;
 
-  bool isMaximized = false;
   double height = kWindowCaptionHeight;
+  bool isMaximized = false;
 
   late Color backgroundColor =
       handelBackgroundColor(widget.config?.backgroundColor, context);

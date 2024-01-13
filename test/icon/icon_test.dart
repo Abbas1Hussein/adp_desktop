@@ -19,8 +19,10 @@ void main() {
       adaptiveValue(
         macos: () {
           expect(find.byType(MacosIcon), findsOneWidget);
+          expect(find.byType(Icon), findsNothing);
         },
         windows: () {
+          expect(find.byType(MacosIcon), findsNothing);
           expect(find.byType(Icon), findsOneWidget);
         },
       );

@@ -50,8 +50,7 @@ class DefaultsPlatformManager {
     DesktopTargetPlatform? targetLinux,
     DesktopTargetPlatform? targetWeb,
     bool isDebugging = false,
-    @visibleForTesting
-    bool isTesting = false,
+    @visibleForTesting bool isTesting = false,
   }) {
     if (_instance != null) {
       throw StateError('DefaultsPlatformManager is already initialized.');

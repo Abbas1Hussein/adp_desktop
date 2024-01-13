@@ -12,19 +12,10 @@ void main() {
     'AdaptiveScaffoldPage should render correctly',
     (widgetTester) async {
       await widgetTester.pumpWidget(
-        wrapApp(
-          child: const AdaptiveScaffoldPage(
-            appBar: AdaptiveAppBarPage(
-              title: Text('Adaptive ScaffoldPage'),
-              leading: AdaptiveIcon(AdpIcons.home),
-            ),
-            content: Center(child: AdaptiveDatePicker()),
-          ),
-        ),
+        wrapAppWithScaffold(child: const Center(child: AdaptiveDatePicker())),
       );
 
       await widgetTester.pumpAndSettle();
-
       adaptiveValue(
         macos: () {
           expect(find.byType(MacosScaffold), findsOneWidget);

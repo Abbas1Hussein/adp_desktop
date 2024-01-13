@@ -18,8 +18,8 @@ class DatePickerWindows extends StatefulWidget {
     super.key,
     this.onCancel,
     this.property,
-    this.onDateTimeChanged,
     this.initialDate,
+    this.onDateTimeChanged,
   });
 
   final DateTime? initialDate;
@@ -75,6 +75,22 @@ class _DatePickerWindowsState extends State<DatePickerWindows> {
 }
 
 class DatePickerWindowsProperty extends CoreWindowsProperty {
+  const DatePickerWindowsProperty({
+    this.header,
+    this.headerStyle,
+    this.showMonth,
+    this.showDay,
+    this.showYear,
+    this.startDate,
+    this.endDate,
+    this.contentPadding,
+    this.focusNode,
+    this.autofocus,
+    this.popupHeight,
+    this.locale,
+    this.fieldOrder,
+  });
+
   /// The content of the header
   final String? header;
 
@@ -143,20 +159,4 @@ class DatePickerWindowsProperty extends CoreWindowsProperty {
   ///  * [getDateOrderFromLocale], which returns the order of the fields based
   ///    on the current locale
   final List<DatePickerField>? fieldOrder;
-
-  const DatePickerWindowsProperty({
-    this.header,
-    this.headerStyle,
-    this.showMonth,
-    this.showDay,
-    this.showYear,
-    this.startDate,
-    this.endDate,
-    this.contentPadding,
-    this.focusNode,
-    this.autofocus,
-    this.popupHeight,
-    this.locale,
-    this.fieldOrder,
-  });
 }

@@ -8,16 +8,18 @@ import '../wrap_app.dart';
 void main() {
   initializeDesktopDefaultsTests();
 
-
   testWidgets(
-    'AdaptiveFlatButton renders correctly with custom properties',
+    'AdaptiveFlatButton renders correctly',
     (WidgetTester tester) async {
       await tester.pumpWidget(
          wrapApp(
           child:  AdaptiveFlatButton(
             properties: Properties(
-              windows: const FlatButtonWindowsProperty(),
-              macos: const FlatButtonMacosProperty(),
+              windows: const FlatButtonWindowsProperty(
+              ),
+              macos: const FlatButtonMacosProperty(
+                controlSize: ControlSize.regular,
+              ),
             ),
             child: const Text('AdaptiveFlatButton'),
           ),
@@ -28,11 +30,11 @@ void main() {
         macos: () {
           // Expect the macOS version of the text button with custom properties to be rendered
           expect(find.byType(PushButton), findsOneWidget);
-          expect(find.byType(Button), findsNothing);
+          expect(find.byType(FilledButton), findsNothing);
         },
         windows: () {
           // Expect the windows version of the text button with custom properties to be rendered
-          expect(find.byType(Button), findsOneWidget);
+          expect(find.byType(FilledButton), findsOneWidget);
           expect(find.byType(PushButton), findsNothing);
         },
       );
@@ -49,16 +51,16 @@ void main() {
           child:AdaptiveFlatButton(
             onPressed: () => checkValue = true,
             onLongPress: () => checkValue = false,
-            child: const Text('Test FlatButton'),
+            child: const Text('FlatButton'),
           ),
         ),
       );
 
-      await tester.tap(find.text('Test FlatButton'));
+      await tester.tap(find.text('FlatButton'));
       await tester.pumpAndSettle();
       expect(checkValue, true);
 
-      await tester.longPress(find.text('Test FlatButton'));
+      await tester.longPress(find.text('FlatButton'));
       await tester.pumpAndSettle();
       expect(checkValue, false);
     },

@@ -13,8 +13,9 @@ void main() {
     (widgetTester) async {
       await widgetTester.pumpWidget(
         wrapApp(
-          child:  AdaptiveListTile(
+          child: AdaptiveListTile(
             onTap: () {},
+            onLongPress: () {},
             title: const Text('title'),
             leading: const Text('leading'),
             trailing: const Text('trailing'),
@@ -37,5 +38,61 @@ void main() {
     },
   );
 
+  testWidgets(
+    'AdaptiveListTile should trigger onTap and onLongPress callback',
+    (widgetTester) async {
+      bool longPressTriggered = false;
+      bool onTap = false;
 
+      await widgetTester.pumpWidget(
+        wrapAppWithScaffold(
+          child: AdaptiveListTile(
+            onTap: () => onTap = true,
+            onLongPress: () => longPressTriggered = true,
+            title: const Text('cloudDownload'),
+            subtitle: const Text('your download from net.'),
+            leading: const AdaptiveIcon(AdpIcons.cloudDownload),
+          ),
+        ),
+      );
+      await widgetTester.tap(find.byType(AdaptiveListTile));
+      await widgetTester.pumpAndSettle();
+
+      await widgetTester.longPress(find.byType(AdaptiveListTile));
+      await widgetTester.pumpAndSettle();
+
+      expect(onTap, true);
+      expect(longPressTriggered, true);
+    },
+  );
+
+  testWidgets(
+    'AdaptiveListTile should not trigger when click onTap and onLongPress callback disabled state',
+    (widgetTester) async {
+      bool longPressTriggered = false;
+      bool onTap = false;
+
+      await widgetTester.pumpWidget(
+        wrapAppWithScaffold(
+          child: AdaptiveListTile(
+            enabled: false,
+            onTap: () => onTap = true,
+            onLongPress: () => longPressTriggered = true,
+            title: const Text('cloudDownload'),
+            subtitle: const Text('your download from net.'),
+            leading: const AdaptiveIcon(AdpIcons.cloudDownload),
+          ),
+        ),
+      );
+
+      await widgetTester.longPress(find.byType(AdaptiveListTile));
+      await widgetTester.pumpAndSettle();
+
+      await widgetTester.tap(find.byType(AdaptiveListTile));
+      await widgetTester.pumpAndSettle();
+
+      expect(longPressTriggered, false);
+      expect(onTap, false);
+    },
+  );
 }

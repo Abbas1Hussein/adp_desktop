@@ -115,7 +115,7 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
 
     return ConstrainedBox(
       constraints: _kListTileConstraints.copyWith(
-        maxHeight: _kListTileConstraints.maxHeight + 6,
+        maxHeight: _kListTileConstraints.maxHeight + 10,
       ),
       child: GestureDetector(
         onLongPress: enabled ? onLongPress : null,
