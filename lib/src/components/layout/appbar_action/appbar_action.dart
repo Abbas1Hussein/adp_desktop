@@ -98,6 +98,8 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
   }) : assert(items.length > 0, 'You must provide at least one item');
 
   /// The label text for the pulldown button.
+  ///
+  /// - on macos will showing only on OverflowMenu.
   final String label;
 
   /// The icon data representing the pulldown button.

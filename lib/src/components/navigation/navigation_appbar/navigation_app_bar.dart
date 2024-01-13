@@ -27,6 +27,7 @@ const _kContentInsets = EdgeInsets.symmetric(horizontal: 8, vertical: 4.0);
 /// - On Windows, [NavigationAppBar] is used.
 class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   const AdaptiveNavigationAppBar({
+    this.key,
     this.title,
     this.actions,
     this.leading,
@@ -41,6 +42,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
     this.automaticallyImplyLeading = true,
   });
 
+  final Key? key;
   /// The title of the adp navigation appBar .
   ///
   /// Typically a [Text] widget that contains the app name.
@@ -176,6 +178,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
         : null;
 
     return NavigationAppBar(
+      key: key,
       backgroundColor:
           (backgroundColor ?? theme.navigationPaneTheme.backgroundColor)
               ?.withOpacity(toolbarOpacity),
@@ -262,6 +265,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
         .toList();
 
     return ToolBar(
+      key: key,
       title: styledTitle,
       actions: buildActions,
       padding: _kContentInsets,

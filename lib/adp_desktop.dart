@@ -197,6 +197,8 @@ class AdpApp
   /// an iterable of macOS-specific localizations delegates.
   Iterable<LocalizationsDelegate<dynamic>> get _macosLocalizationsDelegates sync* {
     yield* _commonLocalizationsDelegates;
+
+    yield FluentLocalizations.delegate;
     yield DefaultMaterialLocalizations.delegate;
     yield DefaultCupertinoLocalizations.delegate;
   }

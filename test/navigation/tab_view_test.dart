@@ -84,7 +84,7 @@ void main() {
           final findItems = tester.widget<AdaptiveTabView>(tabViewFinder).tabs;
 
           // Initial state check (currentIndex is 0).
-          expect(currentIndex, 0);
+          expect(tester.widget<AdaptiveTabView>(tabViewFinder).currentIndex, 0);
 
           // Simulate a tap on the last item's label.
           await tester.tap(find.byWidget(findItems.last.label));

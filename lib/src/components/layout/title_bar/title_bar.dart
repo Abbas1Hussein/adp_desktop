@@ -15,6 +15,7 @@ enum TitleBarMode { hidden, normal }
 class AdaptiveTitleBarConfig {
   AdaptiveTitleBarConfig({
     this.mode,
+    this.height,
     this.appIcon,
     this.appTitle,
     this.dividerColor,
@@ -22,6 +23,9 @@ class AdaptiveTitleBarConfig {
     this.backgroundColor,
     this.buttonsConfig,
   });
+
+  /// the height for the title bar.
+  final double? height;
 
   /// Icon widget representing the application.
   ///
@@ -69,12 +73,12 @@ class AdaptiveTitleBar extends StatefulWidget {
   State<AdaptiveTitleBar> createState() => _AdaptiveTitleBarState();
 }
 
-class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
-    with WindowListener {
+class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> with WindowListener {
   Future<String>? getTitle;
 
-  double height = kWindowCaptionHeight;
   bool isMaximized = false;
+
+  late double height = widget.config?.height ?? kWindowCaptionHeight;
 
   late Color backgroundColor =
       handelBackgroundColor(widget.config?.backgroundColor, context);
@@ -190,7 +194,9 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
   void onWindowMaximize() {
     isMaximized = true;
 
-    height = kWindowCaptionHeight - 8;
+    if (widget.config?.height == null) {
+      height = kWindowCaptionHeight - 8;
+    }
     setState(() {});
   }
 
@@ -198,7 +204,9 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
   void onWindowUnmaximize() {
     isMaximized = false;
 
-    height = kWindowCaptionHeight;
+    if (widget.config?.height == null) {
+      height = kWindowCaptionHeight;
+    }
     setState(() {});
   }
 
