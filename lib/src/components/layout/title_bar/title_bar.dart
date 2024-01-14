@@ -4,7 +4,6 @@ import 'package:window_manager/window_manager.dart';
 
 import '../../../core/common/construct/builders.dart';
 import '../../../core/common/platform_ruining.dart';
-import '../../../core/extension/context.dart';
 import '../../additional/color.dart';
 import '../../components.dart';
 
@@ -147,7 +146,7 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> with WindowListener
                             const FlutterLogo(size: 15.0),
                       ),
                       DefaultTextStyle(
-                        style: context.typography.body!.copyWith(
+                        style: AdaptiveTypography.of(context).body!.copyWith(
                           fontSize: 12,
                           fontWeight: PlatformRuining.isMacos
                               ? MacosFontWeight.w510

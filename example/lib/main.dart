@@ -5,7 +5,7 @@ import 'package:macos_ui/macos_ui.dart';
 void main() async {
   DefaultsPlatformManager.initialize(
     isDebugging: true,
-    DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.macOS,
     targetWeb: DesktopTargetPlatform.windows,
   );
   runApp(const App());
@@ -131,7 +131,18 @@ class FirstScreen extends StatelessWidget {
       endDrawer: const AdaptiveDrawer(),
       appBar: AdaptiveAppBar(title: const Text('First Screen')),
       body: Center(
-        child: AdaptiveButton(
+        child: AdaptiveFlatButton(
+          properties: PropertiesLogic.windows(
+            () {
+              /// this line only works on windows:
+              final theme = FluentTheme.of(context);
+              return FlatButtonWindowsProperty(
+                style: ButtonStyle(
+                  backgroundColor: ButtonState.all(theme.cardColor),
+                ),
+              );
+            },
+          ),
           onPressed: () {
             Navigator.of(context).push(
               AdaptivePageRoute(

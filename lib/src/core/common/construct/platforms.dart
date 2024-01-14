@@ -4,14 +4,7 @@ import 'package:window_manager/window_manager.dart';
 
 import '../../enum/target.dart';
 
-abstract class CorePlatforms<WINDOWS, MACOS> {
-  const CorePlatforms({this.windows, this.macos});
-
-  final WINDOWS? windows;
-  final MACOS? macos;
-}
-
-/// Manages the default platform settings for a Flutter desktop application.
+/// Manages default configurations for the desktop platform.
 ///
 /// Example usage:
 /// ```dart
@@ -25,11 +18,11 @@ abstract class CorePlatforms<WINDOWS, MACOS> {
 /// ```
 class DefaultsPlatformManager {
   const DefaultsPlatformManager._(
-    this._platform, {
-    DesktopTargetPlatform? targetLinux,
-    DesktopTargetPlatform? targetWeb,
-    bool isDebugging = false,
-  })  : _targetLinux = targetLinux,
+      this._platform, {
+        DesktopTargetPlatform? targetLinux,
+        DesktopTargetPlatform? targetWeb,
+        bool isDebugging = false,
+      })  : _targetLinux = targetLinux,
         _targetWeb = targetWeb,
         _isDebugging = isDebugging;
 
@@ -46,12 +39,12 @@ class DefaultsPlatformManager {
   ///
   /// Throws an error if the manager is already initialized.
   factory DefaultsPlatformManager.initialize(
-    DesktopTargetPlatform platform, {
-    DesktopTargetPlatform? targetLinux,
-    DesktopTargetPlatform? targetWeb,
-    bool isDebugging = false,
-    @visibleForTesting bool isTesting = false,
-  }) {
+      DesktopTargetPlatform platform, {
+        DesktopTargetPlatform? targetLinux,
+        DesktopTargetPlatform? targetWeb,
+        bool isDebugging = false,
+        @visibleForTesting bool isTesting = false,
+      }) {
     if (_instance != null) {
       throw StateError('DefaultsPlatformManager is already initialized.');
     }
@@ -69,7 +62,7 @@ class DefaultsPlatformManager {
 
   /// Initializes window configuration for the application.
   ///
-  /// hiding defaults TitleBar.
+  /// Hides the default title bar.
   static Future<void> _initializeWindowConfiguration() async {
     WidgetsFlutterBinding.ensureInitialized();
 
