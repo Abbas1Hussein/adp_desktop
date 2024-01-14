@@ -91,6 +91,7 @@ class WindowCloseButtonsWindows extends StatelessWidget {
       show: show ?? config.showCloseButton,
       hoverColor:
           theme?.hoverColor ?? config.closeTheme?.hoverColor ?? Colors.red,
+      disabledColor: theme?.disabledColor ?? config.closeTheme?.disabledColor,
       backgroundColor:
           theme?.backgroundColor ?? config.closeTheme?.backgroundColor,
     );
@@ -127,6 +128,8 @@ class WindowMinimizeButtonsWindows extends StatelessWidget {
       },
       show: show ?? config.showMinimizeButton,
       hoverColor: theme?.hoverColor ?? config.minimizeTheme?.hoverColor,
+      disabledColor:
+          theme?.disabledColor ?? config.minimizeTheme?.disabledColor,
       backgroundColor:
           theme?.backgroundColor ?? config.minimizeTheme?.backgroundColor,
     );
@@ -176,6 +179,8 @@ class _WindowMaximizeButtonsWindowsState
             show: widget.show ?? config.showMaximizeButton,
             hoverColor: widget.unmaximizeTheme?.hoverColor ??
                 config.unmaximizeTheme?.hoverColor,
+            disabledColor: widget.unmaximizeTheme?.disabledColor ??
+                config.unmaximizeTheme?.disabledColor,
             backgroundColor: widget.unmaximizeTheme?.backgroundColor ??
                 config.unmaximizeTheme?.backgroundColor,
           );
@@ -187,6 +192,8 @@ class _WindowMaximizeButtonsWindowsState
           show: widget.show ?? config.showMaximizeButton,
           hoverColor:
               widget.theme?.hoverColor ?? config.maximizeTheme?.hoverColor,
+          disabledColor: widget.theme?.disabledColor ??
+              config.maximizeTheme?.disabledColor,
           backgroundColor: widget.theme?.backgroundColor ??
               config.maximizeTheme?.backgroundColor,
         );

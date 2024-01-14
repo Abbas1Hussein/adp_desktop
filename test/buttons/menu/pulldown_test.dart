@@ -1,6 +1,7 @@
 import 'package:adp_desktop/adp_desktop.dart';
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 import '../../wrap_app.dart';
 
@@ -8,7 +9,39 @@ void main() {
   initializeDesktopDefaultsTests();
 
   testWidgets(
-    'AdaptivePulldownMenuButton displays correctly',
+    'AdaptivePulldownMenuButton Render correctly',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        wrapApp(
+          child: AdaptivePulldownMenuButton<String>(
+            title: 'Adp Menu',
+            items: const [
+              AdaptivePulldownMenuItem(child: Text('1')),
+              AdaptivePulldownMenuItem(child: Text('2')),
+              AdaptivePulldownMenuItem(child: Text('3')),
+            ],
+            onSelected: (index, value) {},
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      adaptiveValue(
+        macos: () {
+          expect(find.byType(MacosPulldownButton), findsOneWidget);
+          expect(find.byType(DropDownButton), findsNothing);
+        },
+        windows: () {
+          expect(find.byType(DropDownButton), findsOneWidget);
+          expect(find.byType(MacosPulldownButton), findsNothing);
+        },
+      );
+    },
+  );
+
+
+  testWidgets(
+    'AdaptivePulldownMenuButton displays correctly items',
     (WidgetTester tester) async {
       await tester.pumpWidget(
         wrapAppWithScaffold(
@@ -38,7 +71,7 @@ void main() {
   );
 
   testWidgets(
-    'AdaptivePulldownMenuButton.singleChoice displays correctly',
+    'AdaptivePulldownMenuButton.singleChoice displays correctly items',
     (WidgetTester tester) async {
       int? selectedValue;
       await tester.pumpWidget(

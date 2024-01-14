@@ -3,8 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/property.dart';
 import 'config.dart';
-import 'platforms/macos.dart';
-import 'platforms/windows.dart';
+import 'platforms/platforms.dart';
 
 /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 /// A component that displays window buttons (close, minimize, maximize) in a platform-adaptive way.
@@ -87,8 +86,8 @@ class AdaptiveWindowButtons extends CoreAdaptiveComponent {
   }
 }
 
-class AdaptiveCloseWindow extends CoreAdaptiveComponent {
-  const AdaptiveCloseWindow({
+class AdaptiveCloseWindowButton extends CoreAdaptiveComponent {
+  const AdaptiveCloseWindowButton({
     super.key,
     super.builders,
     this.show,
@@ -112,8 +111,8 @@ class AdaptiveCloseWindow extends CoreAdaptiveComponent {
   }
 }
 
-class AdaptiveMinimizeWindow extends CoreAdaptiveComponent {
-  const AdaptiveMinimizeWindow({
+class AdaptiveMinimizeWindowButton extends CoreAdaptiveComponent {
+  const AdaptiveMinimizeWindowButton({
     super.key,
     super.builders,
     this.show,
@@ -148,8 +147,8 @@ class AdaptiveMinimizeWindow extends CoreAdaptiveComponent {
   }
 }
 
-class AdaptiveMaximizeWindow extends CoreAdaptiveComponent {
-  const AdaptiveMaximizeWindow({
+class AdaptiveMaximizeWindowButton extends CoreAdaptiveComponent {
+  const AdaptiveMaximizeWindowButton({
     super.key,
     super.builders,
     this.show,

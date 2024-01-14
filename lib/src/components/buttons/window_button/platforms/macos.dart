@@ -92,6 +92,7 @@ class WindowCloseButtonsMacos extends StatelessWidget {
       hoverColor: theme?.hoverColor ??
           config.closeTheme?.hoverColor ??
           MacosColors.systemRedColor.withOpacity(0.5),
+      disabledColor: theme?.disabledColor ?? config.closeTheme?.disabledColor,
       backgroundColor: theme?.backgroundColor ??
           config.closeTheme?.backgroundColor ??
           MacosColors.systemRedColor,
@@ -130,6 +131,7 @@ class WindowMinimizeButtonsMacos extends StatelessWidget {
       hoverColor: theme?.hoverColor ??
           config.minimizeTheme?.hoverColor ??
           MacosColors.systemYellowColor.withOpacity(0.5),
+      disabledColor:  theme?.disabledColor ?? config.minimizeTheme?.disabledColor,
       backgroundColor: theme?.backgroundColor ??
           config.minimizeTheme?.backgroundColor ??
           MacosColors.systemYellowColor,
@@ -158,8 +160,7 @@ class WindowMaximizeButtonsMacos extends StatefulWidget {
       _WindowMaximizeButtonsMacosState();
 }
 
-class _WindowMaximizeButtonsMacosState extends State<WindowMaximizeButtonsMacos>
-    with WindowListener {
+class _WindowMaximizeButtonsMacosState extends State<WindowMaximizeButtonsMacos> with WindowListener {
   @override
   void initState() {
     windowManager.addListener(this);
@@ -194,11 +195,9 @@ class _WindowMaximizeButtonsMacosState extends State<WindowMaximizeButtonsMacos>
         return _buildWindowMacosButton(
           onPressed: widget.onMaximize ?? config.onMaximize,
           show: widget.show ?? config.showMaximizeButton,
-          hoverColor: widget.theme?.hoverColor ??
-              MacosColors.systemGreenColor.withOpacity(0.5),
-          backgroundColor: widget.theme?.backgroundColor ??
-              config.maximizeTheme?.backgroundColor ??
-              MacosColors.systemGreenColor,
+          hoverColor: widget.theme?.hoverColor ?? MacosColors.systemGreenColor.withOpacity(0.5),
+          disabledColor:  widget.theme?.disabledColor ?? config.maximizeTheme?.disabledColor,
+          backgroundColor: widget.theme?.backgroundColor ?? config.maximizeTheme?.backgroundColor ?? MacosColors.systemGreenColor,
         );
       },
     );

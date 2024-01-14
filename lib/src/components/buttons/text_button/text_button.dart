@@ -30,8 +30,8 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
     super.disabledColor,
     super.backgroundColor,
     super.mouseCursor,
-    required super.child,
     required super.onPressed,
+    required super.child,
   });
 
   @override

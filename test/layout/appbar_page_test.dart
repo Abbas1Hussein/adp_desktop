@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaultsTests(DesktopTargetPlatform.windows);
+  initializeDesktopDefaultsTests();
 
   testWidgets(
     'AdaptiveAppBarPage should render correctly',
