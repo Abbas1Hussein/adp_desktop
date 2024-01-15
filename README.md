@@ -16,8 +16,8 @@
 
 ### Menus
 
-- [Pulldown Menu Button](#pulldown-button)
-- [Popup Menu Button](#popup-button)
+- [Pulldown Menu Button](#pulldown-menu-button)
+- [Popup Menu Button](#popup-menu-button)
 
 ### Selection Buttons
 
