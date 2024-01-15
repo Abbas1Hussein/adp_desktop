@@ -17,7 +17,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdpApp(
-      home: const FirstScreen(),
+      home: const HomeScreen(),
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       properties: Properties(

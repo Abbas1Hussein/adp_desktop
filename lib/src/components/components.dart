@@ -1,4 +1,4 @@
-export 'Indicators/Indicators.dart';
+export 'Indicators/indicators.dart';
 export 'additional/additional.dart';
 export 'buttons/buttons.dart';
 export 'fields/fields.dart';

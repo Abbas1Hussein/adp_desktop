@@ -6,7 +6,7 @@ import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
 import '../../icon/icons.dart';
-import 'custom_rating_Indicator.dart';
+import 'custom_rating_indicator.dart';
 
 const kRatingBarIcon = AdpIcons.starFilled;
 
