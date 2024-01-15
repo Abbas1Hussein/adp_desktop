@@ -5,8 +5,8 @@ import 'package:macos_ui/macos_ui.dart';
 void main() async {
   DefaultsPlatformManager.initialize(
     isDebugging: true,
-    DesktopTargetPlatform.macOS,
-    targetWeb: DesktopTargetPlatform.windows,
+    DesktopTargetPlatform.windows,
+    targetWeb: DesktopTargetPlatform.macOS,
   );
   runApp(const App());
 }
@@ -111,8 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> get children {
     return [
-      const AdaptiveWindowButtons(),
       const FirstScreen(),
+      const Text('AdaptiveTab 2'),
       const Text('AdaptiveTab 3'),
       const Text('AdaptiveTab 4'),
       const Text('AdaptiveTab 5'),
@@ -126,33 +126,21 @@ class FirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveScaffold(
-      drawer: const AdaptiveDrawer(),
-      endDrawer: const AdaptiveDrawer(),
-      appBar: AdaptiveAppBar(title: const Text('First Screen')),
-      body: Center(
-        child: AdaptiveFlatButton(
-          properties: PropertiesLogic.windows(
-            () {
-              /// this line only works on windows:
-              final theme = FluentTheme.of(context);
-              return FlatButtonWindowsProperty(
-                style: ButtonStyle(
-                  backgroundColor: ButtonState.all(theme.cardColor),
-                ),
-              );
-            },
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AdaptiveIconButton(
+            icon: const AdaptiveIcon(AdpIcons.app),
+            onPressed: () {},
           ),
-          onPressed: () {
-            Navigator.of(context).push(
-              AdaptivePageRoute(
-                builder: (context, animation, secondaryAnimation) =>
-                    const SecondScreen(),
-              ),
-            );
-          },
-          child: const Text('Go to Second Screen'),
-        ),
+          AdaptiveIconButton.label(
+            label: const Text('app'),
+            icon: const AdaptiveIcon(AdpIcons.app),
+            onPressed: () {},
+          ),
+        ],
       ),
     );
   }

@@ -91,6 +91,16 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
+
+    final buildLabel = label != null
+        ? DefaultTextStyle(
+            style: theme.typography.body!.copyWith(
+              fontWeight: FontWeight.w300,
+            ),
+            child: label!,
+          )
+        : null;
+
     return ConstrainedBox(
       constraints: constraints,
       child: IconButton(
@@ -98,7 +108,7 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
           padding: const EdgeInsets.all(2.0),
           child: IconTheme.merge(
             data: IconTheme.of(context),
-            child: icon.margeWith(label),
+            child: icon.margeWith(buildLabel),
           ),
         ),
         onPressed: onPressed,
@@ -125,8 +135,16 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    final buildLabel = label != null
+        ? DefaultTextStyle(
+            style: MacosTheme.of(context).typography.body.copyWith(
+                  fontWeight: MacosFontWeight.w300,
+                ),
+            child: label!,
+          )
+        : null;
     return MacosIconButton(
-      icon: icon.margeWith(label),
+      icon: icon.margeWith(buildLabel),
       onPressed: onPressed,
       borderRadius: borderRadius,
       backgroundColor: backgroundColor,

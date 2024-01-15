@@ -1,6 +1,10 @@
-# Your Project Name
+Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
 
-[Add a brief project description here]
+### Platform-Specific Integration
+- On Windows, we use: `fluent_ui`
+- On MacOS, we use: `macos_ui`
+- On Linux, for now, we do not support, but you can choose between `fluent_ui` or `macos_ui`.
+- On the web, you can choose between `fluent_ui` or `macos_ui`.
 
 ## Table of Contents
 
@@ -109,6 +113,7 @@
   - [Horizontal Slide Transition](#horizontal-slide-transition)
   - [Page Transition](#page-transition)
 </details>
+
 
 ## Buttons
 

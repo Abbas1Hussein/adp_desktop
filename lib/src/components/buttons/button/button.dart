@@ -128,9 +128,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
         );
       case AdaptiveButtonType.filled:
         return MacosButton(
-          shape: shape ?? const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
+          shape: shape,
           onTapUp: onTapUp,
           onTapDown: onTapDown,
           onPressed: onPressed,
