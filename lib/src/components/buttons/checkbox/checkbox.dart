@@ -1,10 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
+import '../../icon/icons.dart';
+import 'macos_checkbox.dart';
 
 /// A checkbox is a type of button that lets the user choose between
 /// two opposite states, actions, or values. A selected checkbox is
@@ -19,17 +20,25 @@ import '../../../core/extension/widget.dart';
 class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// Creates a adp-style checkbox.
   ///
+  /// See also:
+  ///
   /// * [AdaptiveRadioButton], let users select one option from a collection of two or more mutually exclusive, visible options.
   const AdaptiveCheckbox({
-    Key? key,
+    super.key,
+    super.builders,
     this.label,
+    this.icon,
     this.value,
     this.onChanged,
-    this.checkedColor,
     this.semanticLabel,
-    this.uncheckedColor,
-    this.uncheckedBorderColor,
-  }) : super(key: key);
+    this.foregroundColor,
+    this.checkedIconColor,
+    this.uncheckedIconColor,
+    this.thirdstateIconColor,
+    this.checkedDecoration,
+    this.uncheckedDecoration,
+    this.thirdstateDecoration,
+  });
 
   /// The current value of the AdaptiveCheckbox (true for checked, false for unchecked).
   ///
@@ -49,91 +58,83 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// This, if non-null, is displayed at the right of the checkbox,
   /// and is affected by user touch.
   ///
-  /// Usually a [Text] or [Icon] widget.
+  /// Usually a [Text].
   final Widget? label;
 
-  /// Color to use when the checkbox is checked.
-  final Color? checkedColor;
+  /// The icon displayed in the checkbox when it's checked
+  final AdpIcons? icon;
 
-  /// Color to use when the checkbox is unchecked.
-  ///
-  /// On macOS platform, this color will be used when the [onChanged] callback is null.
-  final Color? uncheckedColor;
+  /// The color of the [label] of the checkbox.
+  final Color? foregroundColor;
 
-  /// Color of the AdaptiveCheckbox border when unchecked.
-  ///
-  /// On macOS platform, this color will be used when the [onChanged] callback is null.
-  final Color? uncheckedBorderColor;
+  /// The color of the [icon] when the checkbox is checked
+  final Color? checkedIconColor;
+
+  /// The color of the [icon] when the checkbox is unchecked
+  final Color? uncheckedIconColor;
+
+  /// The color of the [icon] when the checkbox is in its third state
+  final Color? thirdstateIconColor;
+
+  /// The decoration of the checkbox when it's checked
+  final Decoration? checkedDecoration;
+
+  /// The decoration of the checkbox when it's unchecked and disabled.
+  final Decoration? uncheckedDecoration;
+
+  /// The decoration of the checkbox when it's in its third state
+  final Decoration? thirdstateDecoration;
 
   /// Semantic label for accessibility.
   final String? semanticLabel;
 
-
-  bool get _enabled => onChanged != null;
-
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
-    final checkboxTheme = CheckboxThemeData.standard(FluentTheme.of(context));
-
-    final BorderRadiusGeometry radius = BorderRadius.circular(6.0);
-
     return Checkbox(
       checked: value,
+      content: label,
       onChanged: onChanged,
       semanticLabel: semanticLabel,
       style: CheckboxThemeData(
-        checkedDecoration: _enabled
-            ? ButtonState.all(
-            BoxDecoration(color: checkedColor, borderRadius: radius))
-            : checkboxTheme.checkedDecoration,
-        uncheckedDecoration: _enabled && uncheckedColor != null
-            ? ButtonState.all(
-          BoxDecoration(
-            color: uncheckedColor,
-            borderRadius: radius,
-            border: Border.all(
-              color: uncheckedBorderColor ?? Colors.transparent,
-            ),
-          ),
-        )
-            : checkboxTheme.uncheckedDecoration,
-        padding: checkboxTheme.padding,
-        margin: checkboxTheme.margin,
-        thirdstateDecoration: checkboxTheme.thirdstateDecoration,
-        thirdstateIconColor: checkboxTheme.thirdstateIconColor,
-        foregroundColor: checkboxTheme.foregroundColor,
-        checkedIconColor: checkboxTheme.checkedIconColor,
-        uncheckedIconColor: checkboxTheme.uncheckedIconColor,
-        icon: checkboxTheme.icon,
+        icon: icon?.fluent,
+        foregroundColor:
+            foregroundColor != null ? ButtonState.all(foregroundColor) : null,
+        checkedIconColor:
+            checkedIconColor != null ? ButtonState.all(checkedIconColor) : null,
+        uncheckedIconColor: uncheckedIconColor != null
+            ? ButtonState.all(uncheckedIconColor)
+            : null,
+        thirdstateIconColor: thirdstateIconColor != null
+            ? ButtonState.all(thirdstateIconColor)
+            : null,
+        checkedDecoration: checkedDecoration != null
+            ? ButtonState.all(checkedDecoration)
+            : null,
+        uncheckedDecoration: uncheckedDecoration != null
+            ? ButtonState.all(uncheckedDecoration)
+            : null,
+        thirdstateDecoration: thirdstateDecoration != null
+            ? ButtonState.all(thirdstateDecoration)
+            : null,
       ),
-      content: label,
-    );
+    ).applyDisabledEffect(onChanged == null);
   }
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
-    return Padding(
-      padding: const EdgeInsets.all(4),
-      child: MacosCheckbox(
-        size: 18.0,
-        value: value,
-        onChanged: onChanged,
-        activeColor: checkedColor,
-        disabledColor: uncheckedColor ?? CupertinoColors.quaternaryLabel,
-        offBorderColor: uncheckedBorderColor ?? CupertinoColors.tertiaryLabel,
-        semanticLabel: semanticLabel,
-      ),
-    ).margeWith(
-          label != null
-              ? GestureDetector(
-                  onTap: _enabled
-                      ? () => onChanged!(!(value != null && value!))
-                      : null,
-                  child: label,
-                )
-              : null,
-          4.0,
-        ).applyDisabledEffect(!_enabled);
+    return CustomMacosCheckbox(
+      value: value,
+      label: label,
+      onChanged: onChanged,
+      icon: icon?.cupertino,
+      semanticLabel: semanticLabel,
+      foregroundColor: foregroundColor,
+      checkedIconColor: checkedIconColor,
+      uncheckedIconColor: uncheckedIconColor,
+      thirdstateIconColor: thirdstateIconColor,
+      checkedDecoration: checkedDecoration,
+      uncheckedDecoration: uncheckedDecoration,
+      thirdstateDecoration: thirdstateDecoration,
+    );
   }
-
 }

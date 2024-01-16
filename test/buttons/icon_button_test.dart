@@ -20,6 +20,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
       adaptiveValue(
         macos: () {
           expect(find.byType(MacosIconButton), findsOneWidget);

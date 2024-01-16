@@ -2,6 +2,8 @@ import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import 'buttons/checkbox.dart';
+
 void main() async {
   DefaultsPlatformManager.initialize(
     isDebugging: true,
@@ -126,23 +128,7 @@ class FirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AdaptiveIconButton(
-            icon: const AdaptiveIcon(AdpIcons.app),
-            onPressed: () {},
-          ),
-          AdaptiveIconButton.label(
-            label: const Text('app'),
-            icon: const AdaptiveIcon(AdpIcons.app),
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
+    return const Center(child: Checked());
   }
 }
 
