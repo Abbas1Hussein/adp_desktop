@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../core/common/construct/properties.dart';
-import '../../../buttons/flat_button/flat_button.dart';
+import '../../../buttons/buttons.dart';
 
 ///  different dialog modes for macOS dialogs.
 ///
@@ -31,14 +31,14 @@ class DialogMacos extends StatelessWidget {
   /// If [MacosDialogMode]:
   /// - `cupertino`: [CupertinoDialogAction] will be used.
   /// - `macOS`: [PushButton] will be used.
-  final AdaptiveFlatButton? secondary;
+  final AdaptiveButton? secondary;
 
   /// the primary button in the macOS dialog (required).
   ///
   /// If [MacosDialogMode]:
   /// - `cupertino`: [CupertinoDialogAction] will be used.
   /// - `macOS`: [PushButton] will be used.
-  final AdaptiveFlatButton primary;
+  final AdaptiveButton primary;
 
   /// additional properties for configuring the macOS dialog.
   final DialogMacosProperty? property;
@@ -236,21 +236,17 @@ class DialogMacosProperty extends CoreMacosProperty {
   final MacosDialogMode dialogMode;
 }
 
-extension _AdaptiveFlatButtonEx on AdaptiveFlatButton {
+extension _AdaptiveFlatButtonEx on AdaptiveButton {
   bool get isEnabled => onPressed != null || onLongPress != null;
 
   PushButton _pushButton(BuildContext context, bool secondary) {
-    final property = properties?.macos;
-
     return PushButton(
-      alignment: property?.alignment ?? Alignment.center,
-      pressedOpacity: property?.pressedOpacity ?? 0.6,
-      semanticLabel: property?.semanticLabel,
+      secondary: secondary,
+      pressedOpacity: 0.6,
+      color: backgroundColor,
       disabledColor: disabledColor,
       controlSize: ControlSize.large,
-      secondary: property?.secondary ?? secondary,
       onPressed: isEnabled ? (onPressed ?? () {}) : null,
-      color: color,
       child: GestureDetector(
         onLongPress: isEnabled ? onLongPress : null,
         child: ColoredBox(
@@ -265,17 +261,17 @@ extension _AdaptiveFlatButtonEx on AdaptiveFlatButton {
   }
 
   Widget _cupertinoDialogAction(TextStyle? textStyle) {
-    final backgroundColor = (isEnabled ? color : disabledColor);
+    final color = (isEnabled ? backgroundColor : disabledColor);
 
     return GestureDetector(
       onLongPress: onLongPress,
       child: Container(
         decoration: BoxDecoration(
-          color: backgroundColor ?? MacosColors.transparent,
+          color: color ?? MacosColors.transparent,
           backgroundBlendMode: BlendMode.difference,
         ),
         child: CupertinoDialogAction(
-          textStyle: backgroundColor != null ? textStyle : null,
+          textStyle: color != null ? textStyle : null,
           onPressed: onPressed,
           child: child,
         ),

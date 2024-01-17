@@ -1,20 +1,21 @@
-import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
+
+import '../../../../core/core.dart';
+import '../../buttons.dart';
 
 /// A function type for building a list of widgets to customize the appearance of popup buttons.
 typedef PopupMenuButtonBuilder = List<Widget> Function(BuildContext context);
 
-/// A cross-platform adaptive popup menu button.
-/// - On macOS, [MacosPopupButton] is utilized.
-/// - On Windows, [ComboBox] is used.
-///
 /// A pop-up button (often referred to as a pop-up menu) is a type of button
 /// that, when clicked, displays a menu containing a list of mutually exclusive
 /// choices.
 /// A pop-up button includes a double-arrow indicator that alludes to the
 /// direction in which the menu will appear (only vertical is currently
 /// supported).
+///
+/// - On macOS, [MacosPopupButton] is utilized.
+/// - On Windows, [ComboBox] is used.
 ///
 /// The type `T` is the type of the [value] that each popup item represents.
 /// All the entries in a given menu must represent values with consistent types.

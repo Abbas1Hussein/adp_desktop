@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/extension/widget.dart';
@@ -53,50 +54,77 @@ class CustomMacosCheckbox extends MacosCheckbox {
     final isLight = !theme.brightness.isDark;
 
     final buildLabel = label != null
-        ? MacosIconTheme(
-            data: theme.iconTheme.copyWith(
-              color: foregroundColor,
-            ),
-            child: DefaultTextStyle(
-              style: theme.typography.body.copyWith(
+        ? GestureDetector(
+            onTap: () => onChanged?.call(!isTrueValue),
+            child: MacosIconTheme(
+              data: theme.iconTheme.copyWith(
                 color: foregroundColor,
-                fontWeight: MacosFontWeight.w300,
-                fontSize: 14.0,
               ),
-              child: label!,
+              child: DefaultTextStyle(
+                style: theme.typography.body.copyWith(
+                  color: foregroundColor,
+                  fontWeight: MacosFontWeight.w300,
+                  fontSize: 14.0,
+                ),
+                child: label!,
+              ),
             ),
           )
         : null;
 
+    final defaultCheckedDecoration = _checkedDecorationBuild(theme, context);
+
+    final defaultUnCheckedDecoration = _unCheckedDecorationBuild(isLight);
+
     const size = 18.0;
-    return GestureDetector(
-      onTap: () => onChanged?.call(!isTrueValue),
-      child: Semantics(
-        checked: isTrueValue,
-        label: semanticLabel,
-        child: Container(
-          width: size,
-          height: size,
-          alignment: Alignment.center,
+    return Semantics(
+      checked: isTrueValue,
+      label: semanticLabel,
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: DecoratedBox(
           decoration: isMixed
-              ? (thirdstateDecoration ?? _buildDefaultDecoration(isLight))
-              : (isTrueValue ? checkedDecoration : uncheckedDecoration) ??
-                  _buildDefaultDecoration(isLight),
-          child: MacosIcon(
-            isMixed
-                ? CupertinoIcons.minus
-                : ((isTrueValue || uncheckedIconColor != null)
-                    ? icon ?? CupertinoIcons.check_mark
-                    : null),
-            color: iconColor ?? CupertinoColors.white,
-            size: size - 3,
+              ? (thirdstateDecoration ?? defaultCheckedDecoration)
+              : (isTrueValue
+                  ? checkedDecoration ?? defaultCheckedDecoration
+                  : uncheckedDecoration ?? defaultUnCheckedDecoration),
+          child: MacosIconButton(
+            pressedOpacity: 0.8,
+            padding: EdgeInsets.zero,
+            hoverColor: Colors.transparent,
+            onPressed: () => onChanged?.call(!isTrueValue),
+            icon: MacosIcon(
+              isMixed
+                  ? CupertinoIcons.minus
+                  : ((isTrueValue || uncheckedIconColor != null)
+                      ? icon ?? CupertinoIcons.check_mark
+                      : null),
+              color: iconColor ?? CupertinoColors.white,
+              size: size - 3,
+            ),
           ),
-        ).margeWith(buildLabel, 4.0).applyDisabledEffect(isDisabled),
+        ),
+      ).margeWith(buildLabel, 4.0).applyDisabledEffect(isDisabled),
+    );
+  }
+
+  BoxDecoration _checkedDecorationBuild(
+    MacosThemeData theme,
+    BuildContext context,
+  ) {
+    return BoxDecoration(
+      color: MacosDynamicColor.resolve(
+        isDisabled ? disabledColor : activeColor ?? theme.primaryColor,
+        context,
+      ),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(4.0),
       ),
     );
   }
 
-  Decoration _buildDefaultDecoration(bool isLight) {
+  Decoration _unCheckedDecorationBuild(bool isLight) {
     return isLight
         ? ShapeDecoration(
             gradient: LinearGradient(

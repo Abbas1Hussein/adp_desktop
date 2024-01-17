@@ -15,7 +15,7 @@ void main() {
         wrapApp(
           child: Builder(
             builder: (context) {
-              return AdaptiveFlatButton(
+              return AdaptiveButton(
                 child: const Text('Show BottomSheet'),
                 onPressed: () {
                   showAdpBottomSheet(

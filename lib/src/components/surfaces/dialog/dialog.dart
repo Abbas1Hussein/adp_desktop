@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../core/common/construct/component.dart';
-import '../../buttons/flat_button/flat_button.dart';
+import '../../buttons/buttons.dart';
 import 'platforms/platforms.dart';
 
 /// A custom dialog widget that adapts its appearance based on the platform.
@@ -61,10 +61,10 @@ class AdaptiveDialog
   final Widget? content;
 
   /// The primary button of the dialog.
-  final AdaptiveFlatButton primary;
+  final AdaptiveButton primary;
 
   /// The secondary button of the dialog.
-  final AdaptiveFlatButton? secondary;
+  final AdaptiveButton? secondary;
 
   @override
   Widget windows(BuildContext context, [DialogWindowsProperty? property]) {

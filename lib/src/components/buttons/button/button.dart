@@ -6,7 +6,8 @@ import '../../../core/common/construct/property.dart';
 import 'base_button.dart';
 import 'macos.dart';
 
-/// An adaptive button that adjusts its appearance based on the platform.
+/// Buttons are the graphical control element that provides a user to trigger an event such as taking actions, making choices, searching things, and many more.
+/// They can be placed anywhere in our UI like dialogs, forms, cards, toolbars, etc.
 ///
 /// This widget provides three variants:
 /// - [AdaptiveButtonType.base]: A standard adaptive button.
@@ -88,7 +89,13 @@ class AdaptiveButton extends AdaptiveBaseButton {
           onTapDown: onTapDown,
           onPressed: onPressed,
           onLongPress: onLongPress,
-          child: child,
+          child: DefaultTextStyle(
+            style: FluentTheme.of(context)
+                .typography
+                .body!
+                .copyWith(color: Colors.white),
+            child: child,
+          ),
         );
 
       case AdaptiveButtonType.outlined:
@@ -151,17 +158,17 @@ class AdaptiveButton extends AdaptiveBaseButton {
         );
       case AdaptiveButtonType.outlined:
         return MacosButton(
-          shape: shape ?? RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2),
-            side: BorderSide(
-              width: 1.5,
-              color: theme.brightness.resolve(
-                CupertinoColors.black,
-                CupertinoColors.extraLightBackgroundGray,
-              ),
-              strokeAlign: BorderSide.strokeAlignOutside,
-            )
-          ),
+          shape: shape ??
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  side: BorderSide(
+                    width: 1,
+                    color: theme.brightness.resolve(
+                      CupertinoColors.black,
+                      CupertinoColors.extraLightBackgroundGray,
+                    ),
+                    strokeAlign: BorderSide.strokeAlignOutside,
+                  )),
           padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 12.0),
           pressedOpacity: 0.7,
           onTapUp: onTapUp,
@@ -170,7 +177,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
           onLongPress: onLongPress,
           mouseCursor: mouseCursor,
           disabledColor: disabledColor,
-          backgroundColor: backgroundColor,
+          backgroundColor: backgroundColor ?? MacosTheme.of(context).canvasColor,
           pressedColor: pressedColor,
           hoverColor: hoverColor,
           child: DefaultTextStyle(

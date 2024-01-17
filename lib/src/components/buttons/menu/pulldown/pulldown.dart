@@ -6,11 +6,8 @@ import 'platforms/platforms.dart';
 import 'pulldown_item.dart';
 import 'single_choice.dart';
 
-/// A cross-platform adaptive pulldown menu button.
-///
-/// A pull-down button (often referred to as a pull-down menu) is a type of
-/// pop-up button that, when clicked, displays a menu containing a list of
-/// choices. The menu appears below the button.
+/// A pulldown menu button is used to create a nice overlay on the screen,
+/// that allows the user to select any item from multiple options.
 ///
 /// Use a pull-down button to present a list of commands.
 ///

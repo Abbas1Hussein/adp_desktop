@@ -150,7 +150,7 @@ void main() {
                         },
                       ),
                       const SizedBox(height: 8.0),
-                      AdaptiveFlatButton(
+                      AdaptiveButton(
                         onPressed: handleLogin,
                         child: const Text('Login'),
                       ),
@@ -176,7 +176,7 @@ void main() {
           await tester.pumpAndSettle();
 
           // Tap the login button
-          await tester.tap(find.byType(AdaptiveFlatButton));
+          await tester.tap(find.byType(AdaptiveButton));
           await tester.pumpAndSettle();
 
           // Expect the validation error for password to be displayed
@@ -218,7 +218,7 @@ void main() {
                         onSaved: (newValue) => password = newValue,
                       ),
                       const SizedBox(height: 8.0),
-                      AdaptiveFlatButton(
+                      AdaptiveButton(
                         onPressed: handleLogin,
                         child: const Text('Login'),
                       ),
@@ -241,7 +241,7 @@ void main() {
           await tester.pumpAndSettle();
 
           // Tap the login button
-          await tester.tap(find.byType(AdaptiveFlatButton));
+          await tester.tap(find.byType(AdaptiveButton));
           await tester.pumpAndSettle();
 
           // Expect the saved values to match the entered text

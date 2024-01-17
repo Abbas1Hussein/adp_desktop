@@ -15,7 +15,7 @@ void main() {
         wrapApp(
           child: Builder(
             builder: (context) {
-              return AdaptiveFlatButton(
+              return AdaptiveButton(
                 child: const Text('Show Dialog'),
                 onPressed: () {
                   showAdpDialog(
@@ -23,11 +23,11 @@ void main() {
                     builder: (context) => AdaptiveDialog(
                       title: Text(DummyText.generateQuestion),
                       content: Text(DummyText.generateAnswer),
-                      primary: AdaptiveFlatButton(
+                      primary: AdaptiveButton(
                         child: const Text('Yes'),
                         onPressed: () => Navigator.pop(context),
                       ),
-                      secondary: AdaptiveFlatButton(
+                      secondary: AdaptiveButton(
                         child: const Text('No'),
                         onPressed: () => Navigator.pop(context),
                       ),
@@ -63,7 +63,7 @@ void main() {
         wrapApp(
           child: Builder(
             builder: (context) {
-              return AdaptiveFlatButton(
+              return AdaptiveButton(
                 child: const Text('Show Confirmation Dialog'),
                 onPressed: () async {
                   final result = await DialogPresenter.showConfirmationDialog(
@@ -102,7 +102,7 @@ void main() {
         wrapApp(
           child: Builder(
             builder: (BuildContext context) {
-              return AdaptiveFlatButton(
+              return AdaptiveButton(
                 onPressed: () async {
                   await DialogPresenter.showInformationDialog(
                     context,
@@ -111,7 +111,7 @@ void main() {
                     confirmLabel: 'OK',
                   );
 
-                  expect(find.byType(AdaptiveFlatButton), findsOneWidget);
+                  expect(find.byType(AdaptiveButton), findsOneWidget);
                 },
                 child: const Text('Show Information Dialog'),
               );

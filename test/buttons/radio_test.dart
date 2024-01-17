@@ -33,7 +33,7 @@ void main() {
                       value: index + 1,
                       groupValue: currentValue,
                       activeColor: colors[index],
-                      disabledColor: colors.reversed.toList()[index],
+                      inactiveColor: colors.reversed.toList()[index],
                       label: Text('Adp R a d i o ${index + 1}'),
                       onChanged: (value) {
                         setState(() {

@@ -25,7 +25,7 @@ class _BaseButtonsState extends State<Checked> {
           value: isChecked,
           label: const Text('checkbox'),
           onChanged: (value) {
-            setState(() => isChecked = value!);
+            setState(() => isChecked = value);
           },
         ),
       ],

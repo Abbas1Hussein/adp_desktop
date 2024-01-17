@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../../../core/common/adaptive.dart';
 import '../../../core/common/construct/builders.dart';
 import '../../../core/common/platform_ruining.dart';
 import '../../additional/color.dart';
@@ -72,15 +73,13 @@ class AdaptiveTitleBar extends StatefulWidget {
   State<AdaptiveTitleBar> createState() => _AdaptiveTitleBarState();
 }
 
-class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> with WindowListener {
+class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
+    with WindowListener {
   Future<String>? getTitle;
 
   bool isMaximized = false;
 
   late double height = widget.config?.height ?? kWindowCaptionHeight;
-
-  late Color backgroundColor =
-      handelBackgroundColor(widget.config?.backgroundColor, context);
 
   @override
   void initState() {
@@ -98,6 +97,9 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> with WindowListener
     if (widget.config?.mode == TitleBarMode.hidden) return widget.child;
 
     final config = AdaptiveWindowButtonsConfig.of(context);
+
+    final backgroundColor =
+        handelBackgroundColor(widget.config?.backgroundColor, context);
 
     final buildTitleBar = Column(
       children: [
@@ -147,11 +149,11 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> with WindowListener
                       ),
                       DefaultTextStyle(
                         style: AdaptiveTypography.of(context).body!.copyWith(
-                          fontSize: 12,
-                          fontWeight: PlatformRuining.isMacos
-                              ? MacosFontWeight.w510
-                              : null,
-                        ),
+                              fontSize: 12,
+                              fontWeight: PlatformRuining.isMacos
+                                  ? MacosFontWeight.w510
+                                  : null,
+                            ),
                         child: _buildAppTitleBuilder(),
                       ),
                     ],

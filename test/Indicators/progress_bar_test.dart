@@ -63,7 +63,7 @@ void main() {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     AdaptiveProgressBarIndicator(value: progressValue),
-                    AdaptiveFlatButton(
+                    AdaptiveButton(
                       onPressed: () {
                         setState(() {
                           progressValue = 100;
@@ -71,7 +71,7 @@ void main() {
                       },
                       child: const Text('Increase'),
                     ),
-                    AdaptiveFlatButton(
+                    AdaptiveButton(
                       onPressed: () {
                         setState(() {
                           progressValue = 0;

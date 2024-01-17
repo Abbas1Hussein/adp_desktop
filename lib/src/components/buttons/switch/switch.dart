@@ -6,15 +6,13 @@ import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
 
-/// The toggle switch represents a physical switch that allows users to turn
-/// things on or off, like a light switch. Use toggle switch controls to present
+/// The switch represents a physical switch that allows users to turn
+/// things on or off, like a light switch. Use switch controls to present
 /// users with two mutually exclusive options (such as on/off), where choosing
 /// an option provides immediate results.
 ///
-/// Use a toggle switch for binary operations that take effect right after the
-/// user flips the toggle switch
-///
-/// Think of the toggle switch as a physical power switch for a device: you flip
+/// Use a switch for binary operations that take effect right after the
+/// user flips the switch,Think of the switch as a physical power switch for a device: you flip
 /// it on or off when you want to enable or disable the action performed by the device.
 ///
 /// Use this widget to create switch buttons with platform-specific
@@ -22,7 +20,7 @@ import '../../../core/extension/widget.dart';
 /// - On macOS, [MacosSwitch] is utilized.
 /// - On Windows, [ToggleSwitch] is used.
 class AdaptiveSwitch extends CoreAdaptiveComponent {
-  /// Creates a adp switch.
+  /// Creates a adp-style switch.
   ///
   /// See also:
   ///
@@ -35,10 +33,11 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
     super.builders,
     this.label,
     this.semanticLabel,
+    this.foregroundColor,
     this.activeKnobColor,
-    this.trackKnobColor,
+    this.inactiveKnobColor,
     this.activeColor,
-    this.trackColor,
+    this.inactiveColor,
     this.onChanged,
     required this.value,
   });
@@ -85,10 +84,13 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
   final Color? activeKnobColor;
 
   /// Background color of the switch when it is in the `off` state.
-  final Color? trackColor;
+  final Color? inactiveColor;
 
   /// Color of the switch knob when it is in the `off` state.
-  final Color? trackKnobColor;
+  final Color? inactiveKnobColor;
+
+  /// The color of the radio button's [label].
+  final Color? foregroundColor;
 
   /// A semantic label providing accessibility information for the switch.
   final String? semanticLabel;
@@ -108,50 +110,60 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
       onChanged: onChanged,
       semanticLabel: semanticLabel,
       style: ToggleSwitchThemeData(
-        checkedDecoration: ButtonState.resolveWith((states) {
-          return defaultDecoration.copyWith(
-            color:
-                activeColor ?? ButtonThemeData.checkedInputColor(theme, states),
-            border: Border.all(
-              color: ButtonThemeData.checkedInputColor(theme, states),
-            ),
-          );
-        }),
-        uncheckedDecoration: ButtonState.resolveWith((states) {
-          return defaultDecoration.copyWith(
-            color: trackColor ??
-                ButtonState.forStates(
-                  states,
-                  disabled: theme.resources.controlAltFillColorDisabled,
-                  pressed: theme.resources.controlAltFillColorQuarternary,
-                  hovering: theme.resources.controlAltFillColorTertiary,
-                  none: theme.resources.controlAltFillColorSecondary,
-                ),
-            border: Border.all(
-              color: trackColor ??
+        foregroundColor:
+            foregroundColor != null ? ButtonState.all(foregroundColor) : null,
+        checkedDecoration: ButtonState.resolveWith(
+          (states) {
+            return defaultDecoration.copyWith(
+              color: activeColor ??
+                  ButtonThemeData.checkedInputColor(theme, states),
+              border: Border.all(
+                color: ButtonThemeData.checkedInputColor(theme, states),
+              ),
+            );
+          },
+        ),
+        uncheckedDecoration: ButtonState.resolveWith(
+          (states) {
+            return defaultDecoration.copyWith(
+              color: inactiveColor ??
                   ButtonState.forStates(
                     states,
-                    disabled: theme.resources.controlStrongFillColorDisabled,
-                    none: theme.resources.controlStrongFillColorDefault,
+                    disabled: theme.resources.controlAltFillColorDisabled,
+                    pressed: theme.resources.controlAltFillColorQuarternary,
+                    hovering: theme.resources.controlAltFillColorTertiary,
+                    none: theme.resources.controlAltFillColorSecondary,
                   ),
-            ),
-          );
-        }),
-        checkedKnobDecoration: ButtonState.resolveWith((states) {
-          return defaultDecoration.copyWith(
-            color: states.isDisabled
-                ? theme.resources.textOnAccentFillColorDisabled
-                : activeKnobColor ??
-                    theme.resources.textOnAccentFillColorPrimary,
-          );
-        }),
-        uncheckedKnobDecoration: ButtonState.resolveWith((states) {
-          return defaultDecoration.copyWith(
-            color: states.isDisabled
-                ? theme.resources.textFillColorDisabled
-                : trackKnobColor ?? theme.resources.textFillColorSecondary,
-          );
-        }),
+              border: Border.all(
+                color: inactiveColor ??
+                    ButtonState.forStates(
+                      states,
+                      disabled: theme.resources.controlStrongFillColorDisabled,
+                      none: theme.resources.controlStrongFillColorDefault,
+                    ),
+              ),
+            );
+          },
+        ),
+        checkedKnobDecoration: ButtonState.resolveWith(
+          (states) {
+            return defaultDecoration.copyWith(
+              color: states.isDisabled
+                  ? theme.resources.textOnAccentFillColorDisabled
+                  : activeKnobColor ??
+                      theme.resources.textOnAccentFillColorPrimary,
+            );
+          },
+        ),
+        uncheckedKnobDecoration: ButtonState.resolveWith(
+          (states) {
+            return defaultDecoration.copyWith(
+              color: states.isDisabled
+                  ? theme.resources.textFillColorDisabled
+                  : inactiveKnobColor ?? theme.resources.textFillColorSecondary,
+            );
+          },
+        ),
       ),
     );
   }
@@ -160,35 +172,42 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final theme = MacosTheme.of(context);
 
-    final knobColorOnState = activeKnobColor?.toMacosColor();
-    final knobColorOffState = trackKnobColor?.toMacosColor();
     final backgroundColorOnState =
         (activeColor ?? theme.primaryColor).toMacosColor();
     final backgroundColorOffState =
-        (trackColor ?? CupertinoColors.quaternarySystemFill).toMacosColor();
+        (inactiveColor ?? CupertinoColors.quaternarySystemFill).toMacosColor();
 
-    final knobColor = value ? knobColorOnState : knobColorOffState;
+    final knobColor = value
+        ? activeKnobColor?.toMacosColor()
+        : inactiveKnobColor?.toMacosColor();
+
+    final buildLabel = label != null
+        ? GestureDetector(
+            onTap: () => onChanged?.call(!value),
+            child: MacosIconTheme(
+              data: theme.iconTheme.copyWith(
+                color: foregroundColor,
+              ),
+              child: DefaultTextStyle(
+                style: theme.typography.body.copyWith(
+                  color: foregroundColor,
+                  fontWeight: MacosFontWeight.w300,
+                  fontSize: 14.0,
+                ),
+                child: label!,
+              ),
+            ),
+          )
+        : null;
+
     return MacosSwitch(
       value: value,
       onChanged: onChanged,
-      knobColor: knobColor,
+      size: ControlSize.small,
       semanticLabel: semanticLabel,
       activeColor: backgroundColorOnState,
       trackColor: backgroundColorOffState,
-      size: ControlSize.small,
-    )
-        .margeWith(
-          label != null
-              ? GestureDetector(
-                  onTap: _enabled ? () => onChanged!(!value) : null,
-                  child: DefaultTextStyle(
-                    style: theme.typography.body,
-                    child: label!,
-                  ),
-                )
-              : null,
-          10.0,
-        )
-        .applyDisabledEffect(!_enabled);
+      knobColor: knobColor,
+    ).margeWith(buildLabel, 8.0).applyDisabledEffect(!_enabled);
   }
 }

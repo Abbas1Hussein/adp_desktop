@@ -51,7 +51,7 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// state internally.
   ///
   /// If null, the checkbox is considered disabled.
-  final ValueChanged<bool?>? onChanged;
+  final ValueChanged<bool>? onChanged;
 
   /// The label of the adp radio button.
   ///
@@ -93,7 +93,7 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
     return Checkbox(
       checked: value,
       content: label,
-      onChanged: onChanged,
+      onChanged: (value) => onChanged?.call(value == true),
       semanticLabel: semanticLabel,
       style: CheckboxThemeData(
         icon: icon?.fluent,

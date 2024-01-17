@@ -37,7 +37,8 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
     super.builders,
     this.label,
     this.activeColor,
-    this.disabledColor,
+    this.inactiveColor,
+    this.foregroundColor,
     this.semanticLabel,
     this.groupValue,
     this.onChanged,
@@ -81,17 +82,20 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
   /// ```
   final ValueChanged<T>? onChanged;
 
+  /// The widget that be displayed alongside the radio button.
+  final Widget? label;
+
   /// The active color for the radio button.
   final Color? activeColor;
 
-  /// The color to display when the radio button is disabled.
-  final Color? disabledColor;
+  /// The color to inactiveColor when the radio button is inactive or disabled.
+  final Color? inactiveColor;
+
+  /// The color of the radio button's [label].
+  final Color? foregroundColor;
 
   /// A brief description of the radio button for accessibility.
   final String? semanticLabel;
-
-  /// The widget that be displayed alongside the radio button.
-  final Widget? label;
 
   bool get _selected => value == groupValue;
 
@@ -100,77 +104,98 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
-    return RadioButtonTheme.merge(
-      data: RadioButtonThemeData(
-        foregroundColor: ButtonState.resolveWith((states) {
-          return states.isDisabled
-              ? theme.resources.textFillColorDisabled
-              : null;
-        }),
-        checkedDecoration: ButtonState.resolveWith((states) {
-          return BoxDecoration(
-            border: Border.all(
-              color: ButtonThemeData.checkedInputColor(theme, states),
-              width: !states.isDisabled
-                  ? states.isHovering && !states.isPressing
-                      ? 3.4
-                      : 5.0
-                  : 4.0,
-            ),
-            shape: BoxShape.circle,
-            color: activeColor ?? theme.resources.textOnAccentFillColorPrimary,
-          );
-        }),
-        uncheckedDecoration: ButtonState.resolveWith((states) {
-          return BoxDecoration(
-            color: ButtonState.forStates(
-              states,
-              disabled: theme.resources.controlAltFillColorDisabled,
-              pressed: theme.resources.controlAltFillColorQuarternary,
-              hovering: theme.resources.controlAltFillColorTertiary,
-              none: theme.resources.controlAltFillColorSecondary,
-            ),
-            border: Border.all(
-              width: states.isPressing ? 4.5 : 1,
-              color: ButtonState.forStates(
-                states,
-                disabled: theme.resources.textFillColorDisabled,
-                pressed: theme.accentColor.defaultBrushFor(theme.brightness),
-                none: disabledColor ?? theme.resources.textFillColorTertiary,
-              ),
-            ),
-            shape: BoxShape.circle,
-          );
-        }),
+    return RadioButton(
+      content: label,
+      checked: _selected,
+      semanticLabel: semanticLabel,
+      style: RadioButtonThemeData(
+        foregroundColor:
+            foregroundColor != null ? ButtonState.all(foregroundColor) : null,
+        checkedDecoration: activeColor != null
+            ? ButtonState.resolveWith((states) {
+                return BoxDecoration(
+                  border: Border.all(
+                    color: ButtonThemeData.checkedInputColor(theme, states),
+                    width: !states.isDisabled
+                        ? states.isHovering && !states.isPressing
+                            ? 3.4
+                            : 5.0
+                        : 4.0,
+                  ),
+                  shape: BoxShape.circle,
+                  color: activeColor ??
+                      theme.resources.textOnAccentFillColorPrimary,
+                );
+              })
+            : null,
+        uncheckedDecoration: inactiveColor != null
+            ? ButtonState.resolveWith((states) {
+                return BoxDecoration(
+                  color: ButtonState.forStates(
+                    states,
+                    disabled: theme.resources.controlAltFillColorDisabled,
+                    pressed: theme.resources.controlAltFillColorQuarternary,
+                    hovering: theme.resources.controlAltFillColorTertiary,
+                    none: theme.resources.controlAltFillColorSecondary,
+                  ),
+                  border: Border.all(
+                    width: states.isPressing ? 4.5 : 1,
+                    color: ButtonState.forStates(
+                      states,
+                      disabled: theme.resources.textFillColorDisabled,
+                      pressed:
+                          theme.accentColor.defaultBrushFor(theme.brightness),
+                      none: inactiveColor ??
+                          theme.resources.textFillColorTertiary,
+                    ),
+                  ),
+                  shape: BoxShape.circle,
+                );
+              })
+            : null,
       ),
-      child: RadioButton(
-        content: label,
-        checked: _selected,
-        semanticLabel: semanticLabel,
-        onChanged: _enabled ? (_) => onChanged!(value) : null,
-      ),
+      onChanged: _enabled ? (_) => onChanged!(value) : null,
     );
   }
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
-    return MacosRadioButton<T>(
-      value: value,
-      onColor: activeColor,
-      groupValue: groupValue,
-      offColor: disabledColor ?? CupertinoColors.tertiaryLabel,
-      onChanged: (value) => onChanged?.call(value as T),
-      semanticLabel: semanticLabel,
-    )
-        .margeWith(
-          label != null
-              ? GestureDetector(
-                  onTap: _enabled ? () => onChanged!(value) : null,
-                  child: label,
-                )
-              : null,
-          4.0,
-        )
-        .applyDisabledEffect(!_enabled);
+    final theme = MacosTheme.of(context);
+
+    final buildLabel = label != null
+        ? GestureDetector(
+            onTap: () => onChanged?.call(value),
+            child: MacosIconTheme(
+              data: theme.iconTheme.copyWith(
+                color: foregroundColor,
+              ),
+              child: DefaultTextStyle(
+                style: theme.typography.body.copyWith(
+                  color: foregroundColor,
+                  fontWeight: MacosFontWeight.w300,
+                  fontSize: 14.0,
+                ),
+                child: label!,
+              ),
+            ),
+          )
+        : null;
+
+    return MacosIconButton(
+      pressedOpacity: 0.95,
+      padding: EdgeInsets.zero,
+      mouseCursor: SystemMouseCursors.click,
+      boxConstraints: const BoxConstraints.tightFor(height: 20.0, width: 20.0),
+      onPressed: () =>  onChanged?.call(value),
+      icon: MacosRadioButton<T>(
+        size: 20.0,
+        value: value,
+        groupValue: groupValue,
+        onColor: activeColor,
+        offColor: inactiveColor ?? CupertinoColors.tertiaryLabel,
+        semanticLabel: semanticLabel,
+        onChanged: (value) => onChanged?.call(value as T),
+      ),
+    ).margeWith(buildLabel, 6.0).applyDisabledEffect(!_enabled);
   }
 }

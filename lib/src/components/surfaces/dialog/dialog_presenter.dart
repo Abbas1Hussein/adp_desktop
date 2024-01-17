@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../../../core/common/construct/properties.dart';
-import '../../buttons/flat_button/flat_button.dart';
-import '../../buttons/flat_button/platforms/platforms.dart';
+import '../../buttons/buttons.dart';
 import '../surfaces.dart';
 
 /// A utility class for presenting different types of adaptive dialogs.
@@ -38,15 +36,11 @@ abstract final class DialogPresenter {
       builder: (context) => AdaptiveDialog(
         title: Text(title),
         content: Text(message),
-        primary: AdaptiveFlatButton(
+        primary: AdaptiveButton(
           child: Text(confirmLabel),
           onPressed: () => Navigator.pop(context, true),
         ),
-        secondary: AdaptiveFlatButton(
-          properties: Properties.macos(
-            FlatButtonMacosProperty(
-                secondary: true, semanticLabel: cancelLabel),
-          ),
+        secondary: AdaptiveButton(
           onPressed: () => Navigator.pop(context, false),
           child: Text(cancelLabel),
         ),
@@ -74,7 +68,7 @@ abstract final class DialogPresenter {
       builder: (context) => AdaptiveDialog(
         title: Text(title),
         content: Text(message),
-        primary: AdaptiveFlatButton(
+        primary: AdaptiveButton(
           child: Text(confirmLabel),
           onPressed: () => Navigator.pop(context),
         ),

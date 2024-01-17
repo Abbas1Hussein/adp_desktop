@@ -2,13 +2,13 @@ import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import 'buttons/checkbox.dart';
+import 'buttons/text_button.dart';
 
 void main() async {
   DefaultsPlatformManager.initialize(
     isDebugging: true,
     DesktopTargetPlatform.windows,
-    targetWeb: DesktopTargetPlatform.macOS,
+    targetWeb: DesktopTargetPlatform.windows,
   );
   runApp(const App());
 }
@@ -128,7 +128,7 @@ class FirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Checked());
+    return const Center(child: TextButton());
   }
 }
 
