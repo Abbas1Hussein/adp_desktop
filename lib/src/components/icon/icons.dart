@@ -753,6 +753,10 @@ enum AdpIcons {
     cupertino: CupertinoIcons.keyboard,
     fluent: FluentIcons.keyboard_24_filled,
   ),
+  language(
+    cupertino: Icons.language,
+    fluent: FluentIcons.local_language_24_filled,
+  ),
   lab(
     cupertino: CupertinoIcons.lab_flask,
     fluent: FluentIcons.beaker_24_regular,
@@ -1297,5 +1301,10 @@ enum AdpIcons {
 }
 
 extension AdaptiveIconsEx on AdpIcons {
-  IconData get platform => adaptiveValue<IconData>(macos: () => cupertino, windows: () => fluent);
+  IconData get platform {
+    return adaptiveValue<IconData>(
+      macos: () => cupertino,
+      windows: () => fluent,
+    );
+  }
 }

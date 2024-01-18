@@ -1,5 +1,5 @@
 export 'Indicators/indicators.dart';
-export 'additional/additional.dart';
+export 'additional/additional.dart'  hide PageRouteBuilder;
 export 'buttons/buttons.dart';
 export 'fields/fields.dart';
 export 'icon/icon.dart';

@@ -24,13 +24,13 @@ void main() {
         const AdaptiveActionDivider(),
         AdaptiveActionPulldownButton(
           label: 'menu',
-          icon: AdpIcons.drop,
+          icon: AdpIcons.drop.platform,
           items: [
-            AdaptivePulldownMenuItem(
+            AdaptiveActionPulldownItem(
               child: const Text('Option 1'),
               onTap: () {},
             ),
-            AdaptivePulldownMenuItem(
+            AdaptiveActionPulldownItem(
               child: const Text('Option 2'),
               onTap: () {},
             ),

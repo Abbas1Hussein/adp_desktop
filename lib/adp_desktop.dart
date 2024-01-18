@@ -8,6 +8,7 @@ import 'package:macos_ui/macos_ui.dart';
 import 'src/components/components.dart';
 import 'src/core/core.dart';
 
+export 'package:flutter/widgets.dart';
 export 'src/components/components.dart';
 export 'src/core/core.dart';
 
@@ -342,8 +343,8 @@ class AdpApp
         backButtonDispatcher: backButtonDispatcher,
         routeInformationParser: routeInformationParser,
         routeInformationProvider: routeInformationProvider,
-        theme: property?.theme,
-        darkTheme: property?.darkTheme,
+        theme: property?.theme ?? FluentThemeData.light(),
+        darkTheme: property?.darkTheme ?? FluentThemeData.dark(),
         shortcuts: property?.shortcuts ?? shortcuts,
         showSemanticsDebugger: showSemanticsDebugger,
         showPerformanceOverlay: showPerformanceOverlay,
@@ -372,8 +373,8 @@ class AdpApp
       onUnknownRoute: onUnknownRoute,
       onGenerateRoute: onGenerateRoute,
       onGenerateTitle: onGenerateTitle,
-      theme: property?.theme,
-      darkTheme: property?.darkTheme,
+      theme: property?.theme ?? FluentThemeData.light(),
+      darkTheme: property?.darkTheme ?? FluentThemeData.dark(),
       shortcuts: property?.shortcuts ?? shortcuts,
       navigatorObservers: navigatorObservers,
       restorationScopeId: restorationScopeId,

@@ -155,16 +155,42 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
-    final textStyle = DefaultTextStyle.of(context).style.copyWith(
-          color: MacosDynamicColor.resolve(
-            MacosTheme.brightnessOf(context).resolve(
-              MacosColors.placeholderTextColor,
-              CupertinoColors.secondaryLabel,
-            ),
-            context,
+    final typography = MacosTheme.of(context).typography;
+
+    final tile = Row(
+      children: [
+        if (leading != null)
+          Padding(
+            padding: const EdgeInsetsDirectional.only(end: 8),
+            child: leading,
           ),
-          fontWeight: MacosFontWeight.w400,
-        );
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (title != null)
+                DefaultTextStyle.merge(
+                  style: typography.headline.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  child: title!,
+                ),
+              if (subtitle != null)
+                DefaultTextStyle.merge(
+                  style: typography.subheadline.copyWith(
+                    color: MacosTheme.brightnessOf(context) == Brightness.dark
+                        ? MacosColors.systemGrayColor
+                        : const MacosColor(0xff88888C),
+                  ),
+                  child: subtitle!,
+                ),
+            ],
+          ),
+        ),
+        if (trailing != null) trailing!,
+      ],
+    );
 
     return ConstrainedBox(
       constraints: _kListTileConstraints,
@@ -176,29 +202,9 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
         onLongPress: enabled ? onLongPress : null,
         pressedColor: pressColor,
         disabledColor: disabledColor,
-        backgroundColor:
-            backgroundColor ?? (useBackgroundColor ? null : Colors.transparent),
+        backgroundColor: backgroundColor ?? (useBackgroundColor ? null : Colors.transparent),
         hoverColor: hoverColor ?? CupertinoColors.secondaryLabel,
-        child: MacosListTile(
-          leading: leading != null
-              ? MacosIconTheme(
-                  data: MacosIconTheme.of(context), child: leading!)
-              : null,
-          title: Flexible(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (title != null) title!,
-                if (trailing != null)
-                  DefaultTextStyle(
-                    style: textStyle,
-                    child: FittedBox(child: trailing!),
-                  )
-              ],
-            ),
-          ),
-          subtitle: subtitle,
-        ),
+        child: tile,
       ),
     );
   }

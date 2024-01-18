@@ -11,12 +11,12 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   /// The [size] and [color] default to the value given by the current platform Theme.
   const AdaptiveIcon(
     this.adaptiveIcons, {
+    super.key,
+    super.builders,
     this.size,
     this.color,
     this.semanticLabel,
     this.textDirection,
-    super.key,
-    super.builders,
   })  : cupertino = null,
         fluent = null;
 
@@ -24,16 +24,29 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   ///
   /// - On Windows: [fluent] icon is used.
   /// - On Macos: [cupertino]  icon is used.
-  const AdaptiveIcon.custom({
-    required this.fluent,
-    required this.cupertino,
+  const AdaptiveIcon.from({
+    super.key,
+    super.builders,
     this.size,
     this.color,
     this.semanticLabel,
     this.textDirection,
+    required IconData this.fluent,
+    required IconData this.cupertino,
+  }) : adaptiveIcons = null;
+
+  /// Creates a new adaptive icon with one icons for all platforms.
+  const AdaptiveIcon.all(
+    IconData iconData, {
     super.key,
     super.builders,
-  }) : adaptiveIcons = null;
+    this.size,
+    this.color,
+    this.semanticLabel,
+    this.textDirection,
+  })  : cupertino = iconData,
+        fluent = iconData,
+        adaptiveIcons = null;
 
   /// The size of the icon in logical pixels.
   ///
@@ -57,12 +70,12 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
 
   /// The Fluent UI icon data to be displayed on Windows [FluentIcons].
   ///
-  /// used on [AdaptiveIcon.custom].
+  /// used on [AdaptiveIcon.from].
   final IconData? fluent;
 
   /// The Cupertino icon data to be displayed on macOS [CupertinoIcons].
   ///
-  /// used on [AdaptiveIcon.custom].
+  /// used on [AdaptiveIcon.from].
   final IconData? cupertino;
 
   /// Semantic label for the icon.
@@ -97,4 +110,3 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
     );
   }
 }
-

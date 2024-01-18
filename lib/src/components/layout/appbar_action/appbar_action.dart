@@ -3,7 +3,6 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/model.dart';
 import '../../buttons/menu/pulldown/pulldown_item.dart';
-import '../../icon/icons.dart';
 
 /// An abstract class representing an entry in the adaptive action.
 ///
@@ -103,28 +102,28 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
   final String label;
 
   /// The icon data representing the pulldown button.
-  final AdpIcons icon;
+  final IconData icon;
 
   /// An optional message to be displayed as a tooltip for the pulldown button.
   final String? tooltipMessage;
 
   /// The list of items to be displayed in the pulldown menu.
-  final List<AdaptivePulldownMenuItemEntry<void>> items;
+  final List<AdaptiveActionPulldownMenuItemEntry> items;
 
   @override
   ToolBarPullDownButton toMacos(BuildContext context) {
     return ToolBarPullDownButton(
       label: label,
-      icon: icon.cupertino,
+      icon: icon,
       tooltipMessage: tooltipMessage ?? label,
       items: items
           .map((e) {
-            if (e is AdaptivePulldownMenuItem) {
+            if (e is AdaptiveActionPulldownItem) {
               return MacosPulldownMenuItem(
                 onTap: e.onTap,
                 label: _extractLabel(e),
                 title: e.buildListTile(context),
-                enabled: e.enabled ?? false,
+                enabled: e.enabled ?? true,
               );
             }
             return const MacosPulldownMenuDivider();
@@ -155,10 +154,10 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
       message: tooltipMessage ?? label,
       child: DropDownButton(
         title: Text(label),
-        leading: Icon(icon.fluent),
+        leading: Icon(icon),
         items: items
             .map((e) {
-              if (e is AdaptivePulldownMenuItem) {
+              if (e is AdaptiveActionPulldownItem) {
                 return MenuFlyoutItem(
                   text: e.child,
                   leading: e.leading,
@@ -174,6 +173,26 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
       ),
     );
   }
+}
+
+abstract class AdaptiveActionPulldownMenuItemEntry {
+  const AdaptiveActionPulldownMenuItemEntry();
+}
+
+class AdaptiveActionPulldownItem extends AdaptivePulldownMenuItem
+    implements AdaptiveActionPulldownMenuItemEntry {
+  const AdaptiveActionPulldownItem({
+    super.onTap,
+    super.enabled,
+    super.leading,
+    super.trailing,
+    required super.child,
+  });
+}
+
+class AdaptiveActionPulldownDivider
+    extends AdaptiveActionPulldownMenuItemEntry {
+  const AdaptiveActionPulldownDivider();
 }
 
 class AdaptiveActionCustomItem extends AdaptiveActionEntry {
