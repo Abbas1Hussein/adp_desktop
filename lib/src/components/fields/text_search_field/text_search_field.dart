@@ -58,23 +58,26 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
-    return AutoSuggestBox<T>(
-      style: style,
-      focusNode: focusNode,
-      decoration: decoration,
-      controller: controller,
-      autofocus: autofocus,
-      inputFormatters: inputFormatters,
-      placeholderStyle: placeholderStyle,
-      onChanged: (text, reason) => onChanged?.call(text),
-      placeholder: placeholder ?? FluentLocalizations.of(context).searchLabel,
-      noResultsFoundBuilder:
-          emptyWidget != null ? (context) => emptyWidget! : null,
-      items: suggestions.map((e) => e.toWindows(context)).toList(),
-      onSelected: (value) {
-        onSelected?.call(AdaptiveSearchItem.fromAutoSuggestBoxItem(value));
-      },
-      enabled: enabled,
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: AutoSuggestBox<T>(
+        style: style,
+        focusNode: focusNode,
+        decoration: decoration,
+        controller: controller,
+        autofocus: autofocus,
+        inputFormatters: inputFormatters,
+        placeholderStyle: placeholderStyle,
+        onChanged: (text, reason) => onChanged?.call(text),
+        placeholder: placeholder ?? FluentLocalizations.of(context).searchLabel,
+        noResultsFoundBuilder:
+            emptyWidget != null ? (context) => emptyWidget! : null,
+        items: suggestions.map((e) => e.toWindows(context)).toList(),
+        onSelected: (value) {
+          onSelected?.call(AdaptiveSearchItem.fromAutoSuggestBoxItem(value));
+        },
+        enabled: enabled,
+      ),
     );
   }
 

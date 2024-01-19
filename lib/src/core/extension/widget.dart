@@ -34,9 +34,12 @@ extension ApplyDisabledEffect on Widget {
   /// If [isDisabled] is `true`, the opacity is set to [disabledOpacity], indicating a disabled state;
   /// otherwise, the opacity is set to 1, indicating an enabled state.
   ///
-  /// The animation duration is set to 80 milliseconds for a smooth transition.
-  Widget applyDisabledEffect(bool isDisabled,
-      [double disabledOpacity = 0.5, bool? ignoringPointer]) {
+  /// The animation duration is set to 120 milliseconds for a smooth transition.
+  Widget applyDisabledEffect(
+    bool isDisabled, [
+    double disabledOpacity = 0.5,
+    bool? ignoringPointer,
+  ]) {
     return IgnorePointer(
       ignoring: ignoringPointer ?? isDisabled,
       child: AnimatedOpacity(

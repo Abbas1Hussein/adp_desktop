@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
@@ -143,13 +144,19 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
             child: label!,
           )
         : null;
+
     return MacosIconButton(
       icon: icon.margeWith(buildLabel),
       onPressed: onPressed,
       borderRadius: borderRadius,
       backgroundColor: backgroundColor,
       disabledColor: disabledColor?.withOpacity(0.6),
-      hoverColor: hoverColor ?? backgroundColor?.withOpacity(0.8),
+      hoverColor: hoverColor ??
+          backgroundColor?.withOpacity(0.8) ??
+          MacosTheme.brightnessOf(context).resolve(
+            const Color(0xffE5E5E5),
+            const Color(0xff3C383C),
+          ),
       boxConstraints: constraints,
     );
   }

@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
@@ -121,7 +120,13 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
         onLongPress: enabled ? onLongPress : null,
         child: ListTile(
           shape: shape,
-          title: title,
+          title: title != null
+              ? DefaultTextStyle.merge(
+                  style: theme.typography.body
+                      ?.copyWith(fontSize: 15, fontWeight: FontWeight.w500),
+                  child: title!,
+                )
+              : null,
           leading: leading,
           subtitle: subtitle,
           trailing: trailing,
@@ -202,8 +207,9 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
         onLongPress: enabled ? onLongPress : null,
         pressedColor: pressColor,
         disabledColor: disabledColor,
-        backgroundColor: backgroundColor ?? (useBackgroundColor ? null : Colors.transparent),
-        hoverColor: hoverColor ?? CupertinoColors.secondaryLabel,
+        backgroundColor:
+            backgroundColor ?? (useBackgroundColor ? null : Colors.transparent),
+        hoverColor: hoverColor,
         child: tile,
       ),
     );

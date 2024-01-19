@@ -172,10 +172,7 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
             padding: displayMode == PaneDisplayMode.top
                 ? const EdgeInsets.symmetric(horizontal: 4.0)
                 : EdgeInsets.zero,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 30.0),
-              child: searchField?.windows(context),
-            ),
+            child: searchField?.windows(context),
           )
         : null;
 

@@ -143,12 +143,6 @@ class AdaptivePopupMenuButton<T> extends CoreAdaptiveComponent {
   /// this widget is displayed as a placeholder for the popup button's value.
   final Widget? disabledPlaceholder;
 
-  /// {@macro flutter.widgets.Focus.focusNode}
-  final FocusNode? focusNode;
-
-  /// {@macro flutter.widgets.Focus.autofocus}
-  final bool autofocus;
-
   /// A builder to customize the popup buttons corresponding to the
   /// [AdaptivePopupMenuItem]s in [items].
   ///
@@ -159,6 +153,12 @@ class AdaptivePopupMenuButton<T> extends CoreAdaptiveComponent {
   /// If this callback is null, the [AdaptivePopupMenuItem] from [items]
   /// that matches [value] will be displayed.
   final PopupMenuButtonBuilder? selectedItemBuilder;
+
+  /// {@macro flutter.widgets.Focus.autofocus}
+  final bool autofocus;
+
+  /// {@macro flutter.widgets.Focus.focusNode}
+  final FocusNode? focusNode;
 
   bool get hasValue => value != null;
 
@@ -199,9 +199,9 @@ class AdaptivePopupMenuButton<T> extends CoreAdaptiveComponent {
         focusNode: focusNode,
         autofocus: autofocus,
         popupColor: popupColor,
+        selectedItemBuilder: selectedItemBuilder,
         hint: hasValue ? null : placeholder,
         disabledHint: hasValue ? null : disabledPlaceholder,
-        selectedItemBuilder: selectedItemBuilder,
         itemHeight: isExpanded ? 28.0 : 24.0,
         items: items?.map((e) => e.toMacos(context)).toList(),
       ).applyDisabledEffect(onChanged == null),

@@ -28,8 +28,6 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
     super.builders,
     this.label,
     this.icon,
-    this.value,
-    this.onChanged,
     this.semanticLabel,
     this.foregroundColor,
     this.checkedIconColor,
@@ -38,6 +36,8 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
     this.checkedDecoration,
     this.uncheckedDecoration,
     this.thirdstateDecoration,
+    required this.value,
+    required this.onChanged,
   });
 
   /// The current value of the AdaptiveCheckbox (true for checked, false for unchecked).

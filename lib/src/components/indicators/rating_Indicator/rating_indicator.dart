@@ -114,8 +114,10 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
         color: MacosDynamicColor.resolve(ratedColor, context),
       ),
       unratedColor: MacosDynamicColor.resolve(
-          unratedIconColor ?? CupertinoColors.inactiveGray, context),
+        unratedIconColor ?? CupertinoColors.inactiveGray,
+        context,
+      ),
       semanticLabel: semanticLabel,
-    ).applyDisabledEffect(onChanged == null, 0.2);
+    ).applyDisabledEffect(onChanged != null);
   }
 }

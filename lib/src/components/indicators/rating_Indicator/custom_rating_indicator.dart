@@ -19,6 +19,7 @@ class CustomRatingBarIndicator extends StatelessWidget {
 
   /// The number of items in the rating bar.
   final int amount;
+
   /// The color for unrated items.
   final Color unratedColor;
 
@@ -36,6 +37,8 @@ class CustomRatingBarIndicator extends StatelessWidget {
 
   /// The semantic label used by screen readers.
   final String? semanticLabel;
+
+  bool get isDisabled => onChanged == null;
 
   @override
   Widget build(BuildContext context) {

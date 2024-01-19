@@ -17,7 +17,6 @@ class TextFormFieldMacos extends StatelessWidget {
 
   final AdaptiveFormFieldProperties? adpProperties;
 
-
   @override
   Widget build(BuildContext context) {
     return TextFieldTapRegion(
@@ -317,10 +316,7 @@ class _MacosTextFormField extends FormField<String> {
                   ),
                   if (field.errorText != null)
                     _buildDefaultErrorMessage(
-                      field.errorText!,
-                      errorHighlightColor,
-                      context,
-                    ),
+                        field.errorText!, errorHighlightColor, context),
                 ],
               ),
             );
