@@ -67,12 +67,16 @@ class AdaptiveProgressBarIndicator extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    final theme = FluentTheme.of(context);
+
     return ProgressBar(
       strokeWidth: height,
       value: clampedValue,
       semanticLabel: semanticLabel,
       activeColor: activeTrackColor,
-      backgroundColor: inactiveTrackColor,
+      backgroundColor: inactiveTrackColor??(theme.brightness == Brightness.dark
+          ? FluentTheme.of(context).cardColor
+          : null),
     );
   }
 

@@ -63,6 +63,7 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    final theme = FluentTheme.of(context);
     return SizedBox(
       height: radius * 2,
       width: radius * 2,
@@ -70,7 +71,9 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
         value: progressValue,
         activeColor: activeColor,
         semanticLabel: semanticLabel,
-        backgroundColor: inactiveColor,
+        backgroundColor: inactiveColor ??(theme.brightness == Brightness.dark
+                ? FluentTheme.of(context).cardColor
+                : null),
       ),
     );
   }

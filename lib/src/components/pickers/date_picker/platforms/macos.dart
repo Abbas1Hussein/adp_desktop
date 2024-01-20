@@ -21,9 +21,9 @@ class MacosDatePickerButton extends MacosPickerButton {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(month.substring(0, 3)),
-        kVerticalDivider,
+        verticalDivider(context),
         Text(day),
-        kVerticalDivider,
+        verticalDivider(context),
         Text(year),
       ],
     );

@@ -175,9 +175,10 @@ class MacosButtonState extends State<MacosButton>
                   child: Container(
                     constraints: const BoxConstraints(minHeight: 25),
                     decoration: ShapeDecoration(
-                      shape: widget.shape ?? const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4))
-                      ),
+                      shape: widget.shape ??
+                          const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4))),
                       color: buttonHeldDown
                           ? pressedColor
                           : (_isHovered ? hoverColor : fillColor),
@@ -185,8 +186,15 @@ class MacosButtonState extends State<MacosButton>
                     child: Padding(
                       padding: widget.padding ??
                           const EdgeInsets.symmetric(
-                              vertical: 6.0, horizontal: 13.0),
-                      child: widget.child,
+                            vertical: 6.0,
+                            horizontal: 13.0,
+                          ),
+                      child: Align(
+                        heightFactor: 1.0,
+                        widthFactor: 1.0,
+                        alignment: Alignment.center,
+                        child: widget.child,
+                      ),
                     ),
                   ),
                 );

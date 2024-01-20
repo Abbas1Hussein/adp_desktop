@@ -118,6 +118,6 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
         context,
       ),
       semanticLabel: semanticLabel,
-    ).applyDisabledEffect(onChanged != null);
+    ).applyDisabledEffect(onChanged == null);
   }
 }

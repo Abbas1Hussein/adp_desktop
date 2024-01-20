@@ -1,29 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../buttons/button/macos.dart';
+import '../surfaces/divider/divider.dart';
 import 'date_picker_formatter.dart';
 
 const kPickerButtonConstraints = BoxConstraints(
   maxHeight: 40.0,
-  maxWidth: 250.0,
-);
-
-const kVerticalDivider = Padding(
-  padding: EdgeInsets.symmetric(vertical: 10.5),
-  child: VerticalDivider(
-    color: CupertinoColors.quaternarySystemFill,
-    thickness: 2.0,
-  ),
-);
-
-const kCupertinoActionStyle = TextStyle(
-  fontFamily: '.SF UI Text',
-  inherit: false,
-  fontSize: 15.8,
-  fontWeight: MacosFontWeight.w400,
-  color: MacosColors.systemBlueColor,
-  textBaseline: TextBaseline.alphabetic,
+  maxWidth: 295.0,
 );
 
 abstract class MacosPickerButton extends BaseDateFormatter {
@@ -38,17 +22,26 @@ abstract class MacosPickerButton extends BaseDateFormatter {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle textStyle =
+        CupertinoTheme.of(context).textTheme.pickerTextStyle.copyWith(
+              color: MacosTheme.of(context).typography.body.color,
+            );
+
+    final Color? resolvedBackgroundColor = MacosDynamicColor.maybeResolve(null, context);
     return ConstrainedBox(
       constraints: kPickerButtonConstraints,
-      child: CupertinoContextMenuAction(
+      child: MacosButton(
         onPressed: onPressed,
+        backgroundColor: resolvedBackgroundColor,
         child: DefaultTextStyle(
-          style: kCupertinoActionStyle,
-          child: child(context),
-        ),
+            style: textStyle, maxLines: 1, child: child(context)),
       ),
     );
   }
 
   Widget child(BuildContext context);
+
+  Widget verticalDivider(BuildContext context) {
+    return const AdaptiveDivider(direction: Axis.vertical).macos(context);
+  }
 }

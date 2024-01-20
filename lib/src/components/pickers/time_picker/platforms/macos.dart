@@ -39,9 +39,9 @@ class TimePickerMacosButton extends MacosPickerButton {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         buildTimeComponent('${timeOfDay.hourOfPeriod}', 'h'),
-        kVerticalDivider,
+        verticalDivider(context),
         buildTimeComponent('${timeOfDay.minute}', 'm'),
-        kVerticalDivider,
+        verticalDivider(context),
         Text(amPm),
       ],
     );
@@ -50,10 +50,7 @@ class TimePickerMacosButton extends MacosPickerButton {
   Widget buildTimeComponent(String value, String unit) {
     return Row(
       children: [
-        Text(
-          value,
-          style: kCupertinoActionStyle.copyWith(fontSize: 18.5),
-        ),
+        Text(value),
         const SizedBox(width: 2.0),
         Baseline(
           baseline: 25,
@@ -110,10 +107,7 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
   Widget build(BuildContext context) {
     if (widget.property?.mode == MacosTimePickerMode.cupertinoButton) {
       return ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: kPickerButtonConstraints.maxHeight,
-          maxWidth: kPickerButtonConstraints.maxWidth * 2,
-        ),
+        constraints: kPickerButtonConstraints,
         child: _buildCupertinoTimePicker(),
       );
     }
@@ -161,7 +155,8 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
     final result = await MacosDialogPicker(
       context,
       localizations,
-      picker: isCupertino ? _buildCupertinoTimePicker() : _buildMacosTimePicker(),
+      picker:
+          isCupertino ? _buildCupertinoTimePicker() : _buildMacosTimePicker(),
     ).showMacosTimePicker(
       isCupertino,
       showIcon,
