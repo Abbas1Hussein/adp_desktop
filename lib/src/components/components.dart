@@ -10,3 +10,4 @@ export 'navigation/navigation.dart';
 export 'pickers/pickers.dart';
 export 'surfaces/surfaces.dart';
 export 'transitions/transitions.dart';
+export 'app/app.dart';

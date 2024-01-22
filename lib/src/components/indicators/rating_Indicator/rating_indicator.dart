@@ -8,7 +8,7 @@ import '../../../core/extension/widget.dart';
 import '../../icon/icons.dart';
 import 'custom_rating_indicator.dart';
 
-const kRatingBarIcon = AdpIcons.starFilled;
+const _kRatingBarIcon = AdpIcons.starFilled;
 
 /// The rating bar allows users to view and set ratings that
 /// reflect degrees of satisfaction with content and services.
@@ -40,7 +40,7 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
     this.unratedIconColor,
     this.ratedIconColor,
     this.semanticLabel,
-    this.icon = kRatingBarIcon,
+    this.icon = _kRatingBarIcon,
     required this.amount,
     required this.rating,
   })  : assert(rating >= 0 && rating <= amount,
@@ -59,7 +59,7 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
   /// The space between each icon.
   final double spacing;
 
-  /// The icon used in the bar. If `null`, uses [kRatingBarIcon]
+  /// The icon used in the bar. If `null`, uses [_kRatingBarIcon]
   final AdpIcons icon;
 
   /// The size of the icon. If `null`, uses 20px.

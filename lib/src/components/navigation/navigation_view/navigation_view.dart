@@ -151,10 +151,7 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
               builder: (context, scrollController) {
                 return ColoredBox(
                   color: backgroundColor ?? theme.canvasColor,
-                  child: DefaultTextStyle(
-                    style: theme.typography.body,
-                    child: body,
-                  ),
+                  child: DefaultTextStyle(style: theme.typography.body, child: body),
                 );
               },
             ),

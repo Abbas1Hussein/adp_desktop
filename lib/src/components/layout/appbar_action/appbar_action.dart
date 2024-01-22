@@ -113,8 +113,8 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
   @override
   ToolBarPullDownButton toMacos(BuildContext context) {
     return ToolBarPullDownButton(
-      label: label,
       icon: icon,
+      label: label,
       tooltipMessage: tooltipMessage ?? label,
       items: items
           .map((e) {
@@ -155,6 +155,7 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
       child: DropDownButton(
         title: Text(label),
         leading: Icon(icon),
+        closeAfterClick: false,
         items: items
             .map((e) {
               if (e is AdaptiveActionPulldownItem) {

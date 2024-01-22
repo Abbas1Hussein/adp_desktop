@@ -211,8 +211,7 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (header != null)
-                Align(
+              if (header != null) Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: DefaultTextStyle(
                     maxLines: 1,

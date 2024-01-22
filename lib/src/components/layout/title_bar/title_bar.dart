@@ -2,7 +2,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../../../core/common/adaptive.dart';
 import '../../../core/common/construct/builders.dart';
 import '../../../core/common/platform_ruining.dart';
 import '../../additional/color.dart';
@@ -73,16 +72,19 @@ class AdaptiveTitleBar extends StatefulWidget {
   State<AdaptiveTitleBar> createState() => _AdaptiveTitleBarState();
 }
 
-class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
-    with WindowListener {
+class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> with WindowListener {
+
   Future<String>? getTitle;
 
-  bool isMaximized = false;
+  late double height;
 
-  late double height = widget.config?.height ?? kWindowCaptionHeight;
+  late bool isMaximized = false;
+
 
   @override
   void initState() {
+    height = widget.config?.height ?? kWindowCaptionHeight;
+
     if (widget.config?.mode != TitleBarMode.hidden) {
       if (widget.config?.appTitle == null) {
         getTitle = windowManager.getTitle();

@@ -8,13 +8,9 @@ import '../../../../core/extension/time.dart';
 import '../../macos_button_picker.dart';
 import '../../macos_dialog_picker.dart';
 
-/// Enum representing the available modes for MacosTimePicker
+/// available modes for MacosTimePicker
 enum MacosTimePickerMode {
   /// Displayed MacosTimePicker with Macos Dialog.
-  ///
-  /// This mode not includes the option to set an [initialTime].
-  ///
-  /// For more details, see the pull request: https://github.com/macosui/macos_ui/pull/490
   macOS,
 
   /// Displayed CupertinoTimerPicker with Macos Dialog.
@@ -123,6 +119,7 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
     return FittedBox(
       fit: BoxFit.contain,
       child: MacosTimePicker(
+        initialTime: selectedDate,
         style: PlatformRuining.isFakeMacos
             ? TimePickerStyle.combined
             : TimePickerStyle.graphical,
@@ -188,11 +185,6 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
     setState(() {
       selectedDate = timeOfDay;
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
 

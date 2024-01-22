@@ -13,8 +13,8 @@ dependencies:
     sdk: flutter
 
 
-  macos_ui: ^2.0.2
-  fluent_ui: ^4.7.7
+  macos_ui: ^2.0.5
+  fluent_ui: ^4.8.5
   fluentui_system_icons: ^1.1.224
   window_manager: ^0.3.7
 

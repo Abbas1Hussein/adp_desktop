@@ -8,7 +8,7 @@ import '../../buttons/button/macos.dart';
 import '../../navigation/tab_view/tab_view.dart';
 
 const _kListTileContentPadding = kContentPadding;
-const _kListTileConstraints = BoxConstraints(maxHeight: 48.0, minWidth: 48.0);
+const _kListTileConstraints = BoxConstraints(minHeight: 48.0, minWidth: 48.0);
 
 /// A widget that aims to approximate the [ListTile] widget found in Flutter's material library.
 ///
