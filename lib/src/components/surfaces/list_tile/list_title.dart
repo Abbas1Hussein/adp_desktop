@@ -202,6 +202,7 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
       child: MacosButton(
         shape: shape,
         padding: contentPadding,
+        pressedOpacity: onTap == null ? 1.0 : 0.6,
         mouseCursor: mouseCursor ?? SystemMouseCursors.click,
         onPressed: enabled ? (onTap ?? () {}) : null,
         onLongPress: enabled ? onLongPress : null,

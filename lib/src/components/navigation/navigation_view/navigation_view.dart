@@ -136,11 +136,11 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
     final theme = MacosTheme.of(context);
 
     return ColoredBox(
-      color: theme.canvasColor,
+      color: backgroundColor ?? theme.canvasColor,
       child: MacosWindow(
         titleBar: property?.titleBar,
         sidebar: sidebar?.toMacos(context),
-        backgroundColor: theme.canvasColor,
+        backgroundColor: backgroundColor ?? theme.canvasColor,
         disableWallpaperTinting: property?.disableWallpaperTinting ?? false,
         sidebarState: property?.sidebarState ?? NSVisualEffectViewState.followsWindowActiveState,
         child: MacosScaffold(

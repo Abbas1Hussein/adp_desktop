@@ -132,6 +132,7 @@
           <value>
             <list>
               <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/macos_ui-2.0.5/lib" />
+              <option value="$USER_HOME$/AppData/Local/Pub/Cache/git/macos_ui-908bb8b5e0d989ec1758107f7fda5211d4f74901//lib" />
             </list>
           </value>
         </entry>
@@ -278,6 +279,7 @@
       </option>
     </properties>
     <CLASSES>
+      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/git/macos_ui-908bb8b5e0d989ec1758107f7fda5211d4f74901//lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/appkit_ui_element_colors-1.0.0/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1/lib" />
