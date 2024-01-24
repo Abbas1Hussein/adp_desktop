@@ -1,3 +1,4 @@
+import 'package:adp_desktop/src/core/extension/widget.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
@@ -119,11 +120,12 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
       items: items
           .map((e) {
             if (e is AdaptiveActionPulldownItem) {
+              final enabled = e.enabled;
               return MacosPulldownMenuItem(
                 onTap: e.onTap,
                 label: _extractLabel(e),
                 title: e.buildListTile(context),
-                enabled: e.enabled ?? true,
+                enabled: enabled != null ? !enabled : true,
               );
             }
             return const MacosPulldownMenuDivider();
@@ -134,10 +136,8 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
   }
 
   String? _extractLabel(AdaptivePulldownMenuItemEntry e) {
-    if (e is AdaptivePulldownMenuItem) {
-      if (e.value is String) {
-        return e.value.toString();
-      } else if (e.child is Text) {
+    if (e is AdaptiveActionPulldownItem) {
+      if (e.child is Text) {
         return (e.child as Text).data;
       } else if (e.leading is Text) {
         return (e.leading as Text).data;
@@ -157,14 +157,14 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
         leading: Icon(icon),
         closeAfterClick: false,
         items: items
-            .map((e) {
-              if (e is AdaptiveActionPulldownItem) {
+            .map((item) {
+              if (item is AdaptiveActionPulldownItem) {
+                final isDisabled = item.enabled ?? false;
                 return MenuFlyoutItem(
-                  text: e.child,
-                  leading: e.leading,
-                  trailing: e.trailing,
-                  onPressed: e.onTap,
-                  selected: e.enabled ?? false,
+                  text: item.child.applyDisabledEffect(isDisabled),
+                  trailing: item.trailing?.applyDisabledEffect(isDisabled),
+                  leading: item.leading?.applyDisabledEffect(isDisabled),
+                  onPressed: isDisabled ? null : item.onTap,
                 );
               }
               return const MenuFlyoutSeparator();

@@ -123,8 +123,7 @@ class PulldownMenuWindows<T> extends StatelessWidget {
       text: item.child.applyDisabledEffect(isDisabled),
       trailing: item.trailing?.applyDisabledEffect(isDisabled),
       leading: item.leading?.applyDisabledEffect(isDisabled),
-      onPressed:
-          !isDisabled ? () => _handelPressedItem(index, item, context) : null,
+      onPressed: !isDisabled ? () => _handelPressedItem(index, item, context) : null,
     );
   }
 
