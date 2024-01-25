@@ -98,21 +98,15 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
     implements CoreModel<Widget, ToolBarPullDownButton> {
   const AdaptiveActionPulldownButton({
     required this.items,
-    required this.label,
     required this.icon,
-    this.tooltipMessage,
+    required this.label,
   }) : assert(items.length > 0, 'You must provide at least one item');
-
-  /// The label text for the pulldown button.
-  ///
-  /// - on macos will showing only on OverflowMenu.
-  final String label;
 
   /// The icon data representing the pulldown button.
   final IconData icon;
 
-  /// An optional message to be displayed as a tooltip for the pulldown button.
-  final String? tooltipMessage;
+  /// message to be displayed as a tooltip for the pulldown button.
+  final String label;
 
   /// The list of items to be displayed in the pulldown menu.
   final List<AdaptiveActionPulldownMenuItemEntry> items;
@@ -122,7 +116,7 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
     return ToolBarPullDownButton(
       icon: icon,
       label: label,
-      tooltipMessage: tooltipMessage ?? label,
+      tooltipMessage: label,
       items: items
           .map((e) {
             if (e is AdaptiveActionPulldownItem) {
@@ -163,8 +157,9 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
   Widget toWindows(BuildContext context) {
     final theme = FluentTheme.of(context);
     return Tooltip(
-      message: tooltipMessage ?? label,
+      message: label,
       child: DropDownButton(
+        closeAfterClick: true,
         buttonBuilder: (context, onOpen) {
           return Button(
             style: ButtonStyle(
@@ -210,18 +205,27 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
           );
         },
         items: items
-            .map((item) {
-              if (item is AdaptiveActionPulldownItem) {
-                final isDisabled = item.enabled ?? false;
-                return MenuFlyoutItem(
-                  text: item.child.applyDisabledEffect(isDisabled),
-                  trailing: item.trailing?.applyDisabledEffect(isDisabled),
-                  leading: item.leading?.applyDisabledEffect(isDisabled),
-                  onPressed: isDisabled ? null : item.onTap,
-                );
-              }
-              return const MenuFlyoutSeparator();
-            })
+            .map(
+              (item) {
+                if (item is AdaptiveActionPulldownItem) {
+                  final isDisabled = item.enabled ?? false;
+
+                  onItemPressed() {
+                    Future.delayed(const Duration(microseconds: 100), () {
+                      item.onTap?.call();
+                    });
+                  }
+
+                  return MenuFlyoutItem(
+                    text: item.child.applyDisabledEffect(isDisabled),
+                    trailing: item.trailing?.applyDisabledEffect(isDisabled),
+                    leading: item.leading?.applyDisabledEffect(isDisabled),
+                    onPressed: isDisabled ? null : onItemPressed,
+                  );
+                }
+                return const MenuFlyoutSeparator();
+              },
+            )
             .whereType<MenuFlyoutItemBase>()
             .toList(),
       ),
