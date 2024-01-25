@@ -1,6 +1,5 @@
 import 'package:adp_desktop/adp_desktop.dart';
 
-
 /// Determines the target desktop platform based on the 'platform' environment variable.
 ///
 /// If the environment variable is set to 'macos', returns [DesktopTargetPlatform.macOS].
@@ -39,7 +38,7 @@ DesktopTargetPlatform getTargetPlatformFromEnvironment() {
 void initializeDesktopDefaultsTests([DesktopTargetPlatform? platform]) {
   final targetPlatform = platform ?? getTargetPlatformFromEnvironment();
   DefaultsPlatformManager.initialize(
-    targetPlatform,
+    targetPlatform: targetPlatform,
     isDebugging: true,
     isTesting: true,
   );

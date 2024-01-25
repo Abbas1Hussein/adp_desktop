@@ -96,7 +96,7 @@ abstract final class PlatformRuining {
 
   /// The target platform when in debugging mode, obtained from [kPlatformManager]. Null if not in debugging mode.
   static final _debugDesktopTargetPlatform =
-      isDebugging ? kPlatformManager!.desktopTargetPlatform : null;
+      isDebugging ? kPlatformManager!.targetPlatform : null;
 
   /// Check if the current or target platforms match the specified platform.
   static bool _isTargetPlatform(DesktopTargetPlatform platform) {

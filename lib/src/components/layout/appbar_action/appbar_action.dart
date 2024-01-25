@@ -16,6 +16,12 @@ abstract class AdaptiveActionEntry {
   const AdaptiveActionEntry();
 }
 
+class AdaptiveActionCustomItem extends AdaptiveActionEntry {
+  const AdaptiveActionCustomItem({required this.child});
+
+  final Widget child;
+}
+
 class AdaptiveActionDivider extends AdaptiveActionEntry
     implements CoreModel<Widget, ToolBarDivider> {
   const AdaptiveActionDivider();
@@ -122,7 +128,12 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
             if (e is AdaptiveActionPulldownItem) {
               final enabled = e.enabled;
               return MacosPulldownMenuItem(
-                onTap: e.onTap,
+                onTap: () {
+                  Future.delayed(
+                    const Duration(microseconds: 100),
+                    () => e.onTap?.call(),
+                  );
+                },
                 label: _extractLabel(e),
                 title: e.buildListTile(context),
                 enabled: enabled != null ? !enabled : true,
@@ -150,12 +161,54 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
 
   @override
   Widget toWindows(BuildContext context) {
+    final theme = FluentTheme.of(context);
     return Tooltip(
       message: tooltipMessage ?? label,
       child: DropDownButton(
-        title: Text(label),
-        leading: Icon(icon),
-        closeAfterClick: false,
+        buttonBuilder: (context, onOpen) {
+          return Button(
+            style: ButtonStyle(
+                backgroundColor: ButtonState.all(Colors.transparent),
+                shape: ButtonState.all(LinearBorder.none)),
+            onPressed: onOpen,
+            child: Builder(
+              builder: (context) {
+                final state = HoverButton.of(context).states;
+
+                return IconTheme.merge(
+                  data: const IconThemeData(size: 20.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Icon(icon),
+                      const SizedBox(width: 6.0),
+                      IconTheme.merge(
+                        data: IconThemeData(
+                          color: state.isDisabled
+                              ? theme.resources.textFillColorDisabled
+                              : state.isPressing
+                                  ? theme.resources.textFillColorTertiary
+                                  : state.isHovering
+                                      ? theme.resources.textFillColorSecondary
+                                      : theme.resources.textFillColorPrimary,
+                        ),
+                        child: AnimatedSlide(
+                          duration: theme.fastAnimationDuration,
+                          curve: Curves.easeInCirc,
+                          offset: state.isPressing
+                              ? const Offset(0, 0.1)
+                              : Offset.zero,
+                          child: const ChevronDown(),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        },
         items: items
             .map((item) {
               if (item is AdaptiveActionPulldownItem) {
@@ -194,11 +247,4 @@ class AdaptiveActionPulldownItem extends AdaptivePulldownMenuItem
 class AdaptiveActionPulldownDivider
     extends AdaptiveActionPulldownMenuItemEntry {
   const AdaptiveActionPulldownDivider();
-}
-
-class AdaptiveActionCustomItem extends AdaptiveActionEntry {
-  const AdaptiveActionCustomItem({required this.child});
-
-  /// The custom widget to be included as the item.
-  final Widget child;
 }

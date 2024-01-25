@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../../enum/target.dart';
+import '../enum/target.dart';
 
 /// Manages default configurations for the desktop platform.
 ///
@@ -18,11 +18,11 @@ import '../../enum/target.dart';
 /// ```
 class DefaultsPlatformManager {
   const DefaultsPlatformManager._(
-      this._platform, {
-        DesktopTargetPlatform? targetLinux,
-        DesktopTargetPlatform? targetWeb,
-        bool isDebugging = false,
-      })  : _targetLinux = targetLinux,
+    this._platform, {
+    DesktopTargetPlatform? targetLinux,
+    DesktopTargetPlatform? targetWeb,
+    bool isDebugging = false,
+  })  : _targetLinux = targetLinux,
         _targetWeb = targetWeb,
         _isDebugging = isDebugging;
 
@@ -38,22 +38,21 @@ class DefaultsPlatformManager {
   /// - [isTesting] is only for testing.
   ///
   /// Throws an error if the manager is already initialized.
-  factory DefaultsPlatformManager.initialize(
-      DesktopTargetPlatform platform, {
-        DesktopTargetPlatform? targetLinux,
-        DesktopTargetPlatform? targetWeb,
-        bool isDebugging = false,
-        @visibleForTesting bool isTesting = false,
-      }) {
-    if (_instance != null) {
-      throw StateError('DefaultsPlatformManager is already initialized.');
-    }
+  factory DefaultsPlatformManager.initialize({
+    required DesktopTargetPlatform targetPlatform,
+    DesktopTargetPlatform? targetLinux,
+    DesktopTargetPlatform? targetWeb,
+    bool isDebugging = true,
+    @visibleForTesting bool isTesting = false,
+  }) {
+    assert(_instance == null, 'DefaultsPlatformManager is already initialized.');
+
     if (!kIsWeb && !isTesting) {
       _initializeWindowConfiguration();
     }
 
     return _instance = DefaultsPlatformManager._(
-      platform,
+      targetPlatform,
       targetWeb: targetWeb,
       targetLinux: targetLinux,
       isDebugging: isDebugging,
@@ -67,36 +66,28 @@ class DefaultsPlatformManager {
     WidgetsFlutterBinding.ensureInitialized();
 
     await windowManager.ensureInitialized();
-    WindowOptions windowOptions = const WindowOptions(
-      titleBarStyle: TitleBarStyle.hidden,
-    );
-
-    windowManager.waitUntilReadyToShow(windowOptions, () async {
-      await windowManager.show();
-    });
+    const windowOptions = WindowOptions(titleBarStyle: TitleBarStyle.hidden);
+    await windowManager.waitUntilReadyToShow(windowOptions);
+    await windowManager.show();
   }
 
-  /// Gets the desktop target platform for the application.
-  DesktopTargetPlatform get desktopTargetPlatform => _platform;
-
-  /// Gets the target Linux platform or defaults to Windows if not specified.
-  DesktopTargetPlatform get targetLinux =>
-      _targetLinux ?? DesktopTargetPlatform.windows;
-
-  /// Gets the target web platform or defaults to Windows if not specified.
-  DesktopTargetPlatform get targetWeb =>
-      _targetWeb ?? DesktopTargetPlatform.windows;
-
-  /// Gets the debugging status for the application.
+  /// the debugging status for the application.
   bool get isDebugging => _isDebugging;
+
+  /// the desktop target platform for the application.
+  DesktopTargetPlatform get targetPlatform => _platform;
+
+  /// the target Linux platform or defaults to [targetPlatform] if not specified.
+  DesktopTargetPlatform get targetLinux => _targetLinux ?? _platform;
+
+  /// the target web platform or defaults to [targetPlatform] if not specified.
+  DesktopTargetPlatform get targetWeb => _targetWeb ?? _platform;
 
   /// Gets the singleton instance of DefaultsPlatformManager.
   ///
   /// Throws an error if the manager is not initialized.
-  static DefaultsPlatformManager? get instance {
-    if (_instance == null) {
-      throw StateError('DefaultsPlatformManager is not initialized.');
-    }
-    return _instance;
+  static DefaultsPlatformManager get instance {
+    assert(_instance != null, 'DefaultsPlatformManager is not initialized.');
+    return _instance!;
   }
 }
