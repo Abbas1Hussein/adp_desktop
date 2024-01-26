@@ -3,6 +3,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/adaptive.dart';
 
+/// a collection of color for different platforms, macOS and Windows, using Fluent UI and macOS UI libraries.
 abstract final class AdpColors {
   const AdpColors._();
 

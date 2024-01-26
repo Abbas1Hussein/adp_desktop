@@ -7,9 +7,9 @@ import '../../layout/appbar_action/appbar_action.dart';
 import '../../layout/appbar_action/extension.dart';
 
 /// Constants for default toolbar heights on different platforms
+const kTitleWidth = 250.0;
+const kLeadingWidth = 20.0;
 const kMacosToolbarHeight = 52.0;
-const kMacosTitleWidth = 150.0;
-const kMacosLeadingWidth = 20.0;
 const kWindowsToolbarHeight = 44.0;
 
 /// Insets for padding inside the navigation app bar
@@ -32,24 +32,25 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
     this.actions,
     this.leading,
     this.backButton,
-    this.leadingWidth,
     this.toolbarHeight,
     this.titleTextStyle,
     this.backgroundColor,
-    this.titleWidth,
+    this.titleWidth = kTitleWidth,
+    this.leadingWidth = kLeadingWidth,
     this.centerTitle = false,
     this.toolbarOpacity = 1.0,
     this.automaticallyImplyLeading = true,
   });
 
   final Key? key;
+
   /// The title of the adp navigation appBar .
   ///
   /// Typically a [Text] widget that contains the app name.
   final Widget? title;
 
   /// Specifies the width of the [title] in nav app bar.
-  final double? titleWidth;
+  final double titleWidth;
 
   /// Whether the [title] should be centered, Defaults is false.
   final bool centerTitle;
@@ -69,7 +70,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
   final Widget? leading;
 
   /// Specifies the width of the leading of the [AdaptiveNavigationAppBar].
-  final double? leadingWidth;
+  final double leadingWidth;
 
   /// Controls whether the [AdaptiveNavigationAppBar] should try to imply if the [leading] widget
   /// is null.
@@ -167,7 +168,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
                     (e) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 1.0),
-                        child: e.toWindows(context),
+                        child: e.toWindows(context,maxCustomItemHeight: toolbarHeight),
                       );
                     },
                   )
@@ -240,10 +241,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
     final styledLeading = leading != null
         ? DefaultTextStyle(
             style: theme.typography.body,
-            child: SizedBox(
-              width: leadingWidth ?? kMacosLeadingWidth,
-              child: leading!,
-            ),
+            child: SizedBox(width: leadingWidth, child: leading!),
           )
         : null;
 
@@ -251,6 +249,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
         ?.map(
           (e) => e.toMacOS(
             context,
+            maxCustomItemHeight: toolbarHeight,
             customItem: (child) {
               return DefaultTextStyle(
                 style: theme.typography.body,
@@ -276,7 +275,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
       ),
       centerTitle: centerTitle,
       automaticallyImplyLeading: false,
-      titleWidth: titleWidth ?? kMacosTitleWidth,
+      titleWidth: titleWidth,
       height: toolbarHeight ?? kMacosToolbarHeight,
       leading: canPop(context) ? _buildBackButton : styledLeading,
     );

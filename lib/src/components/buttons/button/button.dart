@@ -90,6 +90,7 @@ class AdaptiveButton extends AdaptiveBaseButton {
           onPressed: onPressed,
           onLongPress: onLongPress,
           child: DefaultTextStyle(
+            textAlign: TextAlign.center,
             style: FluentTheme.of(context)
                 .typography
                 .body!
@@ -177,7 +178,8 @@ class AdaptiveButton extends AdaptiveBaseButton {
           onLongPress: onLongPress,
           mouseCursor: mouseCursor,
           disabledColor: disabledColor,
-          backgroundColor: backgroundColor ?? MacosTheme.of(context).canvasColor,
+          backgroundColor:
+              backgroundColor ?? MacosTheme.of(context).canvasColor,
           pressedColor: pressedColor,
           hoverColor: hoverColor,
           child: DefaultTextStyle(

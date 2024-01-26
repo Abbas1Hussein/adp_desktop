@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:adp_desktop/adp_desktop.dart';
 
 /// adaptive brightness for different platforms.
-class AdaptiveBrightness {
+abstract final class AdaptiveBrightness {
+  const AdaptiveBrightness._();
+
   static Brightness of(BuildContext context) {
     return adaptiveValue(
       macos: () => MacosTheme.brightnessOf(context),

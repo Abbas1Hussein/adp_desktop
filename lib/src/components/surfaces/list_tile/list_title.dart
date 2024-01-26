@@ -18,6 +18,7 @@ const _kListTileConstraints = BoxConstraints(minHeight: 48.0, minWidth: 48.0);
 /// - On Windows, [ListTile] is used.
 class AdaptiveListTile extends CoreAdaptiveComponent {
   const AdaptiveListTile({
+    super.key,
     super.builders,
     this.title,
     this.leading,
@@ -34,8 +35,7 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
     this.disabledColor,
     this.backgroundColor,
     this.useBackgroundColor = false,
-    Key? key,
-  }) : super(key: key);
+  });
 
   /// Determines whether this list tile is interactive.
   final bool enabled;
@@ -199,19 +199,22 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
 
     return ConstrainedBox(
       constraints: _kListTileConstraints,
-      child: MacosButton(
-        shape: shape,
-        padding: contentPadding,
-        pressedOpacity: onTap == null ? 1.0 : 0.6,
-        mouseCursor: mouseCursor ?? SystemMouseCursors.click,
-        onPressed: enabled ? (onTap ?? () {}) : null,
-        onLongPress: enabled ? onLongPress : null,
-        pressedColor: pressColor,
-        disabledColor: disabledColor,
-        backgroundColor:
-            backgroundColor ?? (useBackgroundColor ? null : Colors.transparent),
-        hoverColor: hoverColor,
-        child: tile,
+      child: Padding(
+        padding:  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+        child: MacosButton(
+          shape: shape,
+          padding: contentPadding,
+          pressedOpacity: onTap == null ? 1.0 : 0.6,
+          mouseCursor: mouseCursor ?? SystemMouseCursors.click,
+          onPressed: enabled ? (onTap ?? () {}) : null,
+          onLongPress: enabled ? onLongPress : null,
+          pressedColor: pressColor,
+          disabledColor: disabledColor,
+          backgroundColor:
+              backgroundColor ?? (useBackgroundColor ? null : Colors.transparent),
+          hoverColor: hoverColor,
+          child: tile,
+        ),
       ),
     );
   }

@@ -212,7 +212,7 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
               child: DynamicOverflow(
                 alignment: MainAxisAlignment.end,
                 overflowWidget: const SizedBox.shrink(),
-                children: actions!.map((e) => e.toWindows(context)).toList(),
+                children: actions!.map((e) => e.toWindows(context, maxCustomItemHeight: height)).toList(),
               ),
             ),
           if (platformActions?.windows != null)
@@ -243,13 +243,14 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
       leading: leading,
       height: height + 8,
       title: styledTitle,
+      titleWidth: 300,
       automaticallyImplyLeading: automaticallyImplyLeading,
       decoration: BoxDecoration(
         color: defaultBackgroundColor,
         borderRadius: borderRadius,
       ),
       dividerColor: dividerColor,
-      actions: actions?.map((e) => e.toMacOS(context)).toList() ??
+      actions: actions?.map((e) => e.toMacOS(context, maxCustomItemHeight: height)).toList() ??
           platformActions?.macos,
     );
   }

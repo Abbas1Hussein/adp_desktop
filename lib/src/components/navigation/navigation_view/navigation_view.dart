@@ -2,9 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
-import '../navigation_appbar/navigation_app_bar.dart';
-import 'navigation_sidebar.dart';
-import 'platforms/platforms.dart';
+import '../navigation.dart';
 
 /// The AdaptiveNavigationView widget provides a unified approach for creating a navigation view
 /// that adjusts its appearance based on the underlying platform,
@@ -40,7 +38,7 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
     super.properties,
     this.appBar,
     this.sidebar,
-    this.contentPadding,
+    this.contentPadding = kContentPadding,
     this.backgroundColor,
     required this.children,
   });
@@ -70,7 +68,7 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
   ///
   /// The `padding` parameter allows you to specify padding around the body content of each body,
   /// If `null`, a default padding of 8.0 is applied.
-  final EdgeInsets? contentPadding;
+  final EdgeInsets contentPadding;
 
   /// The background color of the navigation view.
   ///
@@ -80,7 +78,7 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
 
   Widget get body {
     return Padding(
-      padding: contentPadding ?? const EdgeInsets.all(8.0),
+      padding: contentPadding,
       child: CustomSingleChildLayout(
         delegate: DesktopTextSelectionToolbarLayoutDelegate(
           anchor: Offset.zero,
@@ -151,7 +149,10 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
               builder: (context, scrollController) {
                 return ColoredBox(
                   color: backgroundColor ?? theme.canvasColor,
-                  child: DefaultTextStyle(style: theme.typography.body, child: body),
+                  child: DefaultTextStyle(
+                    style: theme.typography.body,
+                    child: body,
+                  ),
                 );
               },
             ),
