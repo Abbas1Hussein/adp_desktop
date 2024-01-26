@@ -59,8 +59,8 @@ class DialogMacos extends StatelessWidget {
     final typography = MacosTheme.of(context).typography;
 
     final content = message != null
-        ? DefaultTextStyle(
-            textAlign: TextAlign.justify,
+        ? DefaultTextStyle.merge(
+            textAlign: TextAlign.start,
             style: typography.body,
             child: message!,
           )
@@ -241,21 +241,15 @@ extension _AdaptiveFlatButtonEx on AdaptiveButton {
 
   PushButton _pushButton(BuildContext context, bool secondary) {
     return PushButton(
-      secondary: secondary,
       pressedOpacity: 0.6,
+      secondary: secondary,
       color: backgroundColor,
       disabledColor: disabledColor,
       controlSize: ControlSize.large,
       onPressed: isEnabled ? (onPressed ?? () {}) : null,
       child: GestureDetector(
         onLongPress: isEnabled ? onLongPress : null,
-        child: ColoredBox(
-          color: MacosColors.transparent,
-          child: ConstrainedBox(
-            constraints: ControlSize.large.constraints,
-            child: Center(child: child),
-          ),
-        ),
+        child: child,
       ),
     );
   }
