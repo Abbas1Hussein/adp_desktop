@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/property.dart';
@@ -71,7 +72,8 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
         placeholderStyle: placeholderStyle,
         onChanged: (text, reason) => onChanged?.call(text),
         placeholder: placeholder ?? FluentLocalizations.of(context).searchLabel,
-        noResultsFoundBuilder: emptyWidget != null ? (context) => emptyWidget! : null,
+        noResultsFoundBuilder:
+            emptyWidget != null ? (context) => emptyWidget! : null,
         items: suggestions.map((e) => e.toWindows(context)).toList(),
         onSelected: (value) {
           onSelected?.call(AdaptiveSearchItem.fromAutoSuggestBoxItem(value));
@@ -85,6 +87,10 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return DecoratedBox(
       decoration: decoration?.copyWith(
+            gradient: decoration?.gradient,
+            border: decoration?.border,
+            boxShadow: decoration?.boxShadow,
+            backgroundBlendMode: decoration?.backgroundBlendMode,
             color: decoration?.color?.withOpacity(0.6),
             borderRadius: decoration?.borderRadius ??
                 kDefaultRoundedBorderDecoration.borderRadius,
@@ -97,14 +103,19 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
         controller: controller,
         autofocus: autofocus,
         inputFormatters: inputFormatters,
-        emptyWidget: emptyWidget ?? Padding(
+        emptyWidget: emptyWidget ??
+            Padding(
               padding: kContentPadding,
               child: Text(FluentLocalizations.of(context).noResultsFoundLabel),
             ),
-        decoration: decoration != null ? null : kDefaultRoundedBorderDecoration,
-        focusedDecoration: decoration != null ? null : kDefaultFocusedBorderDecoration,
+        decoration: decoration != null
+            ? null
+            : kDefaultRoundedBorderDecoration,
+        focusedDecoration:
+            decoration != null ? null : kDefaultFocusedBorderDecoration,
         placeholderStyle: placeholderStyle ?? kDefaultPlaceholderStyle,
-        placeholder: placeholder ?? MaterialLocalizations.of(context).searchFieldLabel,
+        placeholder:
+            placeholder ?? MaterialLocalizations.of(context).searchFieldLabel,
         results: suggestions.map((e) => e.toMacos(context)).toList(),
         onResultSelected: (value) {
           onSelected?.call(AdaptiveSearchItem.fromSearchItem(value));

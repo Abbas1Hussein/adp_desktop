@@ -4,9 +4,7 @@ import 'buttons/text_button.dart';
 
 void main() async {
   DefaultsPlatformManager.initialize(
-    isDebugging: true,
-    targetPlatform: DesktopTargetPlatform.windows,
-    targetWeb: DesktopTargetPlatform.windows,
+    targetPlatform: DesktopTargetPlatform.macOS,
   );
   runApp(const App());
 }
@@ -126,7 +124,10 @@ class FirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: TextButton());
+    return Center(
+      child: AdaptiveRatingIndicator(
+          amount: 10, rating: 5, ratedIconColor: AdpColors.cyan),
+    );
   }
 }
 

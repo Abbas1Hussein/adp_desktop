@@ -10,10 +10,7 @@ import '../../overlay_visibility/macos.dart';
 import '../../text_field/platforms/macos.dart';
 
 class TextFormFieldMacos extends StatelessWidget {
-  const TextFormFieldMacos({
-    super.key,
-    this.adpProperties,
-  });
+  const TextFormFieldMacos({super.key, this.adpProperties});
 
   final AdaptiveFormFieldProperties? adpProperties;
 
@@ -296,19 +293,16 @@ class _MacosTextFormField extends FormField<String> {
                       restorationId: restorationId,
                       selectionHeightStyle: selectionHeightStyle,
                       selectionWidthStyle: selectionWidthStyle,
-                      focusedDecoration: decoration != null
-                          ? null
-                          : kDefaultFocusedBorderDecoration,
+                      focusedDecoration: decoration != null ? null : kDefaultFocusedBorderDecoration,
                       decoration: decoration != null
                           ? null
                           : kDefaultRoundedBorderDecoration.copyWith(
-                              border: Border.all(
-                                color: field.errorText != null
-                                    ? errorHighlightColor ??
-                                        MacosColors.appleRed
-                                    : MacosColors.transparent,
-                                width: 1.5,
-                              ),
+                              border: field.errorText != null
+                                  ? Border.all(
+                                      color: errorHighlightColor ?? MacosColors.appleRed,
+                                      width: 1.5,
+                                    )
+                                  : kDefaultRoundedBorderDecoration.border,
                             ),
                       selectionControls: selectionControls,
                       contextMenuBuilder: contextMenuBuilder,

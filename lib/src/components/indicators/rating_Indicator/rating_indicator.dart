@@ -83,6 +83,8 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
   /// This label is not displayed in the user interface (UI).
   final String? semanticLabel;
 
+  bool get isDisabled => onChanged == null;
+
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return RatingBar(
@@ -95,7 +97,7 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
       semanticLabel: semanticLabel,
       unratedIconColor: unratedIconColor,
       ratedIconColor: ratedIconColor ?? Colors.orange,
-    );
+    ).applyDisabledEffect(isDisabled);
   }
 
   @override
@@ -118,6 +120,6 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
         context,
       ),
       semanticLabel: semanticLabel,
-    ).applyDisabledEffect(onChanged == null);
+    ).applyDisabledEffect(isDisabled);
   }
 }
