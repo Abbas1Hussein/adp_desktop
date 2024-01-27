@@ -1,7 +1,5 @@
 import 'package:adp_desktop/adp_desktop.dart';
 
-import 'buttons/text_button.dart';
-
 void main() async {
   DefaultsPlatformManager.initialize(
     targetPlatform: DesktopTargetPlatform.macOS,
@@ -32,124 +30,11 @@ class App extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int currentValue = 0;
-
-  @override
   Widget build(BuildContext context) {
-    return AdaptiveNavigationView(
-      appBar: AdaptiveNavigationAppBar(
-        leading: const AdaptiveIcon(AdpIcons.documentChart),
-        title: const Text('documentChart'),
-        actions: [
-          AdaptiveActionButton(
-            label: 'delete',
-            icon: const AdaptiveIcon(AdpIcons.delete),
-            onPressed: () {},
-          ),
-          AdaptiveActionButton(
-            label: 'archive',
-            icon: const AdaptiveIcon(AdpIcons.archive),
-            onPressed: () {},
-          ),
-          AdaptiveActionButton(
-            label: 'download',
-            icon: const AdaptiveIcon(AdpIcons.download),
-            onPressed: () {},
-          ),
-          AdaptiveActionButton(
-            label: 'settings',
-            icon: const AdaptiveIcon(AdpIcons.settings),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      sidebar: AdaptiveNavigationSidebar(
-        currentIndex: currentValue,
-        onChanged: (value) {
-          setState(() => currentValue = value);
-        },
-        items: [
-          const AdaptiveNavigationSidebarItem(
-            label: Text('app'),
-            icon: AdaptiveIcon(AdpIcons.app),
-          ),
-          const AdaptiveNavigationSidebarItem(
-            label: Text('movie'),
-            icon: AdaptiveIcon(AdpIcons.move),
-          ),
-          const AdaptiveNavigationSidebarItem(
-            label: Text('archive'),
-            icon: AdaptiveIcon(AdpIcons.archive),
-          ),
-          const AdaptiveNavigationSidebarItem(
-            label: Text('shield'),
-            icon: AdaptiveIcon(AdpIcons.shield),
-          ),
-          const AdaptiveNavigationSidebarItem(
-            label: Text('download'),
-            icon: AdaptiveIcon(AdpIcons.download),
-          ),
-          const AdaptiveNavigationSidebarItem(
-            label: Text('settings'),
-            icon: AdaptiveIcon(AdpIcons.settings),
-          ),
-        ],
-      ),
-      children: children,
-    );
-  }
-
-  List<Widget> get children {
-    return [
-      const FirstScreen(),
-      const Text('AdaptiveTab 2'),
-      const Text('AdaptiveTab 3'),
-      const Text('AdaptiveTab 4'),
-      const Text('AdaptiveTab 5'),
-      const Text('AdaptiveTab 6'),
-    ].map((e) => Center(child: e)).toList();
-  }
-}
-
-class FirstScreen extends StatelessWidget {
-  const FirstScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: AdaptiveRatingIndicator(
-          amount: 10, rating: 5, ratedIconColor: AdpColors.cyan),
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AdaptiveScaffoldPage(
-      appBar: const AdaptiveAppBarPage(title: Text('Second Screen')),
-      content: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          const Center(child: AdaptiveDatePicker()),
-          Center(
-            child: AdaptiveButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Go back to First Screen'),
-            ),
-          ),
-        ],
-      ),
-    );
+    return const Placeholder();
   }
 }
