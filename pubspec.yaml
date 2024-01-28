@@ -1,12 +1,20 @@
 name: adp_desktop
 description: adp desktop ui.
 version: 0.0.1
-homepage:
+homepage: https://github.com/Abbas1Hussein/adp_desktop/#/
+repository: https://github.com/Abbas1Hussein/adp_desktop
+issue_tracker: https://github.com/Abbas1Hussein/adp_desktop/issues
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
   flutter: ">=1.17.0"
 
+topics:
+  - macos
+  - windows
+  - desktop
+  - ui
+  - widgets
 
 dependencies:
   flutter:
