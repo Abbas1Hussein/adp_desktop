@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
 import '../core.dart';
-import '../enum/target.dart';
 
 /// Instance of [DefaultsPlatformManager] for managing platform configurations.
 final kPlatformManager = DefaultsPlatformManager.instance;
@@ -84,28 +83,25 @@ abstract final class PlatformRuining {
   static const isWeb = kIsWeb;
 
   /// Retrieve the current platform from [DefaultsPlatformManager], or use the default if it's null.
-  static final targetPlatform = _debugDesktopTargetPlatform ??
-      _defaultTargetPlatform.desktopTargetPlatform;
+  static final targetPlatform = _debugDesktopTargetPlatform ?? _defaultTargetPlatform.desktopTargetPlatform;
 
   /// The default target platform when not in debugging mode.
   static final _defaultTargetPlatform = defaultTargetPlatform;
 
   /// Whether the app is currently in debugging mode.
-  static final isDebugging =
-      kPlatformManager != null && kPlatformManager!.isDebugging;
+  static final isDebugging = kPlatformManager.isDebugging;
 
   /// The target platform when in debugging mode, obtained from [kPlatformManager]. Null if not in debugging mode.
-  static final _debugDesktopTargetPlatform =
-      isDebugging ? kPlatformManager!.targetPlatform : null;
+  static final _debugDesktopTargetPlatform = isDebugging ? kPlatformManager.targetPlatform : null;
 
   /// Check if the current or target platforms match the specified platform.
   static bool _isTargetPlatform(DesktopTargetPlatform platform) {
     if (isWeb) {
-      return kPlatformManager?.targetWeb == platform;
+      return kPlatformManager.targetWeb == platform;
     }
 
     if (_defaultTargetPlatform == TargetPlatform.linux) {
-      return kPlatformManager?.targetLinux == platform;
+      return kPlatformManager.targetLinux == platform;
     }
 
     return _debugDesktopTargetPlatform == platform;

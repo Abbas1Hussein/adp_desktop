@@ -1,5 +1,4 @@
 import 'package:adp_desktop/adp_desktop.dart';
-import 'package:fluent_ui/fluent_ui.dart';
 
 /// A checkbox is a type of input component which holds the Boolean value.
 /// It is a GUI element that allows the user to choose multiple options from several selections.
@@ -18,17 +17,12 @@ class _BaseButtonsState extends State<Checked> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        AdaptiveCheckbox(
-          value: isChecked,
-          label: const Text('checkbox'),
-          onChanged: (value) {
-            setState(() => isChecked = value);
-          },
-        ),
-      ],
+    return AdaptiveCheckbox(
+      value: isChecked,
+      label: const Text('checkbox'),
+      onChanged: (value) {
+        setState(() => isChecked = value);
+      },
     );
   }
 }

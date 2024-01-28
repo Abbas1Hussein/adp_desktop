@@ -4,7 +4,6 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/component.dart';
 import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
-import '../../icon/icons.dart';
 import 'macos_checkbox.dart';
 
 /// A checkbox is a type of button that lets the user choose between
@@ -53,6 +52,9 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// If null, the checkbox is considered disabled.
   final ValueChanged<bool>? onChanged;
 
+  /// The icon displayed in the checkbox when it's checked
+  final IconData? icon;
+
   /// The label of the adp radio button.
   ///
   /// This, if non-null, is displayed at the right of the checkbox,
@@ -61,8 +63,8 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// Usually a [Text].
   final Widget? label;
 
-  /// The icon displayed in the checkbox when it's checked
-  final AdpIcons? icon;
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
 
   /// The color of the [label] of the checkbox.
   final Color? foregroundColor;
@@ -85,18 +87,16 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// The decoration of the checkbox when it's in its third state
   final Decoration? thirdstateDecoration;
 
-  /// Semantic label for accessibility.
-  final String? semanticLabel;
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return Checkbox(
       checked: value,
       content: label,
-      onChanged: (value) => onChanged?.call(value == true),
+      onChanged: onChanged != null ? (value) => onChanged?.call(value == true): null,
       semanticLabel: semanticLabel,
       style: CheckboxThemeData(
-        icon: icon?.fluent,
+        icon: icon,
         foregroundColor:
             foregroundColor != null ? ButtonState.all(foregroundColor) : null,
         checkedIconColor:
@@ -117,16 +117,16 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
             ? ButtonState.all(thirdstateDecoration)
             : null,
       ),
-    ).applyDisabledEffect(onChanged == null);
+    );
   }
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return CustomMacosCheckbox(
+      icon: icon,
       value: value,
       label: label,
       onChanged: onChanged,
-      icon: icon?.cupertino,
       semanticLabel: semanticLabel,
       foregroundColor: foregroundColor,
       checkedIconColor: checkedIconColor,

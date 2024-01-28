@@ -10,14 +10,10 @@ abstract class CoreModel<W, M> {
 
   /// Converts the model to its representation on the Windows platform.
   ///
-  /// - [context]: The [BuildContext] of the widget.
-  ///
   /// Returns an instance of [W] representing the model on the Windows platform.
   W toWindows(BuildContext context);
 
   /// Converts the model to its representation on the macOS platform.
-  ///
-  /// - [context]: The [BuildContext] of the widget.
   ///
   /// Returns an instance of [M] representing the model on the macOS platform.
   M toMacos(BuildContext context);

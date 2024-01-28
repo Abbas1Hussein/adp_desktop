@@ -1,8 +1,10 @@
 import 'package:adp_desktop/adp_desktop.dart';
 
+import 'buttons/checkbox.dart';
+
 void main() async {
   DefaultsPlatformManager.initialize(
-    targetPlatform: DesktopTargetPlatform.macOS,
+    targetPlatform: DesktopTargetPlatform.windows,
   );
   runApp(const App());
 }
@@ -35,6 +37,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Center(child: Checked());
   }
 }

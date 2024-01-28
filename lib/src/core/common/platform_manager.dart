@@ -26,13 +26,6 @@ class DefaultsPlatformManager {
         _targetWeb = targetWeb,
         _isDebugging = isDebugging;
 
-  final bool _isDebugging;
-  final DesktopTargetPlatform _platform;
-  final DesktopTargetPlatform? _targetLinux;
-  final DesktopTargetPlatform? _targetWeb;
-
-  static DefaultsPlatformManager? _instance;
-
   /// Initializes the DefaultsPlatformManager with the specified parameters.
   ///
   /// - [isTesting] is only for testing.
@@ -45,7 +38,8 @@ class DefaultsPlatformManager {
     bool isDebugging = true,
     @visibleForTesting bool isTesting = false,
   }) {
-    assert(_instance == null, 'DefaultsPlatformManager is already initialized.');
+    assert(
+        _instance == null, 'DefaultsPlatformManager is already initialized.');
 
     if (!kIsWeb && !isTesting) {
       _initializeWindowConfiguration();
@@ -73,15 +67,19 @@ class DefaultsPlatformManager {
 
   /// the debugging status for the application.
   bool get isDebugging => _isDebugging;
+  final bool _isDebugging;
 
   /// the desktop target platform for the application.
   DesktopTargetPlatform get targetPlatform => _platform;
+  final DesktopTargetPlatform _platform;
 
   /// the target Linux platform or defaults to [targetPlatform] if not specified.
   DesktopTargetPlatform get targetLinux => _targetLinux ?? _platform;
+  final DesktopTargetPlatform? _targetLinux;
 
   /// the target web platform or defaults to [targetPlatform] if not specified.
   DesktopTargetPlatform get targetWeb => _targetWeb ?? _platform;
+  final DesktopTargetPlatform? _targetWeb;
 
   /// Gets the singleton instance of DefaultsPlatformManager.
   ///
@@ -90,4 +88,6 @@ class DefaultsPlatformManager {
     assert(_instance != null, 'DefaultsPlatformManager is not initialized.');
     return _instance!;
   }
+
+  static DefaultsPlatformManager? _instance;
 }
