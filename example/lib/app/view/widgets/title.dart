@@ -31,7 +31,7 @@ class CustomTitle extends StatelessWidget {
               title: title,
               message: message!,
               confirmLabel: 'Source code',
-              cancelLabel: localizations.cancelButtonLabel,
+              cancelLabel: 'Cancel',
             ).then(
               (value) {
                 if (value == true) {
