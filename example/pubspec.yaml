@@ -28,10 +28,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-flutter_native_splash:
-  color: "#000000"
-  image: assets/images/adp.png
-
   assets:
     - assets/images/adp.png
     # Add all paths from HighlightPaths here:
