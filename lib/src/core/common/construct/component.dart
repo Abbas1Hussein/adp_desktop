@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart' hide Builder;
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core.dart';
-import 'builders.dart';
+import 'component_mixin.dart';
 
 /// A base class for creating adaptive components that can have different implementations
 /// on Windows and macOS platforms.
@@ -12,7 +12,9 @@ import 'builders.dart';
 ///
 /// - [Windows]: Type of Windows-specific properties.
 /// - [Macos]: Type of macOS-specific properties.
-abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty, Macos extends CoreMacosProperty> extends StatelessWidget {
+abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
+        Macos extends CoreMacosProperty> extends StatelessWidget
+    with AdaptiveComponentMixin<Windows, Macos> {
   const CoreAdaptiveComponent({this.builders, this.properties, super.key});
 
   /// Builders for adapting the component based on platform and theme.
@@ -45,6 +47,7 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty, Macos 
   /// The [windows] builder receives [platformChild], [theme], and [property] parameters,
   /// and it returns a Windows-specific widget, while the [macos] builder performs
   /// similar customization for the macOS platform.
+  @override
   final CoreAdaptiveBuilder<Builder<FluentThemeData, Windows?>,
       Builder<MacosThemeData, Macos?>>? builders;
 
@@ -63,42 +66,10 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty, Macos 
   /// ```
   /// The [windows] and [macos] properties enable you to set platform-specific settings
   /// to tailor the component's behavior and appearance on Windows and macOS platforms, respectively.
+  @override
   final CoreProperties<Windows, Macos>? properties;
 
   @override
   @mustCallSuper
-  Widget build(BuildContext context) {
-    return adaptiveValue(
-      windows: () {
-        final body = windows(context, properties?.windows);
-
-        if (builders?.windows != null) {
-          return builders!.windows!.call(
-            body,
-            FluentTheme.of(context),
-            properties?.windows,
-          );
-        }
-        return body;
-      },
-      macos: () {
-        final body = macos(context, properties?.macos);
-
-        if (builders?.macos != null) {
-          return builders!.macos!.call(
-            body,
-            MacosTheme.of(context),
-            properties?.macos,
-          );
-        }
-        return body;
-      },
-    );
-  }
-
-  /// Override this method to provide the implementation for the Windows platform.
-  Widget windows(BuildContext context, [Windows? property]);
-
-  /// Override this method to provide the implementation for the macOS platform.
-  Widget macos(BuildContext context, [Macos? property]);
+  Widget build(BuildContext context) => getAdaptiveComponent(context);
 }
