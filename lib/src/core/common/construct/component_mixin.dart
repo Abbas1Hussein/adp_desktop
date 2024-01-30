@@ -9,10 +9,10 @@ export 'builders.dart';
 
 mixin AdaptiveComponentMixin<Windows extends CoreWindowsProperty,
     Macos extends CoreMacosProperty> {
-  CoreProperties<Windows, Macos>? get properties;
+  CoreProperties<Windows, Macos>? get properties => null;
 
   b.CoreAdaptiveBuilder<b.Builder<FluentThemeData, Windows?>,
-      b.Builder<MacosThemeData, Macos?>>? get builders;
+      b.Builder<MacosThemeData, Macos?>>? get builders => null;
 
   Widget windows(BuildContext context, [Windows? property]);
 
