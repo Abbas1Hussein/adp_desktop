@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/property.dart';
+import '../../../core/extension/widget.dart';
 import '../button/base_button.dart';
 import '../button/macos.dart';
 
@@ -32,7 +33,33 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
     super.mouseCursor,
     required super.onPressed,
     required super.child,
-  });
+  })  : label = null,
+        icon = null;
+
+  /// Create a text button from a pair of widgets that serve as the button's
+  /// [icon] and [label].
+  ///
+  /// The icon and label are arranged in a row and padded by 8 logical pixels
+  /// at the ends, with an 8 pixel gap in between.
+  const AdaptiveTextButton.icon({
+    super.key,
+    super.builders,
+    super.shape,
+    super.onTapUp,
+    super.onTapDown,
+    super.onLongPress,
+    super.hoverColor,
+    super.pressedColor,
+    super.disabledColor,
+    super.backgroundColor,
+    super.mouseCursor,
+    required super.onPressed,
+    required Widget this.label,
+    required Widget this.icon,
+  }) : super(child: label);
+
+  final Widget? label;
+  final Widget? icon;
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
@@ -44,7 +71,7 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
         onTapDown: onTapDown,
         onPressed: onPressed,
         onLongPress: onLongPress,
-        child: child,
+        child: child.margeWith(icon, 8.0),
       ),
     );
   }
@@ -69,7 +96,7 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
           letterSpacing: 0.5,
           fontWeight: MacosFontWeight.w590,
         ),
-        child: child,
+        child: child.margeWith(icon, 8.0),
       ),
     );
   }
