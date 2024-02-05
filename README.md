@@ -1,10 +1,9 @@
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
-
 ### Platform-Specific Integration
-- On Windows, we use: `fluent_ui`
-- On MacOS, we use: `macos_ui`
-- On Linux, for now, we do not support, but you can choose between `fluent_ui` or `macos_ui`.
-- On the web, you can choose between `fluent_ui` or `macos_ui`.
+- On MacOS: we use `macos_ui`
+- On Windows: we use `fluent_ui`
+- On Linux: for now we do not support, but you can choose between `fluent_ui` or `macos_ui`.
+- On Web: you can choose between `fluent_ui` or `macos_ui`.
 
 ## Table of Contents
 
@@ -14,7 +13,8 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 ### Basic Buttons
 
 - [Button](#button)
-- [Flat Button](#flat-button)
+- [Button Field](#field-button)
+- [Button Outlined](#outlined-button)
 - [Icon Button](#icon-button)
 - [Text Button](#text-button)
 
@@ -107,11 +107,14 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 </details>
 
 <details>
-<summary>Transitions</summary>
+<summary>Additional</summary>
 
-  - [Entrance Transition](#entrance-transition)
-  - [Horizontal Slide Transition](#horizontal-slide-transition)
-  - [Page Transition](#page-transition)
+  - [AdaptiveBuilder](#adaptive-builder)
+  - [AdaptiveWidget](#adaptive-widget)
+  - [AdaptiveBrightness](#adaptive-brightness)
+  - [AdaptiveTypography](#adaptive-typography)
+  - [Color's](#color)
+  - [Transition's](#transition)
 </details>
 
 
@@ -120,10 +123,32 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 ### Basic Buttons
 
 #### Button
-[Add a brief description and usage example for the Button component]
 
-#### Flat Button
-[Add a brief description and usage example for the Flat Button component]
+| Dark Mode                                     | Light Mode                                    |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://gist.github.com/assets/112737126/fe3da75e-e4cd-46b9-8af1-c59ba2d87acd) | ![macOS Light Mode](https://gist.github.com/assets/112737126/499cc3c2-6a54-4b4c-bfee-db902fab7e50) |
+| ![Windows Dark Mode](https://gist.github.com/assets/112737126/5292da7b-3960-4c4e-a339-0b5605c28999) | ![Windows Light Mode](https://gist.github.com/assets/112737126/5d42bf94-c81e-4f4f-aa87-b72e8290dee1) |
+
+
+```dart
+/// base button
+AdaptiveButton(
+  child: const Text('Base Button'),
+  onPressed: () {},
+),
+
+/// button field
+AdaptiveButton.field(
+  child: const Text('Field Button'),
+  onPressed: () {},
+),
+
+/// outlined button
+AdaptiveButton.outlined(
+  child: const Text('Outlined Button'),
+  onPressed: () {},
+),
+```
 
 #### Icon Button
 [Add a brief description and usage example for the Icon Button component]
@@ -142,7 +167,24 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 ### Selection Buttons
 
 #### Radio Button
-[Add a brief description and usage example for the Radio Button component]
+
+Radio buttons, also called option buttons, let users select one option from a collection of two or more mutually exclusive, but related, options. Radio buttons are always used in groups, and each option is represented by one radio button in the group. In the default state, no radio button in a RadioButtons group is selected. That is, all radio buttons are cleared. However, once a user has selected a radio button, the user can't deselect the button to restore the group to its initial cleared state. The singular behavior of a RadioButtons group distinguishes it from check boxes, which support multi-selection and deselection, or clearing.
+
+| Dark Mode                                      | Light Mode                                     |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://gist.github.com/assets/112737126/85748e1e-c1d3-40c2-8b33-781108c28d0d) | ![macOS Light Mode](https://gist.github.com/assets/112737126/d46af09c-e155-4b82-9f11-44b21e5b3fe4) |
+| ![Windows Dark Mode](https://gist.github.com/assets/112737126/0580dd2a-c468-47ab-a315-8c51cc68dcf0) | ![Windows Light Mode](https://gist.github.com/assets/112737126/169fb8bf-ba95-459d-86f3-db97617baa02) |
+
+ ```dart
+AdaptiveRadio<SingingCharacter>(
+  value: SingingCharacter.lafayette,
+  groupValue: _character,
+  onChanged: (SingingCharacter? newValue) {
+    setState(() {
+      _character = newValue;
+    });
+  },
+)
 
 #### Switch Button
 [Add a brief description and usage example for the Switch Button component]
