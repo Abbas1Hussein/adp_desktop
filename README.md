@@ -399,7 +399,27 @@ AdaptiveTextField(),
 ```
 
 ### Text Form Field
-[Add a brief description and usage example for the Text Form Field component]
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/XL0VgKD.gif) | ![Windows Dark Mode](https://i.imgur.com/WHNQ53L.gif) |
+| ![macOS Light Mode](https://i.imgur.com/sM52c6F.gif)| ![Windows Light Mode](https://i.imgur.com/n4EwHDz.gif) |
+
+```dart
+Form(
+  key: _formKey,
+  child: AdaptiveTextFormField(
+    validator: (value) {
+      if (value == null || value.isEmpty) {
+        return 'Please enter some text';
+      }
+      return null;
+    },
+    onFieldSubmitted: (value) {
+      _formKey.currentState?.validate();
+    },
+  ),
+),
+```
 
 ### Text Search Field
 [Add a brief description and usage example for the Text Search Field component]
