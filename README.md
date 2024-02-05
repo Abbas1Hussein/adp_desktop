@@ -234,13 +234,22 @@ AdaptiveWindowButtons(),
 ```
 
 ##### Close Window Button
-[Add a brief description and usage example for the Close Window Button component]
+
+```dart
+AdaptiveCloseButton(),
+```
 
 ##### Minimize Window Button
-[Add a brief description and usage example for the Minimize Window Button component]
+
+```dart
+AdaptiveMinimizeButton(),
+```
 
 ##### Maximize Window Button
-[Add a brief description and usage example for the Maximize Window Button component]
+
+```dart
+AdaptiveMaximizeButton(),
+```
 
 ### Navigation Buttons
 
