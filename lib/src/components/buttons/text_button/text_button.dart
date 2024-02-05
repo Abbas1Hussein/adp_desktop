@@ -6,7 +6,10 @@ import '../../../core/extension/widget.dart';
 import '../button/base_button.dart';
 import '../button/macos.dart';
 
-/// A borderless button with mainly text-based content
+/// A TextButton widget is just a text label displayed on a zero-elevation Material widget.
+/// By default, it does’t have visible borders and reacts to touches by filling with a background color.
+///
+/// If the onPressed && onLongPress callbacks is null, then the button will be disabled and will not react to touch.
 ///
 /// See also:
 ///
@@ -19,6 +22,10 @@ import '../button/macos.dart';
 /// - On macOS, [MacosButton] is utilized.
 /// - On Windows, [HyperlinkButton] is used.
 class AdaptiveTextButton extends AdaptiveBaseButton {
+  /// A borderless button with mainly text-based content
+  ///
+  /// If the onPressed && onLongPress callbacks is null,
+  /// then the button will be disabled and will not react to touch.
   const AdaptiveTextButton({
     super.key,
     super.builders,
