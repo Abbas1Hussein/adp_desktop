@@ -189,15 +189,45 @@ AdaptiveTextButton(
 ### Menus
 
 #### Pulldown Menu Button
+An AdaptivePulldownMenuButton is a button widget in Flutter that displays a pull-down menu when pressed.
+The menu typically contains a list of options for the user to choose from.
+
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/SGmnHoa.gif) | ![Windows Dark Mode](https://i.imgur.com/N1Zp8Zl.gif) |
 | ![macOS Light Mode](https://i.imgur.com/57xFA6e.gif)| ![Windows Light Mode](https://i.imgur.com/1lm4qAr.gif) |
 
 ```dart
-AdaptiveTextButton(
-  onPressed: () {},
-  child: const Text('Text Button'),
+AdaptivePulldownMenuButton(
+  title: 'pulldown menu',
+  items: [
+    AdaptivePulldownMenuItem(
+      leading: AdaptiveIcon(AdpIcons.folderAdd),
+      child: Text('New folder'),
+    ),
+    AdaptivePulldownMenuItem(
+      leading: AdaptiveIcon(AdpIcons.folderOpen),
+      child: Text('Open'),
+    ),
+    AdaptivePulldownMenuItem(
+      leading: AdaptiveIcon(AdpIcons.wand),
+      child: Text('Open with'),
+    ),
+    AdaptivePulldownMenuItem(
+      leading: AdaptiveIcon(AdpIcons.delete),
+      child: Text('Remove'),
+      enabled: false, // this will disabled.
+    ),
+    AdaptivePulldownMenuItem(
+      leading: AdaptiveIcon(AdpIcons.phone),
+      child: Text('Import from phone ...'),
+    ),
+    AdaptivePulldownMenuDivider(),
+    AdaptivePulldownMenuItem(
+      leading: AdaptiveIcon(AdpIcons.star),
+      child: Text('Give us a star'),
+    ),
+  ],
 ),
 ```
 
