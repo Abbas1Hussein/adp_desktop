@@ -6,6 +6,7 @@ import '../../../controllers/platforms_controller.dart';
 import '../../../controllers/theme_controller.dart';
 import 'tabs/additional/additional.dart';
 import 'tabs/buttons/buttons.dart';
+import 'tabs/custom.dart';
 import 'tabs/fields/fields.dart';
 import 'tabs/icons/icons.dart';
 import 'tabs/indicators/indicators.dart';
@@ -141,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<String> labels = const [
+    'Custom',
     'Buttons',
     'Fields',
     'Icons',
@@ -153,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   List<IconData> icons =  [
+    Icons.currency_bitcoin_sharp,
     Icons.smart_button,
     Icons.text_fields,
     Icons.insert_emoticon,
@@ -165,6 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   List<Widget> children = const [
+    CustomWidget(),
     ButtonsTab(),
     Fields(),
     IconsTab(),
