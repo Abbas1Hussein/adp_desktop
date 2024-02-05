@@ -9,9 +9,11 @@ import '../../icon/icon.dart';
 
 const _kAdpIconConstraints = BoxConstraints(minHeight: 30, minWidth: 30);
 
-/// A custom icon button widget that adapts its appearance based on the platform.
+/// It is one of the most widely used buttons in the flutter library typically contains an icon.
+/// It is commonly used to trigger actions or events in response to user interaction, such as tapping or clicking.
+/// If the onPressed callback is null, then the button will be disabled and will not react to touch.
 ///
-/// Use this widget to create flat buttons with platform-specific
+/// Use this widget to create Icon buttons with platform-specific
 /// styling and behavior:
 /// - On macOS, [MacosIconButton] is utilized.
 /// - On Windows, [IconButton] is used.
