@@ -204,6 +204,11 @@ AdaptiveSwitch(
 ```
 
 #### Checkbox
+A checkbox is a type of button that lets the user choose between
+two opposite states, actions, or values. A selected checkbox is
+considered on when it contains a checkmark and off when it's empty.
+A checkbox is almost always followed by a title unless it appears in
+a checklist.
 
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
@@ -211,11 +216,11 @@ AdaptiveSwitch(
 | ![macOS Light Mode](https://i.imgur.com/NVYlXQQ.gif)| ![Windows Light Mode](https://i.imgur.com/H0h21lE.gif) |
 
 ```dart
-AdaptiveSwitch(
-  value: _currentValue,
-  onChanged: (bool newValue) {
+AdaptiveCheckbox(
+  value: _checkboxValue,
+  onChanged: (value) {
     setState(() {
-      _currentValue = newValue;
+      _checkboxValue = value;
     });
   },
 ),
@@ -259,11 +264,15 @@ AdaptiveMaximizeButton(),
 ### Navigation Buttons
 
 #### Back Button
-[Add a brief description and usage example for the Back Button component]
 
+```dart
+AdaptiveBackButton(),
+```
 #### Close Button
-[Add a brief description and usage example for the Close Button component]
 
+```dart
+AdaptiveBackButton(),
+```
 ## Fields
 
 ### Text Field
