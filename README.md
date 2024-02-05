@@ -165,12 +165,26 @@ If the onPressed callback is null, then the button will be disabled and will not
 AdaptiveIconButton(
   onPressed: () {},
   icon: const AdaptiveIcon(AdpIcons.add),
-)
-
+),
 ```
 
 #### Text Button
-[Add a brief description and usage example for the Text Button component]
+A textButton widget is just a text label displayed on a zero-elevation Material widget.
+By default, it does’t have visible borders and reacts to touches by filling with a background color.
+If the onPressed && onLongPress callbacks is null, then the button will be disabled and will not react to touch.
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/AACRjIF.gif) | ![Windows Dark Mode](https://i.imgur.com/OGYr2Cs.gif) |
+| ![macOS Light Mode](https://i.imgur.com/dPmGfwF.gif)| ![Windows Light Mode](https://i.imgur.com/qnor9Kz.gif) |
+
+```dart
+AdaptiveTextButton(
+  onPressed: () {},
+  child: const Text('Text Button'),
+),
+```
+
 
 ### Menus
 
