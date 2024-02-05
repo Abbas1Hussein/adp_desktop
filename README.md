@@ -222,15 +222,10 @@ AdaptiveSwitch(
 
 This section presents window control buttons for both macOS and Windows operating systems in both dark and light modes. Each operating system has its own set of control buttons designed to blend seamlessly with the respective system's aesthetics.
 
-#### macOS Dark\Light Mode
-| Dark Mode                                      | Light Mode                                     |
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Lmplu4c.png) | ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png) |
-
-#### Windows Dark\Light Mode
-| Dark Mode                                      | Light Mode                                     |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![Windows Dark Mode](https://i.imgur.com/nzbXPU0.gif) | ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
+| ![macOS Dark Mode](https://i.imgur.com/Lmplu4c.png) | ![Windows Dark Mode](https://i.imgur.com/nzbXPU0.gif) |
+| ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png)| ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
 
 ```dart
 AdaptiveWindowButtons(),
