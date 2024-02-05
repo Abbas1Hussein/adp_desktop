@@ -105,7 +105,7 @@ class CustomMacosCheckbox extends MacosCheckbox {
             ),
           ),
         ),
-      ).margeWith(buildLabel, 4.0).applyDisabledEffect(isDisabled),
+      ).margeWith(buildLabel, 8.0).applyDisabledEffect(isDisabled),
     );
   }
 
