@@ -131,8 +131,9 @@ class DialogMacos extends StatelessWidget {
     MacosTypography typography,
   ) {
     final titleWithStyled = title != null
-        ? DefaultTextStyle(
-            style: (typography.title1).copyWith(fontWeight: FontWeight.bold),
+        ? DefaultTextStyle.merge(
+            textAlign: TextAlign.center,
+            style: typography.title1.copyWith(fontWeight: FontWeight.bold),
             child: title!,
           )
         : null;
