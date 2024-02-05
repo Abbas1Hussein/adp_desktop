@@ -8,19 +8,14 @@ class CustomWidget extends StatefulWidget {
 }
 
 class _CustomWidgetState extends State<CustomWidget> {
-  bool _switchValue = false;
+  bool _checkboxValue = false;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AdaptiveSwitch(
-        label: const Text('Switch'),
-        value: _switchValue,
-        onChanged: (value) {
-          setState(() {
-            _switchValue = value;
-          });
-        },
+    return  Center(
+      child: AdaptiveTextButton(
+        onPressed: () {},
+        child: const Text('Text Button'),
       ),
     );
   }
