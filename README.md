@@ -220,7 +220,7 @@ AdaptiveSwitch(
 
 ### Window Control Buttons
 
-This section presents window control buttons for both macOS and Windows operating systems in both dark and light modes. Each operating system has its own set of control buttons designed to blend seamlessly with the respective system's aesthetics.
+Window control buttons are essential elements of any graphical user interface. They allow users to interact with and manage windows on their operating system. Each operating system provides its own set of control buttons, designed to seamlessly integrate with the system's aesthetics.
 
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
