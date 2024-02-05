@@ -509,7 +509,29 @@ AdaptiveProgressBarIndicator(),
 ```
 
 ### Rating Indicator
-[Add a brief description and usage example for the Rating Indicator component]
+The rating bar allows users to view and set ratings that
+reflect degrees of satisfaction with content and services.
+Users can interact with the rating control with touch, pen,
+mouse, gamepad or keyboard. The follow guidance shows how to
+use the rating control's features to provide flexibility and
+customization.
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/DFeyIY1.gif) | ![Windows Dark Mode](https://i.imgur.com/jOlpNvV.gif) |
+| ![macOS Light Mode](https://i.imgur.com/pMOq7Vb.gif)| ![Windows Light Mode](https://i.imgur.com/HDQ1xvN.gif) |
+
+
+```dart
+AdaptiveRatingIndicator(
+  amount: 5, // Total number of rating units
+  rating: _rating, // Current rating value
+  onChanged: (value) {
+    setState(() {
+      _rating = value;
+    });
+  },
+),```
+
 
 ### Slider
 [Add a brief description and usage example for the Slider component]
