@@ -509,12 +509,9 @@ AdaptiveProgressBarIndicator(),
 ```
 
 ### Rating Indicator
-The rating bar allows users to view and set ratings that
-reflect degrees of satisfaction with content and services,
-users can interact with the rating control with touch, pen,
-mouse, gamepad or keyboard. The follow guidance shows how to
-use the rating control's features to provide flexibility and
-customization.
+The rating bar allows users to view and set ratings that reflect degrees of satisfaction with content and services,
+users can interact with the rating control with touch, pen, mouse, gamepad or keyboard.
+The follow guidance shows how to use the rating control's features to provide flexibility and customization.
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/DFeyIY1.gif) | ![Windows Dark Mode](https://i.imgur.com/jOlpNvV.gif) |
@@ -534,7 +531,7 @@ AdaptiveRatingIndicator(
 
 ### Slider
 A slider is a control that lets the user select from a range of values by
-moving a thumb control along a track, a slider is a good choice when you know that users think of the value as a
+moving a thumb control along a track, A slider is a good choice when you know that users think of the value as a
 relative quantity, not a numeric value. For example, users think about
 setting their audio volume to low or medium — not about setting the value to
 2 or 5.
