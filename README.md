@@ -181,7 +181,8 @@ AdaptiveRadio<SingingCharacter>(
       _character = newValue;
     });
   },
-)```
+)
+```dart
 
 #### Switch Button
 [Add a brief description and usage example for the Switch Button component]
