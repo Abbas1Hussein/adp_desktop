@@ -226,6 +226,7 @@ AdaptiveSwitch(
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/Lmplu4c.png) | ![Windows Dark Mode](https://i.imgur.com/nzbXPU0.gif) |
 | ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png)| ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
+| ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png)| ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
 
 #### Window Buttons
 
