@@ -129,7 +129,6 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 | ![macOS Dark Mode](https://gist.github.com/assets/112737126/fe3da75e-e4cd-46b9-8af1-c59ba2d87acd) | ![macOS Light Mode](https://gist.github.com/assets/112737126/499cc3c2-6a54-4b4c-bfee-db902fab7e50) |
 | ![Windows Dark Mode](https://gist.github.com/assets/112737126/5292da7b-3960-4c4e-a339-0b5605c28999) | ![Windows Light Mode](https://gist.github.com/assets/112737126/5d42bf94-c81e-4f4f-aa87-b72e8290dee1) |
 
-
 ```dart
 /// base button
 AdaptiveButton(
@@ -167,8 +166,6 @@ AdaptiveButton.outlined(
 ### Selection Buttons
 
 #### Radio Button
-
-Radio buttons, also called option buttons, let users select one option from a collection of two or more mutually exclusive, but related, options. Radio buttons are always used in groups, and each option is represented by one radio button in the group. In the default state, no radio button in a RadioButtons group is selected. That is, all radio buttons are cleared. However, once a user has selected a radio button, the user can't deselect the button to restore the group to its initial cleared state. The singular behavior of a RadioButtons group distinguishes it from check boxes, which support multi-selection and deselection, or clearing.
 
 | Dark Mode                                      | Light Mode                                     |
 | --------------------------------------------- | ---------------------------------------------- |
