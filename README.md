@@ -29,10 +29,12 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 ### Window Control Buttons
 
-- <a href="#window-buttons-section">Window Buttons</a>
- - <a href="#close-window-button-section">Close Window Button</a>
- - <a href="#minimize-window-button-section">Minimize Window Button</a>
- - <a href="#maximize-window-button-section">Maximize Window Button</a>
+<a href="#window-buttons-section">Window Buttons</a>
+<ul>
+    <li><a href="#close-window-button-section">Close Window Button</a></li>
+    <li><a href="#minimize-window-button-section">Minimize Window Button</a></li>
+    <li><a href="#maximize-window-button-section">Maximize Window Button</a></li>
+</ul>
 
 
 ### Navigation Buttons
