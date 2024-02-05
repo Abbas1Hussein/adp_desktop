@@ -125,9 +125,9 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 #### Button
 
 | Dark Mode                                     | Light Mode                                    |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://gist.github.com/assets/112737126/fe3da75e-e4cd-46b9-8af1-c59ba2d87acd) | ![macOS Light Mode](https://gist.github.com/assets/112737126/499cc3c2-6a54-4b4c-bfee-db902fab7e50) |
-| ![Windows Dark Mode](https://gist.github.com/assets/112737126/5292da7b-3960-4c4e-a339-0b5605c28999) | ![Windows Light Mode](https://gist.github.com/assets/112737126/5d42bf94-c81e-4f4f-aa87-b72e8290dee1) |
+| --------------------------------------------- | ----------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png) | ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) |
+| ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) |
 
 ```dart
 /// base button
@@ -167,12 +167,12 @@ AdaptiveButton.outlined(
 
 #### Radio Button
 
-| Dark Mode                                      | Light Mode                                     |
+| Dark Mode                                     | Light Mode                                     |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://gist.github.com/assets/112737126/85748e1e-c1d3-40c2-8b33-781108c28d0d) | ![macOS Light Mode](https://gist.github.com/assets/112737126/d46af09c-e155-4b82-9f11-44b21e5b3fe4) |
 | ![Windows Dark Mode](https://gist.github.com/assets/112737126/0580dd2a-c468-47ab-a315-8c51cc68dcf0) | ![Windows Light Mode](https://gist.github.com/assets/112737126/169fb8bf-ba95-459d-86f3-db97617baa02) |
 
- ```dart
+```dart
 AdaptiveRadio<SingingCharacter>(
   value: SingingCharacter.lafayette,
   groupValue: _character,
@@ -181,7 +181,7 @@ AdaptiveRadio<SingingCharacter>(
       _character = newValue;
     });
   },
-)
+)```
 
 #### Switch Button
 [Add a brief description and usage example for the Switch Button component]
