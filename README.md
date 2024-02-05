@@ -530,8 +530,8 @@ AdaptiveRatingIndicator(
       _rating = value;
     });
   },
-),```
-
+),
+```
 
 ### Slider
 [Add a brief description and usage example for the Slider component]
