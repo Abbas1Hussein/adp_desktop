@@ -23,9 +23,10 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 ### Selection Buttons
 
+- [Checkbox](#checkbox)
 - [Radio Button](#radio-button)
 - [Switch Button](#switch-button)
-- [Checkbox](#checkbox)
+
 
 ### Window Control Buttons
 
@@ -166,8 +167,31 @@ AdaptiveButton.outlined(
 
 ### Selection Buttons
 
+#### Checkbox
+A checkbox is a type of button that lets the user choose between
+two opposite states, actions, or values. A selected checkbox is
+considered on when it contains a checkmark and off when it's empty.
+A checkbox is almost always followed by a title unless it appears in
+a checklist.
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/Vfe6kpO.gif) | ![Windows Dark Mode](https://i.imgur.com/02y0IHj.gif) |
+| ![macOS Light Mode](https://i.imgur.com/NVYlXQQ.gif)| ![Windows Light Mode](https://i.imgur.com/H0h21lE.gif) |
+
+```dart
+AdaptiveCheckbox(
+  value: _checkboxValue,
+  onChanged: (value) {
+    setState(() {
+      _checkboxValue = value;
+    });
+  },
+),
+```
+
 #### Radio Button
-Radio buttons, also called option buttons, let users select one option from
+Also called option buttons, let users select one option from
 a collection of two or more mutually exclusive, but related, options. Radio
 buttons are always used in groups, and each option is represented by one radio button in the group.
 In the default state, no radio button in a RadioButtons group is selected.
@@ -213,29 +237,6 @@ AdaptiveSwitch(
   onChanged: (bool newValue) {
     setState(() {
       _currentValue = newValue;
-    });
-  },
-),
-```
-
-#### Checkbox
-A checkbox is a type of button that lets the user choose between
-two opposite states, actions, or values. A selected checkbox is
-considered on when it contains a checkmark and off when it's empty.
-A checkbox is almost always followed by a title unless it appears in
-a checklist.
-
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Vfe6kpO.gif) | ![Windows Dark Mode](https://i.imgur.com/02y0IHj.gif) |
-| ![macOS Light Mode](https://i.imgur.com/NVYlXQQ.gif)| ![Windows Light Mode](https://i.imgur.com/H0h21lE.gif) |
-
-```dart
-AdaptiveCheckbox(
-  value: _checkboxValue,
-  onChanged: (value) {
-    setState(() {
-      _checkboxValue = value;
     });
   },
 ),
