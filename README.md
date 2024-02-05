@@ -24,8 +24,8 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 ### Selection Buttons
 
 - [Checkbox](#checkbox)
-- [Radio Button](#radio-button)
 - [Switch Button](#switch-button)
+- [Radio Button](#radio-button)
 
 
 ### Window Control Buttons
@@ -190,6 +190,30 @@ AdaptiveCheckbox(
 ),
 ```
 
+#### Switch Button
+The switch represents a physical switch that allows users to turn
+things on or off, like a light switch. Use switch controls to present
+users with two mutually exclusive options (such as on/off), where choosing an option provides immediate results.
+Use a switch for binary operations that take effect right after the
+user flips the switch,Think of the switch as a physical power switch for a device: you flip
+it on or off when you want to enable or disable the action performed by the device.
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/07rssaU.gif) | ![Windows Dark Mode](https://i.imgur.com/QJY6f9R.gif) |
+| ![macOS Light Mode](https://i.imgur.com/dU5CfsI.gif)| ![Windows Light Mode](https://i.imgur.com/3a3XRw4.gif) |
+
+```dart
+AdaptiveSwitch(
+  value: _currentValue,
+  onChanged: (bool newValue) {
+    setState(() {
+      _currentValue = newValue;
+    });
+  },
+),
+```
+
 #### Radio Button
 Also called option buttons, let users select one option from
 a collection of two or more mutually exclusive, but related, options. Radio
@@ -213,30 +237,6 @@ AdaptiveRadio<SingingCharacter>(
   onChanged: (SingingCharacter? newValue) {
     setState(() {
       _character = newValue;
-    });
-  },
-),
-```
-
-#### Switch Button
-The switch represents a physical switch that allows users to turn
-things on or off, like a light switch. Use switch controls to present
-users with two mutually exclusive options (such as on/off), where choosing an option provides immediate results.
-Use a switch for binary operations that take effect right after the
-user flips the switch,Think of the switch as a physical power switch for a device: you flip
-it on or off when you want to enable or disable the action performed by the device.
-
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/07rssaU.gif) | ![Windows Dark Mode](https://i.imgur.com/QJY6f9R.gif) |
-| ![macOS Light Mode](https://i.imgur.com/dU5CfsI.gif)| ![Windows Light Mode](https://i.imgur.com/3a3XRw4.gif) |
-
-```dart
-AdaptiveSwitch(
-  value: _currentValue,
-  onChanged: (bool newValue) {
-    setState(() {
-      _currentValue = newValue;
     });
   },
 ),
