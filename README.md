@@ -189,8 +189,9 @@ AdaptiveTextButton(
 ### Menus
 
 #### Pulldown Menu Button
-An AdaptivePulldownMenuButton is a button widget in Flutter that displays a pull-down menu when pressed.
-The menu typically contains a list of options for the user to choose from.
+A pull-down menu button is used to create a nice overlay on the screen, allowing the user to select an item from multiple options.
+The `AdaptivePulldownMenuButton.singleChoice` constructor option focuses on only one `AdaptivePulldownMenuItem`.
+If `enabled` is true, it will be focused. There should be exactly one item with the specified 'enabled' value set to true.
 
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
@@ -232,7 +233,30 @@ AdaptivePulldownMenuButton(
 ```
 
 #### Popup Menu Button
-[Add a brief description and usage example for the Popup Menu Button component]
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/0ytIHbt.gif) | ![Windows Dark Mode](https://i.imgur.com/kRwOboQ.gif) |
+| ![macOS Light Mode](https://i.imgur.com/3LtfgAV.gif)| ![Windows Light Mode](https://i.imgur.com/tJgahz2.gif) |
+
+```dart
+AdaptivePopupMenuButton<int>(
+  value: _currentValue,
+  onChanged: (value) {
+    setState(() {
+      _currentValue = value!;
+    });
+  },
+  items: const [
+    AdaptivePopupMenuItem(value: 0, child: Text('Blue')),
+    AdaptivePopupMenuItem(value: 1, child: Text('Green')),
+    AdaptivePopupMenuItem(value: 2, child: Text('Red')),
+    AdaptivePopupMenuItem(value: 3, child: Text('Yellow')),
+    AdaptivePopupMenuItem(value: 4, child: Text('Purple')),
+    AdaptivePopupMenuItem(value: 5, child: Text('Orange')),
+  ],
+),
+```
 
 ### Selection Buttons
 
