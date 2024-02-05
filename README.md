@@ -29,7 +29,7 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 ### Window Control Buttons
 
-- <a href="#window-buttons-section">Window Buttons</a>
+<a href="#window-buttons-section">Window Buttons</a>
 <ul>
     <li><a href="#close-window-button-section">Close Window Button</a></li>
     <li><a href="#minimize-window-button-section">Minimize Window Button</a></li>
@@ -240,7 +240,6 @@ The `AdaptiveWindowButtons` widget provides a set of window control buttons. The
 <a id="close-window-button-section"></a>
 The close window button is used to terminate or close the active window.
 
-
 ```dart
 AdaptiveCloseButton(),
 ```
@@ -252,7 +251,6 @@ AdaptiveMinimizeButton(),
 ```
 <a id="maximize-window-button-section"></a>
 The maximize window button is used to maximize or expand the active window to fill the entire screen.
-
 
 ```dart
 AdaptiveMaximizeButton(),
