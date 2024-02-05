@@ -389,7 +389,14 @@ AdaptiveBackButton(),
 ## Fields
 
 ### Text Field
-[Add a brief description and usage example for the Text Field component]
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/Gd9Dahe.gif) | ![Windows Dark Mode](https://i.imgur.com/GsKJgvf.gif) |
+| ![macOS Light Mode](https://i.imgur.com/cPCO1yU.gif)| ![Windows Light Mode](https://i.imgur.com/yNLZMHD.gif) |
+
+```dart
+AdaptiveTextField(),
+```
 
 ### Text Form Field
 [Add a brief description and usage example for the Text Form Field component]
