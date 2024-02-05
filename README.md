@@ -169,8 +169,8 @@ AdaptiveButton.outlined(
 
 | Dark Mode                                     | Light Mode                                     |
 | --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://gist.github.com/assets/112737126/85748e1e-c1d3-40c2-8b33-781108c28d0d) | ![macOS Light Mode](https://gist.github.com/assets/112737126/d46af09c-e155-4b82-9f11-44b21e5b3fe4) |
-| ![Windows Dark Mode](https://gist.github.com/assets/112737126/0580dd2a-c468-47ab-a315-8c51cc68dcf0) | ![Windows Light Mode](https://gist.github.com/assets/112737126/169fb8bf-ba95-459d-86f3-db97617baa02) |
+| ![macOS Dark Mode](https://i.imgur.com/Z6xhZlh.gifv) | ![macOS Light Mode](https://i.imgur.com/rA8sOuH.gifv) |
+| ![Windows Dark Mode](https://i.imgur.com/GG04BVJ.gifv) | ![Windows Light Mode](https://i.imgur.com/dnuTbIN.gifv) |
 
 ```dart
 AdaptiveRadio<SingingCharacter>(
