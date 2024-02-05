@@ -389,6 +389,8 @@ AdaptiveBackButton(),
 ## Fields
 
 ### Text Field
+The TextField widget in Flutter is a fundamental input component used to collect text input from the user,
+it allows users to enter and edit text interactively.
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/Gd9Dahe.gif) | ![Windows Dark Mode](https://i.imgur.com/GsKJgvf.gif) |
@@ -399,6 +401,8 @@ AdaptiveTextField(),
 ```
 
 ### Text Form Field
+The TextFormField widget in Flutter is an enhanced version of the TextField widget,
+specifically designed to be used within a Form widget to enable form validation and submission.
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/XL0VgKD.gif) | ![Windows Dark Mode](https://i.imgur.com/WHNQ53L.gif) |
