@@ -30,9 +30,9 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 ### Window Control Buttons
 
 - [Window Buttons](#window-control-buttons)
-  - [Close Window Button](#close-window-button)
-  - [Minimize Window Button](#minimize-window-button)
-  - [Maximize Window Button](#maximize-window-button)
+- [Close Window Button](#close-window-button)
+- [Minimize Window Button](#minimize-window-button)
+- [Maximize Window Button](#maximize-window-button)
 
 ### Navigation Buttons
 
