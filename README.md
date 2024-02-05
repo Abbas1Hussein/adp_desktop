@@ -28,10 +28,11 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 - [Checkbox](#checkbox)
 
 ### Window Control Buttons
-<a href="#window-buttons-section">Window Buttons</a>
-<a href="#close-window-button-section">Close Window Button</a>
-<a href="#minimize-window-button-section">Minimize Window Button</a>
-<a href="#maximize-window-button-section">Maximize Window Button</a>
+
+- <a href="#window-buttons-section">Window Buttons</a>
+ - <a href="#close-window-button-section">Close Window Button</a>
+ - <a href="#minimize-window-button-section">Minimize Window Button</a>
+ - <a href="#maximize-window-button-section">Maximize Window Button</a>
 
 
 ### Navigation Buttons
