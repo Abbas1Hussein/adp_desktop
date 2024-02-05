@@ -227,10 +227,11 @@ Window control buttons are essential elements of any graphical user interface. T
 | ![macOS Dark Mode](https://i.imgur.com/Lmplu4c.png) | ![Windows Dark Mode](https://i.imgur.com/nzbXPU0.gif) |
 | ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png)| ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
 
+##### Window Control Buttons
+
 ```dart
 AdaptiveWindowButtons(),
 ```
-##### Window Control Buttons
 
 The `AdaptiveWindowButtons` widget provides a set of window control buttons. These buttons can be customized according to your preferences and requirements.
 
