@@ -188,8 +188,8 @@ AdaptiveRadio<SingingCharacter>(
 
 | Dark Mode                                      | Light Mode                                     |
 | --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/OwdDUon.gif) | ![Windows Dark Mode](https://i.imgur.com/E4l7GA8.gif) |
-| ![macOS Light Mode](https://i.imgur.com/M5oru69.gif)| ![Windows Light Mode](https://i.imgur.com/Sa5a6OD.gif) |
+| ![macOS Dark Mode](https://i.imgur.com/07rssaU.gif) | ![Windows Dark Mode](https://i.imgur.com/QJY6f9R.gif) |
+| ![macOS Light Mode](https://i.imgur.com/dU5CfsI.gif)| ![Windows Light Mode](https://i.imgur.com/3a3XRw4.gif) |
 
 ```dart
 AdaptiveSwitch(
