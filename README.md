@@ -233,6 +233,10 @@ AdaptivePulldownMenuButton(
 ```
 
 #### Popup Menu Button
+A pop-up button (often referred to as a pop-up menu) is a type of button
+that, when clicked, displays a menu containing a list of mutually exclusive choices.
+A pop-up button includes a double-arrow indicator that alludes to the
+direction in which the menu will appear (only vertical is currently supported).
 
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
