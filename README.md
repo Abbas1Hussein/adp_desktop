@@ -189,7 +189,17 @@ AdaptiveTextButton(
 ### Menus
 
 #### Pulldown Menu Button
-[Add a brief description and usage example for the Pulldown Menu Button component]
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/SGmnHoa.gif) | ![Windows Dark Mode](https://i.imgur.com/N1Zp8Zl.gif) |
+| ![macOS Light Mode](https://i.imgur.com/57xFA6e.gif)| ![Windows Light Mode](https://i.imgur.com/1lm4qAr.gif) |
+
+```dart
+AdaptiveTextButton(
+  onPressed: () {},
+  child: const Text('Text Button'),
+),
+```
 
 #### Popup Menu Button
 [Add a brief description and usage example for the Popup Menu Button component]
