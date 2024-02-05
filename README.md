@@ -13,8 +13,6 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 ### Basic Buttons
 
 - [Button](#button)
-- [Button Field](#field-button)
-- [Button Outlined](#outlined-button)
 - [Icon Button](#icon-button)
 - [Text Button](#text-button)
 
@@ -31,7 +29,7 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 ### Window Control Buttons
 
-- [Window Buttons](#window-buttons)
+- [Window Buttons](#window-control-buttons)
   - [Close Window Button](#close-window-button)
   - [Minimize Window Button](#minimize-window-button)
   - [Maximize Window Button](#maximize-window-button)
@@ -222,18 +220,27 @@ AdaptiveSwitch(
 
 ### Window Control Buttons
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Lmplu4c.png) | ![Windows Dark Mode](https://i.imgur.com/nzbXPU0.gif) |
-| ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png)| ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
+This section presents window control buttons for both macOS and Windows operating systems in both dark and light modes. Each operating system has its own set of control buttons designed to blend seamlessly with the respective system's aesthetics.
 
-#### Window Buttons
+#### macOS Dark\Light Mode
+| Dark Mode                                      | Light Mode                                     |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/Lmplu4c.png) | ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png) |
+
+#### Windows Dark\Light Mode
+| Dark Mode                                      | Light Mode                                     |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![Windows Dark Mode](https://i.imgur.com/nzbXPU0.gif) | ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
 
 ```dart
 AdaptiveWindowButtons(),
 ```
 
+The `AdaptiveWindowButtons` widget provides a set of window control buttons. These buttons can be customized according to your preferences and requirements.
+
 ##### Close Window Button
+
+The close window button is used to terminate or close the active window.
 
 ```dart
 AdaptiveCloseButton(),
@@ -241,11 +248,15 @@ AdaptiveCloseButton(),
 
 ##### Minimize Window Button
 
+The minimize window button is used to minimize the active window, reducing it to an icon on the taskbar or dock.
+
 ```dart
 AdaptiveMinimizeButton(),
 ```
 
 ##### Maximize Window Button
+
+The maximize window button is used to maximize or expand the active window to fill the entire screen.
 
 ```dart
 AdaptiveMaximizeButton(),
