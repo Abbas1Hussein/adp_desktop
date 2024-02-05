@@ -230,19 +230,27 @@ Window control buttons are essential elements of any graphical user interface. T
 ```dart
 AdaptiveWindowButtons(),
 ```
+##### Window Control Buttons
 
 The `AdaptiveWindowButtons` widget provides a set of window control buttons. These buttons can be customized according to your preferences and requirements.
 
+##### Close Window Button
+
 The close window button is used to terminate or close the active window.
+
 ```dart
 AdaptiveCloseButton(),
 ```
 
+##### Minimize Window Button
 
 The minimize window button is used to minimize the active window, reducing it to an icon on the taskbar or dock.
+
 ```dart
 AdaptiveMinimizeButton(),
 ```
+
+##### Maximize Window Button
 
 The maximize window button is used to maximize or expand the active window to fill the entire screen.
 
