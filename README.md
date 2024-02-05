@@ -29,7 +29,7 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 ### Window Control Buttons
 
-<a href="#window-buttons-section">Window Buttons</a>
+- <a href="#window-buttons-section">Window Buttons</a>
 <ul>
     <li><a href="#close-window-button-section">Close Window Button</a></li>
     <li><a href="#minimize-window-button-section">Minimize Window Button</a></li>
@@ -222,7 +222,6 @@ AdaptiveSwitch(
 ```
 
 ### Window Control Buttons
-
 <a id="window-buttons-section"></a>
 
 Window control buttons are essential elements of any graphical user interface. They allow users to interact with and manage windows on their operating system. Each operating system provides its own set of control buttons, designed to seamlessly integrate with the system's aesthetics.
@@ -238,25 +237,22 @@ AdaptiveWindowButtons(),
 
 The `AdaptiveWindowButtons` widget provides a set of window control buttons. These buttons can be customized according to your preferences and requirements.
 
+<a id="close-window-button-section"></a>
 The close window button is used to terminate or close the active window.
 
-<a id="close-window-button-section"></a>
 
 ```dart
 AdaptiveCloseButton(),
 ```
-
-The minimize window button is used to minimize the active window, reducing it to an icon on the taskbar or dock.
-
 <a id="minimize-window-button-section"></a>
+The minimize window button is used to minimize the active window, reducing it to an icon on the taskbar or dock.
 
 ```dart
 AdaptiveMinimizeButton(),
 ```
-
+<a id="maximize-window-button-section"></a>
 The maximize window button is used to maximize or expand the active window to fill the entire screen.
 
-<a id="maximize-window-button-section"></a>
 
 ```dart
 AdaptiveMaximizeButton(),
