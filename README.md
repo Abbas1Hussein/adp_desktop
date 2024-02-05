@@ -426,12 +426,33 @@ Form(
 ```
 
 ### Text Search Field
+A Text Search Field with Auto Suggestion is a user interface component typically used in applications
+to allow users to input text queries and receive real-time suggestions or predictions based on the entered text.
+It combines a text input field with a dropdown or list of suggestions that dynamically updates as the user types.
+
+This widget provides a convenient way for users to find relevant information quickly without having to type the entire query themselves.
+It enhances the user experience by offering predictive text suggestions, which can save time and effort.
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/oLfr1TE.gif) | ![Windows Dark Mode](https://i.imgur.com/E5vCe1R.gif) |
 | ![macOS Light Mode](https://i.imgur.com/Jq0yNWe.gif)| ![Windows Light Mode](https://i.imgur.com/98g2ZHN.gif) |
 
-
+```dart
+AdaptiveTextSearchField(
+  suggestions: [
+    AdaptiveSearchItem(searchKey: 'John Doe'),
+    AdaptiveSearchItem(searchKey: 'Jane Smith'),
+    AdaptiveSearchItem(searchKey: 'Michael Johnson'),
+    AdaptiveSearchItem(searchKey: 'Emily Davis'),
+    AdaptiveSearchItem(searchKey: 'Daniel Brown'),
+    AdaptiveSearchItem(searchKey: 'Olivia Wilson'),
+    AdaptiveSearchItem(searchKey: 'James Taylor'),
+    AdaptiveSearchItem(searchKey: 'Alexander Anderson'),
+    AdaptiveSearchItem(searchKey: 'Emma Garcia'),
+    AdaptiveSearchItem(searchKey: 'Sophia Martinez'),
+  ],
+),
+```
 ## Icon
 
 ### Icon
@@ -446,7 +467,24 @@ Form(
 ## Indicators
 
 ### Circular Progress Indicator
-[Add a brief description and usage example for the Circular Progress Indicator component]
+A progress control provides feedback to the user that a long-running
+operation is underway. It can mean that the user cannot interact with the
+app when the progress indicator is visible, and can also indicate how long
+the wait time might be.
+
+It can be determinate or indeterminate:
+If `value` is non-null, it should be between 0 and 100, representing the progress percentage.
+If `value` is null, the circular progress will be considered indeterminate,
+indicating that the progress is ongoing without a specific completion percentage.
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/KcfSOA2.gif) | ![Windows Dark Mode](https://i.imgur.com/UjUz0vU.gif) |
+| ![macOS Light Mode](https://i.imgur.com/4M7ScTW.gif)| ![Windows Light Mode](https://i.imgur.com/C80cGMt.gif) |
+
+```dart
+AdaptiveCircularProgressIndicator(),
+```
 
 ### Progress Bar
 [Add a brief description and usage example for the Progress Bar component]
