@@ -186,6 +186,12 @@ AdaptiveRadio<SingingCharacter>(
 ```
 
 #### Switch Button
+The switch represents a physical switch that allows users to turn
+things on or off, like a light switch. Use switch controls to present
+users with two mutually exclusive options (such as on/off), where choosing an option provides immediate results.
+Use a switch for binary operations that take effect right after the
+user flips the switch,Think of the switch as a physical power switch for a device: you flip
+it on or off when you want to enable or disable the action performed by the device.
 
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
