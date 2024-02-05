@@ -152,7 +152,18 @@ AdaptiveButton.outlined(
 ```
 
 #### Icon Button
-[Add a brief description and usage example for the Icon Button component]
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/j0diwNZ.gif) | ![Windows Dark Mode](https://i.imgur.com/Jg34uWa.gif) |
+| ![macOS Light Mode](https://i.imgur.com/RNtTaPj.gif)| ![Windows Light Mode](https://i.imgur.com/L5nxThO.gif) |
+
+```dart
+AdaptiveIconButton(
+  onPressed: () {},
+  icon: const AdaptiveIcon(AdpIcons.add),
+)
+
+```
 
 #### Text Button
 [Add a brief description and usage example for the Text Button component]
