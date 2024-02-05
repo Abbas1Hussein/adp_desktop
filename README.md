@@ -126,8 +126,8 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 | Dark Mode                                     | Light Mode                                    |
 | --------------------------------------------- | ----------------------------------------------|
-| ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png) | ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) |
-| ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) |
+| ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png)  | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) |
+| ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) |
 
 ```dart
 /// base button
@@ -169,8 +169,8 @@ AdaptiveButton.outlined(
 
 | Dark Mode                                     | Light Mode                                     |
 | --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Z6xhZlh.gif) | ![macOS Light Mode](https://i.imgur.com/rA8sOuH.gif) |
-| ![Windows Dark Mode](https://i.imgur.com/GG04BVJ.gif) | ![Windows Light Mode](https://i.imgur.com/dnuTbIN.gif) |
+| ![macOS Dark Mode](https://i.imgur.com/Z6xhZlh.gif)  | ![Windows Dark Mode](https://i.imgur.com/GG04BVJ.gif) |
+| ![macOS Light Mode](https://i.imgur.com/rA8sOuH.gif) | ![Windows Light Mode](https://i.imgur.com/dnuTbIN.gif) |
 
 ```dart
 AdaptiveRadio<SingingCharacter>(
@@ -181,11 +181,26 @@ AdaptiveRadio<SingingCharacter>(
       _character = newValue;
     });
   },
-);
+),
 ```
 
 #### Switch Button
-[Add a brief description and usage example for the Switch Button component]
+
+| Dark Mode                                      | Light Mode                                     |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/E4l7GA8.gif) |  ![Windows Dark Mode](https://i.imgur.com/OwdDUon.gif) |
+| ![macOS Light Mode](https://i.imgur.com/Sa5a6OD.gif)| ![Windows Light Mode](https://i.imgur.com/M5oru69.gif) |
+
+```dart
+AdaptiveSwitch(
+  value: _currentValue,
+  onChanged: (bool newValue) {
+    setState(() {
+      _currentValue = newValue;
+    });
+  },
+),
+```
 
 #### Checkbox
 [Add a brief description and usage example for the Checkbox component]
