@@ -467,6 +467,7 @@ AdaptiveTextSearchField(
 ## Indicators
 
 ### Circular Progress Indicator
+A progress widget that shows progress in a circular form,
 A progress control provides feedback to the user that a long-running
 operation is underway. It can mean that the user cannot interact with the
 app when the progress indicator is visible, and can also indicate how long
@@ -487,7 +488,25 @@ AdaptiveCircularProgressIndicator(),
 ```
 
 ### Progress Bar
-[Add a brief description and usage example for the Progress Bar component]
+A progress widget that shows progress in a horizontal bar,
+A progress control provides feedback to the user that a long-running
+operation is underway. It can mean that the user cannot interact with the
+app when the progress indicator is visible, and can also indicate how long
+the wait time might be.
+
+It can be determinate or indeterminate:
+If `value` is non-null, it should be between 0 and 100, representing the progress percentage.
+If `value` is null, the circular progress will be considered indeterminate,
+indicating that the progress is ongoing without a specific completion percentage.
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/skG1xbs.gif) | ![Windows Dark Mode](https://i.imgur.com/KClzEqx.gif) |
+| ![macOS Light Mode](https://i.imgur.com/PzzOVaw.gif)| ![Windows Light Mode](https://i.imgur.com/LxciPjW.gif) |
+
+```dart
+AdaptiveProgressBarIndicator(),
+```
 
 ### Rating Indicator
 [Add a brief description and usage example for the Rating Indicator component]
