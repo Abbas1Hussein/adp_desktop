@@ -169,8 +169,8 @@ AdaptiveButton.outlined(
 
 | Dark Mode                                     | Light Mode                                     |
 | --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Z6xhZlh.gifv) | ![macOS Light Mode](https://i.imgur.com/rA8sOuH.gifv) |
-| ![Windows Dark Mode](https://i.imgur.com/GG04BVJ.gifv) | ![Windows Light Mode](https://i.imgur.com/dnuTbIN.gifv) |
+| ![macOS Dark Mode](https://i.imgur.com/Z6xhZlh.gif) | ![macOS Light Mode](https://i.imgur.com/rA8sOuH.gif) |
+| ![Windows Dark Mode](https://i.imgur.com/GG04BVJ.gif) | ![Windows Light Mode](https://i.imgur.com/dnuTbIN.gif) |
 
 ```dart
 AdaptiveRadio<SingingCharacter>(
