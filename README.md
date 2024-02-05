@@ -124,7 +124,7 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 #### Button
 
-| Dark Mode                                     | Light Mode                                    |
+| MacOS Dark\Light Mode                         | Windows Dark\Light Mode                       |
 | --------------------------------------------- | ----------------------------------------------|
 | ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png)  | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) |
 | ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) |
@@ -167,7 +167,7 @@ AdaptiveButton.outlined(
 
 #### Radio Button
 
-| Dark Mode                                     | Light Mode                                     |
+| MacOS Dark\Light Mode                         | Windows Dark\Light Mode                        |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/Z6xhZlh.gif)  | ![Windows Dark Mode](https://i.imgur.com/GG04BVJ.gif) |
 | ![macOS Light Mode](https://i.imgur.com/rA8sOuH.gif) | ![Windows Light Mode](https://i.imgur.com/dnuTbIN.gif) |
@@ -186,7 +186,7 @@ AdaptiveRadio<SingingCharacter>(
 
 #### Switch Button
 
-| Dark Mode                                      | Light Mode                                     |
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/07rssaU.gif) | ![Windows Dark Mode](https://i.imgur.com/QJY6f9R.gif) |
 | ![macOS Light Mode](https://i.imgur.com/dU5CfsI.gif)| ![Windows Light Mode](https://i.imgur.com/3a3XRw4.gif) |
@@ -204,7 +204,7 @@ AdaptiveSwitch(
 
 #### Checkbox
 
-| Dark Mode                                      | Light Mode                                     |
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/mdAzfiU.gif) | ![Windows Dark Mode](https://i.imgur.com/xwHPnko.gif) |
 | ![macOS Light Mode](https://i.imgur.com/9NPTavl.gif)| ![Windows Light Mode](https://i.imgur.com/AHlUApw.gif) |
