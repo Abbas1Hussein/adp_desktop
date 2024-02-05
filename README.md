@@ -426,7 +426,11 @@ Form(
 ```
 
 ### Text Search Field
-[Add a brief description and usage example for the Text Search Field component]
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/oLfr1TE.gif) | ![Windows Dark Mode](https://i.imgur.com/E5vCe1R.gif) |
+| ![macOS Light Mode](https://i.imgur.com/Jq0yNWe.gif)| ![Windows Light Mode](https://i.imgur.com/98g2ZHN.gif) |
+
 
 ## Icon
 
