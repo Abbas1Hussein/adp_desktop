@@ -152,6 +152,10 @@ AdaptiveButton.outlined(
 ```
 
 #### Icon Button
+It is one of the most widely used buttons in the flutter library typically contains an icon.
+It is commonly used to trigger actions or events in response to user interaction, such as tapping or clicking.
+If the onPressed callback is null, then the button will be disabled and will not react to touch.
+
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/j0diwNZ.gif) | ![Windows Dark Mode](https://i.imgur.com/Jg34uWa.gif) |
