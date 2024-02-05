@@ -188,7 +188,7 @@ AdaptiveRadio<SingingCharacter>(
 
 | Dark Mode                                      | Light Mode                                     |
 | --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/OwdDUon.gif) |  ![Windows Dark Mode](https://i.imgur.com/E4l7GA8.gif) |
+| ![macOS Dark Mode](https://i.imgur.com/OwdDUon.gif) | ![Windows Dark Mode](https://i.imgur.com/E4l7GA8.gif) |
 | ![macOS Light Mode](https://i.imgur.com/M5oru69.gif)| ![Windows Light Mode](https://i.imgur.com/Sa5a6OD.gif) |
 
 ```dart
@@ -203,7 +203,22 @@ AdaptiveSwitch(
 ```
 
 #### Checkbox
-[Add a brief description and usage example for the Checkbox component]
+
+| Dark Mode                                      | Light Mode                                     |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/mdAzfiU.gif) | ![Windows Dark Mode](https://i.imgur.com/xwHPnko.gif) |
+| ![macOS Light Mode](https://i.imgur.com/9NPTavl.gif)| ![Windows Light Mode](https://i.imgur.com/AHlUApw.gif) |
+
+```dart
+AdaptiveSwitch(
+  value: _currentValue,
+  onChanged: (bool newValue) {
+    setState(() {
+      _currentValue = newValue;
+    });
+  },
+),
+```
 
 ### Window Control Buttons
 
