@@ -882,9 +882,9 @@ AdaptiveTooltip(
 ),
 ```
 
-### Additional
+## Additional
 
-#### adaptiveValue
+### adaptiveValue
 Utilize to execute platform-specific actions.
 ```dart
 AdaptiveButton(
@@ -899,7 +899,7 @@ AdaptiveButton(
 ),
 ```
 
-#### AdaptiveWidget
+### AdaptiveWidget
 Widget that provides platform-specific child.
 ```dart
 AdaptiveWidget(
@@ -908,7 +908,7 @@ AdaptiveWidget(
 )
 ```
 
-#### AdaptiveBuilderWidget
+### AdaptiveBuilderWidget
 Widget that adapts its child's appearance based on the platform.
 
 ```dart
@@ -937,20 +937,20 @@ AdaptiveBuilderWidget(
 ),
 ```
 
-#### Colors
+### Colors
 represents the adaptive color value.
 ```dart
 final color = AdpColors.red;
 ```
 
-#### Typography
+### Typography
 The text style, it's obtained by accessing the typography settings.
 This likely adjusts the text style based on the current platform.
 ```dart
 final typography = AdaptiveTypography.of(context);
 ```
 
-#### Brightness
+### Brightness
 To retrieves the brightness mode (light or dark) of the current platform.
 It's using this to get the brightness mode.
 ```dart
