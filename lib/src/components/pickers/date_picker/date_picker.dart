@@ -3,13 +3,10 @@ import 'package:fluent_ui/fluent_ui.dart';
 import '../../../core/common/construct/component.dart';
 import 'platforms/platforms.dart';
 
-/// The date picker gives you a standardized way to let users pick a localized
-/// date value using touch, mouse, or keyboard input.
-///
-/// See also:
-///
-///  * [TimePicker], which gives you a standardized way to let users pick a time
-///    value
+/// A Date picker is a graphical user interface element that used to select a date from a graphical calendar interface.
+/// It allows users to easily choose a specific date by clicking or tapping on the desired day within the calendar.
+/// Date pickers provide options for navigating between months and years. They are widely used in various applications,
+/// including scheduling, event management, and form submissions, to facilitate the input of dates with accuracy and efficiency.
 ///
 /// Use this widget to create date picker with platform-specific
 /// styling and behavior:
@@ -31,18 +28,10 @@ class AdaptiveDatePicker extends CoreAdaptiveComponent<
   /// You can provide specific [properties] for each platform using `DatePickerWindowsProperty`
   /// and `DatePickerMacosProperty` respectively.
   ///
-  /// Usage:
-  /// ```dart
-  /// AdaptiveDatePicker(
-  ///   initialDate: DateTime.now(),
-  ///   onCancel: () {
-  ///     // Handle cancellation logic
-  ///   },
-  ///   onSelected: (DateTime selectedDate)
-  ///     // Handle selected date logic
-  ///   },
-  /// )
-  /// ```
+  /// See also:
+  ///
+  ///  * [TimePicker], which gives you a standardized way to let users pick a time
+  ///    value
   const AdaptiveDatePicker({
     super.key,
     super.builders,

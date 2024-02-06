@@ -742,10 +742,43 @@ AdaptiveTabView(
 ## Pickers
 
 ### Date Picker
-[Add a brief description and usage example for the Date Picker component]
+A date picker is a graphical user interface element that used to select a date from a graphical calendar interface.
+It allows users to easily choose a specific date by clicking or tapping on the desired day within the calendar.
+Date pickers provide options for navigating between months and years. They are widely used in various applications,
+including scheduling, event management, and form submissions, to facilitate the input of dates with accuracy and efficiency.
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/c8MUK2u.gif) | ![Windows Dark Mode](https://i.imgur.com/t4Bktbz.gif) |
+| ![macOS Light Mode](https://i.imgur.com/NxUl9iG.gif)| ![Windows Light Mode](https://i.imgur.com/4g5QKDY.gif) |
+
+```dart
+AdaptiveDatePicker(
+  initialDate: DateTime.now(),
+  onSelected: (value) {
+    print(value.toIso8601String());
+  },
+),
+```
 
 ### Time Picker
-[Add a brief description and usage example for the Time Picker component]
+A time picker is a user interface component that allows users to select a specific time of day, typically in hours and minutes.
+It provides a graphical interface for users to adjust the hour and minute values using sliders or input fields.
+Time pickers are commonly used in applications that require scheduling or setting reminders, enabling users to choose precise times for events or tasks.
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/CCJ5z26.gif) | ![Windows Dark Mode](https://i.imgur.com/OnKxBKa.gif) |
+| ![macOS Light Mode](https://i.imgur.com/Hra7m3o.gif)| ![Windows Light Mode](https://i.imgur.com/dSytfPc.gif) |
+
+```dart
+AdaptiveTimePicker(
+  initialTime: TimeOfDay.now(),
+  onSelected: (value) {
+    print(value.format(context));
+  },
+),
+```
 
 ## Surfaces
 

@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../core/core.dart';
 import 'platforms/platforms.dart';
 
-/// The time picker gives you a standardized way to let users pick a time value
-/// using touch, mouse, or keyboard input.
-///
-/// See also:
-///
-///  * [DatePicker], which gives you a standardized way to let users pick a
-///    localized date value
+/// A time picker is a user interface component that allows users to select a specific time of day, typically in hours and minutes.
+/// It provides a graphical interface for users to adjust the hour and minute values using sliders or input fields.
+/// Time pickers are commonly used in applications that require scheduling or setting reminders,
+/// enabling users to choose precise times for events or tasks.
 ///
 /// Use this widget to create time picker with platform-specific
 /// styling and behavior:
@@ -31,18 +28,10 @@ class AdaptiveTimePicker extends CoreAdaptiveComponent<
   /// You can provide specific [properties] for each platform using `TimePickerWindowsProperty`
   /// and `TimePickerMacosProperty` respectively.
   ///
-  /// Usage:
-  /// ```dart
-  /// AdaptiveTimePicker(
-  ///   initialTime: TimeOfDay.now(),
-  ///   onCancel: () {
-  ///     // Handle cancellation logic
-  ///   },
-  ///   onSelected: (TimeOfDay selectedTime)
-  ///     // Handle selected date logic
-  ///   },
-  /// )
-  /// ```
+  /// See also:
+  ///
+  ///  * [DatePicker], which gives you a standardized way to let users pick a
+  ///    localized date value
   const AdaptiveTimePicker({
     super.key,
     super.builders,

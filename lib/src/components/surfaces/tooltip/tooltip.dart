@@ -59,8 +59,9 @@ class AdaptiveTooltip extends CoreAdaptiveComponent {
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return TooltipTheme(
-      data:
-          TooltipTheme.of(context).merge(tooltipTheme?.data.toWindows(context)),
+      data: TooltipTheme.of(context).merge(
+        tooltipTheme?.data.toWindows(context),
+      ),
       child: Tooltip(
         message: message,
         useMousePosition: useMousePosition,
@@ -73,8 +74,9 @@ class AdaptiveTooltip extends CoreAdaptiveComponent {
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     return MacosTooltipTheme(
-      data: MacosTooltipTheme.of(context)
-          .merge(tooltipTheme?.data.toMacos(context)),
+      data: MacosTooltipTheme.of(context).merge(
+        tooltipTheme?.data.toMacos(context),
+      ),
       child: MacosTooltip(
         message: message,
         useMousePosition: useMousePosition,

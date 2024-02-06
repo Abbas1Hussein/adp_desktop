@@ -15,13 +15,12 @@ class _CustomWidgetState extends State<CustomWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: AdaptiveTooltip(
-        message: 'copy',
-        child: AdaptiveIconButton(
-          onPressed: () {},
-          icon: const AdaptiveIcon.all(Icons.copy),
-        ),
-      ),
+      child: AdaptiveTimePicker(
+        initialTime: TimeOfDay.now(),
+        onSelected: (value) {
+          print(value.format(context));
+        },
+      )
     );
   }
 }
