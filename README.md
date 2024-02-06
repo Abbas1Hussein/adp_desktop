@@ -97,12 +97,12 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 <details>
 <summary>Additional</summary>
 
-  - [AdaptiveBuilder](#adaptive-builder)
-  - [AdaptiveWidget](#adaptive-widget)
-  - [AdaptiveBrightness](#adaptive-brightness)
-  - [AdaptiveTypography](#adaptive-typography)
-  - [Color's](#color)
-  - [Transition's](#transition)
+  - [adaptiveValue](#adaptiveValue)
+  - [AdaptiveBuilder](#adaptiveBuilderWidget)
+  - [AdaptiveWidget](#adaptiveWidget)
+  - [AdaptiveBrightness](#brightness)
+  - [AdaptiveTypography](#typography)
+  - [Color's](#colors)
 </details>
 
 ## Buttons
@@ -899,7 +899,7 @@ AdaptiveButton(
 ),
 ```
 
-### AdaptiveWidget
+### Adaptive Widget
 Widget that provides platform-specific child.
 ```dart
 AdaptiveWidget(
