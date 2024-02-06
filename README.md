@@ -656,7 +656,7 @@ AdaptiveTitleBar(
 The Navigation View top-level navigation for your app provides a structured layout for navigation within an application.
 It typically consists of a sidebar for navigation options and an app bar for additional controls or indicators.
 Provides a flexible layout for navigation purposes, allowing users to interact with the app's content seamlessly,
-making it suitable for various application designs and platforms.[full code](https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/app/view/screens/home/tabs/navigation/navigation_view.dart)
+making it suitable for various application designs and platforms. [full code](https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/app/view/screens/home/tabs/navigation/navigation_view.dart)
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/uWgs3uw.png) | ![Windows Dark Mode](https://i.imgur.com/t4PCDcJ.png) |
@@ -750,14 +750,16 @@ AdaptiveTabView(
 ## Surfaces
 
 ### Dialog
-[Add a brief description and usage example for the Dialog component]
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/P5g70I4.gif) | ![Windows Dark Mode](https://i.imgur.com/jQTLYqS.gif) |
+| ![macOS Light Mode](https://i.imgur.com/BwO6o9p.gif)| ![Windows Light Mode](https://i.imgur.com/8QeU7cR.gif) |
+
+
 
 ### Bottom Sheet
-[Add a brief description and usage example for the Bottom Sheet component]
 
 ### List Tile
-[Add a brief description and usage example for the List Tile component]
 
 ### Tooltip
-[Add a brief description and usage example for the Tooltip component]
 
