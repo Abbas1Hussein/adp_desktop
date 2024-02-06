@@ -554,21 +554,43 @@ AdaptiveSlider(
 
 ## Layout
 
-### Appbar
-[Add a brief description and usage example for the Appbar component]
-
-### Appbar Page
-[Add a brief description and usage example for the Appbar Page component]
-
-### Appbar Action
-[Add a brief description and usage example for the Appbar Action component]
-
-### Drawer
-[Add a brief description and usage example for the Drawer component]
-
 ### Scaffold
-[Add a brief description and usage example for the Scaffold component]
-
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/W1cx7wH.png) | ![Windows Dark Mode](https://i.imgur.com/RpKWR70.png) |
+| ![macOS Light Mode](https://i.imgur.com/dHJvghH.png)| ![Windows Light Mode](https://i.imgur.com/nCcG3BY.png) |
+```dart
+AdaptiveScaffold(
+  appBar: AdaptiveAppBar(title: const Text('appbar')),
+  drawer: AdaptiveDrawer(
+    child: ListView(
+      children: List.generate(
+        labels.length,
+        (index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AdaptiveListTile(
+              useBackgroundColor: index == 0,
+              leading: AdaptiveIcon(icons[index]),
+              title: labels[index],
+            ),
+          );
+        },
+      ),
+    ),
+  ),
+  floatingActionButton: FloatingActionButton(
+    onPressed: () {},
+    child: const AdaptiveIcon(AdpIcons.add),
+  ),
+  body: Center(
+    child: AdaptiveButton(
+      child: const Text("back"),
+      onPressed: () => Navigator.pop(context),
+    ),
+  ),
+),
+```
 ### Scaffold Page
 [Add a brief description and usage example for the Scaffold Page component]
 
@@ -576,12 +598,6 @@ AdaptiveSlider(
 [Add a brief description and usage example for the Title Bar component]
 
 ## Navigation
-
-### Navigation Appbar
-[Add a brief description and usage example for the Navigation Appbar component]
-
-### Navigation Sidebar
-[Add a brief description and usage example for the Navigation Sidebar component]
 
 ### Navigation View
 [Add a brief description and usage example for the Navigation View component]
@@ -599,17 +615,11 @@ AdaptiveSlider(
 
 ## Surfaces
 
-### Bottom Sheet
-[Add a brief description and usage example for the Bottom Sheet component]
-
-### Card
-[Add a brief description and usage example for the Card component]
-
 ### Dialog
 [Add a brief description and usage example for the Dialog component]
 
-### Divider
-[Add a brief description and usage example for the Divider component]
+### Bottom Sheet
+[Add a brief description and usage example for the Bottom Sheet component]
 
 ### List Tile
 [Add a brief description and usage example for the List Tile component]
@@ -617,13 +627,3 @@ AdaptiveSlider(
 ### Tooltip
 [Add a brief description and usage example for the Tooltip component]
 
-## Transitions
-
-### Entrance Transition
-[Add a brief description and usage example for the Entrance Transition component]
-
-### Horizontal Slide Transition
-[Add a brief description and usage example for the Horizontal Slide Transition component]
-
-### Page Transition
-[Add a brief description and usage example for the Page Transition component]
