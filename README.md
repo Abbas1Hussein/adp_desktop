@@ -1,9 +1,11 @@
-<!-- [![pub package](https://img.shields.io/pub/v/adp_desktop.svg)](https://pub.dartlang.org/packages/adp_desktop)  -->
+[![pub package](https://img.shields.io/pub/v/adp_desktop.svg)](https://pub.dartlang.org/packages/adp_desktop)
 [![GitHub](https://img.shields.io/github/license/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/network)
 
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
+
+![logo](https://i.imgur.com/4nSch1h.png)
 
 ## Table of Contents
 
