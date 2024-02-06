@@ -27,6 +27,10 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 - [Switch Button](#switch-button)
 - [Radio Button](#radio-button)
 
+### Navigation Buttons
+
+- [Back Button](#back-button)
+- [Close Button](#close-button)
 
 ### Window Control Buttons
 
@@ -38,10 +42,6 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 </ul>
 
 
-### Navigation Buttons
-
-- [Back Button](#back-button)
-- [Close Button](#close-button)
 </details>
 
 <details>
@@ -339,6 +339,19 @@ AdaptiveRadio<SingingCharacter>(
 ),
 ```
 
+### Navigation Buttons
+
+#### Back Button
+
+```dart
+AdaptiveBackButton(),
+```
+#### Close Button
+
+```dart
+AdaptiveBackButton(),
+```
+
 ### Window Control Buttons
 <a id="window-buttons-section"></a>
 
@@ -374,18 +387,6 @@ The maximize window button is used to maximize or expand the active window to fi
 AdaptiveMaximizeButton(),
 ```
 
-### Navigation Buttons
-
-#### Back Button
-
-```dart
-AdaptiveBackButton(),
-```
-#### Close Button
-
-```dart
-AdaptiveBackButton(),
-```
 ## Fields
 
 ### Text Field
