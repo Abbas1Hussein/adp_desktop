@@ -1,9 +1,4 @@
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
-### Platform-Specific Integration
-- On MacOS: we use `macos_ui`
-- On Windows: we use `fluent_ui`
-- On Linux: for now we do not support, but you can choose between `fluent_ui` or `macos_ui`.
-- On Web: you can choose between `fluent_ui` or `macos_ui`.
 
 ## Table of Contents
 
@@ -132,19 +127,16 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 | ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) |
 
 ```dart
-/// base button
 AdaptiveButton(
   child: const Text('Base Button'),
   onPressed: () {},
 ),
 
-/// button field
 AdaptiveButton.field(
   child: const Text('Field Button'),
   onPressed: () {},
 ),
 
-/// outlined button
 AdaptiveButton.outlined(
   child: const Text('Outlined Button'),
   onPressed: () {},
@@ -184,7 +176,6 @@ AdaptiveTextButton(
   child: const Text('Text Button'),
 ),
 ```
-
 
 ### Menus
 
@@ -343,13 +334,17 @@ AdaptiveRadio<SingingCharacter>(
 
 #### Back Button
 
+The back button is a user interface element used to navigate to the previous screen or step in an application's flow.
+It provides users with a way to return to the previous context or view.
 ```dart
 AdaptiveBackButton(),
 ```
 #### Close Button
 
+The close button is a user interface element used to dismiss or close a window, dialog, or modal.
+It allows users to exit the current context or cancel an action.
 ```dart
-AdaptiveBackButton(),
+AdaptiveCloseButton(),
 ```
 
 ### Window Control Buttons
@@ -878,3 +873,9 @@ AdaptiveTooltip(
   ),
 ),
 ```
+
+### Platform-Specific Integration
+- On MacOS: we use `macos_ui`
+- On Windows: we use `fluent_ui`
+- On Linux: for now we do not support, but you can choose between `fluent_ui` or `macos_ui`.
+- On Web: you can choose between `fluent_ui` or `macos_ui`.
