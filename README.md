@@ -750,12 +750,41 @@ AdaptiveTabView(
 ## Surfaces
 
 ### Dialog
+A dialog is a user interface element that appears on top of the main content to prompt the user for information or to confirm an action.
+It typically contains a title, optional content, and one or more action buttons for the user to interact with.
+Dialogs are commonly used to display alerts, messages, warnings, or to request input from the user.
+They provide a way to temporarily interrupt the user's workflow and require their attention before proceeding.
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/P5g70I4.gif) | ![Windows Dark Mode](https://i.imgur.com/jQTLYqS.gif) |
 | ![macOS Light Mode](https://i.imgur.com/BwO6o9p.gif)| ![Windows Light Mode](https://i.imgur.com/8QeU7cR.gif) |
 
-
+```dart
+AdaptiveButton(
+  child: const Text('Show Dialog'),
+  onPressed: () {
+    showAdpDialog(
+      context: context,
+      builder: (context) {
+        return AdaptiveDialog(
+          title: const SizedBox.shrink(),
+          content: const SizedBox.shrink(),
+          /// on macOS appearance always remains constant
+          primary: AdaptiveButton(
+            child: const Text(''),
+            onPressed: () => Navigator.pop(context),
+          ),
+          /// on macOS appearance always remains constant
+          secondary: AdaptiveButton(
+            child: const Text(''),
+            onPressed: () => Navigator.pop(context),
+          ),
+        );
+      },
+    );
+  },
+),
+```
 
 ### Bottom Sheet
 
