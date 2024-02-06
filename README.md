@@ -5,7 +5,7 @@
 
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
 
-![logo](https://i.imgur.com/4nSch1h.png)
+![logo](https://i.imgur.com/YAOTCJR.png)
 
 ## Table of Contents
 
