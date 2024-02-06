@@ -884,7 +884,8 @@ AdaptiveTooltip(
 
 ### Additional
 
-Utilize adaptiveValue to execute platform-specific actions.
+## adaptiveValue
+Utilize to execute platform-specific actions.
 ```dart
 AdaptiveButton(
   child: const Text('Pick File'),
@@ -898,7 +899,18 @@ AdaptiveButton(
 ),
 ```
 
+## AdaptiveWidget
+Widget that provides platform-specific child.
+```dart
+AdaptiveWidget(
+  onMacos: (context) => const Text('Abbas Hussein onMacos'),
+  onWindows: (context) => const Text('Abbas Hussein onWindows'),
+)
+```
+
+## AdaptiveBuilderWidget
 Widget that adapts its child's appearance based on the platform.
+
 ```dart
 AdaptiveBuilderWidget(
   builders: AdaptiveBuilder(
@@ -925,29 +937,28 @@ AdaptiveBuilderWidget(
 ),
 ```
 
-widget that provides platform-specific child.
-```dart
-AdaptiveWidget(
-  onMacos: (context) => const Text('Abbas Hussein onMacos'),
-  onWindows: (context) => const Text('Abbas Hussein onWindows'),
-)
-```
-Color value.
+## Colors
+represents the adaptive color value.
 ```dart
 final color = AdpColors.red;
 ```
-Text style.
+
+## Typography
+The text style, it's obtained by accessing the typography settings.
+This likely adjusts the text style based on the current platform.
 ```dart
-final style = AdaptiveTypography.of(context).body;
-```
-Brightness mode.
-```dart
-final isDark = AdaptiveBrightness.of(context).isDark;
+final typography = AdaptiveTypography.of(context);
 ```
 
+## Brightness
+To retrieves the brightness mode (light or dark) of the current platform.
+It's using this to get the brightness mode.
+```dart
+final brightness = AdaptiveBrightness.of(context);
+```
 
-### Platform-Specific Integration
-- On MacOS: we use `macos_ui`
-- On Windows: we use `fluent_ui`
-- On Linux: for now we do not support, but you can choose between `fluent_ui` or `macos_ui`.
-- On Web: you can choose between `fluent_ui` or `macos_ui`.
+<!-- ### Platform-Specific Integration -->
+<!-- - On MacOS: we use `macos_ui` -->
+<!-- - On Windows: we use `fluent_ui` -->
+<!-- - On Linux: for now we do not support, but you can choose between `fluent_ui` or `macos_ui`. -->
+<!-- - On Web: you can choose between `fluent_ui` or `macos_ui`. -->
