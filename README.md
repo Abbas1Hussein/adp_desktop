@@ -98,8 +98,8 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 <summary>Additional</summary>
 
   - [adaptiveValue](#adaptiveValue)
-  - [AdaptiveBuilder](#adaptiveBuilderWidget)
-  - [AdaptiveWidget](#adaptiveWidget)
+  - [AdaptiveBuilder](#adaptive-builder-widget)
+  - [AdaptiveWidget](#adaptive-widget)
   - [AdaptiveBrightness](#brightness)
   - [AdaptiveTypography](#typography)
   - [Color's](#colors)
@@ -908,7 +908,7 @@ AdaptiveWidget(
 )
 ```
 
-### AdaptiveBuilderWidget
+### Adaptive Builder Widget
 Widget that adapts its child's appearance based on the platform.
 
 ```dart
