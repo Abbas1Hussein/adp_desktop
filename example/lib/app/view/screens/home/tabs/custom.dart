@@ -8,19 +8,11 @@ class CustomWidget extends StatefulWidget {
   _CustomWidgetState createState() => _CustomWidgetState();
 }
 
-
 class _CustomWidgetState extends State<CustomWidget> {
   double _currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AdaptiveTimePicker(
-        initialTime: TimeOfDay.now(),
-        onSelected: (value) {
-          print(value.format(context));
-        },
-      )
-    );
+    return const Center();
   }
 }

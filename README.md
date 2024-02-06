@@ -452,13 +452,31 @@ AdaptiveTextSearchField(
 ## Icon
 
 ### Icon
-[Add a brief description and usage example for the Icon component]
+Icons are graphical symbols used to represent actions, objects, or concepts within an application's user interface.
+They provide visual cues that help users quickly understand and interact with the interface.
 
-### Icon Theme
-[Add a brief description and usage example for the Icon Theme component]
+```dart
+/// Basic adaptive icon.
+AdaptiveIcon(AdpIcons.app),
+
+/// Specific icon for each platform.
+AdaptiveIcon.from(
+  fluent: _iconWindowsData,
+  cupertino: _iconMacosData,
+),
+
+/// Apply for all platforms.
+AdaptiveIcon.all(Icons.code),
+```
 
 ### Icons
-[Add a brief description and usage example for the Icons component]
+Icons are a collection of predefined graphical symbols that represent common actions, objects, or concepts.
+They provide visual cues that help users quickly understand and interact with the interface.
+
+```dart
+final AdpIcons adpIcon = AdpIcons.app,
+final IconData iconData = adpIcon.platform, /// you can get iconData by using platform.
+```
 
 ## Indicators
 

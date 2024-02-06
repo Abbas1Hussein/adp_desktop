@@ -5,6 +5,13 @@ import '../../core/common/construct/component.dart';
 import '../../core/common/construct/property.dart';
 import 'icons.dart';
 
+/// Icons are graphical symbols used to represent actions, objects, or concepts within an application's user interface.
+/// They provide visual cues that help users quickly understand and interact with the interface.
+///
+/// Use this widget to create time picker with platform-specific
+/// styling and behavior:
+/// - On macOS, [MacosIcon], is utilized.
+/// - On Windows, [Icon] is used.
 class AdaptiveIcon extends CoreAdaptiveComponent {
   /// Creates an adp icon.
   ///
@@ -36,6 +43,8 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   }) : adaptiveIcons = null;
 
   /// Creates a new adaptive icon with one icons for all platforms.
+  ///
+  /// This [iconData] will apply for all platforms.
   const AdaptiveIcon.all(
     IconData iconData, {
     super.key,
