@@ -656,7 +656,7 @@ AdaptiveTitleBar(
 The Navigation View top-level navigation for your app provides a structured layout for navigation within an application.
 It typically consists of a sidebar for navigation options and an app bar for additional controls or indicators.
 Provides a flexible layout for navigation purposes, allowing users to interact with the app's content seamlessly,
-making it suitable for various application designs and platforms. ['see full code']('https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/app/view/screens/home/tabs/navigation/navigation_view.dart')
+making it suitable for various application designs and platforms. [see full code]('https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/app/view/screens/home/tabs/navigation/navigation_view.dart')
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/uWgs3uw.png) | ![Windows Dark Mode](https://i.imgur.com/t4PCDcJ.png) |
@@ -713,7 +713,7 @@ The tab view is top-level for your app, facilitates the organization of content 
 enabling users to navigate between different sections of the application.
 It provides a visually appealing and intuitive way to present and switch between related information.
 The Tab View consists of tabs along with their corresponding content, making it easy for users to access specific sections quickly.
-This widget is customizable and adaptable, suitable for various application designs and platforms. ['see full code']('https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/app/view/screens/home/tabs/navigation/tab_view.dart')
+This widget is customizable and adaptable, suitable for various application designs and platforms. [see full code]('https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/app/view/screens/home/tabs/navigation/tab_view.dart')
 
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
