@@ -555,6 +555,10 @@ AdaptiveSlider(
 ## Layout
 
 ### Scaffold
+We use this from the material library and adaptive it,
+The scaffold is designed to be a top level container for a `AdpApp`.
+This means that adding a Scaffold to each route on a adp app will provide the app with
+platform's basic visual layout structure.
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/W1cx7wH.png) | ![Windows Dark Mode](https://i.imgur.com/RpKWR70.png) |
@@ -592,7 +596,31 @@ AdaptiveScaffold(
 ),
 ```
 ### Scaffold Page
-[Add a brief description and usage example for the Scaffold Page component]
+The scaffold Page is a variant of the Scaffold widget designed specifically for use as a top-level container for individual pages within the app.
+It includes an app bar with customizable actions and a content area for displaying the main content of the page.
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/8BOZhrU.png) | ![Windows Dark Mode](https://i.imgur.com/Nt2oatq.png) |
+| ![macOS Light Mode](https://i.imgur.com/l1rCSDc.png)| ![Windows Light Mode](https://i.imgur.com/2mkkrLO.png) |
+
+```dart
+AdaptiveScaffoldPage(
+  appBar: AdaptiveAppBarPage(
+    title: const Text('Appbar Page'),
+    actions: List.generate(
+      labels.length,
+      (index) {
+        return AdaptiveActionButton(
+          label: labels[index],
+          icon: AdaptiveIcon(icons[index]),
+          onPressed: () {},
+        );
+      },
+    ),
+  ),
+  content: const Center(child: Text("Give us a star")),
+),
+```
 
 ### Title Bar
 [Add a brief description and usage example for the Title Bar component]
