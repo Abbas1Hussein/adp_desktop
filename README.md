@@ -883,8 +883,23 @@ AdaptiveTooltip(
 ```
 
 ### Additional
+
+Utilize adaptiveValue to execute platform-specific actions.
 ```dart
-/// Widget that adapts its child's appearance based on the platform.
+AdaptiveButton(
+  child: const Text('Pick File'),
+  onPressed: () {
+    adaptiveValue(
+      web: _handelPickWebFile,
+      macos: _handelPickMacOSFile,
+      windows: _handelPickWindowsFile,
+    );
+  },
+),
+```
+
+Widget that adapts its child's appearance based on the platform.
+```dart
 AdaptiveBuilderWidget(
   builders: AdaptiveBuilder(
     macos: (platformChild, theme, property) {
@@ -908,35 +923,26 @@ AdaptiveBuilderWidget(
   ),
   child: const Text('Abbas Hussein'),
 ),
+```
 
-/// Widget that provides platform-specific child.
+widget that provides platform-specific child.
+```dart
 AdaptiveWidget(
   onMacos: (context) => const Text('Abbas Hussein onMacos'),
   onWindows: (context) => const Text('Abbas Hussein onWindows'),
 )
-
-/// Color value.
+```
+Color value.
+```dart
 final color = AdpColors.red;
-
-/// Text style.
+```
+Text style.
+```dart
 final style = AdaptiveTypography.of(context).body;
-
-/// Brightness mode.
+```
+Brightness mode.
+```dart
 final isDark = AdaptiveBrightness.of(context).isDark;
-
-/// Utilize adaptiveValue to execute platform-specific actions.
-AdaptiveButton(
-  child: const Text('Pick File'),
-  onPressed: () {
-    /// Execute platform-specific file picking method.
-    adaptiveValue(
-      web: _handelPickWebFile,
-      macos: _handelPickMacOSFile,
-      windows: _handelPickWindowsFile,
-    );
-  },
-),
-
 ```
 
 
