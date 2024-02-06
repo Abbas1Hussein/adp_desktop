@@ -51,7 +51,6 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 <summary>Icon</summary>
 
   - [Icon](#icon)
-  - [Icon Theme](#icon-theme)
   - [Icons](#icons)
 </details>
 
@@ -67,10 +66,6 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 <details>
 <summary>Layout</summary>
 
-  - [Appbar](#appbar)
-  - [Appbar Page](#appbar-page)
-  - [Appbar Action](#appbar-action)
-  - [Drawer](#drawer)
   - [Scaffold](#scaffold)
   - [Scaffold Page](#scaffold-page)
   - [Title Bar](#title-bar)
@@ -79,8 +74,6 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 <details>
 <summary>Navigation</summary>
 
-  - [Navigation Appbar](#navigation-appbar)
-  - [Navigation Sidebar](#navigation-sidebar)
   - [Navigation View](#navigation-view)
   - [Tab View](#tab-view)
 </details>
@@ -95,10 +88,8 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 <details>
 <summary>Surfaces</summary>
 
-  - [Bottom Sheet](#bottom-sheet)
-  - [Card](#card)
   - [Dialog](#dialog)
-  - [Divider](#divider)
+  - [Bottom Sheet](#bottom-sheet)
   - [List Tile](#list-tile)
   - [Tooltip](#tooltip)
 </details>
@@ -113,7 +104,6 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
   - [Color's](#color)
   - [Transition's](#transition)
 </details>
-
 
 ## Buttons
 
@@ -891,6 +881,64 @@ AdaptiveTooltip(
   ),
 ),
 ```
+
+### Additional
+```dart
+/// Widget that adapts its child's appearance based on the platform.
+AdaptiveBuilderWidget(
+  builders: AdaptiveBuilder(
+    macos: (platformChild, theme, property) {
+      return ColoredBox(
+        color: theme.canvasColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: platformChild,
+        ),
+      );
+    },
+    windows: (platformChild, theme, property) {
+      return ColoredBox(
+        color: theme.inactiveColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: platformChild,
+        ),
+      );
+    },
+  ),
+  child: const Text('Abbas Hussein'),
+),
+
+/// Widget that provides platform-specific child.
+AdaptiveWidget(
+  onMacos: (context) => const Text('Abbas Hussein onMacos'),
+  onWindows: (context) => const Text('Abbas Hussein onWindows'),
+)
+
+/// Color value.
+final color = AdpColors.red;
+
+/// Text style.
+final style = AdaptiveTypography.of(context).body;
+
+/// Brightness mode.
+final isDark = AdaptiveBrightness.of(context).isDark;
+
+/// Utilize adaptiveValue to execute platform-specific actions.
+AdaptiveButton(
+  child: const Text('Pick File'),
+  onPressed: () {
+    /// Execute platform-specific file picking method.
+    adaptiveValue(
+      web: _handelPickWebFile,
+      macos: _handelPickMacOSFile,
+      windows: _handelPickWindowsFile,
+    );
+  },
+),
+
+```
+
 
 ### Platform-Specific Integration
 - On MacOS: we use `macos_ui`
