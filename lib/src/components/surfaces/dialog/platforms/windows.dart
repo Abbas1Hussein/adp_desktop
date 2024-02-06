@@ -11,21 +11,14 @@ class DialogWindows extends StatelessWidget {
     this.secondary,
     required this.primary,
   });
+  final DialogWindowsProperty? property;
 
-  /// The title of the dialog. Usually, a [Text] widget.
   final Widget? title;
-
-  /// The content of the dialog. Usually, a [Text] widget.
   final Widget? content;
 
-  /// The secondary action button in the dialog.
+  final Widget primary;
   final Widget? secondary;
 
-  /// The primary action button in the dialog.
-  final Widget primary;
-
-  /// Additional properties for configuring the Windows dialog.
-  final DialogWindowsProperty? property;
 
   @override
   Widget build(BuildContext context) {

@@ -4,46 +4,25 @@ import '../../../core/common/construct/component.dart';
 import '../../buttons/buttons.dart';
 import 'platforms/platforms.dart';
 
-/// A custom dialog widget that adapts its appearance based on the platform.
+/// A dialog is a user interface element that appears on top of the main content to prompt the user for information or to confirm an action.
+/// It typically contains a title, optional content, and one or more action buttons for the user to interact with.
+/// Dialogs are commonly used to display alerts, messages, warnings, or to request input from the user.
+/// They provide a way to temporarily interrupt the user's workflow and require their attention before proceeding.
 ///
-/// Use this widget to create list Tiles with platform-specific
+/// See also:
+///
+/// * [DialogPresenter], A utility class for presenting different types of [AdaptiveDialog].
+/// * [showAdpDialog], A function to display an adaptive platform-specific dialog.
+///
+/// Use this widget to create dialog's  with platform-specific
 /// styling and behavior:
 /// - On macOS, [MacosAlertDialog] is utilized.
 /// - On Windows, [ContentDialog] is used.
-///
-/// See also:
-/// * [DialogPresenter]: A utility class for presenting different types of adaptive dialogs.
-/// * [showAdpDialog]: A function to display an adaptive platform-specific dialog.
 class AdaptiveDialog
     extends CoreAdaptiveComponent<DialogWindowsProperty, DialogMacosProperty> {
   /// Creates an adaptive dialog.
   ///
   /// The [primary] parameter is required and represents the main button of the bottom sheet.
-  ///
-  /// Example:
-  /// ```dart
-  /// showAdpDialog(
-  ///   context: context,
-  ///   child: AdaptiveDialog(
-  ///     title: Text(DummyText.generateQuestion),
-  ///     content: Text(DummyText.generateAnswer),
-  ///     primary: AdaptiveFlatButton(
-  ///       child: const Text('Yes'),
-  ///       onPressed: () {
-  ///         // Handle 'Yes' button press
-  ///         Navigator.pop(context);
-  ///       },
-  ///     ),
-  ///     secondary: AdaptiveFlatButton(
-  ///       child: const Text('No'),
-  ///       onPressed: () {
-  ///         // Handle 'No' button press
-  ///         Navigator.pop(context);
-  ///       },
-  ///     ),
-  ///   ),
-  /// );
-  /// ```
   const AdaptiveDialog({
     super.key,
     super.builders,
@@ -54,16 +33,26 @@ class AdaptiveDialog
     required this.primary,
   });
 
-  /// The title of the dialog.
+  /// The title of the dialog,
+  ///
+  /// Typically an [Text] widget used.
   final Widget? title;
 
   /// The content of the dialog.
   final Widget? content;
 
   /// The primary button of the dialog.
+  ///
+  /// * [AdaptiveButton.builders] will be ignore.
+  ///
+  /// on macOS button appearance always remains constant.
   final AdaptiveButton primary;
 
   /// The secondary button of the dialog.
+  ///
+  /// * [AdaptiveButton.builders] will be ignore.
+  ///
+  /// on macOS button appearance always remains constant.
   final AdaptiveButton? secondary;
 
   @override

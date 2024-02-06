@@ -10,7 +10,14 @@ import '../../navigation/tab_view/tab_view.dart';
 const _kListTileContentPadding = kContentPadding;
 const _kListTileConstraints = BoxConstraints(minHeight: 48.0, minWidth: 48.0);
 
-/// A widget that aims to approximate the [ListTile] widget found in Flutter's material library.
+/// The list tiles are used to represent a single piece of information, typically within a list or grid layout.
+/// They provide a compact and structured way to display data, often including an icon, title, and additional details.
+///
+/// ## The AdaptiveListTile layout isn't exactly what I want
+///
+/// If the way AdaptiveListTile pads and positions its elements isn't quite what
+/// you're looking for, it's easy to create custom list items with a
+/// combination of other widgets, such as [Row]s and [Column]s.
 ///
 /// Use this widget to create list Tiles with platform-specific
 /// styling and behavior:

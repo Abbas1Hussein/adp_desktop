@@ -16,20 +16,6 @@ const _kSheetBorderRadius = BorderRadius.all(Radius.circular(12.0));
 /// interaction with the window until the sheet is dismissed,
 /// can be displayed on both Windows and macOS.
 ///
-/// Example:
-/// ```dart
-/// showAdpDialog(
-///   context: context,
-///   child: AdaptiveBottomSheet(
-///     child: Column(
-///       children: [
-///         Text(DummyText.generateQuestion),
-///         Text(DummyText.generateAnswer),
-///       ],
-///     ),
-///   ),
-/// );
-/// ```
 /// See also:
 ///
 /// * [showAdpBottomSheet] A function to display an adaptive platform-specific bottom sheet.

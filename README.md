@@ -787,8 +787,33 @@ AdaptiveButton(
 ```
 
 ### Bottom Sheet
+A bottom sheet is a type of dialog the screen to provide additional information or actions.
+It typically contains content that is not essential for the current context but may be useful for the user.
+Bottom sheets are commonly used to display menus, settings, or supplementary information without blocking the main content of the application.
+
+```dart
+AdaptiveButton(
+  child: const Text('Show Bottom Sheet'),
+  onPressed: () {
+    showAdpBottomSheet(
+      context: context,
+      builder: (context) {
+        return const AdaptiveBottomSheet(
+          child: Center(child: Text('Hello Word')),
+        );
+      },
+    );
+  },
+),
+```
 
 ### List Tile
+The list tiles are used to represent a single piece of information, typically within a list or grid layout.
+They provide a compact and structured way to display data, often including an icon, title, and additional details.
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/ciDfgFl.gif) | ![Windows Dark Mode](https://i.imgur.com/AQQIgpd.gif) |
+| ![macOS Light Mode](https://i.imgur.com/gv4unPC.gif)| ![Windows Light Mode](https://i.imgur.com/InDlcN7.gif) |
 
 ### Tooltip
 

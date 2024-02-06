@@ -13,10 +13,11 @@ class DialogPreview extends StatelessWidget {
             showAdpDialog(
               context: context,
               builder: (context) {
+                const username = 'AbbasHussein';
                 return AdaptiveDialog(
-                  title: const Text('Delete #username'),
+                  title: const Text('Delete $username'),
                   content: const Text(
-                    'are you sure you want delete #username user?',
+                    'are you sure you want delete $username user?',
                   ),
                   primary: AdaptiveButton(
                     backgroundColor: AdpColors.red,
