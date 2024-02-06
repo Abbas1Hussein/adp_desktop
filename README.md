@@ -653,10 +653,10 @@ AdaptiveTitleBar(
 ## Navigation
 
 ### Navigation View
-The Navigation View provides a structured layout for navigation within an application.
+The Navigation View top-level navigation for your app provides a structured layout for navigation within an application.
 It typically consists of a sidebar for navigation options and an app bar for additional controls or indicators.
-Provides a flexible layout for navigation purposes, allowing users to interact with the app's content seamlessly.
-It includes features such as app bars, sidebars, and content areas, making it suitable for various application designs and platforms.
+Provides a flexible layout for navigation purposes, allowing users to interact with the app's content seamlessly,
+making it suitable for various application designs and platforms.
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/uWgs3uw.png) | ![Windows Dark Mode](https://i.imgur.com/t4PCDcJ.png) |
@@ -709,7 +709,35 @@ AdaptiveNavigationView(
 ```
 
 ### Tab View
-[Add a brief description and usage example for the Tab View component]
+The tab view is top-level for your app, facilitates the organization of content into separate tabs,
+enabling users to navigate between different sections of the application.
+It provides a visually appealing and intuitive way to present and switch between related information.
+The Tab View consists of tabs along with their corresponding content, making it easy for users to access specific sections quickly.
+This widget is customizable and adaptable, suitable for various application designs and platforms.
+
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/qsa5ohF.png) | ![Windows Dark Mode](https://i.imgur.com/pliOHIM.png) |
+| ![macOS Light Mode](https://i.imgur.com/xC8QyxM.png)| ![Windows Light Mode](https://i.imgur.com/g8wiWGl.png) |
+
+```dart
+AdaptiveTabView(
+  currentIndex: currentIndex,
+  onChanged: (value) {
+    setState(() => currentIndex = value);
+  },
+  tabs: tabs,
+  children: List.generate(
+    tabs.length,
+    (index) => Center(
+      child: AdaptiveButton(
+        child: tabs[index].label,
+        onPressed: () => Navigator.pop(context),
+      ),
+    ),
+  ),
+),
+```
 
 ## Pickers
 
