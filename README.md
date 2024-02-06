@@ -628,7 +628,6 @@ AdaptiveScaffoldPage(
 ///
 /// Example usage:
 ///
-```dart
 AdpApp(
    titleBarConfig: AdaptiveTitleBarConfig(
      height: 45.0,
@@ -637,7 +636,6 @@ AdpApp(
      mode: TitleBarMode.normal,
    ),
  ),
- ```
 ///
 /// However, if you need to further customize it, you can use `TitleBarMode.hidden` in `AdpApp`.
 ///
@@ -645,16 +643,14 @@ AdpApp(
 ///
 /// Example usage:
 ///
-```dart
-  AdaptiveTitleBar(
+AdaptiveTitleBar(
    config: AdaptiveTitleBarConfig(
      height: 45.0,
      appTitle: const Text('Abbas Hussein'),
      appIcon: const AdaptiveIcon(AdpIcons.app),
    ),
    child: _scaffoldPage(),
- ),
-```
+),
 ///
 /// In this example, the `AdaptiveTitleBar` widget is used to customize the appearance of the title bar.
 /// It allows you to set properties such as the height, app title, and app icon.
