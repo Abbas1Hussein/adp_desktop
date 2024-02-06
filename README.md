@@ -815,5 +815,17 @@ They provide a compact and structured way to display data, often including an ic
 | ![macOS Dark Mode](https://i.imgur.com/ciDfgFl.gif) | ![Windows Dark Mode](https://i.imgur.com/AQQIgpd.gif) |
 | ![macOS Light Mode](https://i.imgur.com/gv4unPC.gif)| ![Windows Light Mode](https://i.imgur.com/InDlcN7.gif) |
 
+```dart
+AdaptiveListTile(
+  leading: const AdaptiveIcon(AdpIcons.info),
+  title: Text(DummyText.generateQuestion),
+  subtitle: Text(DummyText.generateAnswer),
+  trailing: AdaptiveIconButton(
+    onPressed: () {},
+    icon: const AdaptiveIcon(AdpIcons.ellipsesVert),
+  ),
+),
+```
+
 ### Tooltip
 
