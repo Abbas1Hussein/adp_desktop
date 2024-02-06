@@ -4,7 +4,6 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../core/common/adaptive.dart';
 import '../../core/common/construct/component.dart';
 import '../../core/common/construct/model.dart';
-import '../../core/common/construct/property.dart';
 
 class AdaptiveIconTheme extends CoreAdaptiveComponent {
   /// Creates an adp icon theme that controls the color, opacity, and size of
@@ -31,7 +30,7 @@ class AdaptiveIconTheme extends CoreAdaptiveComponent {
   /// Typical usage is as follows:
   ///
   /// ```dart
-  /// AdaptiveIconThemeData theme = AdaptiveIconThemeData.of(context);
+  /// AdaptiveIconThemeData theme = AdaptiveIconTheme.of(context);
   /// ```
   static AdaptiveIconThemeData of(BuildContext context) {
     return adaptiveValue<AdaptiveIconThemeData>(
@@ -52,15 +51,21 @@ class AdaptiveIconTheme extends CoreAdaptiveComponent {
     return Builder(
       builder: (BuildContext context) {
         return adaptiveValue(
-          macos: () => MacosIconTheme.merge(data: data.toMacos(context), child: child),
-          windows: () => IconTheme.merge(data: data.toWindows(context), child: child),
+          macos: () => MacosIconTheme.merge(
+            data: data.toMacos(context),
+            child: child,
+          ),
+          windows: () => IconTheme.merge(
+            data: data.toWindows(context),
+            child: child,
+          ),
         );
       },
     );
   }
 
   @override
-  Widget windows(BuildContext context,[CoreWindowsProperty? property]) {
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return IconTheme(data: data.toWindows(context), child: child);
   }
 
@@ -70,7 +75,8 @@ class AdaptiveIconTheme extends CoreAdaptiveComponent {
   }
 }
 
-class AdaptiveIconThemeData extends CoreModel<IconThemeData, MacosIconThemeData> {
+class AdaptiveIconThemeData
+    extends CoreModel<IconThemeData, MacosIconThemeData> {
   const AdaptiveIconThemeData({this.color, this.size, this.opacity});
 
   final Color? color;
@@ -133,14 +139,4 @@ class AdaptiveIconThemeData extends CoreModel<IconThemeData, MacosIconThemeData>
       opacity: other.opacity,
     );
   }
-}
-
-extension MacosIconThemeDataEx on MacosIconThemeData {
-  IconThemeData toWindowsData() =>
-      IconThemeData(color: color, size: size, opacity: opacity);
-}
-
-extension IconThemeDataEx on IconThemeData {
-  MacosIconThemeData toMacosData() =>
-      MacosIconThemeData(color: color, size: size, opacity: opacity);
 }

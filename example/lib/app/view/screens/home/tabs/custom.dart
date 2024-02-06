@@ -8,19 +8,18 @@ class CustomWidget extends StatefulWidget {
   _CustomWidgetState createState() => _CustomWidgetState();
 }
 
+
 class _CustomWidgetState extends State<CustomWidget> {
   double _currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: AdaptiveListTile(
-        leading: AdaptiveIcon(AdpIcons.info),
-        title: Text(DummyText.generateQuestion),
-        subtitle: Text(DummyText.generateAnswer),
-        trailing: AdaptiveIconButton(
+      child: AdaptiveTooltip(
+        message: 'copy',
+        child: AdaptiveIconButton(
           onPressed: () {},
-          icon: AdaptiveIcon(AdpIcons.ellipsesVert),
+          icon: const AdaptiveIcon.all(Icons.copy),
         ),
       ),
     );

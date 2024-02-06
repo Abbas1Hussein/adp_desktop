@@ -3,6 +3,7 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../core.dart';
 import 'component_mixin.dart';
+export 'property.dart';
 
 /// A base class for creating adaptive components that can have different implementations
 /// on Windows and macOS platforms.
@@ -44,7 +45,7 @@ abstract class CoreAdaptiveComponent<Windows extends CoreWindowsProperty,
   ///   },
   /// );
   /// ```
-  /// The [windows] builder receives [platformChild], [theme], and [property] parameters,
+  /// The [windows] builder receives [platformChild], [tooltipTheme], and [property] parameters,
   /// and it returns a Windows-specific widget, while the [macos] builder performs
   /// similar customization for the macOS platform.
   @override

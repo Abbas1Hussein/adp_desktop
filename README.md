@@ -754,6 +754,7 @@ A dialog is a user interface element that appears on top of the main content to 
 It typically contains a title, optional content, and one or more action buttons for the user to interact with.
 Dialogs are commonly used to display alerts, messages, warnings, or to request input from the user.
 They provide a way to temporarily interrupt the user's workflow and require their attention before proceeding.
+
 | MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
 | --------------------------------------------- | ---------------------------------------------- |
 | ![macOS Dark Mode](https://i.imgur.com/P5g70I4.gif) | ![Windows Dark Mode](https://i.imgur.com/jQTLYqS.gif) |
@@ -828,4 +829,18 @@ AdaptiveListTile(
 ```
 
 ### Tooltip
+A tooltip is a popup that contains additional information about another
+control or object. Tooltips display automatically when the user moves focus
+to, presses and holds, or hovers the pointer over the associated control.
+The tooltip disappears when the user moves focus from, stops pressing on, or
+stops hovering the pointer over the associated control (unless the pointer is moving towards the tooltip).
 
+```dart
+AdaptiveTooltip(
+  message: 'copy',
+  child: AdaptiveIconButton(
+    onPressed: () {},
+    icon: const AdaptiveIcon.all(Icons.copy),
+  ),
+),
+```

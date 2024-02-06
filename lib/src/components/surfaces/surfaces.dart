@@ -1,6 +1,7 @@
 export 'card/card.dart';
 export 'list_tile/list_title.dart';
 export 'tooltip/tooltip.dart';
+export 'tooltip/tooltip_theme.dart';
 export 'divider/divider.dart';
 
 export 'dialog/dialog.dart';
