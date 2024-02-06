@@ -1,22 +1,17 @@
 import 'package:adp_desktop/adp_desktop.dart';
 
 class CustomWidget extends StatefulWidget {
-  const CustomWidget({super.key});
+  const CustomWidget({Key? key}) : super(key: key);
 
   @override
-  State<CustomWidget> createState() => _CustomWidgetState();
+  _CustomWidgetState createState() => _CustomWidgetState();
 }
 
 class _CustomWidgetState extends State<CustomWidget> {
-  bool _checkboxValue = false;
+  double _currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
-      child: AdaptiveTextButton(
-        onPressed: () {},
-        child: const Text('Text Button'),
-      ),
-    );
+    return Center();
   }
 }

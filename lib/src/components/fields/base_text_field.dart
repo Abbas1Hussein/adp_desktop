@@ -27,7 +27,7 @@ abstract class BaseTextField extends CoreAdaptiveComponent {
     this.keyboardType,
     this.readOnly,
     this.maxLength,
-    this.maxLines= 1,
+    this.maxLines = 1,
     this.controller,
     this.onTap,
     this.onTapOutside,
@@ -353,7 +353,7 @@ abstract class BaseTextField extends CoreAdaptiveComponent {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: super.build(context),
+      child: IntrinsicHeight(child: super.build(context)),
     );
   }
 }

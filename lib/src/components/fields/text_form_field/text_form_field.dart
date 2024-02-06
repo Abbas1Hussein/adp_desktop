@@ -5,7 +5,8 @@ import '../base_text_field.dart';
 import '../text_field/text_field.dart';
 import 'platforms/platforms.dart';
 
-/// A custom text form field widget that adapts its appearance based on the platform.
+/// The TextFormField widget in Flutter is an enhanced version of the TextField widget,
+/// specifically designed to be used within a Form widget to enable form validation and submission.
 ///
 /// Use this widget to create text form field with platform-specific
 /// styling and behavior:

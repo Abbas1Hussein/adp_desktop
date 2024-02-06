@@ -7,9 +7,11 @@ import 'platforms/platforms.dart';
 
 const kContentPadding = EdgeInsets.all(8.0);
 
-/// The AdaptiveTabView widget provides a unified approach for creating a tab view
-/// that adjusts its appearance based on the underlying platform,
-/// making it easy to create consistent navigation experiences.
+/// The tab view is top-level for your app, facilitates the organization of content into separate tabs,
+/// enabling users to navigate between different sections of the application.
+/// It provides a visually appealing and intuitive way to present and switch between related information.
+/// The Tab View consists of tabs along with their corresponding content, making it easy for users to access specific sections quickly.
+/// This widget is customizable and adaptable, suitable for various application designs and platforms.
 ///
 /// See also:
 ///

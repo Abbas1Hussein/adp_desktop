@@ -13,12 +13,10 @@ class _TabViewPreviewState extends State<TabViewPreview> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTabView(
-      onChanged: (value) {
-        setState(() {
-          currentIndex = value;
-        });
-      },
       currentIndex: currentIndex,
+      onChanged: (value) {
+        setState(() => currentIndex = value);
+      },
       tabs: tabs,
       children: List.generate(
         tabs.length,

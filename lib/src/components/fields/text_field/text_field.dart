@@ -6,7 +6,8 @@ import '../../../core/common/construct/property.dart';
 import '../base_text_field.dart';
 import 'platforms/platforms.dart';
 
-/// A custom text field widget that adapts its appearance based on the platform.
+/// The TextField widget in Flutter is a fundamental input component used to collect text input from the user,
+/// it allows users to enter and edit text interactively.
 ///
 /// Use this widget to create text field  with platform-specific
 /// styling and behavior:

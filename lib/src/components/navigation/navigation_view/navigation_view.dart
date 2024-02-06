@@ -4,10 +4,10 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/component.dart';
 import '../navigation.dart';
 
-/// The AdaptiveNavigationView widget provides a unified approach for creating a navigation view
-/// that adjusts its appearance based on the underlying platform,
-/// making it easy to create consistent navigation experiences.
-///
+/// The Navigation View top-level navigation for your app provides a structured layout for navigation within an application.
+/// It typically consists of a sidebar for navigation options and an app bar for additional controls or indicators.
+/// Provides a flexible layout for navigation purposes, allowing users to interact with the app's content seamlessly,
+/// making it suitable for various application designs and platforms.
 ///
 /// See also:
 ///

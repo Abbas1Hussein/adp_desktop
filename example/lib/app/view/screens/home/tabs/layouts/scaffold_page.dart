@@ -12,13 +12,14 @@ class ScaffoldPagePreview extends StatelessWidget {
           labels.length,
           (index) {
             return AdaptiveActionButton(
-              label: (labels[index] as Text).data!,
+              label: labels[index],
               icon: AdaptiveIcon(icons[index]),
               onPressed: () {},
             );
           },
         ),
       ),
+      content: const Center(child: Text("Give us a star")),
     );
   }
 
@@ -33,14 +34,14 @@ class ScaffoldPagePreview extends StatelessWidget {
     ];
   }
 
-  List<Widget> get labels {
+  List<String> get labels {
     return const [
-      Text('Main Home'),
-      Text('Series'),
-      Text('Movies'),
-      Text('Watched'),
-      Text('Favorite'),
-      Text('Settings'),
+      'Main Home',
+      'Series',
+      'Movies',
+      'Watched',
+      'Favorite',
+      'Settings',
     ];
   }
 }

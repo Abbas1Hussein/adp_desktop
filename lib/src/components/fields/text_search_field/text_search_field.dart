@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/property.dart';
@@ -8,7 +7,12 @@ import '../base_text_field.dart';
 import '../text_field/platforms/macos.dart';
 import 'search_item.dart';
 
-/// A custom text search field widget that adapts its appearance based on the platform.
+/// A Text Search Field with Auto Suggestion is a user interface component typically used in applications,
+/// to allow users to input text queries and receive real-time suggestions or predictions based on the entered text.
+/// It combines a text input field with a dropdown or list of suggestions that dynamically updates as the user types.
+///
+/// This widget provides a convenient way for users to find relevant information quickly without having to type the entire query themselves.
+/// It enhances the user experience by offering predictive text suggestions, which can save time and effort.
 ///
 /// Use this widget to create text search field  with platform-specific
 /// styling and behavior:
@@ -51,17 +55,9 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
   final ValueChanged<AdaptiveSearchItem<T>>? onSelected;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [super.build(context)],
-    );
-  }
-
-  @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
+    return ConstrainedBox(
+      constraints: const BoxConstraints.tightFor(height: 34.0),
       child: AutoSuggestBox<T>(
         style: style,
         focusNode: focusNode,
@@ -108,9 +104,7 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
               padding: kContentPadding,
               child: Text(FluentLocalizations.of(context).noResultsFoundLabel),
             ),
-        decoration: decoration != null
-            ? null
-            : kDefaultRoundedBorderDecoration,
+        decoration: decoration != null ? null : kDefaultRoundedBorderDecoration,
         focusedDecoration:
             decoration != null ? null : kDefaultFocusedBorderDecoration,
         placeholderStyle: placeholderStyle ?? kDefaultPlaceholderStyle,

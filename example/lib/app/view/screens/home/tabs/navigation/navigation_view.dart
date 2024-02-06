@@ -18,22 +18,22 @@ class _NavigationViewPreviewState extends State<NavigationViewPreview> {
         actions: [
           AdaptiveActionButton(
             onPressed: () {},
-            label: 'Button 4',
+            label: 'Add',
             icon: const AdaptiveIcon(AdpIcons.add),
           ),
           AdaptiveActionButton(
             onPressed: () {},
-            label: 'Button 3',
+            label: 'Delete',
             icon: const AdaptiveIcon(AdpIcons.delete),
           ),
           AdaptiveActionButton(
             onPressed: () {},
-            label: 'Button 2',
+            label: 'Edit',
             icon: const AdaptiveIcon(AdpIcons.edit),
           ),
           AdaptiveActionButton(
             onPressed: () {},
-            label: 'Button 1',
+            label: 'Download',
             icon: const AdaptiveIcon(AdpIcons.download),
           ),
         ],
