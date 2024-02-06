@@ -623,11 +623,13 @@ AdaptiveScaffoldPage(
 ```
 
 ### Title Bar
+The Title Bar is a visual element typically located at the top of an application window or screen.
+It often contains the application's name or logo and may include additional controls or indicators.
 ```dart
 /// You can customize the title bar from the `AdpApp` by providing the desired configuration.
 AdpApp(
    titleBarConfig: AdaptiveTitleBarConfig(
-     height: 45.0,
+     height: 34.0,
      appIcon: const AdaptiveIcon(AdpIcons.app),
      appTitle: const Text('appTitle'),
      mode: TitleBarMode.normal,
@@ -651,7 +653,60 @@ AdaptiveTitleBar(
 ## Navigation
 
 ### Navigation View
-[Add a brief description and usage example for the Navigation View component]
+The Navigation View provides a structured layout for navigation within an application.
+It typically consists of a sidebar for navigation options and an app bar for additional controls or indicators.
+Provides a flexible layout for navigation purposes, allowing users to interact with the app's content seamlessly.
+It includes features such as app bars, sidebars, and content areas, making it suitable for various application designs and platforms.
+| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![macOS Dark Mode](https://i.imgur.com/uWgs3uw.png) | ![Windows Dark Mode](https://i.imgur.com/t4PCDcJ.png) |
+| ![macOS Light Mode](https://i.imgur.com/do8YbPg.png)| ![Windows Light Mode](https://i.imgur.com/uuPbXJt.png) |
+
+```dart
+AdaptiveNavigationView(
+  appBar: AdaptiveNavigationAppBar(
+    title: const Text('Abbas Hussein'),
+    actions: [
+      AdaptiveActionButton(
+        onPressed: () {},
+        label: 'Add',
+        icon: const AdaptiveIcon(AdpIcons.add),
+      ),
+      AdaptiveActionButton(
+        onPressed: () {},
+        label: 'Delete',
+        icon: const AdaptiveIcon(AdpIcons.delete),
+      ),
+      AdaptiveActionButton(
+        onPressed: () {},
+        label: 'Edit',
+        icon: const AdaptiveIcon(AdpIcons.edit),
+      ),
+      AdaptiveActionButton(
+        onPressed: () {},
+        label: 'Download',
+        icon: const AdaptiveIcon(AdpIcons.download),
+      ),
+    ],
+  ),
+  sidebar: AdaptiveNavigationSidebar(
+    currentIndex: currentIndex,
+    onChanged: (value) {
+      setState(() => currentIndex = value);
+    },
+    items: items,
+  ),
+  children: List.generate(
+    items.length,
+    (index) => Center(
+      child: AdaptiveButton(
+        child: items[index].label,
+        onPressed: () => Navigator.pop(context),
+      ),
+    ),
+  ),
+),
+```
 
 ### Tab View
 [Add a brief description and usage example for the Tab View component]
