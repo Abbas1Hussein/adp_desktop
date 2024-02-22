@@ -3,12 +3,12 @@
 [![GitHub stars](https://img.shields.io/github/stars/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/network)
 
-![logo](https://i.imgur.com/DuBox8f.jpg)
+![logo](https://i.imgur.com/urgl7tU.jpg)
 
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
 
 ## Usage
-First, you need to initialize the DefaultsPlatformManager. Here's how you can do it:
+First, you need to initialize the `DefaultsPlatformManager`. Here's how you can do it:
 
 ```dart
 import 'package:adp_desktop/adp_desktop.dart';
