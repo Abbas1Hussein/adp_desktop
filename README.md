@@ -14,7 +14,7 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 ### Basic Buttons
 
-- [Button](#button)
+- [General Button](#general-buttons)
 - [Icon Button](#icon-button)
 - [Text Button](#text-button)
 
@@ -120,25 +120,33 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 | ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png)  | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) |
 | ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) |
 
+#### Base Button
 This is a basic button that serves as a fundamental interactive element in the user interface.
 It typically triggers primary actions or functions when clicked or tapped.
 The base button doesn't have any specific visual styles beyond the default button appearance provided by the platform.
+
 ```dart
 AdaptiveButton(
   child: const Text('Base Button'),
   onPressed: () {},
 ),
 ```
+
+#### Field Button
 A field button is similar to a base button but is optimized for use within form fields or input areas.
 It may have slightly different visual properties to indicate its association with a form, such as a different background color or border style.
+
 ```dart
 AdaptiveButton.field(
   child: const Text('Field Button'),
   onPressed: () {},
 ),
 ```
+
+#### Outlined Button
 A button with an outline border, providing a subtle visual cue compared to solid buttons.
 It often represents secondary actions or less prominent options.
+
 ```dart
 AdaptiveButton.outlined(
   child: const Text('Outlined Button'),
