@@ -467,18 +467,22 @@ AdaptiveTextSearchField(
 Icons are graphical symbols used to represent actions, objects, or concepts within an application's user interface.
 They provide visual cues that help users quickly understand and interact with the interface.
 
+A basic adaptive icon that adjusts its appearance based on the platform.
 ```dart
-/// Basic adaptive icon.
 AdaptiveIcon(AdpIcons.app),
+```
 
-/// Specific icon for each platform.
+An adaptive icon with platform-specific designs for Windows and macOS.
+```dart
 AdaptiveIcon.from(
   fluent: _iconWindowsData,
-  cupertino: _iconMacosData,
-),
+  cupertino: _iconMacosData
+  ),
+```
 
-/// Apply for all platforms.
-AdaptiveIcon.all(Icons.code),
+An icon that remains consistent across all platforms.
+```dart
+AdaptiveIcon.all(iconData: Icons.code),
 ```
 
 ### Icons
