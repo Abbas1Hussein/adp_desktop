@@ -464,25 +464,21 @@ AdaptiveTextSearchField(
 ## Icon
 
 ### Icon
-Icons are graphical symbols used to represent actions, objects, or concepts within an application's user interface.
+Icon are graphical symbols used to represent actions, objects, or concepts within an application's user interface.
 They provide visual cues that help users quickly understand and interact with the interface.
 
-A basic adaptive icon that adjusts its appearance based on the platform.
 ```dart
+/// A basic adaptive icon that adjusts its appearance based on the platform.
 AdaptiveIcon(AdpIcons.app),
-```
 
-An adaptive icon with platform-specific designs for Windows and macOS.
-```dart
+/// An adaptive icon with platform-specific designs for Windows and macOS.
 AdaptiveIcon.from(
-  fluent: _iconWindowsData,
-  cupertino: _iconMacosData
-  ),
-```
+ fluent: _iconWindowsData,
+ cupertino: _iconMacosData,
+),
 
-An icon that remains consistent across all platforms.
-```dart
-AdaptiveIcon.all(iconData: Icons.code),
+/// An icon that remains consistent across all platforms.
+AdaptiveIcon.all(Icons.code),
 ```
 
 ### Icons
@@ -491,7 +487,7 @@ They provide visual cues that help users quickly understand and interact with th
 
 ```dart
 final AdpIcons adpIcon = AdpIcons.app,
-final IconData iconData = adpIcon.platform, /// you can get iconData by using platform.
+final IconData iconData = adpIcon.platform, /// you can get platform iconData by using platform.
 ```
 
 ## Indicators
