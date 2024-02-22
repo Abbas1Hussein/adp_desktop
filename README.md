@@ -7,6 +7,27 @@ Use this package to create adaptive apps on desktop. With just one codebase, you
 
 ![logo](https://i.imgur.com/DuBox8f.jpg)
 
+## Usage
+To create adaptive desktop apps that work on both Windows and macOS platforms with the adp_desktop package,
+you need to follow these steps:
+
+```dart
+import 'package:adp_desktop/adp_desktop.dart';
+import 'package:flutter/foundation.dart';
+
+void main() async {
+  DefaultsPlatformManager.initialize(
+    // Specify the target platform (Windows or macOS)
+    targetPlatform: DesktopTargetPlatform.windows,
+    // If isDebugging is set to false, the targetPlatform parameter will be ignored, and the specific widget behavior will depend on the base platform.
+    isDebugging: !kReleaseMode,
+  );
+
+  /// root widget of your Flutter application is AdpApp(),
+  runApp(const App());
+}
+```
+
 ## Table of Contents
 
 <details>
