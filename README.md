@@ -3,7 +3,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/network)
 
-![logo](https://i.imgur.com/urgl7tU.jpg)
+![logo](https://i.imgur.com/1AsuU5F.png)
 
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
 
