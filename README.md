@@ -135,10 +135,10 @@ void main() async {
 ## Buttons
 
 ### General Buttons
-| MacOS Dark\Light Mode                         | Windows Dark\Light Mode                       |
-| --------------------------------------------- | ----------------------------------------------|
-| ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png)  | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) |
-| ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) |
+| MacOS Dark\Light Mode                         | Windows Dark\Light Mode                       | | Linux Dark\Light Mode                       |
+| --------------------------------------------- | ----------------------------------------------| | ----------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png)  | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) | | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) |
+| ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) | | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) | 
 
 #### Base Button
 This is a basic button that serves as a fundamental interactive element in the user interface.
