@@ -5,7 +5,6 @@
 
 ![logo](https://i.imgur.com/1AsuU5F.png)
 
-
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
 
 ## Usage
@@ -135,7 +134,7 @@ void main() async {
 
 ## Buttons
 
-#### General Buttons
+### General Buttons
 | MacOS Dark\Light Mode                         | Windows Dark\Light Mode                       |
 | --------------------------------------------- | ----------------------------------------------|
 | ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png)  | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) |
