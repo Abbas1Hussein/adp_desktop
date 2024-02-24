@@ -54,12 +54,6 @@ class CustomTitle extends StatelessWidget {
         hoverColor: Colors.transparent,
         useBackgroundColor: useBackgroundColor,
         subtitle: message != null ? Text(message!) : null,
-        // trailing: path != null
-        //     ? AdaptiveIconButton(
-        //         icon: const AdaptiveIcon.all(Icons.code),
-        //         onPressed: () => _buildHighlightViewCode(context),
-        //       )
-        //     : null,
       ),
     );
   }
