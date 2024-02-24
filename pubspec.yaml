@@ -1,5 +1,5 @@
 name: adp_desktop
-description: adp desktop ui.
+description: Implements AdaptiveUi for Windows and Macos in Flutter.
 version: 0.0.1
 homepage: https://github.com/Abbas1Hussein/adp_desktop/#/
 repository: https://github.com/Abbas1Hussein/adp_desktop
@@ -10,11 +10,14 @@ environment:
   flutter: ">=1.17.0"
 
 topics:
+  - ui
+  - linux
   - macos
   - windows
   - desktop
-  - ui
   - widgets
+  - adaptive
+  - responsive
 
 dependencies:
   flutter:
