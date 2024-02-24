@@ -22,7 +22,7 @@ void main() async {
     isDebugging: !kReleaseMode,
   );
 
-  /// root widget of your Flutter application is AdpApp(),
+  /// root widget of your Flutter application is AdpApp(), see package example.
   runApp(const App());
 }
 ```
