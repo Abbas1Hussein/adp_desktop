@@ -2,7 +2,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart' as macos_ui;
 
 import '../../../core/common/construct/component.dart';
-import '../../../core/common/construct/property.dart';
 import 'progress_bar_macos.dart';
 
 /// A progress control provides feedback to the user that a long-running

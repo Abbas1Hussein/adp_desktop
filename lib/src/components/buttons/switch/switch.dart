@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
-import '../../../core/common/construct/property.dart';
 import '../../../core/extension/widget.dart';
 
 /// The switch represents a physical switch that allows users to turn

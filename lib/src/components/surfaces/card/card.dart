@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
-import '../../../core/common/construct/property.dart';
 
 const BorderRadius _kCardBorderRadius = BorderRadius.all(Radius.circular(12.0));
 

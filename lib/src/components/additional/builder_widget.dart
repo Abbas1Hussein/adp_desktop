@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../core/common/construct/component.dart';
-import '../../core/common/construct/properties.dart';
 
 class AdaptiveBuilderWidget extends CoreAdaptiveComponent {
   const AdaptiveBuilderWidget({

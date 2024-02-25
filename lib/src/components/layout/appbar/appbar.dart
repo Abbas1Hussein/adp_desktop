@@ -4,7 +4,6 @@ import 'package:flutter/material.dart' hide IconButton;
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/component.dart';
-import '../../../core/common/construct/property.dart';
 import '../../buttons/back_button.dart';
 import '../../buttons/close_button.dart';
 import '../../icon/icons.dart';

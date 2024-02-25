@@ -2,7 +2,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../core/common/construct/component.dart';
-import '../../core/common/construct/property.dart';
 
 /// A custom back button widget that adapts its appearance based on the platform.
 ///

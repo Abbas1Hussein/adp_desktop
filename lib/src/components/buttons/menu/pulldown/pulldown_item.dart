@@ -1,5 +1,4 @@
 import 'package:adp_desktop/adp_desktop.dart';
-import 'package:flutter/widgets.dart';
 
 /// Represents an entry in an [AdaptiveMenu], which can be either a
 /// [AdaptivePulldownMenuItem] or a [AdaptivePulldownMenuDivider].

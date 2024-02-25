@@ -2,7 +2,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../core/common/construct/component.dart';
-import '../../core/common/construct/property.dart';
 
 /// An adaptive transition that combines a horizontal slide animation with
 /// smooth transitions, The page slides in from the right, exits

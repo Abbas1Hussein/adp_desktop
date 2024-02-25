@@ -2,7 +2,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../core/common/construct/component.dart';
-import '../../core/common/construct/property.dart';
 
 /// An entrance transition that combines a slide-up animation with a fade-in effect
 /// for incoming content. This is particularly useful for page transitions where
