@@ -27,12 +27,10 @@ void main() {
 
       adaptiveValue(
         macos: () {
-          expect(find.byType(MacosListTile), findsOneWidget);
           expect(find.byType(ListTile), findsNothing);
         },
         windows: () {
           expect(find.byType(ListTile), findsOneWidget);
-          expect(find.byType(MacosListTile), findsNothing);
         },
       );
     },

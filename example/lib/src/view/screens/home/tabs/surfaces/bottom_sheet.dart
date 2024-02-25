@@ -26,7 +26,7 @@ class BottomSheetPreview extends StatelessWidget {
                     ],
                   ),
                   Text(DummyText.generateAnswer),
-                  Expanded(child: Image.asset('assets/images/adp.png')),
+                  Expanded(child: Image.asset('assets/images/logo.png')),
                 ],
               ),
             );

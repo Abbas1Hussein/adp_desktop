@@ -43,7 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           AdaptiveActionButton(
             label: 'github',
-            onPressed: () {},
+            onPressed: () => print('https://github.com/Abbas1Hussein/adp_desktop'),
+            icon: const AdaptiveIcon(AdpIcons.link),
+          ),
+          AdaptiveActionButton(
+            label: 'pub',
+            onPressed: () => print('https://pub.dev/packages/adp_desktop'),
             icon: const AdaptiveIcon(AdpIcons.link),
           ),
           const AdaptiveActionDivider(),

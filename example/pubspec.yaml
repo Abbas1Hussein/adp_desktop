@@ -29,7 +29,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/adp.png
+    - assets/images/logo.png
     # Add all paths from HighlightPaths here:
     - lib/src/view/screens/home/tabs/navigation/navigation_view.dart
     - lib/src/view/screens/home/tabs/navigation/tab_view.dart
