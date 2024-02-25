@@ -63,8 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
             label: context.brightness.name,
-            icon:
-                context.brightness.isDark ? Icons.dark_mode : Icons.light_mode,
+            icon: context.brightness.isDark ? Icons.dark_mode : Icons.light_mode,
           ),
           AdaptiveActionPulldownButton(
             items: [
@@ -73,17 +72,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(ThemeMode.system.name),
               ),
               AdaptiveActionPulldownItem(
-                enabled: PlatformRuining.targetPlatform ==
-                    DesktopTargetPlatform.macOS,
-                onTap: () =>
-                    _showConfirmationDialog(DesktopTargetPlatform.macOS),
+                enabled: PlatformRuining.targetPlatform == DesktopTargetPlatform.macOS,
+                onTap: () => _showConfirmationDialog(DesktopTargetPlatform.macOS),
                 child: Text(DesktopTargetPlatform.macOS.name),
               ),
               AdaptiveActionPulldownItem(
-                enabled: PlatformRuining.targetPlatform ==
-                    DesktopTargetPlatform.windows,
-                onTap: () =>
-                    _showConfirmationDialog(DesktopTargetPlatform.windows),
+                enabled: PlatformRuining.targetPlatform == DesktopTargetPlatform.windows,
+                onTap: () => _showConfirmationDialog(DesktopTargetPlatform.windows),
                 child: Text(DesktopTargetPlatform.windows.name),
               ),
             ],
@@ -135,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
       confirmLabel: 'apply',
     ).then(
       (result) {
-        if (result == true) onApplied.call();
+        if (result == true) onApplied();
       },
     );
   }

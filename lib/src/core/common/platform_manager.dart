@@ -26,6 +26,22 @@ class DefaultsPlatformManager {
         _targetWeb = targetWeb,
         _isDebugging = isDebugging;
 
+  /// the debugging status for the application.
+  bool get isDebugging => _isDebugging;
+  final bool _isDebugging;
+
+  /// the desktop target platform for the application.
+  DesktopTargetPlatform get targetPlatform => _platform;
+  final DesktopTargetPlatform _platform;
+
+  /// the target Linux platform or defaults to [targetPlatform] if not specified.
+  DesktopTargetPlatform get targetLinux => _targetLinux ?? _platform;
+  final DesktopTargetPlatform? _targetLinux;
+
+  /// the target web platform or defaults to [targetPlatform] if not specified.
+  DesktopTargetPlatform get targetWeb => _targetWeb ?? _platform;
+  final DesktopTargetPlatform? _targetWeb;
+
   /// Initializes the DefaultsPlatformManager with the specified parameters.
   ///
   /// - [isTesting] is only for testing.
@@ -64,22 +80,6 @@ class DefaultsPlatformManager {
     await windowManager.waitUntilReadyToShow(windowOptions);
     await windowManager.show();
   }
-
-  /// the debugging status for the application.
-  bool get isDebugging => _isDebugging;
-  final bool _isDebugging;
-
-  /// the desktop target platform for the application.
-  DesktopTargetPlatform get targetPlatform => _platform;
-  final DesktopTargetPlatform _platform;
-
-  /// the target Linux platform or defaults to [targetPlatform] if not specified.
-  DesktopTargetPlatform get targetLinux => _targetLinux ?? _platform;
-  final DesktopTargetPlatform? _targetLinux;
-
-  /// the target web platform or defaults to [targetPlatform] if not specified.
-  DesktopTargetPlatform get targetWeb => _targetWeb ?? _platform;
-  final DesktopTargetPlatform? _targetWeb;
 
   /// Gets the singleton instance of DefaultsPlatformManager.
   ///
