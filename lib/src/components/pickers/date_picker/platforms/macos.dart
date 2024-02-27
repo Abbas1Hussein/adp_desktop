@@ -3,8 +3,8 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../../core/common/construct/properties.dart';
 import '../../date_picker_formatter.dart';
-import '../../macos_button_picker.dart';
-import '../../macos_dialog_picker.dart';
+import '../../button_picker/button_picker.dart';
+import '../../dialog_picker/dialog_picker.dart';
 
 class MacosDatePickerButton extends MacosPickerButton {
   const MacosDatePickerButton({
