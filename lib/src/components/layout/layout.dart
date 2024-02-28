@@ -6,3 +6,4 @@ export 'appbar/appbar_page.dart';
 export 'appbar_action/appbar_action.dart';
 export 'appbar/appbar.dart';
 export 'drawer/drawer.dart';
+export 'scrollbar/scrollbar.dart';

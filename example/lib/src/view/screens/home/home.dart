@@ -1,6 +1,7 @@
 import 'package:adp_desktop/adp_desktop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../controllers/platforms_controller.dart';
 import '../../../controllers/theme_controller.dart';
@@ -43,12 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           AdaptiveActionButton(
             label: 'github',
-            onPressed: () => print('https://github.com/Abbas1Hussein/adp_desktop'),
+            onPressed: () {
+              launchUrlString('https://github.com/Abbas1Hussein/adp_desktop');
+            },
             icon: const AdaptiveIcon(AdpIcons.link),
           ),
           AdaptiveActionButton(
             label: 'pub',
-            onPressed: () => print('https://pub.dev/packages/adp_desktop'),
+            onPressed: () {
+              launchUrlString('https://pub.dev/packages/adp_desktop');
+            },
             icon: const AdaptiveIcon(AdpIcons.link),
           ),
           const AdaptiveActionDivider(),
@@ -68,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
             label: context.brightness.name,
-            icon: context.brightness.isDark ? Icons.dark_mode : Icons.light_mode,
+            icon:
+                context.brightness.isDark ? Icons.dark_mode : Icons.light_mode,
           ),
           AdaptiveActionPulldownButton(
             items: [
@@ -77,13 +83,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(ThemeMode.system.name),
               ),
               AdaptiveActionPulldownItem(
-                enabled: PlatformRuining.targetPlatform == DesktopTargetPlatform.macOS,
-                onTap: () => _showConfirmationDialog(DesktopTargetPlatform.macOS),
+                enabled: PlatformRuining.targetPlatform ==
+                    DesktopTargetPlatform.macOS,
+                onTap: () =>
+                    _showConfirmationDialog(DesktopTargetPlatform.macOS),
                 child: Text(DesktopTargetPlatform.macOS.name),
               ),
               AdaptiveActionPulldownItem(
-                enabled: PlatformRuining.targetPlatform == DesktopTargetPlatform.windows,
-                onTap: () => _showConfirmationDialog(DesktopTargetPlatform.windows),
+                enabled: PlatformRuining.targetPlatform ==
+                    DesktopTargetPlatform.windows,
+                onTap: () =>
+                    _showConfirmationDialog(DesktopTargetPlatform.windows),
                 child: Text(DesktopTargetPlatform.windows.name),
               ),
             ],
@@ -152,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Additional',
   ];
 
-  List<IconData> icons =  [
+  List<IconData> icons = [
     Icons.smart_button,
     Icons.text_fields,
     Icons.insert_emoticon,

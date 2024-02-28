@@ -11,35 +11,55 @@ abstract final class AdpColors {
 
   static const Color white = Colors.white;
 
-  static final Color green =
-      _dynamic(macosColor: MacosColors.appleGreen, fluentColor: Colors.green);
+  static final Color green = _dynamic(
+    macosColor: MacosColors.appleGreen,
+    fluentColor: Colors.green,
+  );
 
-  static final Color red =
-      _dynamic(macosColor: MacosColors.appleRed, fluentColor: Colors.red);
+  static final Color red = _dynamic(
+    macosColor: MacosColors.appleRed,
+    fluentColor: Colors.red,
+  );
 
-  static final Color blue =
-      _dynamic(macosColor: MacosColors.appleBlue, fluentColor: Colors.blue);
+  static final Color blue = _dynamic(
+    macosColor: MacosColors.appleBlue,
+    fluentColor: Colors.blue,
+  );
 
-  static final Color yellow =
-      _dynamic(macosColor: MacosColors.appleYellow, fluentColor: Colors.yellow);
+  static final Color yellow = _dynamic(
+    macosColor: MacosColors.appleYellow,
+    fluentColor: Colors.yellow,
+  );
 
-  static final Color orange =
-      _dynamic(macosColor: MacosColors.appleOrange, fluentColor: Colors.orange);
+  static final Color orange = _dynamic(
+    macosColor: MacosColors.appleOrange,
+    fluentColor: Colors.orange,
+  );
 
-  static final Color purple =
-      _dynamic(macosColor: MacosColors.applePurple, fluentColor: Colors.purple);
+  static final Color purple = _dynamic(
+    macosColor: MacosColors.applePurple,
+    fluentColor: Colors.purple,
+  );
 
   static final Color gray = _dynamic(
-      macosColor: MacosColors.systemGrayColor, fluentColor: Colors.grey);
+    macosColor: MacosColors.systemGrayColor,
+    fluentColor: Colors.grey,
+  );
 
   static final Color teal = _dynamic(
-      macosColor: MacosColors.systemTealColor, fluentColor: Colors.teal);
+    macosColor: MacosColors.systemTealColor,
+    fluentColor: Colors.teal,
+  );
 
   static final Color cyan = _dynamic(
-      macosColor: MacosColors.appleCyan, fluentColor: Colors.teal.lighter);
+    macosColor: MacosColors.appleCyan,
+    fluentColor: Colors.teal.lighter,
+  );
 
   static final Color magenta = _dynamic(
-      macosColor: MacosColors.systemPinkColor, fluentColor: Colors.magenta);
+    macosColor: MacosColors.systemPinkColor,
+    fluentColor: Colors.magenta,
+  );
 
   /// Returns the adaptive color for the current platform.
   ///
@@ -48,15 +68,25 @@ abstract final class AdpColors {
   static Color _dynamic({
     required Color fluentColor,
     required Color macosColor,
-  }) =>
-      adaptiveValue<Color>(windows: () => fluentColor, macos: () => macosColor);
+  }) {
+    return adaptiveValue<Color>(
+      windows: () => fluentColor,
+      macos: () => macosColor,
+    );
+  }
 }
 
 Color handelBackgroundColor(Color? color, BuildContext context) {
   return adaptiveValue<Color>(
-    macos: () => MacosDynamicColor.resolve(
-        color ?? MacosTheme.of(context).canvasColor, context),
-    windows: () =>
-        color ?? FluentTheme.of(context).resources.solidBackgroundFillColorBase,
+    macos: () {
+      return MacosDynamicColor.resolve(
+        color ?? MacosTheme.of(context).canvasColor,
+        context,
+      );
+    },
+    windows: () {
+      return color ??
+          FluentTheme.of(context).resources.solidBackgroundFillColorBase;
+    },
   );
 }

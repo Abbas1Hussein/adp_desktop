@@ -64,9 +64,9 @@ class CustomTitle extends StatelessWidget {
       AdaptivePageRoute(
         transition: AdaptiveTransition.entrance,
         builder: (context, animation, secondaryAnimation) {
-          return AdaptiveScaffoldPage(
-            appBar: AdaptiveAppBarPage(title: Text(title)),
-            content: HighlightViewCode(path: path ?? ''),
+          return HighlightViewCode(
+            title: title,
+            path: path ?? '',
           );
         },
       ),
