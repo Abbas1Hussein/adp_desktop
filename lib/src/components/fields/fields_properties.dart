@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:adp_desktop/src/components/fields/base_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -308,6 +309,92 @@ class AdaptiveFieldProperties extends _BaseFieldProperties {
     super.textCapitalization,
     super.textInputAction,
   });
+
+  factory AdaptiveFieldProperties.fromBaseTextField(
+    BaseTextField baseTextField,
+  ) {
+    return AdaptiveFieldProperties(
+      // Behavior
+      readOnly: baseTextField.readOnly,
+      autofocus: baseTextField.autofocus,
+      enableSuggestions: baseTextField.enableSuggestions,
+      enableInteractiveSelection: baseTextField.enableInteractiveSelection,
+
+      // Callbacks
+      onTap: baseTextField.onTap,
+      onChanged: baseTextField.onChanged,
+      onSubmitted: baseTextField.onSubmitted,
+      onTapOutside: baseTextField.onTapOutside,
+      onEditingComplete: baseTextField.onEditingComplete,
+
+      // Limits
+      maxLines: baseTextField.maxLines,
+      minLines: baseTextField.minLines,
+      maxLength: baseTextField.maxLength,
+      maxLengthEnforcement: baseTextField.maxLengthEnforcement,
+
+      // Appearance
+      style: baseTextField.style,
+      textAlign: baseTextField.textAlign,
+      strutStyle: baseTextField.strutStyle,
+      decoration: baseTextField.decoration,
+      placeholder: baseTextField.placeholder,
+      placeholderStyle: baseTextField.placeholderStyle,
+      textAlignVertical: baseTextField.textAlignVertical,
+
+      // Content
+      controller: baseTextField.controller,
+      keyboardType: baseTextField.keyboardType,
+      inputFormatters: baseTextField.inputFormatters,
+      obscuringCharacter: baseTextField.obscuringCharacter,
+      textCapitalization: baseTextField.textCapitalization,
+
+      // Focus and Navigation
+      focusNode: baseTextField.focusNode,
+      textInputAction: baseTextField.textInputAction,
+
+      // Other
+      enabled: baseTextField.enabled,
+      expands: baseTextField.expands,
+      padding: baseTextField.padding,
+      suffixMode: baseTextField.suffixMode,
+      prefixMode: baseTextField.prefixMode,
+      restorationId: baseTextField.restorationId,
+      dragStartBehavior: baseTextField.dragStartBehavior,
+
+      // Widget
+      prefix: baseTextField.prefix,
+      suffix: baseTextField.suffix,
+      contextMenuBuilder: baseTextField.contextMenuBuilder,
+
+      // Platform-specific
+      keyboardAppearance: baseTextField.keyboardAppearance,
+
+      // Scroll
+      scrollPadding: baseTextField.scrollPadding,
+      scrollPhysics: baseTextField.scrollPhysics,
+      scrollController: baseTextField.scrollController,
+
+      // Selection
+      showCursor: baseTextField.showCursor,
+      selectionControls: baseTextField.selectionControls,
+      selectionWidthStyle: baseTextField.selectionWidthStyle,
+      selectionHeightStyle: baseTextField.selectionHeightStyle,
+
+      // Visuals
+      cursorColor: baseTextField.cursorColor,
+      cursorWidth: baseTextField.cursorWidth,
+      cursorHeight: baseTextField.cursorHeight,
+      cursorRadius: baseTextField.cursorRadius,
+
+      // Text Input
+      autocorrect: baseTextField.autocorrect,
+      obscureText: baseTextField.obscureText,
+      autofillHints: baseTextField.autofillHints,
+      smartDashesType: baseTextField.smartDashesType,
+      smartQuotesType: baseTextField.smartQuotesType,
+    );
+  }
 }
 
 class AdaptiveFormFieldProperties extends _BaseFieldProperties {
@@ -373,7 +460,6 @@ class AdaptiveFormFieldProperties extends _BaseFieldProperties {
     this.errorHighlightColor,
   });
 
-
   /// An optional value to initialize the form field to, or null otherwise.
   final String? initialValue;
 
@@ -436,6 +522,95 @@ class AdaptiveFormFieldProperties extends _BaseFieldProperties {
   /// If [errorHighlightColor] is null, the default error highlighting behavior
   /// of the underlying platform's text field implementation is used.
   final Color? errorHighlightColor;
+
+  factory AdaptiveFormFieldProperties.fromBaseTextField(
+    BaseTextField baseTextField,
+  ) {
+    return AdaptiveFormFieldProperties(
+      // Behavior
+      readOnly: baseTextField.readOnly,
+      autofocus: baseTextField.autofocus,
+      enableSuggestions: baseTextField.enableSuggestions,
+      enableInteractiveSelection: baseTextField.enableInteractiveSelection,
+
+      // Callbacks
+      onTap: baseTextField.onTap,
+      onSaved: baseTextField.onSaved,
+      onChanged: baseTextField.onChanged,
+      validator: baseTextField.validator,
+      onTapOutside: baseTextField.onTapOutside,
+      onFieldSubmitted: baseTextField.onFieldSubmitted,
+      onEditingComplete: baseTextField.onEditingComplete,
+
+      // Limits
+      maxLines: baseTextField.maxLines,
+      minLines: baseTextField.minLines,
+      maxLength: baseTextField.maxLength,
+      maxLengthEnforcement: baseTextField.maxLengthEnforcement,
+
+      // Appearance
+      style: baseTextField.style,
+      textAlign: baseTextField.textAlign,
+      strutStyle: baseTextField.strutStyle,
+      decoration: baseTextField.decoration,
+      initialValue: baseTextField.initialValue,
+      placeholder: baseTextField.placeholder,
+      placeholderStyle: baseTextField.placeholderStyle,
+      textAlignVertical: baseTextField.textAlignVertical,
+      errorHighlightColor: baseTextField.errorHighlightColor,
+
+      // Content
+      controller: baseTextField.controller,
+      keyboardType: baseTextField.keyboardType,
+      inputFormatters: baseTextField.inputFormatters,
+      obscuringCharacter: baseTextField.obscuringCharacter,
+      textCapitalization: baseTextField.textCapitalization,
+
+      // Focus and Navigation
+      focusNode: baseTextField.focusNode,
+      textInputAction: baseTextField.textInputAction,
+
+      // Other
+      enabled: baseTextField.enabled,
+      expands: baseTextField.expands,
+      padding: baseTextField.padding,
+      suffixMode: baseTextField.suffixMode,
+      prefixMode: baseTextField.prefixMode,
+      restorationId: baseTextField.restorationId,
+      dragStartBehavior: baseTextField.dragStartBehavior,
+      autovalidateMode: baseTextField.autovalidateMode,
+
+      // Widget
+      prefix: baseTextField.prefix,
+      suffix: baseTextField.suffix,
+      contextMenuBuilder: baseTextField.contextMenuBuilder,
+
+      // Platform-specific
+      keyboardAppearance: baseTextField.keyboardAppearance,
+
+      // Scroll
+      scrollPadding: baseTextField.scrollPadding,
+      scrollPhysics: baseTextField.scrollPhysics,
+      scrollController: baseTextField.scrollController,
+
+      // Selection
+      showCursor: baseTextField.showCursor,
+      selectionControls: baseTextField.selectionControls,
+      selectionWidthStyle: baseTextField.selectionWidthStyle,
+      selectionHeightStyle: baseTextField.selectionHeightStyle,
+
+      // Visuals
+      cursorColor: baseTextField.cursorColor,
+      cursorWidth: baseTextField.cursorWidth,
+      cursorHeight: baseTextField.cursorHeight,
+      cursorRadius: baseTextField.cursorRadius,
+
+      // Text Input
+      autocorrect: baseTextField.autocorrect,
+      obscureText: baseTextField.obscureText,
+      autofillHints: baseTextField.autofillHints,
+      smartDashesType: baseTextField.smartDashesType,
+      smartQuotesType: baseTextField.smartQuotesType,
+    );
+  }
 }
-
-
