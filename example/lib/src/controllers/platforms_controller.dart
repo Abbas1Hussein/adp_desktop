@@ -11,6 +11,11 @@ class PlatformController {
 
     return DesktopTargetPlatform.values.firstWhere(
       (element) => element.name.contains(platform),
+      orElse: () {
+        if (kIsWeb) return DesktopTargetPlatform.windows;
+
+        return defaultTargetPlatform.desktopTargetPlatform;
+      },
     );
   }
 

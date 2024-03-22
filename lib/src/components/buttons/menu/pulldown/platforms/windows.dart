@@ -134,8 +134,8 @@ class PulldownMenuWindows<T> extends StatelessWidget {
     required AdaptivePulldownMenuItem<T?> item,
   }) {
     return MenuFlyoutItem(
-      text: item.child,
       selected: selected,
+      text: item.child,
       leading: item.leading,
       trailing: item.trailing,
       onPressed: () => _handelPressedItem(index, item, context),

@@ -42,12 +42,34 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// - If `null`, the checkbox is in its third state.
   final bool? value;
 
-  /// Called when the value of the [AdaptiveCheckbox] should change.
+  /// Called when the value of the checkbox should change.
   ///
-  /// This callback passes a new value, but doesn't update its
-  /// state internally.
+  /// The checkbox passes the new value to the callback but does not actually
+  /// change state until the parent widget rebuilds the checkbox with the new
+  /// value.
   ///
-  /// If null, the checkbox is considered disabled.
+  /// If this callback is null, the checkbox will be displayed as disabled
+  /// and will not respond to input gestures.
+  ///
+  /// When the checkbox is tapped, if [value] is null (the default) then
+  /// the [onChanged] callback will be applied to `!value`. If [value] is
+  /// true this callback cycle from false to true to null and back to false
+  /// again.
+  ///
+  /// The callback provided to [onChanged] should update the state of the parent
+  /// [StatefulWidget] using the [State.setState] method, so that the parent
+  /// gets rebuilt; for example:
+  ///
+  /// ```dart
+  /// AdaptiveCheckbox(
+  ///   value: _throwShotAway,
+  ///   onChanged: (bool? newValue) {
+  ///     setState(() {
+  ///       _throwShotAway = newValue!;
+  ///     });
+  ///   },
+  /// )
+  /// ```
   final ValueChanged<bool>? onChanged;
 
   /// The icon displayed in the checkbox when it's checked

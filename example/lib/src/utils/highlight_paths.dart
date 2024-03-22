@@ -1,7 +1,7 @@
 abstract final class HighlightPaths {
   const HighlightPaths._();
 
-  static const String _basePath = 'lib/app/view/screens/home/tabs';
+  static const String _basePath = 'lib/src/view/screens/home/tabs';
 
   static const String navigationView =
       '$_basePath/navigation/navigation_view.dart';

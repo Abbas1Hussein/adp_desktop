@@ -11,7 +11,7 @@ class AdaptiveCloseButton extends StatelessWidget {
     super.key,
     this.color,
     this.hoverColor,
-    this.afterBack,
+    this.afterClose,
     this.onPressed,
     this.mouseCursor = SystemMouseCursors.click,
   });
@@ -26,7 +26,7 @@ class AdaptiveCloseButton extends StatelessWidget {
   final MouseCursor mouseCursor;
 
   /// Callback function to be executed after navigating close.
-  final VoidCallback? afterBack;
+  final VoidCallback? afterClose;
 
   /// Callback function triggered when the close button is pressed.
   final VoidCallback? onPressed;
@@ -62,6 +62,6 @@ class AdaptiveCloseButton extends StatelessWidget {
 
     final canPop = await Navigator.maybePop(context);
 
-    if (canPop) afterBack?.call();
+    if (canPop) afterClose?.call();
   }
 }

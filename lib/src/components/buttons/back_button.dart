@@ -37,19 +37,19 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
+    final label = semanticLabel ??
+        FluentLocalizations.of(context).backButtonTooltip;
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Builder(
         builder: (context) {
           return ConstrainedBox(
-            constraints:
-                const BoxConstraints.tightFor(width: 45.0, height: 35.0),
+            constraints: const BoxConstraints.tightFor(width: 45.0, height: 35.0),
             child: PaneItem(
               mouseCursor: mouseCursor,
               tileColor: color != null ? ButtonState.all(color) : null,
               icon: const Center(child: Icon(FluentIcons.back)),
-              title: Text(semanticLabel ??
-                  FluentLocalizations.of(context).backButtonTooltip),
+              title: Text(label),
               body: const SizedBox.shrink(),
             ).build(context, true, () => _onTap(context),
                 displayMode: PaneDisplayMode.compact),
@@ -61,13 +61,16 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
+    final label =
+        semanticLabel ?? MaterialLocalizations.of(context).backButtonTooltip;
+
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: MacosTooltip(
-        message: MaterialLocalizations.of(context).backButtonTooltip,
+        message: label,
         child: MacosBackButton(
           fillColor: color,
-          semanticLabel: semanticLabel,
+          semanticLabel: label,
           hoverColor: color?.withOpacity(0.35),
           mouseCursor: mouseCursor ?? SystemMouseCursors.basic,
           onPressed: () => _onTap(context),

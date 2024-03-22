@@ -64,10 +64,7 @@ class CustomTitle extends StatelessWidget {
       AdaptivePageRoute(
         transition: AdaptiveTransition.entrance,
         builder: (context, animation, secondaryAnimation) {
-          return HighlightViewCode(
-            title: title,
-            path: path ?? '',
-          );
+          return HighlightViewCode(title: title, path: path ?? '');
         },
       ),
     );

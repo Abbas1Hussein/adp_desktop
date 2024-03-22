@@ -2,21 +2,19 @@ import 'package:custom_text/custom_text.dart';
 import 'package:highlight/highlight.dart';
 
 Future<List<TextElement>> parseLanguage(
-    String text, {
-      required String language,
-    }) async {
+  String text, {
+  required String language,
+}) async {
   final result = highlight.parse(text, language: language);
   return _buildElements(result.nodes);
 }
 
 Future<List<TextElement>> _buildElements(
-    List<Node>? nodes, [
-      int offset = 0,
-      String? className,
-    ]) async {
-  if (nodes == null) {
-    return [];
-  }
+  List<Node>? nodes, [
+  int offset = 0,
+  String? className,
+]) async {
+  if (nodes == null) return [];
 
   final elements = <TextElement>[];
   var currentOffset = offset;
@@ -43,10 +41,10 @@ Future<List<TextElement>> _buildElements(
 }
 
 Future<List<TextElement>> _buildValueElements(
-    String text,
-    int offset,
-    String? className,
-    ) async {
+  String text,
+  int offset,
+  String? className,
+) async {
   final parser = TextParser(matchers: const [UrlMatcher()]);
   var elements = await parser.parse(text, useIsolate: false);
 
