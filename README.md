@@ -3,7 +3,11 @@
 [![GitHub stars](https://img.shields.io/github/stars/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/network)
 
-![banner](banner/banner.png)
+
+<p align="center">
+  <img src="banner/banner.png" alt="banner" />
+</p>
+
 
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
 
@@ -135,9 +139,9 @@ void main() async {
 ## Buttons
 
 ### General Buttons
-| MacOS Dark\Light Mode                         | Windows Dark\Light Mode                       |
-| --------------------------------------------- | ----------------------------------------------|
-| ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png)  | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png) |
+| MacOS Dark\Light Mode                                | Windows Dark\Light Mode                                |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/wlekjGT.png)  | ![Windows Dark Mode](https://i.imgur.com/mDwOl8z.png)  |
 | ![macOS Light Mode](https://i.imgur.com/U3BidaC.png) | ![Windows Light Mode](https://i.imgur.com/kTwO9Tz.png) |
 
 #### Base Button
@@ -179,10 +183,10 @@ It is one of the most widely used buttons in the flutter library typically conta
 It is commonly used to trigger actions or events in response to user interaction, such as tapping or clicking.
 If the onPressed callback is null, then the button will be disabled and will not react to touch.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/j0diwNZ.gif) | ![Windows Dark Mode](https://i.imgur.com/Jg34uWa.gif) |
-| ![macOS Light Mode](https://i.imgur.com/RNtTaPj.gif)| ![Windows Light Mode](https://i.imgur.com/L5nxThO.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/j0diwNZ.gif)  | ![Windows Dark Mode](https://i.imgur.com/Jg34uWa.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/RNtTaPj.gif) | ![Windows Light Mode](https://i.imgur.com/L5nxThO.gif) |
 
 ```dart
 AdaptiveIconButton(
@@ -196,10 +200,10 @@ A textButton widget is just a text label displayed on a zero-elevation Material 
 By default, it does’t have visible borders and reacts to touches by filling with a background color.
 If the onPressed && onLongPress callbacks is null, then the button will be disabled and will not react to touch.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/AACRjIF.gif) | ![Windows Dark Mode](https://i.imgur.com/OGYr2Cs.gif) |
-| ![macOS Light Mode](https://i.imgur.com/dPmGfwF.gif)| ![Windows Light Mode](https://i.imgur.com/qnor9Kz.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/AACRjIF.gif)  | ![Windows Dark Mode](https://i.imgur.com/OGYr2Cs.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/dPmGfwF.gif) | ![Windows Light Mode](https://i.imgur.com/qnor9Kz.gif) |
 
 ```dart
 AdaptiveTextButton(
@@ -215,10 +219,10 @@ A pull-down menu button is used to create a nice overlay on the screen, allowing
 The `AdaptivePulldownMenuButton.singleChoice` constructor option focuses on only one `AdaptivePulldownMenuItem`.
 If `enabled` is true, it will be focused. There should be exactly one item with the specified 'enabled' value set to true.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/SGmnHoa.gif) | ![Windows Dark Mode](https://i.imgur.com/N1Zp8Zl.gif) |
-| ![macOS Light Mode](https://i.imgur.com/57xFA6e.gif)| ![Windows Light Mode](https://i.imgur.com/1lm4qAr.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/SGmnHoa.gif)  | ![Windows Dark Mode](https://i.imgur.com/N1Zp8Zl.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/57xFA6e.gif) | ![Windows Light Mode](https://i.imgur.com/1lm4qAr.gif) |
 
 ```dart
 AdaptivePulldownMenuButton(
@@ -260,10 +264,10 @@ that, when clicked, displays a menu containing a list of mutually exclusive choi
 A pop-up button includes a double-arrow indicator that alludes to the
 direction in which the menu will appear (only vertical is currently supported).
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/0ytIHbt.gif) | ![Windows Dark Mode](https://i.imgur.com/kRwOboQ.gif) |
-| ![macOS Light Mode](https://i.imgur.com/3LtfgAV.gif)| ![Windows Light Mode](https://i.imgur.com/tJgahz2.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/0ytIHbt.gif)  | ![Windows Dark Mode](https://i.imgur.com/kRwOboQ.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/3LtfgAV.gif) | ![Windows Light Mode](https://i.imgur.com/tJgahz2.gif) |
 
 ```dart
 AdaptivePopupMenuButton<int>(
@@ -293,10 +297,10 @@ considered on when it contains a checkmark and off when it's empty.
 A checkbox is almost always followed by a title unless it appears in
 a checklist.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Vfe6kpO.gif) | ![Windows Dark Mode](https://i.imgur.com/02y0IHj.gif) |
-| ![macOS Light Mode](https://i.imgur.com/NVYlXQQ.gif)| ![Windows Light Mode](https://i.imgur.com/H0h21lE.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/Vfe6kpO.gif)  | ![Windows Dark Mode](https://i.imgur.com/02y0IHj.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/NVYlXQQ.gif) | ![Windows Light Mode](https://i.imgur.com/H0h21lE.gif) |
 
 ```dart
 AdaptiveCheckbox(
@@ -317,10 +321,10 @@ Use a switch for binary operations that take effect right after the
 user flips the switch,Think of the switch as a physical power switch for a device: you flip
 it on or off when you want to enable or disable the action performed by the device.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/07rssaU.gif) | ![Windows Dark Mode](https://i.imgur.com/QJY6f9R.gif) |
-| ![macOS Light Mode](https://i.imgur.com/dU5CfsI.gif)| ![Windows Light Mode](https://i.imgur.com/3a3XRw4.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/07rssaU.gif)  | ![Windows Dark Mode](https://i.imgur.com/QJY6f9R.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/dU5CfsI.gif) | ![Windows Light Mode](https://i.imgur.com/3a3XRw4.gif) |
 
 ```dart
 AdaptiveSwitch(
@@ -344,9 +348,9 @@ initial cleared state.
 The singular behavior of a RadioButtons group distinguishes it from check
 boxes, which support multi-selection and deselection, or clearing.
 
-| MacOS Dark\Light Mode                         | Windows Dark\Light Mode                        |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Z6xhZlh.gif)  | ![Windows Dark Mode](https://i.imgur.com/GG04BVJ.gif) |
+| MacOS Dark\Light Mode                                | Windows Dark\Light Mode                                |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/Z6xhZlh.gif)  | ![Windows Dark Mode](https://i.imgur.com/GG04BVJ.gif)  |
 | ![macOS Light Mode](https://i.imgur.com/rA8sOuH.gif) | ![Windows Light Mode](https://i.imgur.com/dnuTbIN.gif) |
 
 ```dart
@@ -524,10 +528,10 @@ If `value` is non-null, it should be between 0 and 100, representing the progres
 If `value` is null, the circular progress will be considered indeterminate,
 indicating that the progress is ongoing without a specific completion percentage.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/KcfSOA2.gif) | ![Windows Dark Mode](https://i.imgur.com/UjUz0vU.gif) |
-| ![macOS Light Mode](https://i.imgur.com/4M7ScTW.gif)| ![Windows Light Mode](https://i.imgur.com/C80cGMt.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/KcfSOA2.gif)  | ![Windows Dark Mode](https://i.imgur.com/UjUz0vU.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/4M7ScTW.gif) | ![Windows Light Mode](https://i.imgur.com/C80cGMt.gif) |
 
 ```dart
 AdaptiveCircularProgressIndicator(),
@@ -545,10 +549,10 @@ If `value` is non-null, it should be between 0 and 100, representing the progres
 If `value` is null, the circular progress will be considered indeterminate,
 indicating that the progress is ongoing without a specific completion percentage.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/skG1xbs.gif) | ![Windows Dark Mode](https://i.imgur.com/KClzEqx.gif) |
-| ![macOS Light Mode](https://i.imgur.com/PzzOVaw.gif)| ![Windows Light Mode](https://i.imgur.com/LxciPjW.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/skG1xbs.gif)  | ![Windows Dark Mode](https://i.imgur.com/KClzEqx.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/PzzOVaw.gif) | ![Windows Light Mode](https://i.imgur.com/LxciPjW.gif) |
 
 ```dart
 AdaptiveProgressBarIndicator(),
@@ -761,10 +765,10 @@ It provides a visually appealing and intuitive way to present and switch between
 The Tab View consists of tabs along with their corresponding content, making it easy for users to access specific sections quickly.
 This widget is customizable and adaptable, suitable for various application designs and platforms. [full code](https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/app/view/screens/home/tabs/navigation/tab_view.dart)
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/qsa5ohF.png) | ![Windows Dark Mode](https://i.imgur.com/pliOHIM.png) |
-| ![macOS Light Mode](https://i.imgur.com/xC8QyxM.png)| ![Windows Light Mode](https://i.imgur.com/g8wiWGl.png) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/qsa5ohF.png)  | ![Windows Dark Mode](https://i.imgur.com/pliOHIM.png)  |
+| ![macOS Light Mode](https://i.imgur.com/xC8QyxM.png) | ![Windows Light Mode](https://i.imgur.com/g8wiWGl.png) |
 
 ```dart
 AdaptiveTabView(
@@ -793,10 +797,10 @@ It allows users to easily choose a specific date by clicking or tapping on the d
 Date pickers provide options for navigating between months and years. They are widely used in various applications,
 including scheduling, event management, and form submissions, to facilitate the input of dates with accuracy and efficiency.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/c8MUK2u.gif) | ![Windows Dark Mode](https://i.imgur.com/t4Bktbz.gif) |
-| ![macOS Light Mode](https://i.imgur.com/NxUl9iG.gif)| ![Windows Light Mode](https://i.imgur.com/4g5QKDY.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/c8MUK2u.gif)  | ![Windows Dark Mode](https://i.imgur.com/t4Bktbz.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/NxUl9iG.gif) | ![Windows Light Mode](https://i.imgur.com/4g5QKDY.gif) |
 
 ```dart
 AdaptiveDatePicker(
@@ -812,10 +816,10 @@ A time picker is a user interface component that allows users to select a specif
 It provides a graphical interface for users to adjust the hour and minute values using sliders or input fields.
 Time pickers are commonly used in applications that require scheduling or setting reminders, enabling users to choose precise times for events or tasks.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/CCJ5z26.gif) | ![Windows Dark Mode](https://i.imgur.com/OnKxBKa.gif) |
-| ![macOS Light Mode](https://i.imgur.com/Hra7m3o.gif)| ![Windows Light Mode](https://i.imgur.com/dSytfPc.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/CCJ5z26.gif)  | ![Windows Dark Mode](https://i.imgur.com/OnKxBKa.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/Hra7m3o.gif) | ![Windows Light Mode](https://i.imgur.com/dSytfPc.gif) |
 
 ```dart
 AdaptiveTimePicker(
@@ -834,10 +838,10 @@ It typically contains a title, optional content, and one or more action buttons 
 Dialogs are commonly used to display alerts, messages, warnings, or to request input from the user.
 They provide a way to temporarily interrupt the user's workflow and require their attention before proceeding.
 
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/P5g70I4.gif) | ![Windows Dark Mode](https://i.imgur.com/jQTLYqS.gif) |
-| ![macOS Light Mode](https://i.imgur.com/BwO6o9p.gif)| ![Windows Light Mode](https://i.imgur.com/8QeU7cR.gif) |
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/P5g70I4.gif)  | ![Windows Dark Mode](https://i.imgur.com/jQTLYqS.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/BwO6o9p.gif) | ![Windows Light Mode](https://i.imgur.com/8QeU7cR.gif) |
 
 ```dart
 AdaptiveButton(
