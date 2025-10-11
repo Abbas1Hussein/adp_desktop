@@ -47,7 +47,7 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
             constraints: const BoxConstraints.tightFor(width: 45.0, height: 35.0),
             child: PaneItem(
               mouseCursor: mouseCursor,
-              tileColor: color != null ? ButtonState.all(color) : null,
+              tileColor: color != null ? WidgetStateProperty.all(color) : null,
               icon: const Center(child: Icon(FluentIcons.back)),
               title: Text(label),
               body: const SizedBox.shrink(),

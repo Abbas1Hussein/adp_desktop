@@ -3,11 +3,15 @@
 [![GitHub stars](https://img.shields.io/github/stars/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Abbas1Hussein/adp_desktop)](https://github.com/Abbas1Hussein/adp_desktop/network)
 
+<<<<<<< Updated upstream
 
 
 <div align="center">
 <img width="758" height="265" alt="Logo ADP Desktops" src="https://github.com/user-attachments/assets/5782e6cb-56ef-4155-a12f-c6904f48fa7c" />
 </div>
+=======
+![banner](banner/banner.png)
+>>>>>>> Stashed changes
 
 Use this package to create adaptive apps on desktop. With just one codebase, you can preview your app on both Windows and macOS platforms, regardless of the device you're used.
 

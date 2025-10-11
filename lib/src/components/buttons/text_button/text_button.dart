@@ -74,8 +74,8 @@ class AdaptiveTextButton extends AdaptiveBaseButton {
       cursor: mouseCursor,
       child: HyperlinkButton(
         style: windowsDefaultStyle(),
-        onTapUp: onTapUp,
-        onTapDown: onTapDown,
+        onTapUp: (_) => onTapUp?.call(),
+        onTapDown: (_) => onTapDown?.call(),
         onPressed: onPressed,
         onLongPress: onLongPress,
         child: child.margeWith(icon, 8.0),

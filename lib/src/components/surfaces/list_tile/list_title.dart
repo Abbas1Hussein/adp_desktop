@@ -142,9 +142,9 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
                   ? SystemMouseCursors.click
                   : SystemMouseCursors.forbidden),
           onPressed: enabled ? (onTap ?? () {}) : null,
-          tileColor: ButtonState.resolveWith(
+          tileColor: WidgetStateProperty.resolveWith(
             (states) {
-              return ButtonState.forStates(
+              return WidgetStateExtension.forStates(
                 states,
                 pressed: pressColor ??
                     theme.resources.cardBackgroundFillColorSecondary,

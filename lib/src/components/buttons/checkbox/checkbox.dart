@@ -118,23 +118,23 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
       style: CheckboxThemeData(
         icon: icon,
         foregroundColor:
-            foregroundColor != null ? ButtonState.all(foregroundColor) : null,
+            foregroundColor != null ? WidgetStateProperty.all(foregroundColor) : null,
         checkedIconColor:
-            checkedIconColor != null ? ButtonState.all(checkedIconColor) : null,
+            checkedIconColor != null ? WidgetStateProperty.all(checkedIconColor) : null,
         uncheckedIconColor: uncheckedIconColor != null
-            ? ButtonState.all(uncheckedIconColor)
+            ? WidgetStateProperty.all(uncheckedIconColor)
             : null,
         thirdstateIconColor: thirdstateIconColor != null
-            ? ButtonState.all(thirdstateIconColor)
+            ? WidgetStateProperty.all(thirdstateIconColor)
             : null,
         checkedDecoration: checkedDecoration != null
-            ? ButtonState.all(checkedDecoration)
+            ? WidgetStateProperty.all(checkedDecoration)
             : null,
         uncheckedDecoration: uncheckedDecoration != null
-            ? ButtonState.all(uncheckedDecoration)
+            ? WidgetStateProperty.all(uncheckedDecoration)
             : null,
         thirdstateDecoration: thirdstateDecoration != null
-            ? ButtonState.all(thirdstateDecoration)
+            ? WidgetStateProperty.all(thirdstateDecoration)
             : null,
       ),
     );

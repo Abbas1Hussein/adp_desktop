@@ -163,8 +163,8 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
         buttonBuilder: (context, onOpen) {
           return Button(
             style: ButtonStyle(
-                backgroundColor: ButtonState.all(Colors.transparent),
-                shape: ButtonState.all(LinearBorder.none)),
+                backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                shape: WidgetStateProperty.all(LinearBorder.none)),
             onPressed: onOpen,
             child: Builder(
               builder: (context) {

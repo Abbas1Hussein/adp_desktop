@@ -7,53 +7,59 @@ class CustomTitle extends StatelessWidget {
   const CustomTitle({
     super.key,
     this.path,
-    this.message,
     this.useBackgroundColor = false,
+    required this.message,
     required this.title,
   });
 
   final String? path;
   final String title;
-  final String? message;
+  final String message;
 
   final bool useBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
     final localizations = MaterialLocalizations.of(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: AdaptiveListTile(
         onTap: () {
-          if (message != null && path != null) {
-            DialogPresenter.showConfirmationDialog(
-              context,
-              title: title,
-              message: message!,
-              confirmLabel: 'Source code',
-              cancelLabel: 'Cancel',
-            ).then(
-              (value) {
-                if (value == true) {
-                  _buildHighlightViewCode(context);
-                }
-              },
-            );
-          } else if (message != null && path == null) {
-            DialogPresenter.showInformationDialog(
-              context,
-              title: title,
-              message: message!,
-              confirmLabel: localizations.cancelButtonLabel,
-            );
-          }
+          DialogPresenter.showCustomDialog(
+            context,
+            child: AdaptiveDialog(
+              title: Text(title),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: message.split('\n').map(
+                  (line) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(line),
+                    );
+                  },
+                ).toList(),
+              ),
+              primary: AdaptiveButton(
+                child: Text(localizations.cancelButtonLabel),
+                onPressed: () => Navigator.pop(context, true),
+              ),
+              secondary: path != null
+                  ? AdaptiveButton(
+                      child: const Text('Source code'),
+                      onPressed: () {
+                        _buildHighlightViewCode(context);
+                      },
+                    )
+                  : null,
+            ),
+          );
         },
         title: Text(title),
-        mouseCursor: MouseCursor.defer,
-        pressColor: Colors.transparent,
-        hoverColor: Colors.transparent,
         useBackgroundColor: useBackgroundColor,
-        subtitle: message != null ? Text(message!) : null,
+        //subtitle: message != null ? Text(message!) : null,
       ),
     );
   }

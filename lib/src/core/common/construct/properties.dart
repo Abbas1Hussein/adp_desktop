@@ -39,7 +39,7 @@ typedef PropertiesCallback<T> = T Function();
 ///     final theme = FluentTheme.of(context);
 ///     return FlatButtonWindowsProperty(
 ///       style: ButtonStyle(
-///         backgroundColor: ButtonState.all(theme.cardColor),
+///         backgroundColor: WidgetStateProperty.all(theme.cardColor),
 ///       ),
 ///     );
 ///   },

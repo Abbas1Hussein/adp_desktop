@@ -114,13 +114,13 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
         ),
         onPressed: onPressed,
         style: ButtonStyle(
-          shape: ButtonState.all(
+          shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: borderRadius ?? BorderRadius.circular(4.0),
             ),
           ),
-          backgroundColor: ButtonState.resolveWith(
-            (states) => ButtonState.forStates(
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) => WidgetStateExtension.forStates(
               states,
               none: backgroundColor,
               disabled: disabledColor,

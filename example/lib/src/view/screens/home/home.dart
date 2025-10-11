@@ -103,11 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       sidebar: AdaptiveNavigationSidebar(
-        searchField: const AdaptiveTextSearchField(suggestions: []),
+        searchField:  const AdaptiveTextSearchField(
+          suggestions: [],
+        ),
         currentIndex: _currentIndex,
-        onChanged: (value) {
-          setState(() => _currentIndex = value);
-        },
+        onChanged: (value) => setState(() => _currentIndex = value),
         items: List.generate(
           children.length,
           (index) => AdaptiveNavigationSidebarItem(

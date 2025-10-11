@@ -345,9 +345,9 @@ class AdpApp
         localizationsDelegates: _windowsLocalizationsDelegates,
         localeResolutionCallback: localeResolutionCallback,
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-        checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+        //checkerboardOffscreenLayers: checkerboardOffscreenLayers,
         localeListResolutionCallback: localeListResolutionCallback,
-        checkerboardRasterCacheImages: checkerboardOffscreenLayers,
+       // checkerboardRasterCacheImages: checkerboardOffscreenLayers,
         scrollBehavior: scrollBehavior ?? const FluentScrollBehavior(),
         supportedLocales:
         supportedLocales ?? FluentLocalizations.supportedLocales,
@@ -378,9 +378,9 @@ class AdpApp
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       localeResolutionCallback: localeResolutionCallback,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+     // checkerboardOffscreenLayers: checkerboardOffscreenLayers,
       localeListResolutionCallback: localeListResolutionCallback,
-      checkerboardRasterCacheImages: checkerboardOffscreenLayers,
+     // checkerboardRasterCacheImages: checkerboardOffscreenLayers,
       scrollBehavior: scrollBehavior ?? const FluentScrollBehavior(),
       supportedLocales:
       supportedLocales ?? FluentLocalizations.supportedLocales,

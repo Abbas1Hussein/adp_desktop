@@ -42,12 +42,14 @@ class TextFieldWindows extends StatelessWidget {
             child: adpProperties?.prefix,
           ),
           suffix: adpProperties?.suffix,
-          enabled: adpProperties?.enabled,
+          enabled: adpProperties?.enabled ?? true,
           maxLines: adpProperties?.maxLines ?? 1,
           minLines: adpProperties?.minLines,
           focusNode: adpProperties?.focusNode,
           maxLength: adpProperties?.maxLength,
-          decoration: adpProperties?.decoration,
+          decoration: adpProperties?.decoration != null
+              ? WidgetStateProperty.all(adpProperties!.decoration!)
+              : null,
           strutStyle: adpProperties?.strutStyle,
           showCursor: adpProperties?.showCursor,
           controller: adpProperties?.controller,
@@ -84,7 +86,8 @@ class TextFieldWindows extends StatelessWidget {
           enableSuggestions: adpProperties?.enableSuggestions ?? true,
           obscuringCharacter: adpProperties?.obscuringCharacter ?? '•',
           enableInteractiveSelection: adpProperties?.enableInteractiveSelection,
-          cursorRadius: adpProperties?.cursorRadius ?? const Radius.circular(2.0),
+          cursorRadius:
+              adpProperties?.cursorRadius ?? const Radius.circular(2.0),
           scrollPadding:
               adpProperties?.scrollPadding ?? const EdgeInsets.all(20.0),
           selectionWidthStyle:

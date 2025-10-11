@@ -110,8 +110,8 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
       semanticLabel: semanticLabel,
       style: ToggleSwitchThemeData(
         foregroundColor:
-            foregroundColor != null ? ButtonState.all(foregroundColor) : null,
-        checkedDecoration: ButtonState.resolveWith(
+            foregroundColor != null ? WidgetStateProperty.all(foregroundColor) : null,
+        checkedDecoration: WidgetStateProperty.resolveWith(
           (states) {
             return defaultDecoration.copyWith(
               color: activeColor ??
@@ -122,11 +122,11 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
             );
           },
         ),
-        uncheckedDecoration: ButtonState.resolveWith(
+        uncheckedDecoration: WidgetStateProperty.resolveWith(
           (states) {
             return defaultDecoration.copyWith(
               color: inactiveColor ??
-                  ButtonState.forStates(
+                  WidgetStateExtension.forStates(
                     states,
                     disabled: theme.resources.controlAltFillColorDisabled,
                     pressed: theme.resources.controlAltFillColorQuarternary,
@@ -135,7 +135,7 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
                   ),
               border: Border.all(
                 color: inactiveColor ??
-                    ButtonState.forStates(
+                    WidgetStateExtension.forStates(
                       states,
                       disabled: theme.resources.controlStrongFillColorDisabled,
                       none: theme.resources.controlStrongFillColorDefault,
@@ -144,7 +144,7 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
             );
           },
         ),
-        checkedKnobDecoration: ButtonState.resolveWith(
+        checkedKnobDecoration: WidgetStateProperty.resolveWith(
           (states) {
             return defaultDecoration.copyWith(
               color: states.isDisabled
@@ -154,7 +154,7 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
             );
           },
         ),
-        uncheckedKnobDecoration: ButtonState.resolveWith(
+        uncheckedKnobDecoration: WidgetStateProperty.resolveWith(
           (states) {
             return defaultDecoration.copyWith(
               color: states.isDisabled

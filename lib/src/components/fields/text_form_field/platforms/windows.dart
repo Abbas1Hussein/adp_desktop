@@ -46,7 +46,9 @@ class TextFormFieldWindows extends StatelessWidget {
           minLines: adpProperties?.minLines,
           focusNode: adpProperties?.focusNode,
           maxLength: adpProperties?.maxLength,
-          decoration: adpProperties?.decoration,
+          decoration: adpProperties?.decoration != null
+              ? WidgetStateProperty.all(adpProperties!.decoration!)
+              : null,
           strutStyle: adpProperties?.strutStyle,
           showCursor: adpProperties?.showCursor,
           controller: adpProperties?.controller,

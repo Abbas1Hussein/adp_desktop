@@ -109,14 +109,14 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
       semanticLabel: semanticLabel,
       style: RadioButtonThemeData(
         foregroundColor:
-            foregroundColor != null ? ButtonState.all(foregroundColor) : null,
+            foregroundColor != null ? WidgetStateProperty.all(foregroundColor) : null,
         checkedDecoration: activeColor != null
-            ? ButtonState.resolveWith((states) {
+            ? WidgetStateProperty.resolveWith((states) {
                 return BoxDecoration(
                   border: Border.all(
                     color: ButtonThemeData.checkedInputColor(theme, states),
                     width: !states.isDisabled
-                        ? states.isHovering && !states.isPressing
+                        ? states.isHovered && !states.isPressed
                             ? 3.4
                             : 5.0
                         : 4.0,
@@ -128,9 +128,9 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
               })
             : null,
         uncheckedDecoration: inactiveColor != null
-            ? ButtonState.resolveWith((states) {
+            ? WidgetStateProperty.resolveWith((states) {
                 return BoxDecoration(
-                  color: ButtonState.forStates(
+                  color: WidgetStateExtension.forStates(
                     states,
                     disabled: theme.resources.controlAltFillColorDisabled,
                     pressed: theme.resources.controlAltFillColorQuarternary,
@@ -138,8 +138,8 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
                     none: theme.resources.controlAltFillColorSecondary,
                   ),
                   border: Border.all(
-                    width: states.isPressing ? 4.5 : 1,
-                    color: ButtonState.forStates(
+                    width: states.isPressed ? 4.5 : 1,
+                    color: WidgetStateExtension.forStates(
                       states,
                       disabled: theme.resources.textFillColorDisabled,
                       pressed:

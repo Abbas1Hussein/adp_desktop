@@ -1,13 +1,8 @@
+import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/construct/model.dart';
-import '../../../core/common/construct/properties.dart';
-import '../../fields/text_search_field/text_search_field.dart';
-import '../../icon/icon_theme.dart';
-import 'navigation_sidebar_item.dart';
-import 'navigation_sidebar_size.dart';
-import 'platforms/platforms.dart';
 
 /// A custom navigation sidebar view widget that adapts its appearance based on the platform.
 ///
@@ -35,6 +30,7 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
     this.unselectedLabelStyle,
     this.unselectedItemColor,
     this.selectedItemColor,
+    this.backgroundColor,
     this.properties,
     this.items = const [],
   })  : assert(items.length >= 2),
@@ -86,6 +82,12 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
   /// displayed at the top of the navigation sidebar, providing additional context or branding.
   /// If `null`, the space allocated for the header will be collapsed.
   final Widget? header;
+
+  /// The background color of the sidebar.
+  ///
+  /// The `backgroundColor` parameter allows you to specify the background color of the entire
+  /// sidebar. If `null`, the default background color of the underlying platform is used.
+  final Color? backgroundColor;
 
   /// The color of the item when selected.
   ///
@@ -195,8 +197,7 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
       scrollController: property?.scrollController,
       displayMode: displayMode ?? PaneDisplayMode.auto,
       autoSuggestBox: suggestions,
-      autoSuggestBoxReplacement:
-          property?.searchFieldReplacement ?? const Icon(FluentIcons.search),
+      autoSuggestBoxReplacement: property?.searchFieldReplacement ?? const Icon(FluentIcons.search),
     );
   }
 
@@ -216,8 +217,7 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
                   alignment: AlignmentDirectional.centerStart,
                   child: DefaultTextStyle(
                     maxLines: 1,
-                    style: theme.typography.body
-                        .copyWith(fontWeight: MacosFontWeight.w510),
+                    style: theme.typography.body.copyWith(fontWeight: MacosFontWeight.w510),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 8.0,
@@ -245,7 +245,6 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
       isResizable: property?.isResizable ?? true,
       shownByDefault: property?.shownByDefault ?? true,
       windowBreakpoint: property?.windowBreakpoint ?? 556.0,
-      decoration: BoxDecoration(color: theme.canvasColor),
       builder: (context, scrollController) {
         final buildItems = List.generate(
           items.length,
@@ -263,18 +262,15 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
           },
         );
 
-        return ColoredBox(
-          color: theme.canvasColor,
-          child: SidebarItems(
-            shape: property?.itemsShape,
-            currentIndex: currentIndex,
-            selectedColor: selectedItemColor,
-            unselectedColor: unselectedItemColor,
-            scrollController: scrollController,
-            onChanged: (value) => onChanged?.call(value),
-            itemSize: property?.itemSize ?? SidebarItemSize.large,
-            items: buildItems,
-          ),
+        return SidebarItems(
+          shape: property?.itemsShape,
+          currentIndex: currentIndex,
+          selectedColor: selectedItemColor,
+          unselectedColor: unselectedItemColor,
+          scrollController: scrollController,
+          onChanged: (value) => onChanged?.call(value),
+          itemSize: property?.itemSize ?? SidebarItemSize.large,
+          items: buildItems,
         );
       },
     );

@@ -227,10 +227,12 @@ Widget _buildWindowWindowsButton({
   required IconData icon,
   required VoidCallback? onPressed,
 }) {
+
+
   final style = ButtonStyle(
-    shape: ButtonState.all(LinearBorder.none),
-    backgroundColor: ButtonState.resolveWith(
-      (states) => ButtonState.forStates(
+    shape: WidgetStateProperty.all(LinearBorder.none),
+    backgroundColor: WidgetStateProperty.resolveWith(
+      (states) => WidgetStateExtension.forStates(
         states,
         hovering: hoverColor,
         none: backgroundColor,

@@ -87,11 +87,13 @@ abstract class AdaptiveBaseButton extends CoreAdaptiveComponent {
       onTapDown != null ||
       onTapUp != null;
 
+
   ButtonStyle windowsDefaultStyle() {
+
     return ButtonStyle(
-      shape: ButtonState.all(shape),
-      backgroundColor: ButtonState.resolveWith(
-        (states) => ButtonState.forStates(
+      shape: WidgetStateProperty.all(shape),
+      backgroundColor: WidgetStateProperty.resolveWith(
+        (states) => WidgetStateExtension.forStates(
           states,
           pressed: pressedColor,
           hovering: hoverColor,

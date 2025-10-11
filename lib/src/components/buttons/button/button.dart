@@ -76,8 +76,8 @@ class AdaptiveButton extends AdaptiveBaseButton {
       case AdaptiveButtonType.base:
         button = Button(
           style: windowsDefaultStyle(),
-          onTapUp: onTapUp,
-          onTapDown: onTapDown,
+          onTapUp: (_) => onTapUp?.call(),
+          onTapDown: (_) => onTapDown?.call(),
           onPressed: onPressed,
           onLongPress: onLongPress,
           child: child,
@@ -85,8 +85,8 @@ class AdaptiveButton extends AdaptiveBaseButton {
       case AdaptiveButtonType.filled:
         button = FilledButton(
           style: windowsDefaultStyle(),
-          onTapUp: onTapUp,
-          onTapDown: onTapDown,
+          onTapUp: (_) => onTapUp?.call(),
+          onTapDown: (_) => onTapDown?.call(),
           onPressed: onPressed,
           onLongPress: onLongPress,
           child: DefaultTextStyle(
@@ -102,8 +102,8 @@ class AdaptiveButton extends AdaptiveBaseButton {
       case AdaptiveButtonType.outlined:
         button = OutlinedButton(
           style: windowsDefaultStyle(),
-          onTapUp: onTapUp,
-          onTapDown: onTapDown,
+          onTapUp: (_) => onTapUp?.call(),
+          onTapDown: (_) => onTapDown?.call(),
           onPressed: onPressed,
           onLongPress: onLongPress,
           child: child,

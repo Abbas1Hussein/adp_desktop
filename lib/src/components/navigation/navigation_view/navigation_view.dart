@@ -1,3 +1,4 @@
+import 'package:adp_desktop/adp_desktop.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:macos_ui/macos_ui.dart';
 
@@ -104,11 +105,12 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
 
     return NavigationPaneTheme(
       data: NavigationPaneThemeData(
+        backgroundColor: sidebar?.backgroundColor,
         selectedTextStyle: sidebar?.selectedLabelStyle != null
-            ? ButtonState.all(sidebar!.selectedLabelStyle)
+            ? WidgetStateProperty.all(sidebar!.selectedLabelStyle)
             : null,
         unselectedTextStyle: sidebar?.unselectedLabelStyle != null
-            ? ButtonState.all(sidebar!.unselectedLabelStyle)
+            ? WidgetStateProperty.all(sidebar!.unselectedLabelStyle)
             : null,
       ),
       child: NavigationView(
@@ -123,7 +125,11 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
         paneBodyBuilder: (item, body) {
           return backgroundColor != null
               ? ColoredBox(color: backgroundColor!, child: body)
-              : body!;
+              : ColoredBox(
+                  color: FluentTheme.of(context)
+                      .resources
+                      .solidBackgroundFillColorTertiary,
+                  child: body);
         },
       ),
     );
@@ -133,28 +139,26 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
   Widget macos(BuildContext context, [NavigationViewMacosProperty? property]) {
     final theme = MacosTheme.of(context);
 
-    return ColoredBox(
-      color: backgroundColor ?? theme.canvasColor,
+    return MacosOverlayFilter(
+      borderRadius: const BorderRadius.all(Radius.zero),
+      color: sidebar?.backgroundColor,
       child: MacosWindow(
+
         titleBar: property?.titleBar,
         sidebar: sidebar?.toMacos(context),
-        backgroundColor: backgroundColor ?? theme.canvasColor,
         disableWallpaperTinting: property?.disableWallpaperTinting ?? false,
-        sidebarState: property?.sidebarState ?? NSVisualEffectViewState.followsWindowActiveState,
+        sidebarState: property?.sidebarState ??
+            NSVisualEffectViewState.followsWindowActiveState,
         child: MacosScaffold(
+          backgroundColor: backgroundColor ,
           toolBar: appBar?.toMacos(context),
           children: [
             ContentArea(
               minWidth: double.infinity,
-              builder: (context, scrollController) {
-                return ColoredBox(
-                  color: backgroundColor ?? theme.canvasColor,
-                  child: DefaultTextStyle(
-                    style: theme.typography.body,
-                    child: body,
-                  ),
-                );
-              },
+              builder: (context, scrollController) => DefaultTextStyle(
+                style: theme.typography.body,
+                child: body,
+              ),
             ),
           ],
         ),

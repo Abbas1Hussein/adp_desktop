@@ -69,15 +69,15 @@ class AdaptiveNavigationSidebarItem
     IconThemeData? data,
   }) {
     final unselectedTileColor = unselectedColor != null
-        ? ButtonState.all(unselectedColor)
+        ? WidgetStateProperty.all(unselectedColor)
         : unColor != null
-            ? ButtonState.all(unColor)
+            ? WidgetStateProperty.all(unColor)
             : null;
 
     final selectedTileColor = selectedColor != null
-        ? ButtonState.all(selectedColor)
+        ? WidgetStateProperty.all(selectedColor)
         : seColor != null
-            ? ButtonState.all(seColor)
+            ? WidgetStateProperty.all(seColor)
             : null;
 
     final buildIcon =

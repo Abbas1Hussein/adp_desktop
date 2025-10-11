@@ -13,13 +13,13 @@ class ButtonsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
-        children: const [
+        children: [
           CustomTitle(
             path: HighlightPaths.basicButtonsTab,
             title: 'Basic Buttons',
-            message: 'AdaptiveButton: A basic button widget.'
+            message: 'AdaptiveButton: A basic button widget'
                 '\nAdaptiveButton.filled: A filled style colored button.'
                 '\nAdaptiveButton.outlined: An outlined style button.'
                 '\nAdaptiveTextButton: A text button.'
