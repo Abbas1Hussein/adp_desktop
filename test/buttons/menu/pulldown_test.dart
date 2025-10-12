@@ -6,7 +6,7 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../wrap_app.dart';
 
 void main() {
-  initializeDesktopDefaultsTests();
+  initializeDesktopDefaultsTests(DesktopTargetPlatform.macOS);
 
   testWidgets(
     'AdaptivePulldownMenuButton Render correctly',
@@ -63,7 +63,7 @@ void main() {
 
       // tap on the button to open the pulldown menu.
       await tester.tap(find.text('Adp Menu'));
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 3));
 
       // Verify that the menu items are displayed.
       expect(find.text('New folder'), findsOneWidget);

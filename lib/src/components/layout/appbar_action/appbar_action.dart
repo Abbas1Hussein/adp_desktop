@@ -182,16 +182,16 @@ class AdaptiveActionPulldownButton extends AdaptiveActionEntry
                         data: IconThemeData(
                           color: state.isDisabled
                               ? theme.resources.textFillColorDisabled
-                              : state.isPressing
+                              : state.isPressed
                                   ? theme.resources.textFillColorTertiary
-                                  : state.isHovering
+                                  : state.isHovered
                                       ? theme.resources.textFillColorSecondary
                                       : theme.resources.textFillColorPrimary,
                         ),
                         child: AnimatedSlide(
                           duration: theme.fastAnimationDuration,
                           curve: Curves.easeInCirc,
-                          offset: state.isPressing
+                          offset: state.isPressed
                               ? const Offset(0, 0.1)
                               : Offset.zero,
                           child: const ChevronDown(),

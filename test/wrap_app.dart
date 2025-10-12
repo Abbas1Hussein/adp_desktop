@@ -1,15 +1,34 @@
 import 'package:adp_desktop/adp_desktop.dart';
 
+/// Initializes default settings for desktop tests.
+///
+/// If testing a single file, must provide the [platform] parameter to specify
+/// the target platform.
+///
+/// If testing multiple files, the target platform is
+/// determined from the 'platform' environment variable using [getTargetPlatformFromEnvironment].
+void initializeDesktopDefaultsTests([DesktopTargetPlatform? platform]) {
+  final targetPlatform = getTargetPlatformFromEnvironment(platform);
+  DefaultsPlatformManager.initialize(
+    targetPlatform: targetPlatform,
+    isDebugging: true,
+    isTesting: true,
+  );
+}
+
 /// Determines the target desktop platform based on the 'platform' environment variable.
 ///
 /// If the environment variable is set to 'macos', returns [DesktopTargetPlatform.macOS].
 /// If it is set to 'windows', returns [DesktopTargetPlatform.windows].
-DesktopTargetPlatform getTargetPlatformFromEnvironment() {
+DesktopTargetPlatform getTargetPlatformFromEnvironment(
+    DesktopTargetPlatform? platform) {
   const targetPlatform = String.fromEnvironment('platform');
 
   /// Throws an [UnimplementedError] if running a single test and the 'platform' parameter
   /// on [initializeDesktopDefaultsTests] is not provided.
   if (targetPlatform.isEmpty) {
+    if (platform != null) return platform;
+
     throw UnimplementedError(
       'Please specify the target platform using initializeDesktopDefaultsTests when running a single test.',
     );
@@ -25,22 +44,6 @@ DesktopTargetPlatform getTargetPlatformFromEnvironment() {
   throw UnimplementedError(
     'Please run the tests with the appropriate platform specified.\n'
     'Run: flutter test --dart-define=platform="macos" or flutter test --dart-define=platform="windows"',
-  );
-}
-
-/// Initializes default settings for desktop tests.
-///
-/// If testing a single file, must provide the [platform] parameter to specify
-/// the target platform.
-///
-/// If testing multiple files, the target platform is
-/// determined from the 'platform' environment variable using [getTargetPlatformFromEnvironment].
-void initializeDesktopDefaultsTests([DesktopTargetPlatform? platform]) {
-  final targetPlatform = platform ?? getTargetPlatformFromEnvironment();
-  DefaultsPlatformManager.initialize(
-    targetPlatform: targetPlatform,
-    isDebugging: true,
-    isTesting: true,
   );
 }
 

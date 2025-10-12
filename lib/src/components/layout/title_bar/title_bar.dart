@@ -72,14 +72,12 @@ class AdaptiveTitleBar extends StatefulWidget {
   State<AdaptiveTitleBar> createState() => _AdaptiveTitleBarState();
 }
 
-class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> with WindowListener {
-
+class _AdaptiveTitleBarState extends State<AdaptiveTitleBar>
+    with WindowListener {
   Future<String>? getTitle;
 
   late double height;
-
   late bool isMaximized = false;
-
 
   @override
   void initState() {
@@ -161,6 +159,11 @@ class _AdaptiveTitleBarState extends State<AdaptiveTitleBar> with WindowListener
                     ],
                   ),
                 ),
+                // const Expanded(
+                //   child: DragToMoveArea(
+                //     child: SizedBox(height: kWindowCaptionHeight),
+                //   ),
+                // ),
               ],
             ),
           ),

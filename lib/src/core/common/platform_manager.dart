@@ -21,7 +21,7 @@ class DefaultsPlatformManager {
     this._platform, {
     DesktopTargetPlatform? targetLinux,
     DesktopTargetPlatform? targetWeb,
-    bool isDebugging = false,
+    bool isDebugging = kDebugMode,
   })  : _targetLinux = targetLinux,
         _targetWeb = targetWeb,
         _isDebugging = isDebugging;
@@ -51,15 +51,13 @@ class DefaultsPlatformManager {
     required DesktopTargetPlatform targetPlatform,
     DesktopTargetPlatform? targetLinux,
     DesktopTargetPlatform? targetWeb,
-    bool isDebugging = true,
+    bool isDebugging = kDebugMode,
     @visibleForTesting bool isTesting = false,
   }) {
     assert(
         _instance == null, 'DefaultsPlatformManager is already initialized.');
 
-    if (!kIsWeb && !isTesting) {
-      _initializeWindowConfiguration();
-    }
+    if (!kIsWeb && !isTesting) _initializeWindowConfiguration();
 
     return _instance = DefaultsPlatformManager._(
       targetPlatform,
@@ -85,9 +83,17 @@ class DefaultsPlatformManager {
   ///
   /// Throws an error if the manager is not initialized.
   static DefaultsPlatformManager get instance {
-    assert(_instance != null, 'DefaultsPlatformManager is not initialized.');
+    if (!isInitialized) {
+      throw StateError(
+        'DefaultsPlatformManager has not been initialized.\n'
+        'Call DefaultsPlatformManager.initialize() before accessing instance.',
+      );
+    }
+
     return _instance!;
   }
+
+  static bool get isInitialized => _instance != null;
 
   static DefaultsPlatformManager? _instance;
 }
