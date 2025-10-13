@@ -21,7 +21,7 @@ const _kSheetBorderRadius = BorderRadius.all(Radius.circular(12.0));
 class AdaptiveBottomSheet extends CoreAdaptiveComponent {
   /// Creates an adaptive bottom sheet.
   ///
-  /// The [child] parameter is required and represents the main content of the bottom sheet.
+  /// The [content] parameter is required and represents the main content of the bottom sheet.
   const AdaptiveBottomSheet({
     super.key,
     this.backgroundColor,
@@ -29,11 +29,11 @@ class AdaptiveBottomSheet extends CoreAdaptiveComponent {
     this.insetPadding = _defaultInsetPadding,
     this.insetAnimationCurve = Curves.decelerate,
     this.insetAnimationDuration = const Duration(milliseconds: 100),
-    required this.child,
+    required this.content,
   });
 
   /// The main content of the bottom sheet.
-  final Widget child;
+  final Widget content;
 
   /// The background color of the bottom sheet.
   final Color? backgroundColor;
@@ -75,7 +75,7 @@ class AdaptiveBottomSheet extends CoreAdaptiveComponent {
           borderRadius: _kSheetBorderRadius,
           border: Border.all(width: 2, color: innerBorderColor),
         ),
-        child: content,
+        child: _content,
       ),
     );
   }
@@ -89,9 +89,9 @@ class AdaptiveBottomSheet extends CoreAdaptiveComponent {
       backgroundColor: backgroundColor,
       insetAnimationCurve: insetAnimationCurve,
       insetAnimationDuration: insetAnimationDuration,
-      child: content,
+      child: _content,
     );
   }
 
-  Widget get content => Padding(padding: contentPadding, child: child);
+  Widget get _content => Padding(padding: contentPadding, child: content);
 }

@@ -20,7 +20,7 @@ void main() {
                   showAdpBottomSheet(
                     context: context,
                     builder: (context) => AdaptiveBottomSheet(
-                      child: Column(
+                      content: Column(
                         children: [
                           Text(DummyText.generateQuestion),
                           Text(DummyText.generateAnswer),

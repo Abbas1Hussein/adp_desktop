@@ -12,21 +12,23 @@ class BottomSheetPreview extends StatelessWidget {
           barrierDismissible: false,
           builder: (context) {
             return AdaptiveBottomSheet(
-              child: Column(
+              content: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      DefaultTextStyle(
-                        style: AdaptiveTypography.of(context).subheading!,
-                        child: Text(DummyText.generateQuestion),
+                      Flexible(
+                        child: DefaultTextStyle(
+                          style: AdaptiveTypography.of(context).subheading!,
+                          child: Text(DummyText.generateQuestion),
+                        ),
                       ),
                       const AdaptiveCloseButton(),
                     ],
                   ),
                   Text(DummyText.generateAnswer),
-                  Expanded(child: Image.asset('assets/images/logo.png')),
+                  Expanded(child: Image.asset('assets/images/banner.png')),
                 ],
               ),
             );

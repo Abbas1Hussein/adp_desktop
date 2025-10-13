@@ -62,9 +62,9 @@ class AdaptiveTooltipThemeData
     this.textStyle,
   });
 
-  /// The height of the tooltip's [child].
+  /// The height of the tooltip's [content].
   ///
-  /// If the [child] is null, then this is the tooltip's intrinsic height.
+  /// If the [content] is null, then this is the tooltip's intrinsic height.
   final double? height;
 
   /// The vertical gap between the widget and the displayed tooltip.
@@ -76,7 +76,7 @@ class AdaptiveTooltipThemeData
   /// widgets with the given offset.
   final double? verticalOffset;
 
-  /// The amount of space by which to inset the tooltip's [child].
+  /// The amount of space by which to inset the tooltip's [content].
   ///
   /// Defaults to 10.0 logical pixels in each direction.
   final EdgeInsetsGeometry? padding;
