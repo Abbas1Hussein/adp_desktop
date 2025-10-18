@@ -6,5 +6,4 @@ export 'time_picker/time_picker.dart';
 export 'time_picker/platforms/platforms.dart'
     show
         TimePickerMacosProperty,
-        MacosTimePickerMode,
         TimePickerWindowsProperty;

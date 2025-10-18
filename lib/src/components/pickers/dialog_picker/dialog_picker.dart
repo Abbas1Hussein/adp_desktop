@@ -24,32 +24,31 @@ class MacosDialogPicker {
       context: context,
       useRootNavigator: false,
       barrierDismissible: isDismissible,
-      builder: (context) => MacosAlertDialog(
-        appIcon: showIcon
-            ? const MacosIcon(CupertinoIcons.calendar, size: 64.0)
-            : const SizedBox.shrink(),
-        title: showTitle
-            ? Text(
-                localizations.datePickerHelpText,
-                style: MacosTheme.of(context).typography.largeTitle,
-              )
-            : const SizedBox.shrink(),
-        message: SizedBox(
-          height: size.height * 0.4,
-          width: size.width,
-          child: picker,
-        ),
-        horizontalActions: horizontalActions,
-        primaryButton: _buildCancelPickerButton(),
-        secondaryButton: _buildOkPickerButton(),
-      ),
+      builder: (context) {
+        return MacosAlertDialog(
+          appIcon: showIcon
+              ? const MacosIcon(CupertinoIcons.calendar, size: 64.0)
+              : const SizedBox.shrink(),
+          title: showTitle
+              ? Text(
+                  localizations.datePickerHelpText,
+                  style: MacosTheme.of(context).typography.largeTitle,
+                )
+              : const SizedBox.shrink(),
+          message: SizedBox(
+            height: size.height * 0.4,
+            width: size.width,
+            child: picker,
+          ),
+          horizontalActions: horizontalActions,
+          primaryButton: _buildCancelPickerButton(),
+          secondaryButton: _buildOkPickerButton(),
+        );
+      },
     );
   }
 
   Future<bool?> showMacosTimePicker(
-    bool isCupertinoPicker,
-    bool showIcon,
-    bool showTitle,
     bool horizontalActions,
     bool isDismissible,
   ) async {
@@ -60,18 +59,11 @@ class MacosDialogPicker {
       barrierDismissible: isDismissible,
       builder: (context) => MacosAlertDialog(
         horizontalActions: horizontalActions,
-        appIcon: (isCupertinoPicker && showIcon)
-            ? const MacosIcon(CupertinoIcons.time, size: 64.0)
-            : const SizedBox.shrink(),
-        title: (isCupertinoPicker && showTitle)
-            ? Text(
-                localizations.timePickerDialHelpText,
-                style: MacosTheme.of(context).typography.largeTitle,
-              )
-            : const SizedBox.shrink(),
+        appIcon: const SizedBox.shrink(),
+        title: const SizedBox.shrink(),
         message: SizedBox(
           width: size.width,
-          height: size.height * (isCupertinoPicker ? 0.2 : 0.4),
+          height: size.height * 0.4,
           child: picker,
         ),
         primaryButton: _buildCancelPickerButton(),

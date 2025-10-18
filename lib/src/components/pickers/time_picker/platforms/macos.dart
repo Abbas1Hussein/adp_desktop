@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
@@ -7,18 +6,6 @@ import '../../../../core/common/platform_ruining.dart';
 import '../../../../core/extension/time.dart';
 import '../../button_picker/button_picker.dart';
 import '../../dialog_picker/dialog_picker.dart';
-
-/// available modes for MacosTimePicker
-enum MacosTimePickerMode {
-  /// Displayed MacosTimePicker with Macos Dialog.
-  macOS,
-
-  /// Displayed CupertinoTimerPicker with Macos Dialog.
-  cupertino,
-
-  /// Displayed CupertinoTimerPicker as a button.
-  cupertinoButton,
-}
 
 class TimePickerMacosButton extends MacosPickerButton {
   const TimePickerMacosButton({
@@ -51,10 +38,7 @@ class TimePickerMacosButton extends MacosPickerButton {
         Baseline(
           baseline: 25,
           baselineType: TextBaseline.alphabetic,
-          child: Text(
-            unit,
-            style: const TextStyle(fontSize: 13.0),
-          ),
+          child: Text(unit, style: const TextStyle(fontSize: 13.0)),
         ),
       ],
     );
@@ -101,13 +85,6 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.property?.mode == MacosTimePickerMode.cupertinoButton) {
-      return ConstrainedBox(
-        constraints: kPickerButtonConstraints,
-        child: _buildCupertinoTimePicker(),
-      );
-    }
-
     return TimePickerMacosButton(
       localizations: localizations,
       initialDate: selectedDate.toDateTime(),
@@ -128,39 +105,14 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
     );
   }
 
-  Widget _buildCupertinoTimePicker() {
-    return CupertinoTimerPicker(
-      mode: CupertinoTimerPickerMode.hms,
-      itemExtent: kPickerButtonConstraints.maxHeight,
-      initialTimerDuration: selectedDate.convertTimeOfDayToDuration(),
-      onTimerDurationChanged: (value) {
-        _onDateTimeChanged(value.convertDurationToTimeOfDay());
-        if (widget.property?.mode == MacosTimePickerMode.cupertinoButton) {
-          widget.onTimeChanged?.call(selectedDate);
-        }
-      },
-    );
-  }
-
   Future<void> _showMacosTimePicker() async {
-    final showIcon = widget.property?.showIcon ?? true;
-    final showTitle = widget.property?.showTitle ?? true;
     final isHorizontal = widget.property?.horizontalActions ?? true;
     final isDismissible = widget.property?.isDismissible ?? true;
-
-    final isCupertino = widget.property?.mode == MacosTimePickerMode.cupertino;
     final result = await MacosDialogPicker(
       context,
       localizations,
-      picker:
-          isCupertino ? _buildCupertinoTimePicker() : _buildMacosTimePicker(),
-    ).showMacosTimePicker(
-      isCupertino,
-      showIcon,
-      showTitle,
-      isHorizontal,
-      isDismissible,
-    );
+      picker: _buildMacosTimePicker(),
+    ).showMacosTimePicker(isHorizontal, isDismissible);
 
     if (result != null && result) {
       _handleOkClick();
@@ -190,38 +142,15 @@ class _TimePickerMacosState extends State<TimePickerMacos> {
 
 class TimePickerMacosProperty extends CoreMacosProperty {
   const TimePickerMacosProperty({
-    this.showIcon = true,
-    this.showTitle = true,
     this.isDismissible = true,
     this.horizontalActions = true,
-    this.mode = MacosTimePickerMode.macOS,
   });
-
-  /// Represents the display mode of the MacosTimePicker.
-  ///
-  /// Use [MacosTimePickerMode] to specify the desired appearance and behavior
-  /// of the MacosTimePicker.
-  ///
-  /// Defaults to [MacosTimePickerMode.macOS].
-  final MacosTimePickerMode mode;
 
   /// Determines whether to lay out [primaryButton] and [secondaryButton]
   /// horizontally or vertically.
   ///
   /// Defaults to `true`.
   final bool horizontalActions;
-
-  /// Whether to display the icon in [MacosTimePickerMode.cupertino].
-  ///
-  /// When set to true, an icon will be shown in the Cupertino-style time picker.
-  /// Defaults to `true`.
-  final bool showIcon;
-
-  /// Whether to display the title in [MacosTimePickerMode.cupertino].
-  ///
-  /// When set to true, the title will be shown in the Cupertino-style time picker.
-  /// Defaults to `true`.
-  final bool showTitle;
 
   /// Determines whether the MacosTimePicker can be dismissed by tapping outside of it.
   ///
