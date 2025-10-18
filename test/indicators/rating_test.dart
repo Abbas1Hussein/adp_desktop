@@ -23,15 +23,15 @@ void main() {
 
         adaptiveValue(
           macos: () {
-            expect(find.byType(CustomRatingBarIndicator), findsOneWidget);
+            expect(find.byType(CustomRatingBarIndicatorMacos), findsOneWidget);
             expect(find.byType(RatingBar), findsNothing);
 
-            CustomRatingBarIndicator ratingBarIndicator = tester.widget(find.byType(CustomRatingBarIndicator));
+            CustomRatingBarIndicatorMacos ratingBarIndicator = tester.widget(find.byType(CustomRatingBarIndicatorMacos));
             expect(ratingBarIndicator.rating, equals(rating));
           },
           windows: () {
             expect(find.byType(RatingBar), findsOneWidget);
-            expect(find.byType(CustomRatingBarIndicator), findsNothing);
+            expect(find.byType(CustomRatingBarIndicatorMacos), findsNothing);
 
             RatingBar ratingBar = tester.widget(find.byType(RatingBar));
             expect(ratingBar.rating, equals(rating));
