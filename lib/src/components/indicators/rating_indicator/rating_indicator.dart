@@ -5,7 +5,7 @@ import 'package:macos_ui/macos_ui.dart';
 import '../../../core/common/construct/component.dart';
 import '../../../core/extension/widget.dart';
 import '../../icon/icons.dart';
-import 'custom_rating_indicator.dart';
+import 'custom_rating_indicator_macos.dart';
 
 const _kRatingBarIcon = AdpIcons.starFilled;
 
@@ -18,7 +18,7 @@ const _kRatingBarIcon = AdpIcons.starFilled;
 ///
 /// Use this widget to create rating indicator with platform-specific
 /// styling and behavior:
-/// - On macOS, [CustomRatingBarIndicator] is utilized.
+/// - On macOS, [CustomRatingBarIndicatorMacos] is utilized.
 /// - On Windows, [RatingBar] is used.
 class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
   /// Creates a adp rating bar.
@@ -103,7 +103,7 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
     final ratedColor = ratedIconColor ?? CupertinoColors.activeOrange;
 
-    return CustomRatingBarIndicator(
+    return CustomRatingBarIndicatorMacos(
       rating: rating,
       amount: amount,
       spacing: spacing,

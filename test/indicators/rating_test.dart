@@ -1,5 +1,4 @@
 import 'package:adp_desktop/adp_desktop.dart';
-import 'package:adp_desktop/src/components/Indicators/rating_Indicator/custom_rating_indicator.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -15,6 +14,7 @@ void main() {
       testWidgets('Widget renders correctly on both platform',
           (WidgetTester tester) async {
         const double rating = 3;
+
         await tester.pumpWidget(
           wrapApp(
             child: const AdaptiveRatingIndicator(rating: rating, amount: 5),
@@ -26,8 +26,7 @@ void main() {
             expect(find.byType(CustomRatingBarIndicator), findsOneWidget);
             expect(find.byType(RatingBar), findsNothing);
 
-            CustomRatingBarIndicator ratingBarIndicator =
-                tester.widget(find.byType(CustomRatingBarIndicator));
+            CustomRatingBarIndicator ratingBarIndicator = tester.widget(find.byType(CustomRatingBarIndicator));
             expect(ratingBarIndicator.rating, equals(rating));
           },
           windows: () {

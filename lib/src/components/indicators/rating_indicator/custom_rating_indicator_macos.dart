@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomRatingBarIndicator extends StatelessWidget {
-  /// Creates a read only rating bar indicator.
-  const CustomRatingBarIndicator({
+ class CustomRatingBarIndicatorMacos extends StatelessWidget {
+  const CustomRatingBarIndicatorMacos({
     this.onChanged,
     this.spacing = 0,
     this.iconSize = 16,
