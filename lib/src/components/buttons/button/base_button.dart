@@ -89,7 +89,6 @@ abstract class AdaptiveBaseButton extends CoreAdaptiveComponent {
 
 
   ButtonStyle windowsDefaultStyle() {
-
     return ButtonStyle(
       shape: WidgetStateProperty.all(shape),
       backgroundColor: WidgetStateProperty.resolveWith(

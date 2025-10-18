@@ -60,8 +60,7 @@ class _DatePickerWindowsState extends State<DatePickerWindows> {
         showYear: widget.property?.showYear ?? true,
         endDate: widget.property?.endDate,
         startDate: widget.property?.startDate,
-        contentPadding:
-            widget.property?.contentPadding ?? kPickerContentPadding,
+        contentPadding: widget.property?.contentPadding ?? kPickerContentPadding,
       ),
     );
   }
