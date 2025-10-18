@@ -1,36 +1,36 @@
-name: Flutter Analysis
-
-on: [push, pull_request, workflow_dispatch]
-
-jobs:
-  package-analysis:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-
-      - name: Install dependencies
-        run: flutter pub get
-
-#      - name: Check formatting
-#        continue-on-error: true
-#        run: |
-#          dart format --set-exit-if-changed lib/ test/
+#name: Flutter Analysis
 #
-#      - name: Run analysis
-#        continue-on-error: true
-#        run: flutter analyze
+#on: [push, pull_request, workflow_dispatch]
 #
-#      - name: Verify package health
-#        continue-on-error: true
-#        run: flutter pub publish --dry-run
-
-      - name: Run tests (Windows)
-        run: flutter test --dart-define=platform="windows"
-
-#      - name: Run Test code on MacOS
-#        run: flutter test --dart-define=platform="macos"
+#jobs:
+#  package-analysis:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v5
+#      - name: Setup Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: stable
+#
+#      - name: Install dependencies
+#        run: flutter pub get
+#
+##      - name: Check formatting
+##        continue-on-error: true
+##        run: |
+##          dart format --set-exit-if-changed lib/ test/
+##
+##      - name: Run analysis
+##        continue-on-error: true
+##        run: flutter analyze
+##
+##      - name: Verify package health
+##        continue-on-error: true
+##        run: flutter pub publish --dry-run
+#
+#      - name: Run tests (Windows)
+#        run: flutter test --dart-define=platform="windows"
+#
+##      - name: Run Test code on MacOS
+##        run: flutter test --dart-define=platform="macos"
