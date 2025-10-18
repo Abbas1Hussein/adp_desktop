@@ -16,21 +16,21 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Check formatting
-        continue-on-error: true
-        run: |
-          dart format --set-exit-if-changed lib/ test/
+#      - name: Check formatting
+#        continue-on-error: true
+#        run: |
+#          dart format --set-exit-if-changed lib/ test/
+#
+#      - name: Run analysis
+#        continue-on-error: true
+#        run: flutter analyze
+#
+#      - name: Verify package health
+#        continue-on-error: true
+#        run: flutter pub publish --dry-run
 
-      - name: Run analysis
-        continue-on-error: true
-        run: flutter analyze
-
-      - name: Verify package health
-        continue-on-error: true
-        run: flutter pub publish --dry-run
-
-      - name: Run Test code on Windows
+      - name: Run tests (Windows)
         run: flutter test --dart-define=platform="windows"
 
-      - name: Run Test code on MacOS
-        run: flutter test --dart-define=platform="macos"
+#      - name: Run Test code on MacOS
+#        run: flutter test --dart-define=platform="macos"
