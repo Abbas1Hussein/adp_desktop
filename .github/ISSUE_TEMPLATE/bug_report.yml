@@ -1,0 +1,46 @@
+name: 🐞 Bug Report
+description: Report a bug or unexpected behavior in the package
+title: "[BUG] "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Bug
+      description: What happened and what did you expect?
+      placeholder: |
+        Describe the issue clearly...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the issue
+      placeholder: |
+        1. Use version X.Y.Z
+        2. Call method ...
+        3. Observe the error
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Provide your Flutter/Dart environment details
+      placeholder: |
+        Flutter version:
+        Dart version:
+        Platform (Windows/Mac/Linux):
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or Screenshots
+      description: Paste relevant logs or attach screenshots (if applicable)
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here
