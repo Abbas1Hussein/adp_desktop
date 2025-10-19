@@ -7,6 +7,24 @@ build/
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# IDE settings
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode
+
 # Directory created by dartdoc
 # If you don't generate documentation locally you can remove this line.
 doc/api/
