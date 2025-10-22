@@ -76,9 +76,14 @@ void main() async {
 
 <details>
 <summary>Icon</summary>
+<a href="#Icon-section">Icon</a>
+<ul>
+    <li><a href="#basic-adaptive-icon-section">Basic Adaptive Icon</a></li>
+    <li><a href="#platform-specific-icon-section">Platform-Specific Icon</a></li>
+    <li><a href="#consistent-icon-across-platforms-section">Consistent Icon Across Platforms</a></li>
+</ul>
+<a href="#Icons-section">Icons</a>
 
-  - [Icon](#icon)
-  - [Icons](#icons)
 </details>
 
 <details>
@@ -379,36 +384,39 @@ It allows users to exit the current context or cancel an action.
 AdaptiveCloseButton(),
 ```
 
-### Window Control Buttons
-<a id="window-buttons-section"></a>
+## 🪟 Window Control Buttons <a id="window-buttons-section"></a>
+Window control buttons are essential elements of any graphical user interface.  
+They allow users to interact with and manage application windows on their operating system.  
+Each platform provides its own set of control buttons, It automatically adapts its design to match the host operating system and can be customized to suit your app’s needs.
 
-Window control buttons are essential elements of any graphical user interface. They allow users to interact with and manage windows on their operating system. Each operating system provides its own set of control buttons, designed to seamlessly integrate with the system's aesthetics.
-
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Lmplu4c.png) | ![Windows Dark Mode](https://i.imgur.com/nzbXPU0.gif) |
-| ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png)| ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
+| macOS (Dark / Light)                                 | Windows (Dark / Light)                                 |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/Lmplu4c.png)  | ![Windows Dark Mode](https://i.imgur.com/nzbXPU0.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/ED5aC9z.png) | ![Windows Light Mode](https://i.imgur.com/EE15Dif.gif) |
 
 ```dart
 AdaptiveWindowButtons(),
-```
+````
 
-The `AdaptiveWindowButtons` widget provides a set of window control buttons. These buttons can be customized according to your preferences and requirements.
+#### 🟥 Close Window Button <a id="close-window-button-section"></a>
 
-<a id="close-window-button-section"></a>
-The close window button is used to terminate or close the active window.
+Closes or terminates the active window.
 
 ```dart
 AdaptiveCloseButton(),
 ```
-<a id="minimize-window-button-section"></a>
-The minimize window button is used to minimize the active window, reducing it to an icon on the taskbar or dock.
+
+#### 🟨 Minimize Window Button <a id="minimize-window-button-section"></a>
+
+Minimizes the active window, reducing it to the taskbar or dock.
 
 ```dart
 AdaptiveMinimizeButton(),
 ```
-<a id="maximize-window-button-section"></a>
-The maximize window button is used to maximize or expand the active window to fill the entire screen.
+
+#### 🟩 Maximize Window Button <a id="maximize-window-button-section"></a>
+
+Maximizes or restores the active window to fill the available screen space.
 
 ```dart
 AdaptiveMaximizeButton(),
@@ -483,20 +491,20 @@ AdaptiveTextSearchField(
 ```
 ## Icon
 
-### 🎨 Icon
+### 🎨 Icon <a id="Icon-section"></a>
 
 Icons are graphical symbols used to represent actions, objects, or concepts within an application's user interface.  
 They provide visual cues that help users quickly understand and interact with the interface.
 
 
-#### 1. Basic Adaptive Icon
+#### 1. Basic Adaptive Icon <a id="basic-adaptive-icon-section"></a>
 A simple adaptive icon that automatically adjusts its appearance to match the current platform style.
 
 ```dart
 AdaptiveIcon(AdpIcons.app),
 ````
 
-#### 2. Platform-Specific Icon
+#### 2. Platform-Specific Icon <a id="platform-specific-icon-section"></a>
 An adaptive icon with platform-specific designs for **Windows** and **macOS**.
 
 ```dart
@@ -506,14 +514,14 @@ AdaptiveIcon.from(
 ),
 ```
 
-#### 3. Consistent Icon Across Platforms
+#### 3. Consistent Icon Across Platforms <a id="consistent-icon-across-platforms-section"></a>
 An icon that remains consistent across all platforms.
 
 ```dart
 AdaptiveIcon.all(Icons.code),
 ```
 
-### 🧱 Icons
+### 🧱 Icons <a id="Icons-section"></a>
 
 `Icons` are a collection of predefined graphical symbols that represent common actions, objects, or concepts.
 They provide visual cues that help users quickly understand and interact with the interface.
