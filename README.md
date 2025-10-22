@@ -483,31 +483,46 @@ AdaptiveTextSearchField(
 ```
 ## Icon
 
-### Icon
-Icon are graphical symbols used to represent actions, objects, or concepts within an application's user interface.
+### 🎨 Icon
+
+Icons are graphical symbols used to represent actions, objects, or concepts within an application's user interface.  
 They provide visual cues that help users quickly understand and interact with the interface.
 
+
+#### 1. Basic Adaptive Icon
+A simple adaptive icon that automatically adjusts its appearance to match the current platform style.
+
 ```dart
-/// A basic adaptive icon that adjusts its appearance based on the platform.
 AdaptiveIcon(AdpIcons.app),
+````
 
-/// An adaptive icon with platform-specific designs for Windows and macOS.
+#### 2. Platform-Specific Icon
+An adaptive icon with platform-specific designs for **Windows** and **macOS**.
+
+```dart
 AdaptiveIcon.from(
- fluent: _iconWindowsData,
- cupertino: _iconMacosData,
+  wICON: _iconWindowsData,
+  mICON: _iconMacosData,
 ),
+```
 
-/// An icon that remains consistent across all platforms.
+#### 3. Consistent Icon Across Platforms
+An icon that remains consistent across all platforms.
+
+```dart
 AdaptiveIcon.all(Icons.code),
 ```
 
-### Icons
-Icons are a collection of predefined graphical symbols that represent common actions, objects, or concepts.
+### 🧱 Icons
+
+`Icons` are a collection of predefined graphical symbols that represent common actions, objects, or concepts.
 They provide visual cues that help users quickly understand and interact with the interface.
 
 ```dart
-final AdpIcons adpIcon = AdpIcons.app,
-final IconData iconData = adpIcon.platform, /// you can get platform iconData by using platform.
+final AdpIcons adpIcon = AdpIcons.app;
+
+// You can get the platform-specific IconData using `.platform`.
+final IconData iconData = adpIcon.platform, 
 ```
 
 ## Indicators
@@ -945,8 +960,8 @@ AdaptiveButton(
 Widget that provides platform-specific child.
 ```dart
 AdaptiveWidget(
-  onMacos: (context) => const Text('Abbas Hussein onMacos'),
-  onWindows: (context) => const Text('Abbas Hussein onWindows'),
+  onMacos: (context) => const Text('onMacos'),
+  onWindows: (context) => const Text('onWindows'),
 )
 ```
 
