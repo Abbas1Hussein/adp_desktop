@@ -393,7 +393,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
                 color: foregroundColor ??
                     iconDrawerTheme?.color ??
                     defaultIconTheme.color,
-                iconDrawerTheme?.icon?.fluent ?? Icons.menu,
+                iconDrawerTheme?.icon?.wICON ?? Icons.menu,
               ),
               onPressed: Scaffold.of(context).openDrawer,
             ),
@@ -409,7 +409,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
                 color: foregroundColor ??
                     iconEndDrawerTheme?.color ??
                     defaultIconTheme.color,
-                iconEndDrawerTheme?.icon?.fluent ?? Icons.menu,
+                iconEndDrawerTheme?.icon?.wICON ?? Icons.menu,
               ),
               onPressed: Scaffold.of(context).openEndDrawer,
             ),
@@ -509,7 +509,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
                 color: foregroundColor ??
                     iconDrawerTheme?.color ??
                     defaultIconTheme.color,
-                iconDrawerTheme?.icon?.cupertino ?? CupertinoIcons.bars,
+                iconDrawerTheme?.icon?.mICON ?? CupertinoIcons.bars,
               ),
               onPressed: Scaffold.of(context).openDrawer,
             ),
@@ -526,7 +526,7 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
                 color: foregroundColor ??
                     iconEndDrawerTheme?.color ??
                     defaultIconTheme.color,
-                iconEndDrawerTheme?.icon?.cupertino ?? CupertinoIcons.bars,
+                iconEndDrawerTheme?.icon?.mICON ?? CupertinoIcons.bars,
               ),
               onPressed: Scaffold.of(context).openEndDrawer,
             ),
