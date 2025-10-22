@@ -23,13 +23,13 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
     this.color,
     this.semanticLabel,
     this.textDirection,
-  })  : cupertino = null,
-        fluent = null;
+  })  : mICON = null,
+        wICON = null;
 
   /// Creates a new adaptive icon with specific icons for each platform.
   ///
-  /// - On Windows: [fluent] icon is used.
-  /// - On Macos: [cupertino]  icon is used.
+  /// - On Windows: [wICON] icon is used.
+  /// - On Macos: [mICON]  icon is used.
   const AdaptiveIcon.from({
     super.key,
     super.builders,
@@ -37,8 +37,8 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
     this.color,
     this.semanticLabel,
     this.textDirection,
-    required IconData this.fluent,
-    required IconData this.cupertino,
+    required IconData this.wICON,
+    required IconData this.mICON,
   }) : adaptiveIcons = null;
 
   /// Creates a new adaptive icon with one icons for all platforms.
@@ -52,8 +52,8 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
     this.color,
     this.semanticLabel,
     this.textDirection,
-  })  : cupertino = iconData,
-        fluent = iconData,
+  })  : mICON = iconData,
+        wICON = iconData,
         adaptiveIcons = null;
 
   /// The size of the icon in logical pixels.
@@ -70,6 +70,7 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   final Color? color;
 
   /// The icon to display, used for different platforms.
+  ///
   /// The available icons are described in [CupertinoIcons], [FluentIcons].
   ///
   /// The icon can be null, in which case the widget will render as an empty
@@ -79,12 +80,12 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
   /// The Fluent UI icon data to be displayed on Windows [FluentIcons].
   ///
   /// used on [AdaptiveIcon.from].
-  final IconData? fluent;
+  final IconData? wICON;
 
   /// The Cupertino icon data to be displayed on macOS [CupertinoIcons].
   ///
   /// used on [AdaptiveIcon.from].
-  final IconData? cupertino;
+  final IconData? mICON;
 
   /// Semantic label for the icon.
   final String? semanticLabel;
@@ -94,7 +95,8 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
-    final icon = fluent ?? adaptiveIcons?.fluent;
+
+    final icon = wICON ?? adaptiveIcons?.wICON;
     return Icon(
       icon,
       key: key,
@@ -107,7 +109,7 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
 
   @override
   Widget macos(BuildContext context, [CoreMacosProperty? property]) {
-    final icon = cupertino ?? adaptiveIcons?.cupertino;
+    final icon = mICON ?? adaptiveIcons?.mICON;
     return MacosIcon(
       icon,
       key: key,
