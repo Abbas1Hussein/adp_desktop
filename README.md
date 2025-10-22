@@ -427,10 +427,11 @@ AdaptiveMaximizeButton(),
 ### Text Field
 The TextField widget in Flutter is a fundamental input component used to collect text input from the user,
 it allows users to enter and edit text interactively.
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/Gd9Dahe.gif) | ![Windows Dark Mode](https://i.imgur.com/GsKJgvf.gif) |
-| ![macOS Light Mode](https://i.imgur.com/cPCO1yU.gif)| ![Windows Light Mode](https://i.imgur.com/yNLZMHD.gif) |
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/Gd9Dahe.gif)  | ![Windows Dark Mode](https://i.imgur.com/GsKJgvf.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/cPCO1yU.gif) | ![Windows Light Mode](https://i.imgur.com/yNLZMHD.gif) |
 
 ```dart
 AdaptiveTextField(),
@@ -439,10 +440,11 @@ AdaptiveTextField(),
 ### Text Form Field
 The TextFormField widget in Flutter is an enhanced version of the TextField widget,
 specifically designed to be used within a Form widget to enable form validation and submission.
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/XL0VgKD.gif) | ![Windows Dark Mode](https://i.imgur.com/WHNQ53L.gif) |
-| ![macOS Light Mode](https://i.imgur.com/sM52c6F.gif)| ![Windows Light Mode](https://i.imgur.com/n4EwHDz.gif) |
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/XL0VgKD.gif)  | ![Windows Dark Mode](https://i.imgur.com/WHNQ53L.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/sM52c6F.gif) | ![Windows Light Mode](https://i.imgur.com/n4EwHDz.gif) |
 
 ```dart
 Form(
@@ -468,10 +470,11 @@ It combines a text input field with a dropdown or list of suggestions that dynam
 
 This widget provides a convenient way for users to find relevant information quickly without having to type the entire query themselves.
 It enhances the user experience by offering predictive text suggestions, which can save time and effort.
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/oLfr1TE.gif) | ![Windows Dark Mode](https://i.imgur.com/E5vCe1R.gif) |
-| ![macOS Light Mode](https://i.imgur.com/Jq0yNWe.gif)| ![Windows Light Mode](https://i.imgur.com/98g2ZHN.gif) |
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/oLfr1TE.gif)  | ![Windows Dark Mode](https://i.imgur.com/E5vCe1R.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/Jq0yNWe.gif) | ![Windows Light Mode](https://i.imgur.com/98g2ZHN.gif) |
 
 ```dart
 AdaptiveTextSearchField(
@@ -581,10 +584,11 @@ AdaptiveProgressBarIndicator(),
 The rating bar allows users to view and set ratings that reflect degrees of satisfaction with content and services,
 users can interact with the rating control with touch, pen, mouse, gamepad or keyboard.
 The follow guidance shows how to use the rating control's features to provide flexibility and customization.
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/DFeyIY1.gif) | ![Windows Dark Mode](https://i.imgur.com/jOlpNvV.gif) |
-| ![macOS Light Mode](https://i.imgur.com/pMOq7Vb.gif)| ![Windows Light Mode](https://i.imgur.com/HDQ1xvN.gif) |
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/DFeyIY1.gif)  | ![Windows Dark Mode](https://i.imgur.com/jOlpNvV.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/pMOq7Vb.gif) | ![Windows Light Mode](https://i.imgur.com/HDQ1xvN.gif) |
 
 ```dart
 AdaptiveRatingIndicator(
@@ -604,10 +608,11 @@ moving a thumb control along a track, A slider is a good choice when you know th
 relative quantity, not a numeric value. For example, users think about
 setting their audio volume to low or medium — not about setting the value to
 2 or 5.
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/5S4ylPk.gif) | ![Windows Dark Mode](https://i.imgur.com/KWbdDPs.gif) |
-| ![macOS Light Mode](https://i.imgur.com/nZux3eS.gif)| ![Windows Light Mode](https://i.imgur.com/khIyrR2.gif) |
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/5S4ylPk.gif)  | ![Windows Dark Mode](https://i.imgur.com/KWbdDPs.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/nZux3eS.gif) | ![Windows Light Mode](https://i.imgur.com/khIyrR2.gif) |
 
 ```dart
 AdaptiveSlider(
@@ -628,10 +633,11 @@ We use this from the material library and adaptive it,
 The scaffold is designed to be a top level container for a `AdpApp`.
 This means that adding a Scaffold to each route on a adp app will provide the app with
 platform's basic visual layout structure.
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/W1cx7wH.png) | ![Windows Dark Mode](https://i.imgur.com/RpKWR70.png) |
-| ![macOS Light Mode](https://i.imgur.com/dHJvghH.png)| ![Windows Light Mode](https://i.imgur.com/nCcG3BY.png) |
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/W1cx7wH.png)  | ![Windows Dark Mode](https://i.imgur.com/RpKWR70.png)  |
+| ![macOS Light Mode](https://i.imgur.com/dHJvghH.png) | ![Windows Light Mode](https://i.imgur.com/nCcG3BY.png) |
 ```dart
 AdaptiveScaffold(
   appBar: AdaptiveAppBar(title: const Text('appbar')),
@@ -694,30 +700,38 @@ AdaptiveScaffoldPage(
 ### Title Bar
 The Title Bar is a visual element typically located at the top of an application window or screen.
 It often contains the application's name or logo and may include additional controls or indicators.
+
+#### 🧩 Basic Configuration
+
+You can easily customize the title bar from within the `AdpApp` widget by providing your desired configuration.
+
 ```dart
-/// You can customize the title bar from the `AdpApp` by providing the desired configuration.
 AdpApp(
-   titleBarConfig: AdaptiveTitleBarConfig(
-     height: 34.0,
-     appIcon: const AdaptiveIcon(AdpIcons.app),
-     appTitle: const Text('appTitle'),
-     mode: TitleBarMode.normal,
-   ),
- ),
-/// However, if you need to further customize it, you can use `TitleBarMode.hidden` in `AdpApp`.
-/// Then, utilize the `AdaptiveTitleBar` widget on screens where you want the customized title bar.
-AdaptiveTitleBar(
-   config: AdaptiveTitleBarConfig(
-     height: 45.0,
-     appTitle: const Text('Abbas Hussein'),
-     appIcon: const AdaptiveIcon(AdpIcons.app),
-   ),
-   child: _scaffoldPage(),
+  titleBarConfig: AdaptiveTitleBarConfig(
+    height: 34.0,
+    appIcon: const AdaptiveIcon(AdpIcons.app),
+    appTitle: const Text('appTitle'),
+    mode: TitleBarMode.normal,
+  ),
 ),
-/// In this example, the `AdaptiveTitleBar` widget is used to customize the appearance of the title bar.
-/// The `TitleBarMode.hidden` can be used to hide the title bar on specific screens.
-/// The `_scaffoldPage()` function represents the content of the screen wrapped by the title bar.
+````
+
+#### 🎨 Advanced Customization
+
+If you need deeper customization, set the `TitleBarMode` to `hidden` inside `AdpApp`.
+Then, use the `AdaptiveTitleBar` widget on specific screens to create your own custom title bar.
+
+```dart
+AdaptiveTitleBar(
+  config: AdaptiveTitleBarConfig(
+    height: 35.0,
+    appTitle: const Text('appTitle'),
+    appIcon: const AdaptiveIcon(AdpIcons.app),
+  ),
+  child: _scaffoldPage(),
+),
 ```
+You can also create your own custom `AdaptiveTitleBar` to fit your app’s design and layout.
 
 ## Navigation
 
@@ -725,11 +739,12 @@ AdaptiveTitleBar(
 The Navigation View top-level navigation for your app provides a structured layout for navigation within an application.
 It typically consists of a sidebar for navigation options and an app bar for additional controls or indicators.
 Provides a flexible layout for navigation purposes, allowing users to interact with the app's content seamlessly,
-making it suitable for various application designs and platforms. [full code](https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/app/view/screens/home/tabs/navigation/navigation_view.dart)
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/uWgs3uw.png) | ![Windows Dark Mode](https://i.imgur.com/t4PCDcJ.png) |
-| ![macOS Light Mode](https://i.imgur.com/do8YbPg.png)| ![Windows Light Mode](https://i.imgur.com/uuPbXJt.png) |
+making it suitable for various application designs and platforms. [full code](http://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/src/view/screens/home/tabs/navigation/navigation_view.dart)
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/uWgs3uw.png)  | ![Windows Dark Mode](https://i.imgur.com/t4PCDcJ.png)  |
+| ![macOS Light Mode](https://i.imgur.com/do8YbPg.png) | ![Windows Light Mode](https://i.imgur.com/uuPbXJt.png) |
 
 ```dart
 AdaptiveNavigationView(
@@ -913,10 +928,11 @@ AdaptiveButton(
 ### List Tile
 The list tiles are used to represent a single piece of information, typically within a list or grid layout.
 They provide a compact and structured way to display data, often including an icon, title, and additional details.
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/ciDfgFl.gif) | ![Windows Dark Mode](https://i.imgur.com/AQQIgpd.gif) |
-| ![macOS Light Mode](https://i.imgur.com/gv4unPC.gif)| ![Windows Light Mode](https://i.imgur.com/InDlcN7.gif) |
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/ciDfgFl.gif)  | ![Windows Dark Mode](https://i.imgur.com/AQQIgpd.gif)  |
+| ![macOS Light Mode](https://i.imgur.com/gv4unPC.gif) | ![Windows Light Mode](https://i.imgur.com/InDlcN7.gif) |
 
 ```dart
 AdaptiveListTile(
