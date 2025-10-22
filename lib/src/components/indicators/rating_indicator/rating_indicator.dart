@@ -89,7 +89,7 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
     return RatingBar(
       amount: amount,
       rating: rating,
-      icon: icon.fluent,
+      icon: icon.wICON,
       iconSize: iconSize,
       onChanged: onChanged,
       starSpacing: spacing,
@@ -110,7 +110,7 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
       onChanged: onChanged,
       iconSize: iconSize,
       icon: MacosIcon(
-        icon.cupertino,
+        icon.mICON,
         size: iconSize,
         color: MacosDynamicColor.resolve(ratedColor, context),
       ),
