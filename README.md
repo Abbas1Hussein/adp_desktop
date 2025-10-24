@@ -135,6 +135,9 @@ void main() async {
   - [AdaptiveBrightness](#brightness)
   - [AdaptiveTypography](#typography)
   - [Color's](#colors)
+  - [Contributing](#contributing)
+  - [Acknowledgements](#acknowledgements)
+
 </details>
 
 ## Buttons
@@ -673,10 +676,11 @@ AdaptiveScaffold(
 ### Scaffold Page
 The scaffold Page is a variant of the Scaffold widget designed specifically for use as a top-level container for individual pages within the app.
 It includes an app bar with customizable actions and a content area for displaying the main content of the page.
-| MacOS Dark\Light Mode                         | Windows  Dark\Light Mode                       |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![macOS Dark Mode](https://i.imgur.com/8BOZhrU.png) | ![Windows Dark Mode](https://i.imgur.com/Nt2oatq.png) |
-| ![macOS Light Mode](https://i.imgur.com/l1rCSDc.png)| ![Windows Light Mode](https://i.imgur.com/2mkkrLO.png) |
+
+| MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
+|------------------------------------------------------|--------------------------------------------------------|
+| ![macOS Dark Mode](https://i.imgur.com/8BOZhrU.png)  | ![Windows Dark Mode](https://i.imgur.com/Nt2oatq.png)  |
+| ![macOS Light Mode](https://i.imgur.com/l1rCSDc.png) | ![Windows Light Mode](https://i.imgur.com/2mkkrLO.png) |
 
 ```dart
 AdaptiveScaffoldPage(
@@ -739,7 +743,7 @@ You can also create your own custom `AdaptiveTitleBar` to fit your app’s desig
 The Navigation View top-level navigation for your app provides a structured layout for navigation within an application.
 It typically consists of a sidebar for navigation options and an app bar for additional controls or indicators.
 Provides a flexible layout for navigation purposes, allowing users to interact with the app's content seamlessly,
-making it suitable for various application designs and platforms. [full code](http://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/src/view/screens/home/tabs/navigation/navigation_view.dart)
+making it suitable for various application designs and platforms. [View full example](http://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/src/view/screens/home/tabs/navigation/navigation_view.dart)
 
 | MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
 |------------------------------------------------------|--------------------------------------------------------|
@@ -797,7 +801,7 @@ The tab view is top-level for your app, facilitates the organization of content 
 enabling users to navigate between different sections of the application.
 It provides a visually appealing and intuitive way to present and switch between related information.
 The Tab View consists of tabs along with their corresponding content, making it easy for users to access specific sections quickly.
-This widget is customizable and adaptable, suitable for various application designs and platforms. [full code](https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/src/view/screens/home/tabs/navigation/tab_view.dart)
+This widget is customizable and adaptable, suitable for various application designs and platforms. [View full example](https://github.com/Abbas1Hussein/adp_desktop/blob/master/example/lib/src/view/screens/home/tabs/navigation/tab_view.dart)
 
 | MacOS Dark\Light Mode                                | Windows  Dark\Light Mode                               |
 |------------------------------------------------------|--------------------------------------------------------|
@@ -966,7 +970,7 @@ AdaptiveTooltip(
 ## Additional
 
 ### adaptiveValue
-Utilize to execute platform-specific actions.
+Utilize to execute platform-specific actions. 
 ```dart
 AdaptiveButton(
   child: const Text('Pick File'),
@@ -1014,7 +1018,7 @@ AdaptiveBuilderWidget(
       );
     },
   ),
-  child: const Text('Abbas Hussein'),
+  child: const Text('Abbas1Hussein'),
 ),
 ```
 
@@ -1038,8 +1042,31 @@ It's using this to get the brightness mode.
 final brightness = AdaptiveBrightness.of(context);
 ```
 
-<!-- ### Platform-Specific Integration -->
-<!-- - On MacOS: we use `macos_ui` -->
-<!-- - On Windows: we use `fluent_ui` -->
-<!-- - On Linux: for now we do not support, but you can choose between `fluent_ui` or `macos_ui`. -->
-<!-- - On Web: you can choose between `fluent_ui` or `macos_ui`. -->
+---
+### 🤝 Contributing <a id="contributing"></a>
+
+We welcome all contributions whether it's through **Pull Requests**, **Issues**, or feature discussions,
+Your feedback and collaboration help this project grow and improve.
+
+If you’d like to contribute:
+
+* Open a new issue for bugs or feature requests.
+* Submit a pull request with improvements or fixes.
+* Share your ideas and suggestions in the discussions section.
+* Read our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and best practices.
+
+Every contribution, big or small, is greatly appreciated.
+
+---
+### 🙏 Acknowledgements <a id="acknowledgements"></a>
+
+Special thanks to the maintainers and contributors of the following amazing packages:
+
+* [macos_ui](https://pub.dev/packages/macos_ui)
+* [fluent_ui](https://pub.dev/packages/fluent_ui)
+
+Your work made cross-platform adaptation possible.
+
+---
+### 📜 License
+This project is licensed under the [MIT License](LICENSE).
