@@ -40,7 +40,6 @@ Before Opening a Pull Request, Ensure that:
 
 > ⚠️ **Note:** Pull requests should be merged via **GitHub’s interface**, not from the command line.
 
-
 ## 🧾 Versioning
 
 **adp_desktop** follows [Semantic Versioning](https://semver.org/):
