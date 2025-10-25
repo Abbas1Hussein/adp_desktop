@@ -1,4 +1,4 @@
-# 🧪 Running Multiple Tests
+### 🧪 Running Multiple Tests
 
 To run the tests, make sure to specify the correct platform on:
 
@@ -14,7 +14,6 @@ flutter test --dart-define=platform="windows"
 flutter test --dart-define=platform="macos"
 ```
 
----
 ### 🧩 Running a Single Test File
 
 If you want to run a specific test file, you **must** provide the `platform` parameter to the `initializeDesktopDefaultsTests` method.
