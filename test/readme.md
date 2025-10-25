@@ -2,13 +2,13 @@
 
 To run the tests, make sure to specify the correct platform on:
 
-### Windows
+#### Windows
 
 ```bash
 flutter test --dart-define=platform="windows"
 ````
 
-### Macos
+#### Macos
 
 ```bash
 flutter test --dart-define=platform="macos"
