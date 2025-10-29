@@ -8,10 +8,7 @@ class BasicButtonsPreview extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        AdaptiveButton(
-          child: const Text('Base Button'),
-          onPressed: () {},
-        ),
+        AdaptiveButton(child: const Text('Base Button'), onPressed: () {}),
         AdaptiveButton.filled(
           child: const Text('Filled Button'),
           onPressed: () {},
@@ -20,10 +17,7 @@ class BasicButtonsPreview extends StatelessWidget {
           child: const Text('Outlined Button'),
           onPressed: () {},
         ),
-        AdaptiveTextButton(
-          child: const Text('Text Button'),
-          onPressed: () {},
-        ),
+        AdaptiveTextButton(child: const Text('Text Button'), onPressed: () {}),
         AdaptiveIconButton(
           icon: const AdaptiveIcon(AdpIcons.add),
           onPressed: () {},

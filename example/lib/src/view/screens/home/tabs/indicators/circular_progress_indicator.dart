@@ -9,7 +9,8 @@ class CircularProgressIndicatorPreview extends StatefulWidget {
       _CircularProgressIndicatorPreviewState();
 }
 
-class _CircularProgressIndicatorPreviewState extends State<CircularProgressIndicatorPreview> {
+class _CircularProgressIndicatorPreviewState
+    extends State<CircularProgressIndicatorPreview> {
   double currentValue = 0.0;
 
   @override

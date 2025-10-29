@@ -66,17 +66,16 @@ class TabViewWindows extends StatelessWidget {
       data: theme.copyWith(
         resources: theme.brightness.isDark
             ? ResourceDictionary.dark(
-          solidBackgroundFillColorTertiary: activeColor,
-          layerOnMicaBaseAltFillColorTransparent: inactiveColor,
-        )
+                solidBackgroundFillColorTertiary: activeColor,
+                layerOnMicaBaseAltFillColorTransparent: inactiveColor,
+              )
             : ResourceDictionary.light(
-          solidBackgroundFillColorTertiary: activeColor,
-          layerOnMicaBaseAltFillColorTransparent: inactiveColor,
-          layerOnMicaBaseAltFillColorDefault: primaryColor !=
-              null
-              ? theme.resources.layerOnMicaBaseAltFillColorDefault
-              : theme.resources.layerOnMicaBaseAltFillColorTransparent,
-        ),
+                solidBackgroundFillColorTertiary: activeColor,
+                layerOnMicaBaseAltFillColorTransparent: inactiveColor,
+                layerOnMicaBaseAltFillColorDefault: primaryColor != null
+                    ? theme.resources.layerOnMicaBaseAltFillColorDefault
+                    : theme.resources.layerOnMicaBaseAltFillColorTransparent,
+              ),
       ),
       child: Mica(
         backgroundColor: primaryColor,
@@ -92,7 +91,7 @@ class TabViewWindows extends StatelessWidget {
           minTabWidth: property?.minTabWidth ?? _kMinTileWidth,
           showScrollButtons: property?.showScrollButtons ?? true,
           tabWidthBehavior:
-          property?.tabWidthBehavior ?? TabWidthBehavior.equal,
+              property?.tabWidthBehavior ?? TabWidthBehavior.equal,
         ),
       ),
     );
@@ -101,7 +100,7 @@ class TabViewWindows extends StatelessWidget {
   List<Tab> _buildTabs(BuildContext context) {
     return List.generate(
       tabs.length,
-          (index) {
+      (index) {
         final isActive = currentIndex == index;
         return tabs[index].toWindows(
           context,
@@ -109,8 +108,7 @@ class TabViewWindows extends StatelessWidget {
             padding: contentPadding,
             margin: contentMargin ?? EdgeInsets.zero,
             backgroundColor: secondaryColor ??
-                FluentTheme
-                    .of(context)
+                FluentTheme.of(context)
                     .resources
                     .solidBackgroundFillColorTertiary,
             borderRadius: BorderRadius.zero,

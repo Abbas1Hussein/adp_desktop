@@ -33,14 +33,12 @@ class CustomTitle extends StatelessWidget {
               content: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
-                children: message.split('\n').map(
-                  (line) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(line),
-                    );
-                  },
-                ).toList(),
+                children: message.split('\n').map((line) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(line),
+                  );
+                }).toList(),
               ),
               primary: AdaptiveButton(
                 child: Text(localizations.cancelButtonLabel),

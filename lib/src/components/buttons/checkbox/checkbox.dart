@@ -107,20 +107,22 @@ class AdaptiveCheckbox extends CoreAdaptiveComponent {
   /// The decoration of the checkbox when it's in its third state
   final Decoration? thirdstateDecoration;
 
-
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     return Checkbox(
       checked: value,
       content: label,
-      onChanged: onChanged != null ? (value) => onChanged?.call(value == true): null,
+      onChanged:
+          onChanged != null ? (value) => onChanged?.call(value == true) : null,
       semanticLabel: semanticLabel,
       style: CheckboxThemeData(
         icon: icon,
-        foregroundColor:
-            foregroundColor != null ? WidgetStateProperty.all(foregroundColor) : null,
-        checkedIconColor:
-            checkedIconColor != null ? WidgetStateProperty.all(checkedIconColor) : null,
+        foregroundColor: foregroundColor != null
+            ? WidgetStateProperty.all(foregroundColor)
+            : null,
+        checkedIconColor: checkedIconColor != null
+            ? WidgetStateProperty.all(checkedIconColor)
+            : null,
         uncheckedIconColor: uncheckedIconColor != null
             ? WidgetStateProperty.all(uncheckedIconColor)
             : null,

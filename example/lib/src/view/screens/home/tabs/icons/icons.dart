@@ -13,7 +13,7 @@ class IconsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Column(
+    return const Column(
       children: [
         CustomTitle(
           path: HighlightPaths.icon,
@@ -31,13 +31,15 @@ class IconsTab extends StatelessWidget {
         CustomTitle(
           path: HighlightPaths.iconAll,
           title: 'Icon all',
-          message: 'AdaptiveIcon.all: we use it to apply one icon for all platforms',
+          message:
+              'AdaptiveIcon.all: we use it to apply one icon for all platforms',
         ),
         IconAllPreview(),
         CustomTitle(
           path: HighlightPaths.iconButton,
           title: 'Icon Button',
-          message: 'AdaptiveIconButton,AdaptiveIcon: AdpIcons.add, AdpIcons.delete, AdpIcons.edit',
+          message:
+              'AdaptiveIconButton,AdaptiveIcon: AdpIcons.add, AdpIcons.delete, AdpIcons.edit',
         ),
         IconButtonPreview(),
         CustomTitle(

@@ -161,10 +161,13 @@ class AdaptiveSlider extends CoreAdaptiveComponent {
       value: enabled ? value : 0,
       style: SliderThemeData(
         useThumbBall: divisions == null,
-        thumbColor: thumbColor != null ? WidgetStateProperty.all(thumbColor) : null,
-        activeColor: activeColor != null ? WidgetStateProperty.all(activeColor) : null,
-        inactiveColor:
-            inactiveColor != null ? WidgetStateProperty.all(inactiveColor) : null,
+        thumbColor:
+            thumbColor != null ? WidgetStateProperty.all(thumbColor) : null,
+        activeColor:
+            activeColor != null ? WidgetStateProperty.all(activeColor) : null,
+        inactiveColor: inactiveColor != null
+            ? WidgetStateProperty.all(inactiveColor)
+            : null,
         margin: const EdgeInsets.symmetric(horizontal: 8),
       ),
       label: value.toStringAsFixed(0),

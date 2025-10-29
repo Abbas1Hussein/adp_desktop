@@ -140,14 +140,13 @@ class AdaptiveNavigationView extends CoreAdaptiveComponent<
       borderRadius: const BorderRadius.all(Radius.zero),
       color: sidebar?.backgroundColor,
       child: MacosWindow(
-
         titleBar: property?.titleBar,
         sidebar: sidebar?.toMacos(context),
         disableWallpaperTinting: property?.disableWallpaperTinting ?? false,
         sidebarState: property?.sidebarState ??
             NSVisualEffectViewState.followsWindowActiveState,
         child: MacosScaffold(
-          backgroundColor: backgroundColor ,
+          backgroundColor: backgroundColor,
           toolBar: appBar?.toMacos(context),
           children: [
             ContentArea(

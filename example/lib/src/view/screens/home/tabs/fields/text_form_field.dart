@@ -51,10 +51,7 @@ class _TextFormFieldPreviewState extends State<TextFormFieldPreview> {
               },
             ),
             const SizedBox(height: 20.0),
-            AdaptiveButton(
-              onPressed: _submitForm,
-              child: const Text('Login'),
-            ),
+            AdaptiveButton(onPressed: _submitForm, child: const Text('Login')),
           ],
         ),
       ),

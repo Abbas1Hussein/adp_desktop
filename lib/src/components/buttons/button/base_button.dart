@@ -87,7 +87,6 @@ abstract class AdaptiveBaseButton extends CoreAdaptiveComponent {
       onTapDown != null ||
       onTapUp != null;
 
-
   ButtonStyle windowsDefaultStyle() {
     return ButtonStyle(
       shape: WidgetStateProperty.all(shape),

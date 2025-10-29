@@ -15,5 +15,6 @@ class AdaptiveBuilderWidget extends CoreAdaptiveComponent {
   Widget macos(BuildContext context, [CoreMacosProperty? property]) => child;
 
   @override
-  Widget windows(BuildContext context, [CoreWindowsProperty? property]) => child;
+  Widget windows(BuildContext context, [CoreWindowsProperty? property]) =>
+      child;
 }

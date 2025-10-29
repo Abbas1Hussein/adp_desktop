@@ -61,9 +61,8 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
       child: AutoSuggestBox<T>(
         style: style,
         focusNode: focusNode,
-        decoration: decoration != null
-            ? WidgetStateProperty.all(decoration!)
-            : null,
+        decoration:
+            decoration != null ? WidgetStateProperty.all(decoration!) : null,
         controller: controller,
         autofocus: autofocus,
         inputFormatters: inputFormatters,
@@ -92,7 +91,8 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
             color: decoration?.color?.withOpacity(0.6),
             borderRadius: decoration?.borderRadius ??
                 kDefaultRoundedBorderDecoration.borderRadius,
-          ) ?? const BoxDecoration(),
+          ) ??
+          const BoxDecoration(),
       child: MacosSearchField<T>(
         maxLines: 1,
         style: style,
@@ -100,14 +100,17 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
         controller: controller,
         autofocus: autofocus,
         inputFormatters: inputFormatters,
-        emptyWidget: emptyWidget ?? Padding(
+        emptyWidget: emptyWidget ??
+            Padding(
               padding: kContentPadding,
               child: Text(FluentLocalizations.of(context).noResultsFoundLabel),
             ),
         decoration: decoration != null ? null : kDefaultRoundedBorderDecoration,
-        focusedDecoration: decoration != null ? null : kDefaultFocusedBorderDecoration,
+        focusedDecoration:
+            decoration != null ? null : kDefaultFocusedBorderDecoration,
         placeholderStyle: placeholderStyle ?? kDefaultPlaceholderStyle,
-        placeholder: placeholder ?? MaterialLocalizations.of(context).searchFieldLabel,
+        placeholder:
+            placeholder ?? MaterialLocalizations.of(context).searchFieldLabel,
         results: suggestions.map((e) => e.toMacos(context)).toList(),
         onResultSelected: (value) {
           onSelected?.call(AdaptiveSearchItem.fromSearchItem(value));

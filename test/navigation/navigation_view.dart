@@ -98,7 +98,12 @@ void main() {
               .items;
 
           // Initial state check (currentIndex is 0).
-          expect(tester.widget<AdaptiveNavigationView>(navigationViewFinder).sidebar!.currentIndex, 0);
+          expect(
+              tester
+                  .widget<AdaptiveNavigationView>(navigationViewFinder)
+                  .sidebar!
+                  .currentIndex,
+              0);
 
           // Simulate a tap on the last item's icon.
           await tester.tap(find.byWidget(findItems.last.icon));

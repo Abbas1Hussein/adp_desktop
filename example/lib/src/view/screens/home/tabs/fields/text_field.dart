@@ -29,10 +29,7 @@ class _TextFieldPreviewState extends State<TextFieldPreview> {
             placeholder: 'Enter your text',
           ),
           const SizedBox(height: 20.0),
-          AdaptiveButton(
-            onPressed: _submitText,
-            child: const Text('Submit'),
-          ),
+          AdaptiveButton(onPressed: _submitText, child: const Text('Submit')),
         ],
       ),
     );

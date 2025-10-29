@@ -37,14 +37,15 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
-    final label = semanticLabel ??
-        FluentLocalizations.of(context).backButtonTooltip;
+    final label =
+        semanticLabel ?? FluentLocalizations.of(context).backButtonTooltip;
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Builder(
         builder: (context) {
           return ConstrainedBox(
-            constraints: const BoxConstraints.tightFor(width: 45.0, height: 35.0),
+            constraints:
+                const BoxConstraints.tightFor(width: 45.0, height: 35.0),
             child: PaneItem(
               mouseCursor: mouseCursor,
               tileColor: color != null ? WidgetStateProperty.all(color) : null,

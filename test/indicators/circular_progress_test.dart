@@ -9,8 +9,8 @@ import '../wrap_app.dart';
 void main() {
   initializeDesktopDefaultsTests();
 
-
-  testWidgets('AdaptiveCircularProgressIndicator renders correctly with value', (WidgetTester tester) async {
+  testWidgets('AdaptiveCircularProgressIndicator renders correctly with value',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       wrapApp(
         child: AdaptiveCircularProgressIndicator(
@@ -38,7 +38,9 @@ void main() {
     );
   });
 
-  testWidgets('AdaptiveCircularProgressIndicator renders correctly without value', (WidgetTester tester) async {
+  testWidgets(
+      'AdaptiveCircularProgressIndicator renders correctly without value',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       wrapApp(child: const AdaptiveCircularProgressIndicator()),
     );

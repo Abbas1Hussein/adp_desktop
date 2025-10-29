@@ -6,7 +6,8 @@ class PlatformController {
   Future<DesktopTargetPlatform> get targetPlatform async {
     final sharedPreferences = await SharedPreferences.getInstance();
 
-    final platform = sharedPreferences.getString('targetPlatform') ??
+    final platform =
+        sharedPreferences.getString('targetPlatform') ??
         defaultTargetPlatform.name;
 
     return DesktopTargetPlatform.values.firstWhere(

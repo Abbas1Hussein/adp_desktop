@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
- class CustomRatingBarIndicatorMacos extends StatelessWidget {
+class CustomRatingBarIndicatorMacos extends StatelessWidget {
   const CustomRatingBarIndicatorMacos({
     this.onChanged,
     this.spacing = 0,

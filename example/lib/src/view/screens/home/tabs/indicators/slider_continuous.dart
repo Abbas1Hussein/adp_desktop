@@ -4,7 +4,8 @@ class SliderContinuousPreview extends StatefulWidget {
   const SliderContinuousPreview({super.key});
 
   @override
-  State<SliderContinuousPreview> createState() => _SliderContinuousPreviewState();
+  State<SliderContinuousPreview> createState() =>
+      _SliderContinuousPreviewState();
 }
 
 class _SliderContinuousPreviewState extends State<SliderContinuousPreview> {

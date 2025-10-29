@@ -73,9 +73,10 @@ class AdaptiveProgressBarIndicator extends CoreAdaptiveComponent {
       value: clampedValue,
       semanticLabel: semanticLabel,
       activeColor: activeTrackColor,
-      backgroundColor: inactiveTrackColor??(theme.brightness == Brightness.dark
-          ? FluentTheme.of(context).cardColor
-          : null),
+      backgroundColor: inactiveTrackColor ??
+          (theme.brightness == Brightness.dark
+              ? FluentTheme.of(context).cardColor
+              : null),
     );
   }
 

@@ -197,7 +197,8 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
       scrollController: property?.scrollController,
       displayMode: displayMode ?? PaneDisplayMode.auto,
       autoSuggestBox: suggestions,
-      autoSuggestBoxReplacement: property?.searchFieldReplacement ?? const Icon(FluentIcons.search),
+      autoSuggestBoxReplacement:
+          property?.searchFieldReplacement ?? const Icon(FluentIcons.search),
     );
   }
 
@@ -217,7 +218,8 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
                   alignment: AlignmentDirectional.centerStart,
                   child: DefaultTextStyle(
                     maxLines: 1,
-                    style: theme.typography.body.copyWith(fontWeight: MacosFontWeight.w510),
+                    style: theme.typography.body
+                        .copyWith(fontWeight: MacosFontWeight.w510),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 8.0,

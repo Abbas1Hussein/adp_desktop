@@ -168,7 +168,8 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
                     (e) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 1.0),
-                        child: e.toWindows(context,maxCustomItemHeight: toolbarHeight),
+                        child: e.toWindows(context,
+                            maxCustomItemHeight: toolbarHeight),
                       );
                     },
                   )

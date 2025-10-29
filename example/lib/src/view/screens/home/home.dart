@@ -73,8 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
             label: context.brightness.name,
-            icon:
-                context.brightness.isDark ? Icons.dark_mode : Icons.light_mode,
+            icon: context.brightness.isDark
+                ? Icons.dark_mode
+                : Icons.light_mode,
           ),
           AdaptiveActionPulldownButton(
             items: [
@@ -83,14 +84,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(ThemeMode.system.name),
               ),
               AdaptiveActionPulldownItem(
-                enabled: PlatformRuining.targetPlatform ==
+                enabled:
+                    PlatformRuining.targetPlatform ==
                     DesktopTargetPlatform.macOS,
                 onTap: () =>
                     _showConfirmationDialog(DesktopTargetPlatform.macOS),
                 child: Text(DesktopTargetPlatform.macOS.name),
               ),
               AdaptiveActionPulldownItem(
-                enabled: PlatformRuining.targetPlatform ==
+                enabled:
+                    PlatformRuining.targetPlatform ==
                     DesktopTargetPlatform.windows,
                 onTap: () =>
                     _showConfirmationDialog(DesktopTargetPlatform.windows),
@@ -99,13 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
             label: PlatformRuining.targetPlatform.name,
             icon: Icons.devices,
-          )
+          ),
         ],
       ),
       sidebar: AdaptiveNavigationSidebar(
-        searchField:  const AdaptiveTextSearchField(
-          suggestions: [],
-        ),
+        searchField: const AdaptiveTextSearchField(suggestions: []),
         currentIndex: _currentIndex,
         onChanged: (value) => setState(() => _currentIndex = value),
         items: List.generate(
@@ -143,11 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
       title: 'toggle platform to ${targetPlatform.name}',
       message: 'after restart the app this will applied',
       confirmLabel: 'apply',
-    ).then(
-      (result) {
-        if (result == true) onApplied();
-      },
-    );
+    ).then((result) {
+      if (result == true) onApplied();
+    });
   }
 
   List<String> labels = const [

@@ -8,7 +8,6 @@ import '../wrap_app.dart';
 void main() {
   initializeDesktopDefaultsTests();
 
-
   testWidgets(
     'AdaptiveProgressBarIndicator renders correctly with value',
     (WidgetTester tester) async {

@@ -30,28 +30,31 @@ class PageRoutePreview extends StatelessWidget {
                                 transition: AdaptiveTransition.entrance,
                                 builder:
                                     (context, animation, secondaryAnimation) {
-                                  return AdaptiveScaffoldPage(
-                                    appBar: const AdaptiveAppBarPage(),
-                                    content: Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          AdaptiveButton(
-                                            child: const Text('close'),
-                                            onPressed: () => Navigator.pop(context),
+                                      return AdaptiveScaffoldPage(
+                                        appBar: const AdaptiveAppBarPage(),
+                                        content: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              AdaptiveButton(
+                                                child: const Text('close'),
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
+                                        ),
+                                      );
+                                    },
                               ),
                             );
                           },
                         ),
                         AdaptiveButton(
-                          child:
-                              const Text('AdaptiveHorizontalSlideTransition'),
+                          child: const Text(
+                            'AdaptiveHorizontalSlideTransition',
+                          ),
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -59,23 +62,23 @@ class PageRoutePreview extends StatelessWidget {
                                 transition: AdaptiveTransition.horizontal,
                                 builder:
                                     (context, animation, secondaryAnimation) {
-                                  return AdaptiveScaffoldPage(
-                                    appBar: const AdaptiveAppBarPage(),
-                                    content: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          AdaptiveButton(
-                                            child: const Text('close'),
-                                            onPressed: () =>
-                                                Navigator.pop(context),
+                                      return AdaptiveScaffoldPage(
+                                        appBar: const AdaptiveAppBarPage(),
+                                        content: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              AdaptiveButton(
+                                                child: const Text('close'),
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
+                                        ),
+                                      );
+                                    },
                               ),
                             );
                           },

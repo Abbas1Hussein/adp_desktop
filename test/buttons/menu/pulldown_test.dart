@@ -9,7 +9,8 @@ void main() {
   initializeDesktopDefaultsTests(DesktopTargetPlatform.macOS);
 
   testWidgets(
-    'AdaptivePulldownMenuButton Render correctly', (WidgetTester tester) async {
+    'AdaptivePulldownMenuButton Render correctly',
+    (WidgetTester tester) async {
       await tester.pumpWidget(
         wrapApp(
           child: AdaptivePulldownMenuButton<String>(
@@ -37,7 +38,6 @@ void main() {
       );
     },
   );
-
 
   testWidgets(
     'AdaptivePulldownMenuButton displays correctly items',

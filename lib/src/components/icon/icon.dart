@@ -95,7 +95,6 @@ class AdaptiveIcon extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
-
     final icon = wICON ?? adaptiveIcons?.wICON;
     return Icon(
       icon,

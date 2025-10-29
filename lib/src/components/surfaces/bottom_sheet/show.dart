@@ -42,8 +42,6 @@ Future<T?>? showAdpBottomSheet<T>({
   );
 }
 
-
-
 Future<T?> showBottomSheetWindows<T>({
   required BuildContext context,
   Color? barrierColor,
@@ -99,10 +97,10 @@ class _WindowsSheetRoute<T> extends PopupRoute<T> {
 
   @override
   Widget buildPage(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      ) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
     return Semantics(
       scopesRoute: true,
       explicitChildNodes: true,
@@ -112,11 +110,11 @@ class _WindowsSheetRoute<T> extends PopupRoute<T> {
 
   @override
   Widget buildTransitions(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child,
-      ) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return SlideTransition(
       position: Tween<Offset>(
         begin: const Offset(0.0, 1.0),

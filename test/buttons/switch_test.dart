@@ -7,7 +7,8 @@ import '../wrap_app.dart';
 void main() {
   initializeDesktopDefaultsTests();
 
-  testWidgets('AdaptiveSwitch initializes correctly', (WidgetTester tester) async {
+  testWidgets('AdaptiveSwitch initializes correctly',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       wrapApp(
         child: AdaptiveSwitch(

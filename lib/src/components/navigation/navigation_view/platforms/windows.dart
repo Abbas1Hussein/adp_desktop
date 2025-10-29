@@ -92,7 +92,6 @@ class NavigationSidebarWindowsProperty extends CoreWindowsProperty {
   /// the pane will always be closed.
   final bool toggleable;
 
-
   /// Called when the search button is tapped.
   ///
   /// This callback is invoked when [NavigationPane.autoSuggestBoxReplacement]

@@ -109,8 +109,9 @@ class AdaptiveSwitch extends CoreAdaptiveComponent {
       onChanged: onChanged,
       semanticLabel: semanticLabel,
       style: ToggleSwitchThemeData(
-        foregroundColor:
-            foregroundColor != null ? WidgetStateProperty.all(foregroundColor) : null,
+        foregroundColor: foregroundColor != null
+            ? WidgetStateProperty.all(foregroundColor)
+            : null,
         checkedDecoration: WidgetStateProperty.resolveWith(
           (states) {
             return defaultDecoration.copyWith(

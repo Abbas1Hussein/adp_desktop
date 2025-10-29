@@ -63,7 +63,7 @@ void main() {
 
   testWidgets(
     'AdaptiveTextButton disabled state',
-    (WidgetTester tester) async  {
+    (WidgetTester tester) async {
       await tester.pumpWidget(
         wrapApp(
           child: const AdaptiveTextButton(

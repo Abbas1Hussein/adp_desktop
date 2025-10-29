@@ -10,7 +10,11 @@ class AdaptiveValuePreview extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: AdaptiveButton.filled(
-        child: Text(PlatformRuining.isMacos ? 'show cupertino Alert-Dialog' : 'show material License-Page'),
+        child: Text(
+          PlatformRuining.isMacos
+              ? 'show cupertino Alert-Dialog'
+              : 'show material License-Page',
+        ),
         onPressed: () => adaptiveValue(
           // handel some things on macOS.
           macos: () {

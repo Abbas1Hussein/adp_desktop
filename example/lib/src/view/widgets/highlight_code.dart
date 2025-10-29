@@ -9,11 +9,7 @@ import '../../utils/dart_definitions.dart';
 import '../../utils/language_parser.dart';
 
 class HighlightViewCode extends StatelessWidget {
-  const HighlightViewCode({
-    super.key,
-    required this.title,
-    required this.path,
-  });
+  const HighlightViewCode({super.key, required this.title, required this.path});
 
   final String title;
   final String path;
@@ -63,11 +59,7 @@ class HighlightViewCode extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AdaptiveIcon(
-            AdpIcons.cloudError,
-            size: 34.0,
-            color: AdpColors.red,
-          ),
+          AdaptiveIcon(AdpIcons.cloudError, size: 34.0, color: AdpColors.red),
           const SizedBox(width: 10.0),
           Text(
             'Failed to load code preview: $error',

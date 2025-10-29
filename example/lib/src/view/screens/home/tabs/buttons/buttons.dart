@@ -19,7 +19,8 @@ class ButtonsTab extends StatelessWidget {
           CustomTitle(
             path: HighlightPaths.basicButtonsTab,
             title: 'Basic Buttons',
-            message: 'AdaptiveButton: A basic button widget'
+            message:
+                'AdaptiveButton: A basic button widget'
                 '\nAdaptiveButton.filled: A filled style colored button.'
                 '\nAdaptiveButton.outlined: An outlined style button.'
                 '\nAdaptiveTextButton: A text button.'
@@ -58,7 +59,8 @@ class ButtonsTab extends StatelessWidget {
           CustomTitle(
             path: HighlightPaths.navigationButtonsTab,
             title: 'Navigation Buttons',
-            message: 'AdaptiveBackButton: A button for navigating back.'
+            message:
+                'AdaptiveBackButton: A button for navigating back.'
                 '\nAdaptiveCloseButton: A button for closing the current screen or window.',
           ),
           NavigationButtonsPreview(),

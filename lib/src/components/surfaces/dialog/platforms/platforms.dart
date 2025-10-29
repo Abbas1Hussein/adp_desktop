@@ -1,2 +1,2 @@
 export 'windows.dart';
-export 'macos.dart' ;
+export 'macos.dart';

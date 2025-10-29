@@ -74,7 +74,9 @@ class _MenusButtonsPreviewState extends State<MenusButtonsPreview> {
           items: List.generate(
             10,
             (index) => AdaptivePopupMenuItem(
-                value: index, child: Text("${index + 1}")),
+              value: index,
+              child: Text("${index + 1}"),
+            ),
           ),
         ),
       ],

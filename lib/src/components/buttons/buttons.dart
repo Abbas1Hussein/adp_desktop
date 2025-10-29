@@ -12,5 +12,3 @@ export 'menu/menu.dart';
 
 export 'window_button/window_button.dart';
 export 'window_button/config.dart';
-
-

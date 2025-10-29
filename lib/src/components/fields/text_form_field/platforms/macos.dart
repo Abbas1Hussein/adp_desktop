@@ -293,13 +293,16 @@ class _MacosTextFormField extends FormField<String> {
                       restorationId: restorationId,
                       selectionHeightStyle: selectionHeightStyle,
                       selectionWidthStyle: selectionWidthStyle,
-                      focusedDecoration: decoration != null ? null : kDefaultFocusedBorderDecoration,
+                      focusedDecoration: decoration != null
+                          ? null
+                          : kDefaultFocusedBorderDecoration,
                       decoration: decoration != null
                           ? null
                           : kDefaultRoundedBorderDecoration.copyWith(
                               border: field.errorText != null
                                   ? Border.all(
-                                      color: errorHighlightColor ?? MacosColors.appleRed,
+                                      color: errorHighlightColor ??
+                                          MacosColors.appleRed,
                                       width: 1.5,
                                     )
                                   : kDefaultRoundedBorderDecoration.border,

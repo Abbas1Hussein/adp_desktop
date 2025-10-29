@@ -8,16 +8,13 @@ class ScaffoldPagePreview extends StatelessWidget {
     return AdaptiveScaffoldPage(
       appBar: AdaptiveAppBarPage(
         title: const Text('Appbar Page'),
-        actions: List.generate(
-          labels.length,
-          (index) {
-            return AdaptiveActionButton(
-              label: labels[index],
-              icon: AdaptiveIcon(icons[index]),
-              onPressed: () {},
-            );
-          },
-        ),
+        actions: List.generate(labels.length, (index) {
+          return AdaptiveActionButton(
+            label: labels[index],
+            icon: AdaptiveIcon(icons[index]),
+            onPressed: () {},
+          );
+        }),
       ),
       content: const Center(child: Text("Give us a star")),
     );

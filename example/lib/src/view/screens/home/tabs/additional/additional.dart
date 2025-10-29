@@ -31,8 +31,7 @@ class Additional extends StatelessWidget {
                 "AdaptiveBrightness: get current brightness from different platforms."
                 "\nAdaptiveTypography: that provides styles for various text elements based on the current platform",
           ),
-          Padding(
-              padding: edgeInsets, child: BrightnessTypographyPreview()),
+          Padding(padding: edgeInsets, child: BrightnessTypographyPreview()),
           CustomTitle(
             path: HighlightPaths.adaptive,
             title: 'adaptive value, Platform Ruining',

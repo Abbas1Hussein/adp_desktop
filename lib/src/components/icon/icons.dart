@@ -1292,7 +1292,7 @@ enum AdpIcons {
     wICON: FluentIcons.zoom_out_24_regular,
   );
 
-  const AdpIcons({ required this.mICON, required this.wICON });
+  const AdpIcons({required this.mICON, required this.wICON});
 
   final IconData mICON;
   final IconData wICON;

@@ -15,7 +15,6 @@ class TextFormFieldWindows extends StatelessWidget {
   });
   final AdaptiveFormFieldProperties? adpProperties;
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,12 +35,15 @@ class TextFormFieldWindows extends StatelessWidget {
             child: adpProperties?.prefix,
           ),
           enabled: adpProperties?.enabled ?? true,
-          contextMenuBuilder: adpProperties?.contextMenuBuilder ?? kDefaultContextMenuBuilder,
-          prefixMode: adpProperties?.prefixMode?.overlayMode ?? OverlayVisibilityMode.always,
+          contextMenuBuilder:
+              adpProperties?.contextMenuBuilder ?? kDefaultContextMenuBuilder,
+          prefixMode: adpProperties?.prefixMode?.overlayMode ??
+              OverlayVisibilityMode.always,
           initialValue: adpProperties?.initialValue,
           autovalidateMode: adpProperties?.autovalidateMode,
           suffix: adpProperties?.suffix,
-          suffixMode: adpProperties?.suffixMode?.overlayMode ?? OverlayVisibilityMode.always,
+          suffixMode: adpProperties?.suffixMode?.overlayMode ??
+              OverlayVisibilityMode.always,
           maxLines: adpProperties?.maxLines ?? 1,
           minLines: adpProperties?.minLines,
           focusNode: adpProperties?.focusNode,
@@ -78,8 +80,7 @@ class TextFormFieldWindows extends StatelessWidget {
           maxLengthEnforcement: adpProperties?.maxLengthEnforcement,
           enableSuggestions: adpProperties?.enableSuggestions ?? true,
           obscuringCharacter: adpProperties?.obscuringCharacter ?? '•',
-          enableInteractiveSelection:
-              adpProperties?.enableInteractiveSelection,
+          enableInteractiveSelection: adpProperties?.enableInteractiveSelection,
           cursorRadius:
               adpProperties?.cursorRadius ?? const Radius.circular(2.0),
           scrollPadding:

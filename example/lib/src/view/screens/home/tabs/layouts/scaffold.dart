@@ -10,19 +10,16 @@ class Scaffold extends StatelessWidget {
       appBar: AdaptiveAppBar(title: const Text('appbar')),
       drawer: AdaptiveDrawer(
         child: ListView(
-          children: List.generate(
-            labels.length,
-            (index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AdaptiveListTile(
-                  useBackgroundColor: index == 0,
-                  leading: AdaptiveIcon(icons[index]),
-                  title: labels[index],
-                ),
-              );
-            },
-          ),
+          children: List.generate(labels.length, (index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AdaptiveListTile(
+                useBackgroundColor: index == 0,
+                leading: AdaptiveIcon(icons[index]),
+                title: labels[index],
+              ),
+            );
+          }),
         ),
       ),
       floatingActionButton: m.FloatingActionButton(

@@ -26,7 +26,8 @@ void main() {
             expect(find.byType(CustomRatingBarIndicatorMacos), findsOneWidget);
             expect(find.byType(RatingBar), findsNothing);
 
-            CustomRatingBarIndicatorMacos ratingBarIndicator = tester.widget(find.byType(CustomRatingBarIndicatorMacos));
+            CustomRatingBarIndicatorMacos ratingBarIndicator =
+                tester.widget(find.byType(CustomRatingBarIndicatorMacos));
             expect(ratingBarIndicator.rating, equals(rating));
           },
           windows: () {

@@ -52,7 +52,11 @@ class AdaptiveWindowButtonsConfig {
   }
 
   static AdaptiveWindowButtonsConfig of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<AdaptiveWindowButtonsController>()?.config ?? AdaptiveWindowButtonsConfig.fallback();
+    return context
+            .dependOnInheritedWidgetOfExactType<
+                AdaptiveWindowButtonsController>()
+            ?.config ??
+        AdaptiveWindowButtonsConfig.fallback();
   }
 
   static AdaptiveWindowButtonsConfig? maybeOf(BuildContext context) {

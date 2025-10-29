@@ -94,7 +94,8 @@ class AdaptiveRatingIndicator extends CoreAdaptiveComponent {
       onChanged: onChanged,
       starSpacing: spacing,
       semanticLabel: semanticLabel,
-      unratedIconColor: unratedIconColor ?? FluentTheme.of(context).resources.controlAltFillColorQuarternary,
+      unratedIconColor: unratedIconColor ??
+          FluentTheme.of(context).resources.controlAltFillColorQuarternary,
       ratedIconColor: ratedIconColor ?? Colors.orange,
     ).applyDisabledEffect(isDisabled);
   }

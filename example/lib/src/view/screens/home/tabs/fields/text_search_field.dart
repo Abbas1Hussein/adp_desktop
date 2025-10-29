@@ -19,12 +19,15 @@ class _TextSearchFieldPreviewState extends State<TextSearchFieldPreview> {
   }
 
   void filterContent(String searchText) {
-    setState(
-      () {
-        filteredList.clear();
-        filteredList.addAll(contentList.where((userInfo) => userInfo.name.toLowerCase().contains(searchText.toLowerCase())));
-      },
-    );
+    setState(() {
+      filteredList.clear();
+      filteredList.addAll(
+        contentList.where(
+          (userInfo) =>
+              userInfo.name.toLowerCase().contains(searchText.toLowerCase()),
+        ),
+      );
+    });
   }
 
   @override
@@ -50,30 +53,31 @@ class _TextSearchFieldPreviewState extends State<TextSearchFieldPreview> {
                   onSelected: (value) => filterContent(value.searchKey),
                   suggestions: List.generate(
                     contentList.length,
-                        (index) => AdaptiveSearchItem(
-                      searchKey: contentList[index].name,
-                    ),
+                    (index) =>
+                        AdaptiveSearchItem(searchKey: contentList[index].name),
                   ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12.0),
-          Expanded(child: ListView.builder(
-            itemCount: filteredList.length,
-            itemBuilder: (context, index) {
-              final userInfo = filteredList[index];
-              return AdaptiveListTile(
-                useBackgroundColor: controller.text == userInfo.name,
-                title: Text(userInfo.name),
-                subtitle: Text('Age: ${userInfo.age}'),
-                onTap: () {
-                  controller.text = userInfo.name;
-                  filterContent(userInfo.name);
-                },
-              );
-            },
-          )),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredList.length,
+              itemBuilder: (context, index) {
+                final userInfo = filteredList[index];
+                return AdaptiveListTile(
+                  useBackgroundColor: controller.text == userInfo.name,
+                  title: Text(userInfo.name),
+                  subtitle: Text('Age: ${userInfo.age}'),
+                  onTap: () {
+                    controller.text = userInfo.name;
+                    filterContent(userInfo.name);
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

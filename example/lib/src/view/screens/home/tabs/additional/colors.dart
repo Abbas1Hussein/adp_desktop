@@ -15,7 +15,7 @@ class ColorsPreview extends StatelessWidget {
           width: 60,
           child: AdaptiveTooltip(
             message: colorInfo.name,
-            child: Card(color: colorInfo.color,),
+            child: Card(color: colorInfo.color),
           ),
         );
       }).toList(),

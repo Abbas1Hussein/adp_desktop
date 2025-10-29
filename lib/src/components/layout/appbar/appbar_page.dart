@@ -172,7 +172,8 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       constraints: BoxConstraints(minHeight: height, maxHeight: height),
       decoration: ShapeDecoration(
-        color: backgroundColor ??  theme.resources.solidBackgroundFillColorTertiary,
+        color:
+            backgroundColor ?? theme.resources.solidBackgroundFillColorTertiary,
         shape: borderRadius != null
             ? RoundedRectangleBorder(borderRadius: borderRadius!)
             : LinearBorder.none,
@@ -212,7 +213,10 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
               child: DynamicOverflow(
                 alignment: MainAxisAlignment.end,
                 overflowWidget: const SizedBox.shrink(),
-                children: actions!.map((e) => e.toWindows(context, maxCustomItemHeight: height)).toList(),
+                children: actions!
+                    .map((e) =>
+                        e.toWindows(context, maxCustomItemHeight: height))
+                    .toList(),
               ),
             ),
           if (platformActions?.windows != null)
@@ -250,7 +254,9 @@ class AdaptiveAppBarPage extends CoreAdaptiveComponent {
         borderRadius: borderRadius,
       ),
       dividerColor: dividerColor,
-      actions: actions?.map((e) => e.toMacOS(context, maxCustomItemHeight: height)).toList() ??
+      actions: actions
+              ?.map((e) => e.toMacOS(context, maxCustomItemHeight: height))
+              .toList() ??
           platformActions?.macos,
     );
   }

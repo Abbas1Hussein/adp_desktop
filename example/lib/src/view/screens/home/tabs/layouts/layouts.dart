@@ -31,12 +31,13 @@ class Layouts extends StatelessWidget {
               '\nAdaptiveAppbarPage: Illustrates a page featuring an adaptive app bar layout. The app bar is designed to show information and actions related to the current page.',
         ),
         DisplayNavButton(child: ScaffoldPagePreview()),
-        if (!PlatformRuining.isWeb)    CustomTitle(
-          path: HighlightPaths.titleBar,
-          title: 'Title Bar',
-          message: 'AdaptiveTitleBar: A custom title bar widget.',
-        ),
-        if (!PlatformRuining.isWeb)  DisplayNavButton(child: TitleBarPreview()),
+        if (!PlatformRuining.isWeb)
+          CustomTitle(
+            path: HighlightPaths.titleBar,
+            title: 'Title Bar',
+            message: 'AdaptiveTitleBar: A custom title bar widget.',
+          ),
+        if (!PlatformRuining.isWeb) DisplayNavButton(child: TitleBarPreview()),
       ],
     );
   }

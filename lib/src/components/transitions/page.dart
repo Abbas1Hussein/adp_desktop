@@ -24,7 +24,6 @@ class AdaptivePageTransition extends CoreAdaptiveComponent {
 
   @override
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
-
     TransitionRoute;
     return DrillInPageTransition(
       animation: CurvedAnimation(

@@ -5,7 +5,7 @@ class NavigationButtonsPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         const AdaptiveBackButton().margeWith(const Text('Back')),

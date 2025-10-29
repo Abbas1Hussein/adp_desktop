@@ -182,7 +182,8 @@ class AdpApp
   ///
   /// These localizations delegates are used to handle localization-related
   /// tasks such as formatting dates, numbers, and providing localized messages.
-  Iterable<LocalizationsDelegate<dynamic>> get _commonLocalizationsDelegates sync* {
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _commonLocalizationsDelegates sync* {
     if (localizationsDelegates != null) {
       yield* localizationsDelegates!;
     }
@@ -190,7 +191,8 @@ class AdpApp
   }
 
   /// an iterable of macOS-specific localizations delegates.
-  Iterable<LocalizationsDelegate<dynamic>> get _macosLocalizationsDelegates sync* {
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _macosLocalizationsDelegates sync* {
     yield* _commonLocalizationsDelegates;
 
     yield FluentLocalizations.delegate;
@@ -199,7 +201,8 @@ class AdpApp
   }
 
   /// an iterable of Windows-specific localizations delegates.
-  Iterable<LocalizationsDelegate<dynamic>> get _windowsLocalizationsDelegates sync* {
+  Iterable<LocalizationsDelegate<dynamic>>
+      get _windowsLocalizationsDelegates sync* {
     yield* _commonLocalizationsDelegates;
     yield FluentLocalizations.delegate;
   }
@@ -347,10 +350,10 @@ class AdpApp
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         //checkerboardOffscreenLayers: checkerboardOffscreenLayers,
         localeListResolutionCallback: localeListResolutionCallback,
-       // checkerboardRasterCacheImages: checkerboardOffscreenLayers,
+        // checkerboardRasterCacheImages: checkerboardOffscreenLayers,
         scrollBehavior: scrollBehavior ?? const FluentScrollBehavior(),
         supportedLocales:
-        supportedLocales ?? FluentLocalizations.supportedLocales,
+            supportedLocales ?? FluentLocalizations.supportedLocales,
       );
     }
     return FluentApp(
@@ -378,12 +381,12 @@ class AdpApp
       onGenerateInitialRoutes: onGenerateInitialRoutes,
       localeResolutionCallback: localeResolutionCallback,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-     // checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+      // checkerboardOffscreenLayers: checkerboardOffscreenLayers,
       localeListResolutionCallback: localeListResolutionCallback,
-     // checkerboardRasterCacheImages: checkerboardOffscreenLayers,
+      // checkerboardRasterCacheImages: checkerboardOffscreenLayers,
       scrollBehavior: scrollBehavior ?? const FluentScrollBehavior(),
       supportedLocales:
-      supportedLocales ?? FluentLocalizations.supportedLocales,
+          supportedLocales ?? FluentLocalizations.supportedLocales,
     );
   }
 

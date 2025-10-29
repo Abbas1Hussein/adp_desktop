@@ -227,8 +227,6 @@ Widget _buildWindowWindowsButton({
   required IconData icon,
   required VoidCallback? onPressed,
 }) {
-
-
   final style = ButtonStyle(
     shape: WidgetStateProperty.all(LinearBorder.none),
     backgroundColor: WidgetStateProperty.resolveWith(

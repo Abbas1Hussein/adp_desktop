@@ -90,7 +90,8 @@ class PulldownMenuMacos<T> extends StatelessWidget {
       (index) {
         final item = items[index];
         if (item is AdaptivePulldownMenuItem<T?>) {
-          final defaultSelected = item.enabled ?? selectionType == SelectionType.none;
+          final defaultSelected =
+              item.enabled ?? selectionType == SelectionType.none;
 
           switch (selectionType) {
             case SelectionType.none:
@@ -172,7 +173,8 @@ class MacosPulldownMenuItemSingleSelection extends MacosPulldownMenuItem {
         : MacosColors.transparent;
 
     return Container(
-      padding: const EdgeInsets.only(left: 8.0, bottom: 4.0, top: 4.0, right: 4.0),
+      padding:
+          const EdgeInsets.only(left: 8.0, bottom: 4.0, top: 4.0, right: 4.0),
       margin: const EdgeInsets.symmetric(vertical: 1.0),
       decoration: BoxDecoration(
         color: highlightColor,

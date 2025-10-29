@@ -3,7 +3,6 @@ import 'package:macos_ui/macos_ui.dart';
 
 import '../../../core/common/adaptive.dart';
 
-
 /// Shows an adaptive platform-specific dialog and returns a future that resolves to a value.
 ///
 /// Use this function to display a dialog with platform-specific styling and behavior.

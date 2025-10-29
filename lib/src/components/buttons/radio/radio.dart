@@ -108,8 +108,9 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
       checked: _selected,
       semanticLabel: semanticLabel,
       style: RadioButtonThemeData(
-        foregroundColor:
-            foregroundColor != null ? WidgetStateProperty.all(foregroundColor) : null,
+        foregroundColor: foregroundColor != null
+            ? WidgetStateProperty.all(foregroundColor)
+            : null,
         checkedDecoration: activeColor != null
             ? WidgetStateProperty.resolveWith((states) {
                 return BoxDecoration(
@@ -185,7 +186,7 @@ class AdaptiveRadio<T> extends CoreAdaptiveComponent {
       padding: EdgeInsets.zero,
       mouseCursor: SystemMouseCursors.click,
       boxConstraints: const BoxConstraints.tightFor(height: 20.0, width: 20.0),
-      onPressed: () =>  onChanged?.call(value),
+      onPressed: () => onChanged?.call(value),
       icon: MacosRadioButton<T>(
         size: 20.0,
         value: value,

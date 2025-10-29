@@ -6,7 +6,6 @@ import 'platform_ruining.dart';
 /// Type definition for a function returning a generic value.
 typedef Value<T> = T Function();
 
-
 /// Handles platform configurations for desktop platforms,
 /// returns the adaptive value based on the current platform.
 ///

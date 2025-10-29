@@ -369,7 +369,8 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
   Widget windows(BuildContext context, [CoreWindowsProperty? property]) {
     final theme = FluentTheme.of(context);
 
-    final defaultBackgroundColor = backgroundColor ?? theme.navigationPaneTheme.backgroundColor;
+    final defaultBackgroundColor =
+        backgroundColor ?? theme.navigationPaneTheme.backgroundColor;
 
     final defaultIconTheme = IconThemeData(
       size: iconTheme?.size ?? theme.iconTheme.size,
@@ -442,7 +443,8 @@ class AdaptiveAppBar extends CoreAdaptiveComponent
 
     return AppBar(
       key: key,
-      shape: shape ?? Border(
+      shape: shape ??
+          Border(
             bottom: BorderSide(
               color: theme.resources.dividerStrokeColorDefault,
             ),

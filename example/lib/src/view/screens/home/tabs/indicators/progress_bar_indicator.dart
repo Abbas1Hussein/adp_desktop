@@ -5,10 +5,12 @@ class ProgressBarIndicatorPreview extends StatefulWidget {
   const ProgressBarIndicatorPreview({super.key});
 
   @override
-  State<ProgressBarIndicatorPreview> createState() => _ProgressBarIndicatorPreviewState();
+  State<ProgressBarIndicatorPreview> createState() =>
+      _ProgressBarIndicatorPreviewState();
 }
 
-class _ProgressBarIndicatorPreviewState extends State<ProgressBarIndicatorPreview> {
+class _ProgressBarIndicatorPreviewState
+    extends State<ProgressBarIndicatorPreview> {
   double currentValue = 0.0;
 
   @override

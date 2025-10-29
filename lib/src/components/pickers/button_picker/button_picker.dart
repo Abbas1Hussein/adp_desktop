@@ -27,7 +27,8 @@ abstract class MacosPickerButton extends BaseDateFormatter {
               color: MacosTheme.of(context).typography.body.color,
             );
 
-    final Color? resolvedBackgroundColor = MacosDynamicColor.maybeResolve(null, context);
+    final Color? resolvedBackgroundColor =
+        MacosDynamicColor.maybeResolve(null, context);
     return ConstrainedBox(
       constraints: kPickerButtonConstraints,
       child: MacosButton(

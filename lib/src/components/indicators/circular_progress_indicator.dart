@@ -71,7 +71,8 @@ class AdaptiveCircularProgressIndicator extends CoreAdaptiveComponent {
         value: progressValue,
         activeColor: activeColor,
         semanticLabel: semanticLabel,
-        backgroundColor: inactiveColor ??(theme.brightness == Brightness.dark
+        backgroundColor: inactiveColor ??
+            (theme.brightness == Brightness.dark
                 ? FluentTheme.of(context).cardColor
                 : null),
       ),

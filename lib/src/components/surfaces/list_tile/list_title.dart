@@ -206,7 +206,7 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
     return ConstrainedBox(
       constraints: _kListTileConstraints,
       child: Padding(
-        padding:  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+        padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
         child: MacosButton(
           shape: shape,
           padding: contentPadding,
@@ -216,8 +216,8 @@ class AdaptiveListTile extends CoreAdaptiveComponent {
           onLongPress: enabled ? onLongPress : null,
           pressedColor: pressColor,
           disabledColor: disabledColor,
-          backgroundColor:
-              backgroundColor ?? (useBackgroundColor ? null : Colors.transparent),
+          backgroundColor: backgroundColor ??
+              (useBackgroundColor ? null : Colors.transparent),
           hoverColor: hoverColor,
           child: tile,
         ),

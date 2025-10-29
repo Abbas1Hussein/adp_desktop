@@ -19,7 +19,6 @@ class DialogWindows extends StatelessWidget {
   final Widget primary;
   final Widget? secondary;
 
-
   @override
   Widget build(BuildContext context) {
     return ContentDialog(
