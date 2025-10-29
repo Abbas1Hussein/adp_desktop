@@ -1,4 +1,4 @@
-# Contributing ❤️
+# Contributing 
 
 Firstly, thank you for considering a contribution to adp_desktop Your efforts, whether through fixing bugs, enhancing documentation, suggesting new features, or any other means, are immensely appreciated.
 
