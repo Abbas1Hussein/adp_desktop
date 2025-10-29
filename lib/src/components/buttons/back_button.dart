@@ -72,7 +72,7 @@ class AdaptiveBackButton extends CoreAdaptiveComponent {
         child: MacosBackButton(
           fillColor: color,
           semanticLabel: label,
-          hoverColor: color?.withOpacity(0.35),
+          hoverColor: color?.withValues(alpha: 0.35),
           mouseCursor: mouseCursor ?? SystemMouseCursors.basic,
           onPressed: () => _onTap(context),
         ),

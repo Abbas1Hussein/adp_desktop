@@ -131,8 +131,8 @@ class CustomMacosCheckbox extends MacosCheckbox {
               begin: const Alignment(0.0, -1.0),
               end: const Alignment(0, 0),
               colors: [
-                CupertinoColors.white.withOpacity(0.85),
-                CupertinoColors.white.withOpacity(1.0),
+                CupertinoColors.white.withValues(alpha: 0.85),
+                CupertinoColors.white.withValues(alpha: 1.0),
               ],
             ),
             shadows: const [
@@ -147,7 +147,8 @@ class CustomMacosCheckbox extends MacosCheckbox {
             shape: RoundedRectangleBorder(
               side: BorderSide(
                 width: 0.25,
-                color: CupertinoColors.black.withOpacity(0.35000000596046448),
+                color: CupertinoColors.black
+                    .withValues(alpha: 0.35000000596046448),
               ),
               borderRadius: const BorderRadius.all(Radius.circular(3.5)),
             ),
@@ -157,8 +158,8 @@ class CustomMacosCheckbox extends MacosCheckbox {
               begin: const Alignment(0.0, -1.0),
               end: const Alignment(0, 1),
               colors: [
-                CupertinoColors.white.withOpacity(0.14000000059604645),
-                CupertinoColors.white.withOpacity(0.2800000011920929),
+                CupertinoColors.white.withValues(alpha: 0.14000000059604645),
+                CupertinoColors.white.withValues(alpha: 0.2800000011920929),
               ],
             ),
             shape: const RoundedRectangleBorder(

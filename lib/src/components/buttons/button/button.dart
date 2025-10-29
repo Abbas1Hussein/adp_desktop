@@ -145,8 +145,9 @@ class AdaptiveButton extends AdaptiveBaseButton {
           pressedOpacity: 0.6,
           disabledColor: disabledColor ?? CupertinoColors.secondaryLabel,
           backgroundColor: backgroundColor ?? theme.primaryColor,
-          pressedColor: pressedColor ?? theme.primaryColor.withOpacity(0.6),
-          hoverColor: hoverColor ?? theme.primaryColor.withOpacity(0.6),
+          pressedColor:
+              pressedColor ?? theme.primaryColor.withValues(alpha: 0.6),
+          hoverColor: hoverColor ?? theme.primaryColor.withValues(alpha: 0.6),
           child: DefaultTextStyle(
             style: theme.typography.body.copyWith(
               color: CupertinoDynamicColor.resolve(

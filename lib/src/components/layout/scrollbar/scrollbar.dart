@@ -74,7 +74,7 @@ class AdaptiveScrollbar extends CoreAdaptiveComponent {
         thickness: thickness,
         hoveringThickness: thicknessWhileHovering,
         scrollbarColor: thumbColor,
-        backgroundColor: thumbColor?.withOpacity(0.3),
+        backgroundColor: thumbColor?.withValues(alpha: 0.3),
       ),
       controller: controller,
       notificationPredicate:

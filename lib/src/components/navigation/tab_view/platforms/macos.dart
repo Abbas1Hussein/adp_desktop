@@ -77,7 +77,7 @@ class _TabViewMacosState extends State<TabViewMacos> {
 
     final backgroundColor = brightness
         .resolve(const Color(0xFFE6E9EA), const Color(0xFF2B2E33))
-        .withOpacity(0.8);
+        .withValues(alpha: 0.8);
 
     return DecoratedBox(
       decoration: BoxDecoration(

@@ -88,7 +88,7 @@ final class AdaptiveTextSearchField<T> extends BaseTextField {
             border: decoration?.border,
             boxShadow: decoration?.boxShadow,
             backgroundBlendMode: decoration?.backgroundBlendMode,
-            color: decoration?.color?.withOpacity(0.6),
+            color: decoration?.color?.withValues(alpha: 0.6),
             borderRadius: decoration?.borderRadius ??
                 kDefaultRoundedBorderDecoration.borderRadius,
           ) ??

@@ -183,7 +183,7 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
       key: key,
       backgroundColor:
           (backgroundColor ?? theme.navigationPaneTheme.backgroundColor)
-              ?.withOpacity(toolbarOpacity),
+              ?.withValues(alpha: toolbarOpacity),
       actions: isTop
           ? Padding(
               padding: const EdgeInsets.only(top: 4.0), child: buildActions)
@@ -270,8 +270,8 @@ class AdaptiveNavigationAppBar extends CoreModel<NavigationAppBar, ToolBar> {
       actions: buildActions,
       padding: _kContentInsets,
       decoration: BoxDecoration(
-        color: (backgroundColor ?? theme.canvasColor).withOpacity(
-          toolbarOpacity,
+        color: (backgroundColor ?? theme.canvasColor).withValues(
+          alpha: toolbarOpacity,
         ),
       ),
       centerTitle: centerTitle,

@@ -124,9 +124,9 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
               states,
               none: backgroundColor,
               disabled: disabledColor,
-              hovering: hoverColor ?? backgroundColor?.withOpacity(0.8),
-              pressed: hoverColor?.withOpacity(0.6) ??
-                  backgroundColor?.withOpacity(0.6),
+              hovering: hoverColor ?? backgroundColor?.withValues(alpha: 0.8),
+              pressed: hoverColor?.withValues(alpha: 0.6) ??
+                  backgroundColor?.withValues(alpha: 0.6),
             ),
           ),
         ).merge(theme.buttonTheme.iconButtonStyle),
@@ -150,9 +150,9 @@ class AdaptiveIconButton extends CoreAdaptiveComponent {
       onPressed: onPressed,
       borderRadius: borderRadius,
       backgroundColor: backgroundColor,
-      disabledColor: disabledColor?.withOpacity(0.6),
+      disabledColor: disabledColor?.withValues(alpha: 0.6),
       hoverColor: hoverColor ??
-          backgroundColor?.withOpacity(0.8) ??
+          backgroundColor?.withValues(alpha: 0.8) ??
           MacosTheme.brightnessOf(context).resolve(
             const Color(0xffE5E5E5),
             const Color(0xff3C383C),

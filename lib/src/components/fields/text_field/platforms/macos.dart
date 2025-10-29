@@ -32,7 +32,7 @@ class TextFieldMacos extends StatelessWidget {
       onTapOutside: adpProperties?.onTapOutside,
       child: DecoratedBox(
         decoration: adpProperties?.decoration?.copyWith(
-              color: adpProperties?.decoration?.color?.withOpacity(0.7),
+              color: adpProperties?.decoration?.color?.withValues(alpha: 0.7),
             ) ??
             const BoxDecoration(),
         child: MacosTextField(

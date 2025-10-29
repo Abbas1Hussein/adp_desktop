@@ -232,7 +232,7 @@ class _MacosTextFormField extends FormField<String> {
                 children: [
                   DecoratedBox(
                     decoration: decoration?.copyWith(
-                          color: decoration.color?.withOpacity(0.7),
+                          color: decoration.color?.withValues(alpha: 0.7),
                         ) ??
                         const BoxDecoration(),
                     child: MacosTextField(

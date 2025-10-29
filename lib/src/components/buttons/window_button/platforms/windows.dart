@@ -235,7 +235,7 @@ Widget _buildWindowWindowsButton({
         hovering: hoverColor,
         none: backgroundColor,
         disabled: disabledColor,
-        pressed: hoverColor?.withOpacity(0.5),
+        pressed: hoverColor?.withValues(alpha: 0.5),
       ),
     ),
   );

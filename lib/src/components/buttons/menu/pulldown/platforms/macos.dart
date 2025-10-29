@@ -68,7 +68,7 @@ class PulldownMenuMacos<T> extends StatelessWidget {
     return MacosPulldownButtonTheme(
       data: theme.copyWith(
         pulldownColor: pulldownColor,
-        highlightColor: theme.highlightColor?.withOpacity(0.35),
+        highlightColor: theme.highlightColor?.withValues(alpha: 0.35),
       ),
       child: MacosPulldownButton(
         onTap: onOpen,
@@ -169,7 +169,7 @@ class MacosPulldownMenuItemSingleSelection extends MacosPulldownMenuItem {
     final isDark = theme.brightness == Brightness.dark;
 
     final Color highlightColor = selected
-        ? theme.pulldownButtonTheme.highlightColor!.withOpacity(0.85)
+        ? theme.pulldownButtonTheme.highlightColor!.withValues(alpha: 0.85)
         : MacosColors.transparent;
 
     return Container(
