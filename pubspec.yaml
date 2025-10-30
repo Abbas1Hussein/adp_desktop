@@ -10,14 +10,11 @@ environment:
   flutter: ">=1.17.0"
 
 topics:
-  - ui
-  - linux
-  - macos
-  - windows
-  - desktop
-  - widgets
   - adaptive
   - responsive
+  - desktop
+  - windows
+  - macos
 
 dependencies:
   flutter:
