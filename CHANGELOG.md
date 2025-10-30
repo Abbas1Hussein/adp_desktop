@@ -1,7 +1,7 @@
 ## 0.0.3
 
 ### docs
-- fix: banner not being displayed on pub.dev
+- fix: banner not being displayed on pub.dev 
 
 ## 0.0.2
 
