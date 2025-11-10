@@ -15,7 +15,7 @@ import '../../../core/common/construct/model.dart';
 class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
   /// Creates a adaptive nav sidebar
   ///
-  /// [items] must have at least 2 items
+  /// [items] must have at least 1 item
   ///
   /// [currentIndex] must be in the range of 0 to [items.length]
   const AdaptiveNavigationSidebar({
@@ -33,7 +33,7 @@ class AdaptiveNavigationSidebar extends CoreModel<NavigationPane, Sidebar> {
     this.backgroundColor,
     this.properties,
     this.items = const [],
-  })  : assert(items.length >= 2),
+  })  : assert(items.length >= 1),
         assert(currentIndex >= 0 && currentIndex < items.length);
 
   /// The current selected index. This must be in the range of 0 to [items.length].
