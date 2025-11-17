@@ -34,7 +34,7 @@ class AdaptiveTabView extends CoreAdaptiveComponent<TabViewWindowsProperty,
   /// You can provide specific [properties] for each platform using `TabViewWindowsProperty`
   /// and `TabViewMacosProperty` respectively.
   ///
-  /// - [tabs] must have at least 2 items and must be equal to the length of [children].
+  /// - [tabs] must have at least 1 item and must be equal to the length of [children].
   /// - [currentIndex] must be in the range of 0 to [items.length]
   const AdaptiveTabView({
     super.key,
@@ -54,7 +54,7 @@ class AdaptiveTabView extends CoreAdaptiveComponent<TabViewWindowsProperty,
     this.contentPadding = kContentPadding,
     required this.tabs,
     required this.children,
-  })  : assert(tabs.length >= 2),
+  })  : assert(tabs.length >= 1),
         assert(
           tabs.length == children.length,
           '\nTabs and children lists must have the same length.\n'
