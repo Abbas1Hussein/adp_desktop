@@ -87,9 +87,8 @@ abstract final class PlatformRuining {
   /// Throws an error if [DefaultsPlatformManager] is not initialized.
   static DesktopTargetPlatform get targetPlatform {
     if (!DefaultsPlatformManager.isInitialized) {
-      throw ArgumentError(
-        'Do not use PlatformRuining.targetPlatform before or inside DefaultsPlatformManager.initialize(). '
-        'Use DesktopTargetPlatform.<value> instead.',
+      throw StateError(
+        'Do not use PlatformRuining.targetPlatform before or inside DefaultsPlatformManager.initialize().'
       );
     }
 

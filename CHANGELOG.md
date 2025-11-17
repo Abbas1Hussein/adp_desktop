@@ -1,3 +1,9 @@
+## 0.0.5
+
+### fix
+- refactor: add `DefaultsPlatformManager.ensureInitialized()` to centralize initialization checks.
+- fix: improve error messages when accessing `targetPlatform` before initialization.
+
 ## 0.0.4
 
 ### api
