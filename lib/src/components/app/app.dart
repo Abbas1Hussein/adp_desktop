@@ -324,6 +324,12 @@ class AdpApp
   bool get usesRouter => routerDelegate != null || routerConfig != null;
 
   @override
+  Widget build(BuildContext context) {
+    DefaultsPlatformManager.ensureInitialized();
+    return super.build(context);
+  }
+
+  @override
   Widget windows(BuildContext context, [AppWindowsProperty? property]) {
     if (usesRouter) {
       return FluentApp.router(
